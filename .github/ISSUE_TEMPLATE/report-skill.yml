@@ -1,0 +1,31 @@
+name: Report a Skill Issue
+description: Report a problem with an existing skill listing
+title: "[Report] "
+labels: ["report"]
+body:
+  - type: input
+    id: skill_name
+    attributes:
+      label: Skill Name or URL
+      placeholder: skill-name or https://proskills.md/skills/category/skill-name
+    validations:
+      required: true
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue Type
+      options:
+        - Skill is broken / doesn't work
+        - Security concern
+        - Outdated / no longer maintained
+        - Incorrect description or metadata
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What's wrong? What did you expect vs. what happened?
+    validations:
+      required: true
