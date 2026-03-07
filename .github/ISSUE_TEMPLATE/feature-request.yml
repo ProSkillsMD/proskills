@@ -1,0 +1,17 @@
+name: Feature Request
+description: Suggest an improvement to ProSkills.md
+title: "[Feature] "
+labels: ["feature-request"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
