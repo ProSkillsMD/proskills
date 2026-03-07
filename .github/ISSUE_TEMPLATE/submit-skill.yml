@@ -1,0 +1,53 @@
+name: Submit a Skill
+description: Submit an OpenClaw skill for review and listing on ProSkills.md
+title: "[Submission] "
+labels: ["submission"]
+body:
+  - type: input
+    id: skill_url
+    attributes:
+      label: Skill Repository URL
+      description: Full URL to the GitHub repo containing the SKILL.md
+      placeholder: https://github.com/author/skill-name
+    validations:
+      required: true
+  - type: input
+    id: skill_name
+    attributes:
+      label: Skill Name
+      placeholder: My Awesome Skill
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - wordpress
+        - shopify
+        - frontend
+        - backend
+        - devops
+        - security
+        - productivity
+        - data
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What does this skill do?
+      placeholder: Brief description of the skill's purpose and capabilities
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: The repo has a valid SKILL.md with complete frontmatter
+          required: true
+        - label: I have tested this skill myself and it works as documented
+          required: true
+        - label: This skill does not contain malicious code or suspicious shell commands
+          required: true
