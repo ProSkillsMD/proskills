@@ -1,19 +1,29 @@
 {
-  "total_skills": 90,
-  "verified": 82,
+  "total_skills": 92,
+  "verified": 84,
   "categories": {
     "utilities": 2,
     "data": 7,
     "automation": 33,
-    "coding": 10,
+    "coding": 11,
     "security": 3,
     "productivity": 10,
-    "devops": 6,
+    "devops": 7,
     "research": 14,
     "content": 5
   },
-  "last_scan": "2026-03-09T21:24:00Z",
+  "last_scan": "2026-03-09T21:30:00Z",
   "recent_additions": [
+    {
+      "id": "openclaw-codex-cli",
+      "name": "OpenClaw Codex CLI",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "openclaw-devboxes",
+      "name": "OpenClaw Devboxes",
+      "added": "2026-03-09"
+    },
     {
       "id": "memoclaw",
       "name": "Memoclaw",
@@ -52,16 +62,6 @@
     {
       "id": "customer-success-manager",
       "name": "Customer Success Manager",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "quality-documentation-manager",
-      "name": "quality-documentation-manager",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "tencent-docs",
-      "name": "tencent-docs",
       "added": "2026-03-09"
     }
   ],

@@ -1,0 +1,30 @@
+{
+  "id": "openclaw-devboxes",
+  "name": "OpenClaw Devboxes",
+  "slug": "openclaw-devboxes",
+  "category": "devops",
+  "description": "Spin up full development environments from agent chat — VSCode, VNC desktop, and Chrome DevTools Protocol (CDP) devboxes with full lifecycle management.",
+  "author": {
+    "github": "adshrc",
+    "name": "adshrc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/adshrc/openclaw-devboxes-skill",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["devops", "docker", "vscode", "vnc", "development-environment"],
+  "verified_at": "2026-03-09T21:30:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 6,
+    "security": 6,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 7,
+    "average": 7.41
+  },
+  "review": "Excellent architecture with genuine innovation — VSCode + VNC + CDP devboxes controllable from agent chat. Missing SKILL.md frontmatter fields and security disclosure for docker socket mount. Highly useful and unique.",
+  "notes": "Docker socket mount required (chmod 666). Pin docker image tags to digest for production use. Credentials passed as env vars — review security posture before deploying.",
+  "status": "listed"
+}

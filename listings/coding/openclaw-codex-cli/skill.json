@@ -1,0 +1,29 @@
+{
+  "id": "openclaw-codex-cli",
+  "name": "OpenClaw Codex CLI",
+  "slug": "openclaw-codex-cli",
+  "category": "coding",
+  "description": "Production-quality OpenClaw skill for Codex CLI integration with strict Telegram thread routing, deterministic wake deduplication, mid-task notification injection, and full E2E test protocol.",
+  "author": {
+    "github": "sbrin",
+    "name": "sbrin"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sbrin/openclaw-skill-codex-cli",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["coding", "codex-cli", "automation", "telegram", "notifications"],
+  "verified_at": "2026-03-09T21:30:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 8.41
+  },
+  "review": "Production-quality skill with strict Telegram thread routing, fail-fast patterns, deterministic wake deduplication, mid-task notification injection without token exposure, and a full E2E test protocol. Python 3.9 compatible. One of the strongest skills reviewed this cycle.",
+  "status": "listed"
+}

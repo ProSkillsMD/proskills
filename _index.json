@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 78,
+  "total": 92,
   "categories": [
     "automation",
     "coding",
@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T21:24:00Z",
+  "last_updated": "2026-03-09T21:30:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -835,6 +835,24 @@
       "stars": 0,
       "downloads": 372,
       "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "openclaw-devboxes",
+      "slug": "openclaw-devboxes",
+      "category": "devops",
+      "name": "OpenClaw Devboxes",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:30:00Z",
+      "score": 7.41
+    },
+    {
+      "id": "openclaw-codex-cli",
+      "slug": "openclaw-codex-cli",
+      "category": "coding",
+      "name": "OpenClaw Codex CLI",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:30:00Z",
+      "score": 8.41
     }
   ],
   "total_skills": 90
