@@ -1,0 +1,31 @@
+{
+  "id": "openbroker",
+  "name": "Open-broker",
+  "slug": "openbroker",
+  "category": "automation",
+  "description": "Hyperliquid trading plugin with background position monitoring. Execute market orders, limit orders, manage positions, view funding rates, and run trading strategies on-chain.",
+  "author": {
+    "github": "aurracloud",
+    "name": "aurracloud"
+  },
+  "version": "1.0.52",
+  "repo_url": "https://clawhub.ai/skills/openbroker",
+  "stars": 0,
+  "downloads": 1913,
+  "works_with": ["openclaw"],
+  "tags": ["trading", "hyperliquid", "defi", "automation", "finance"],
+  "verified_at": "2026-03-09T21:44:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 6,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.12
+  },
+  "review": "Extremely comprehensive Hyperliquid DEX trading skill — 20+ CLI commands, 25 plugin tools, background position watcher. Leading on-chain perp execution option in the ecosystem. Good security posture (0o600 perms, sensitive:true schema). Documentation is technically solid but lacks explicit financial risk warnings.",
+  "notes": "⚠️ This skill executes REAL financial transactions on Hyperliquid DEX. Requires wallet private key. Use with caution — trading involves risk of loss. Recommend author add explicit risk disclosure to SKILL.md and make GitHub repo public for community audit.",
+  "status": "listed"
+}

@@ -1,10 +1,10 @@
 {
-  "total_skills": 94,
-  "verified": 86,
+  "total_skills": 95,
+  "verified": 87,
   "categories": {
     "utilities": 2,
     "data": 7,
-    "automation": 34,
+    "automation": 35,
     "coding": 12,
     "security": 3,
     "productivity": 10,
@@ -12,8 +12,13 @@
     "research": 14,
     "content": 5
   },
-  "last_scan": "2026-03-09T21:31:00Z",
+  "last_scan": "2026-03-09T21:44:00Z",
   "recent_additions": [
+    {
+      "id": "openbroker",
+      "name": "Open-broker",
+      "added": "2026-03-09"
+    },
     {
       "id": "openclaw-oss-pr",
       "name": "OpenClaw OSS PR Workflow",
@@ -57,11 +62,6 @@
     {
       "id": "senior-ml-engineer",
       "name": "Senior ML Engineer",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "qms-audit-expert",
-      "name": "QMS Audit Expert",
       "added": "2026-03-09"
     }
   ],
