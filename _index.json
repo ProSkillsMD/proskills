@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 105,
+  "total": 109,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09",
+  "last_updated": "2026-03-09T22:05:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1028,7 +1028,43 @@
       "downloads": 52,
       "verified_at": "2026-03-09T21:57:00Z",
       "score": 7.88
+    },
+    {
+      "id": "org-planning",
+      "slug": "org-planning",
+      "category": "automation",
+      "name": "org-planning",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "people-analytics",
+      "slug": "people-analytics",
+      "category": "data",
+      "name": "people-analytics",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "canned-responses",
+      "slug": "canned-responses",
+      "category": "automation",
+      "name": "canned-responses",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 7.7
+    },
+    {
+      "id": "compliance",
+      "slug": "compliance",
+      "category": "automation",
+      "name": "compliance",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.6
     }
   ],
-  "total_skills": 90
+  "total_skills": 109
 }

@@ -1,10 +1,10 @@
 {
-  "total_skills": 105,
-  "verified": 97,
+  "total_skills": 109,
+  "verified": 101,
   "categories": {
     "utilities": 2,
-    "data": 7,
-    "automation": 39,
+    "data": 8,
+    "automation": 42,
     "coding": 13,
     "security": 4,
     "productivity": 10,
@@ -13,8 +13,28 @@
     "content": 6,
     "api": 1
   },
-  "last_scan": "2026-03-09T22:00:00Z",
+  "last_scan": "2026-03-09T22:05:00Z",
   "recent_additions": [
+    {
+      "id": "org-planning",
+      "name": "org-planning",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "people-analytics",
+      "name": "people-analytics",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "canned-responses",
+      "name": "canned-responses",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "compliance",
+      "name": "compliance",
+      "added": "2026-03-09"
+    },
     {
       "id": "openclaw-agent-skill",
       "name": "OpenClaw Agent Skill",
@@ -43,26 +63,6 @@
     {
       "id": "skill-provenance",
       "name": "Skill Provenance",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "bitrix24",
-      "name": "Bitrix24",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "hookaido",
-      "name": "Hookaido Operator",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "vincent-brave-search",
-      "name": "Vincent - Brave Search",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "agentwallet",
-      "name": "Vincent - Wallet",
       "added": "2026-03-09"
     }
   ],
