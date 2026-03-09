@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 7,
+  "total": 8,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T05:49:00Z",
+  "last_updated": "2026-03-09T05:54:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -71,6 +71,15 @@
       "score": 8.3,
       "stars": 107,
       "verified_at": "2026-03-09T05:49:00Z"
+    },
+    {
+      "id": "claude-d3js-skill",
+      "slug": "claude-d3js-skill",
+      "category": "coding",
+      "name": "Claude D3.js Skill",
+      "stars": 127,
+      "score": 7.7,
+      "verified_at": "2026-03-09T05:54:00Z"
     }
   ]
 }

@@ -1,0 +1,39 @@
+{
+  "id": "claude-d3js-skill",
+  "name": "Claude D3.js Skill",
+  "slug": "claude-d3js-skill",
+  "category": "coding",
+  "description": "A comprehensive Claude skill for D3.js data visualization. 21k+ word SKILL.md covering patterns, examples, best practices for building interactive data visualizations with D3.js. Exceptional educational resource for developers integrating Claude with D3.js projects.",
+  "author": {
+    "github": "chrisvoncsefalvay",
+    "name": "chrisvoncsefalvay"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/chrisvoncsefalvay/claude-d3js-skill",
+  "stars": 127,
+  "license": "unknown",
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["d3js", "data-visualization", "charts", "svg", "javascript", "coding"],
+  "verified_at": "2026-03-09T05:54:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.7
+  },
+  "review": "Exceptional educational resource for D3.js visualization. 21k+ comprehensive SKILL.md with patterns, examples, best practices. Approved despite 5-month maintenance gap — content remains stable and the documentation quality is outstanding.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed",
+    "active": true
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "21k+ comprehensive SKILL.md with D3.js patterns, examples, and best practices."
+  },
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/78"
+}
