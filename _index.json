@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 39,
+  "total": 40,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T08:56:00Z",
+  "last_updated": "2026-03-09T08:57:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -362,6 +362,15 @@
       "stars": 1,
       "average_score": 7.3,
       "verified_at": "2026-03-09T08:56:00Z"
+    },
+    {
+      "id": "clankers-world",
+      "slug": "clankers-world",
+      "category": "automation",
+      "name": "Clanker's World",
+      "stars": 0,
+      "average_score": 7.0,
+      "verified_at": "2026-03-09T08:57:00Z"
     }
   ]
 }

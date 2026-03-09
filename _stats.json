@@ -1,17 +1,18 @@
 {
-  "total_skills": 39,
+  "total_skills": 40,
   "verified": 24,
   "categories": {
     "content": 3,
-    "automation": 14,
+    "automation": 15,
     "research": 7,
     "coding": 7,
     "devops": 3,
     "data": 3,
     "security": 1
   },
-  "last_scan": "2026-03-09T08:56:00Z",
+  "last_scan": "2026-03-09T08:57:00Z",
   "recent_additions": [
+    "clankers-world",
     "task-ledger",
     "memoclaw",
     "openclaw-skill-atlassian-jira",
@@ -20,8 +21,7 @@
     "basename-agent",
     "open-source-monitor-openclaw-skill",
     "csv-data-summarizer-claude-skill",
-    "document-specialist-skill",
-    "claude-family-history-research-skill"
+    "document-specialist-skill"
   ],
   "top_skills": [
     {
