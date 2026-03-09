@@ -1,0 +1,38 @@
+{
+  "id": "claude-skill-registry",
+  "name": "Claude Skill Registry",
+  "slug": "claude-skill-registry",
+  "category": "research",
+  "description": "Massive aggregated registry of 100k+ deduplicated Claude Code SKILL.md files from GitHub, with daily automated updates via GitHub Actions. Three-tier consumption: web UI, sk CLI, and JSON API. Requires sk CLI or web UI. Daily-updated index of 100k+ Claude Code skills from GitHub.",
+  "author": {
+    "github": "majiayu000",
+    "name": "majiayu000"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/majiayu000/claude-skill-registry",
+  "stars": 107,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["research", "registry", "skill-discovery", "meta-tool", "catalog", "index", "cli"],
+  "verified_at": "2026-03-09T05:49:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 7,
+    "average": 8.3
+  },
+  "review": "Meta-tool indexing 107k+ deduplicated skills from GitHub. 9/10 functionality with daily automated updates via GitHub Actions and three-tier consumption system (web UI, CLI, JSON API). High quality, active development. Conditional approval due to install complexity and external dependency on hosted service.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "partial",
+    "smoke_test": "partial",
+    "notes": "Massive aggregated registry of 162k+ Claude Code SKILL.md files with web UI and sk CLI. Core functionality verified, some install complexity."
+  },
+  "catalog_note": "Requires sk CLI or web UI. Daily-updated index of 100k+ Claude Code skills from GitHub."
+}
