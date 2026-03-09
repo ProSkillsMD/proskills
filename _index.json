@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:56:00Z",
+  "last_updated": "2026-03-09T21:24:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -144,7 +144,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -342,7 +342,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get笔记 (getnote)",
+      "name": "Get\u7b14\u8bb0 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -369,10 +369,10 @@
       "id": "memoclaw",
       "slug": "memoclaw",
       "category": "automation",
-      "name": "Memoclaw Skill",
+      "name": "Memoclaw",
       "stars": 4,
-      "verified_at": "2026-03-09T08:55:00Z",
-      "score": 8.0
+      "verified_at": "2026-03-09T21:24:00Z",
+      "score": 7.97
     },
     {
       "id": "task-ledger",

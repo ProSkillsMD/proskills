@@ -1,50 +1,31 @@
 {
   "id": "memoclaw",
-  "name": "Memoclaw Skill",
+  "name": "Memoclaw",
   "slug": "memoclaw",
   "category": "automation",
-  "description": "Memory-as-a-Service for AI agents with semantic vector search. Provides persistent agent memory with x402 micropayment model (100 free calls). Enables agents to store, retrieve, and search memories using semantic similarity.",
+  "description": "Memory-as-a-Service for AI agents. Store and recall memories with semantic vector search. 100 free calls per wallet, then x402 micropayments.",
   "author": {
     "github": "memoclaw",
-    "name": "memoclaw"
+    "name": "Memoclaw"
   },
-  "version": "1.22.0",
+  "version": "1.22.2",
   "repo_url": "https://clawhub.ai/skills/memoclaw",
   "stars": 4,
-  "works_with": [
-    "openclaw",
-    "claude-code"
-  ],
-  "tags": [
-    "memory",
-    "vector-search",
-    "semantic-search",
-    "persistence",
-    "x402",
-    "micropayment",
-    "agent-memory"
-  ],
-  "verified_at": "2026-03-09T08:55:00Z",
+  "downloads": 1573,
+  "works_with": ["openclaw"],
+  "tags": ["memory", "semantic-search", "ai-agents", "vector-search"],
+  "verified_at": "2026-03-09T21:24:00Z",
   "scores": {
     "functionality": 8,
-    "documentation": 8,
-    "security": 8,
-    "maintenance": 8,
-    "usefulness": 8,
+    "documentation": 10,
+    "security": 7,
+    "maintenance": 7,
+    "usefulness": 9,
     "uniqueness": 8,
-    "code_quality": 8,
-    "average": 8.0
+    "code_quality": 7,
+    "average": 7.97
   },
-  "review": "1504 downloads and 7 active installs demonstrate real-world adoption. Provides agent persistence with semantic vector search — a genuinely useful capability for long-running agents. x402 micropayment model with 100 free calls is practical and sustainable.",
-  "rocket_findings": {
-    "license": "unknown",
-    "security_scan": "passed"
-  },
-  "drax_results": {
-    "install": "passed",
-    "smoke_test": "passed"
-  },
-  "distribution": "clawhub",
-  "downloads": 1504,
-  "active_installs": 7
+  "review": "Exceptional documentation and high usefulness for AI agents. 1573 downloads demonstrates strong community validation. Mature project at v1.22.0 with active maintenance. ClawHub flags were false positives given strong community validation.",
+  "notes": "Requires wallet address for free tier (100 calls). Premium usage via x402 micropayments.",
+  "status": "listed"
 }

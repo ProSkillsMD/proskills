@@ -12,8 +12,13 @@
     "research": 14,
     "content": 5
   },
-  "last_scan": "2026-03-09T17:45:00Z",
+  "last_scan": "2026-03-09T21:24:00Z",
   "recent_additions": [
+    {
+      "id": "memoclaw",
+      "name": "Memoclaw",
+      "added": "2026-03-09"
+    },
     {
       "id": "openbotcity",
       "name": "OpenBotCity",
@@ -57,11 +62,6 @@
     {
       "id": "tencent-docs",
       "name": "tencent-docs",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "senior-architect",
-      "name": "senior-architect",
       "added": "2026-03-09"
     }
   ],
