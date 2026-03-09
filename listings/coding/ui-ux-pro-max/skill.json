@@ -1,0 +1,37 @@
+{
+  "id": "ui-ux-pro-max",
+  "name": "ui-ux-pro-max",
+  "slug": "ui-ux-pro-max",
+  "category": "coding",
+  "description": "Pro UI/UX skill with BM25 search across 50+ CSV data files covering 13 tech stacks, 10 design domains, and framework-specific guidelines. Generate complete design systems or query specific style patterns.",
+  "author": {
+    "github": "nextlevelbuilder",
+    "name": "nextlevelbuilder"
+  },
+  "version": "2.2.1",
+  "repo_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "stars": 38630,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["ui", "ux", "design", "design-system", "tailwind", "react", "css", "frontend"],
+  "verified_at": "2026-03-09T04:22:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 8.2
+  },
+  "review": "Comprehensive UI/UX skill with BM25 search across 50+ CSV data files covering 13 tech stacks and 10 domains. Novel BM25+reasoning combo for design system generation with no external dependencies. 38k+ stars validates real-world adoption. Minor: monolithic codebase and undocumented prompt domain.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed",
+    "notes": "All 7 CLI modes verified. 50+ CSV files present. Zero external deps."
+  }
+}

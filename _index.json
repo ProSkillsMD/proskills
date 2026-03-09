@@ -1,10 +1,11 @@
 {
   "version": 1,
-  "total": 3,
+  "total": 4,
   "categories": [
     "content",
     "automation",
-    "research"
+    "research",
+    "coding"
   ],
   "last_updated": "2026-03-09T04:22:00Z",
   "skills": [
@@ -33,6 +34,15 @@
       "slug": "last30days-skill",
       "score": 9.03,
       "stars": 3858,
+      "verified_at": "2026-03-09T04:22:00Z"
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "slug": "ui-ux-pro-max",
+      "category": "coding",
+      "name": "ui-ux-pro-max",
+      "stars": 38630,
+      "average_score": 8.2,
       "verified_at": "2026-03-09T04:22:00Z"
     }
   ]
