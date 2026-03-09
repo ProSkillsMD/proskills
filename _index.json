@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 30,
+  "total": 31,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:34:00Z",
+  "last_updated": "2026-03-09T07:45:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -279,6 +279,15 @@
       "score": 7.7,
       "stars": 44,
       "verified_at": "2026-03-09T07:34:00Z"
+    },
+    {
+      "id": "document-specialist-skill",
+      "name": "Document Specialist Skill",
+      "category": "coding",
+      "slug": "document-specialist-skill",
+      "score": 8.0,
+      "stars": 11,
+      "verified_at": "2026-03-09T07:45:00Z"
     }
   ]
 }
