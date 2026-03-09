@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 22,
+  "total": 23,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:55:00Z",
+  "last_updated": "2026-03-09T06:57:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -206,6 +206,15 @@
       "score": 6.8,
       "stars": 0,
       "verified_at": "2026-03-09T06:55:00Z"
+    },
+    {
+      "id": "chow-new",
+      "name": "chow-new",
+      "category": "content",
+      "slug": "chow-new",
+      "score": 7.8,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:57:00Z"
     }
   ]
 }

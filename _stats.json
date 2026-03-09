@@ -1,15 +1,16 @@
 {
-  "total_skills": 22,
-  "verified": 22,
+  "total_skills": 23,
+  "verified": 23,
   "categories": {
-    "content": 1,
+    "content": 2,
     "automation": 8,
     "research": 6,
     "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:55:00Z",
+  "last_scan": "2026-03-09T06:57:00Z",
   "recent_additions": [
+    "chow-new",
     "openclaw-skills-faahim",
     "ospex-openclaw-skill",
     "ecom-claw",
@@ -18,8 +19,7 @@
     "finance-news-openclaw-skill",
     "comfyui-skills-openclaw",
     "decodo-openclaw-skill",
-    "project-memory",
-    "soul-md"
+    "project-memory"
   ],
   "top_skills": [
     {

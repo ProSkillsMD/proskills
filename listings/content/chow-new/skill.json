@@ -1,0 +1,37 @@
+{
+  "id": "chow-new",
+  "name": "chow-new",
+  "slug": "chow-new",
+  "category": "content",
+  "description": "Concise bilingual news article summarizer with German and English (DE/EN) support. No external dependencies, comprehensive error handling. Cleanest ClawHub submission reviewed.",
+  "author": {
+    "github": "lushi516",
+    "name": "lushi516"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/chow-new",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["news", "summarizer", "bilingual", "german", "english", "content"],
+  "verified_at": "2026-03-09T06:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.8
+  },
+  "review": "Cleanest ClawHub submission reviewed. Bilingual DE/EN support with no external dependencies and comprehensive error handling. Minor frontmatter cosmetic issues only. Excellent bilingual UX for German-speaking audiences.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "source": "clawhub"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed",
+    "notes": "No external deps. DE/EN modes confirmed."
+  }
+}
