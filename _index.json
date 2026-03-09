@@ -1,11 +1,12 @@
 {
   "version": 1,
-  "total": 2,
+  "total": 3,
   "categories": [
     "content",
-    "automation"
+    "automation",
+    "research"
   ],
-  "last_updated": "2026-03-09T04:22:26Z",
+  "last_updated": "2026-03-09T04:22:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -24,6 +25,15 @@
       "score": 8.71,
       "stars": 15588,
       "verified_at": "2026-03-09T04:22:03Z"
+    },
+    {
+      "id": "last30days-skill",
+      "name": "last30days-skill",
+      "category": "research",
+      "slug": "last30days-skill",
+      "score": 9.03,
+      "stars": 3858,
+      "verified_at": "2026-03-09T04:22:00Z"
     }
   ]
 }

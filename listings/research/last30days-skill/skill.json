@@ -1,0 +1,37 @@
+{
+  "id": "last30days-skill",
+  "name": "last30days-skill",
+  "slug": "last30days-skill",
+  "category": "research",
+  "description": "8-source social trend aggregator covering Reddit, Hacker News, Polymarket, X/Twitter, YouTube, TikTok, Instagram, and web search. Zero pip dependencies. Free-tier sources work out of the box; full coverage needs API keys (all documented).",
+  "author": {
+    "github": "mvanhorn",
+    "name": "mvanhorn"
+  },
+  "version": "2.9.5",
+  "repo_url": "https://github.com/mvanhorn/last30days-skill",
+  "stars": 3858,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["research", "trends", "social-media", "aggregator", "reddit", "hackernews", "twitter", "youtube"],
+  "verified_at": "2026-03-09T04:22:00Z",
+  "scores": {
+    "functionality": 8.5,
+    "documentation": 9.5,
+    "security": 9.0,
+    "maintenance": 9.5,
+    "usefulness": 9.0,
+    "uniqueness": 9.5,
+    "code_quality": 8.5,
+    "average": 9.03
+  },
+  "review": "Production-grade 8-source social trend aggregator with exceptional documentation, clean security posture, zero pip deps, and active daily maintenance. Free-tier sources (Reddit, HN, Polymarket) work out of the box; full multi-platform coverage gated on API keys, all clearly documented. Nothing comparable in the ProSkills catalog.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "partial",
+    "notes": "Core engine + free-tier sources verified. Full coverage requires API keys (documented). Mock mode works."
+  }
+}
