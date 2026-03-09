@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 10,
+  "total": 11,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T05:56:00Z",
+  "last_updated": "2026-03-09T06:15:54Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -98,6 +98,15 @@
       "stars": 1169,
       "score": 8.4,
       "verified_at": "2026-03-09T05:56:00Z"
+    },
+    {
+      "id": "asana-cli",
+      "name": "asana-cli",
+      "category": "automation",
+      "slug": "asana-cli",
+      "score": 8.7,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:15:54Z"
     }
   ]
 }

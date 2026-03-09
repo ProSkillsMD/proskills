@@ -1,0 +1,36 @@
+{
+  "id": "asana-cli",
+  "name": "asana-cli",
+  "slug": "asana-cli",
+  "category": "automation",
+  "description": "Golang CLI tool to manage Asana projects, tasks, portfolios, custom fields, attachments, comments, and dependencies. Features secure OAuth implementation and Claude Code integration via SKILL.md.",
+  "author": {
+    "github": "danilo-nzyte",
+    "name": "danilo-nzyte"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/danilo-nzyte/asana-cli",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["asana", "automation", "cli", "golang", "task-management", "project-management", "oauth"],
+  "verified_at": "2026-03-09T06:15:50Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 8.7
+  },
+  "review": "Excellent Golang CLI with comprehensive Asana API coverage, secure OAuth implementation, professional quality. Model example of a high-quality skill submission covering projects, tasks, portfolios, custom fields, attachments, comments, and dependencies.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
