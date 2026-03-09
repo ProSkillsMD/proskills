@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 4,
+  "total": 5,
   "categories": [
     "content",
     "automation",
     "research",
     "coding"
   ],
-  "last_updated": "2026-03-09T04:22:00Z",
+  "last_updated": "2026-03-09T04:23:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -44,6 +44,15 @@
       "stars": 38630,
       "average_score": 8.2,
       "verified_at": "2026-03-09T04:22:00Z"
+    },
+    {
+      "id": "openclaw-docs-rag",
+      "name": "openclaw-docs-rag",
+      "category": "research",
+      "slug": "openclaw-docs-rag",
+      "score": 7.53,
+      "stars": 0,
+      "verified_at": "2026-03-09T04:23:00Z"
     }
   ]
 }
