@@ -1,0 +1,36 @@
+{
+  "id": "agent-guardrails",
+  "name": "Agent Guardrails",
+  "slug": "agent-guardrails",
+  "category": "security",
+  "description": "Mechanical enforcement tools to prevent AI agents from bypassing established project standards. Novel enforcement hierarchy (code > prompts), comprehensive hook suite, and exceptional documentation with Chinese translation.",
+  "author": {
+    "github": "jzOcb",
+    "name": "jzOcb"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/jzOcb/agent-guardrails",
+  "stars": 10,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["security", "guardrails", "enforcement", "ai-safety", "hooks", "agent-workflows"],
+  "verified_at": "2026-03-09T07:28:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.1
+  },
+  "review": "Novel enforcement hierarchy (code > prompts) provides a robust approach to AI agent safety. Comprehensive hook suite with exceptional documentation including Chinese translation. Fills a critical gap in AI agent security tooling.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

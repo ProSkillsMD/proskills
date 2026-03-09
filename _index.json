@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 27,
+  "total": 28,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:25:00Z",
+  "last_updated": "2026-03-09T07:28:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -252,6 +252,15 @@
       "score": 8.4,
       "stars": 0,
       "verified_at": "2026-03-09T07:25:00Z"
+    },
+    {
+      "id": "agent-guardrails",
+      "name": "Agent Guardrails",
+      "category": "security",
+      "slug": "agent-guardrails",
+      "score": 8.1,
+      "stars": 10,
+      "verified_at": "2026-03-09T07:28:00Z"
     }
   ]
 }
