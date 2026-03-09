@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 33,
+  "total": 34,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:47:00Z",
+  "last_updated": "2026-03-09T08:09:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -306,6 +306,16 @@
       "score": 6.7,
       "stars": 0,
       "verified_at": "2026-03-09T07:47:00Z"
+    },
+    {
+      "id": "basename-agent",
+      "name": "basename-agent",
+      "category": "automation",
+      "slug": "basename-agent",
+      "score": 7.6,
+      "stars": 1,
+      "downloads": 1682,
+      "verified_at": "2026-03-09T08:09:00Z"
     }
   ]
 }
