@@ -1,15 +1,16 @@
 {
-  "total_skills": 12,
-  "verified": 12,
+  "total_skills": 13,
+  "verified": 13,
   "categories": {
     "content": 1,
-    "automation": 3,
+    "automation": 4,
     "research": 3,
     "coding": 3,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:16:40Z",
+  "last_scan": "2026-03-09T06:16:00Z",
   "recent_additions": [
+    "soul-md",
     "mma-investigator",
     "asana-cli",
     "nano-banana-pro-prompts-recommend-skill",
@@ -18,9 +19,7 @@
     "claude-skill-registry",
     "accessibility",
     "ui-ux-pro-max",
-    "last30days-skill",
-    "planning-with-files",
-    "marketingskills"
+    "last30days-skill"
   ],
   "top_skills": [
     {
@@ -49,6 +48,11 @@
       "stars": 0
     },
     {
+      "id": "soul-md",
+      "score": 8.7,
+      "stars": 173
+    },
+    {
       "id": "team-tasks",
       "score": 8.4,
       "stars": 380
@@ -67,11 +71,6 @@
       "id": "ui-ux-pro-max",
       "score": 8.2,
       "stars": 38630
-    },
-    {
-      "id": "claude-d3js-skill",
-      "score": 7.7,
-      "stars": 127
     }
   ]
 }

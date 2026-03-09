@@ -1,0 +1,37 @@
+{
+  "id": "soul-md",
+  "name": "soul.md",
+  "slug": "soul-md",
+  "category": "automation",
+  "description": "The best way to build a personality for your agent. Let Claude Code / OpenClaw ingest your data & build your AI soul. Outstanding framework for agent personality and identity using a consciousness-uploading approach.",
+  "author": {
+    "github": "aaronjmars",
+    "name": "aaronjmars"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/aaronjmars/soul.md",
+  "stars": 173,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["agent-personality", "identity", "soul", "consciousness", "automation", "ai-persona"],
+  "verified_at": "2026-03-09T06:16:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.7
+  },
+  "review": "Outstanding framework for building agent personality and identity. The consciousness-uploading approach is innovative and highly effective — one of the highest scores for identity skills in the catalog. Gamora score: 8.7/10.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  },
+  "catalog_notes": "License not yet added to repo. Author notified. MIT-compatible content."
+}

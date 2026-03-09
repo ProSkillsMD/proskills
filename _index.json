@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 12,
+  "total": 13,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:16:40Z",
+  "last_updated": "2026-03-09T06:16:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -116,6 +116,15 @@
       "score": 7.5,
       "stars": 31997,
       "verified_at": "2026-03-09T06:16:40Z"
+    },
+    {
+      "id": "soul-md",
+      "name": "soul.md",
+      "category": "automation",
+      "slug": "soul-md",
+      "score": 8.7,
+      "stars": 173,
+      "verified_at": "2026-03-09T06:16:00Z"
     }
   ]
 }
