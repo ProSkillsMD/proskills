@@ -1,0 +1,31 @@
+{
+  "id": "vincent-brave-search",
+  "name": "Vincent - Brave Search",
+  "slug": "vincent-brave-search",
+  "category": "research",
+  "description": "Brave Search integration via Vincent CLI — web and news search with x402 automatic credit replenishment.",
+  "author": {
+    "github": "HeyVincent-ai",
+    "name": "Vincent AI"
+  },
+  "version": "1.0.69",
+  "repo_url": "https://github.com/HeyVincent-ai/Vincent",
+  "stars": 0,
+  "downloads": 572,
+  "works_with": ["openclaw"],
+  "tags": ["search", "brave", "web-search", "news", "vincent", "x402"],
+  "verified_at": "2026-03-09T21:49:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 7,
+    "uniqueness": 6,
+    "code_quality": 8,
+    "average": 7.53
+  },
+  "review": "Brave Search wrapper via Vincent CLI with x402 auto-replenishment as the key differentiator over native OpenClaw web_search. Part of the well-maintained Vincent AI skill suite.",
+  "notes": "Requires @vincentai/cli npm package. x402 credits consumed per search.",
+  "status": "listed"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "agentwallet",
+  "name": "Vincent - Wallet",
+  "slug": "agentwallet",
+  "category": "automation",
+  "description": "AI agent wallet management via Vincent CLI — pay for skills, manage credits, and handle x402 micropayments seamlessly.",
+  "author": {
+    "github": "HeyVincent-ai",
+    "name": "Vincent AI"
+  },
+  "version": "1.0.69",
+  "repo_url": "https://github.com/HeyVincent-ai/Vincent",
+  "stars": 0,
+  "downloads": 4028,
+  "works_with": ["openclaw"],
+  "tags": ["wallet", "payments", "x402", "credits", "vincent"],
+  "verified_at": "2026-03-09T21:49:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.35
+  },
+  "review": "High-demand wallet skill (4028 downloads). Instruction-only by design — delegates to @vincentai/cli npm package. x402 micropayment model is well-implemented. SKILL.md version cosmetically mismatches published version but functionality is solid.",
+  "notes": "Requires @vincentai/cli npm package. Uses x402 micropayment credits.",
+  "status": "listed"
+}

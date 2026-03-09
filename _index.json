@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 95,
+  "total": 99,
   "categories": [
     "automation",
     "coding",
@@ -14,6 +14,42 @@
   ],
   "last_updated": "2026-03-09",
   "skills": [
+    {
+      "id": "bitrix24",
+      "slug": "bitrix24",
+      "category": "automation",
+      "name": "Bitrix24",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 8.29
+    },
+    {
+      "id": "hookaido",
+      "slug": "hookaido",
+      "category": "automation",
+      "name": "Hookaido Operator",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 7.88
+    },
+    {
+      "id": "vincent-brave-search",
+      "slug": "vincent-brave-search",
+      "category": "research",
+      "name": "Vincent - Brave Search",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 7.53
+    },
+    {
+      "id": "agentwallet",
+      "slug": "agentwallet",
+      "category": "automation",
+      "name": "Vincent - Wallet",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 8.35
+    },
     {
       "id": "dream-head-tail-to-video",
       "slug": "dream-head-tail-to-video",

@@ -1,0 +1,30 @@
+{
+  "id": "bitrix24",
+  "name": "Bitrix24",
+  "slug": "bitrix24",
+  "category": "automation",
+  "description": "Bitrix24 CRM integration — manage contacts, deals, tasks, and workflows via 5 stdlib Python scripts with 15 domain reference files. Business-first UX rules.",
+  "author": {
+    "github": "bitrix24",
+    "name": "Bitrix24"
+  },
+  "version": "0.15.0",
+  "repo_url": "https://clawhub.ai/skills/bitrix24",
+  "stars": 0,
+  "downloads": 420,
+  "works_with": ["openclaw"],
+  "tags": ["crm", "bitrix24", "automation", "business", "python"],
+  "verified_at": "2026-03-09T21:49:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.29
+  },
+  "review": "Highest quality in batch. 5 stdlib Python scripts with zero external dependencies, 15 deep domain reference files, bilingual documentation, business-first UX design. Strong CIS market fit. MCP used only for doc lookup — clean architecture.",
+  "status": "listed"
+}
