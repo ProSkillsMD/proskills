@@ -1,0 +1,37 @@
+{
+  "id": "planning-with-files",
+  "name": "planning-with-files",
+  "slug": "planning-with-files",
+  "category": "automation",
+  "description": "Manus-style file-based planning system using three persistent markdown files (task_plan.md, findings.md, progress.md) to maintain AI task state across context resets and sessions. Compatible with 12+ AI IDEs.",
+  "author": {
+    "github": "OthmanAdi",
+    "name": "OthmanAdi"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/OthmanAdi/planning-with-files",
+  "stars": 15588,
+  "works_with": ["openclaw", "claude-code", "cursor", "codex", "continue", "gemini"],
+  "tags": ["planning", "automation", "session-recovery", "workflow", "markdown", "ai-ide"],
+  "verified_at": "2026-03-09T04:21:57Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 10,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.71
+  },
+  "review": "Standout skill with 15k+ stars, zero external dependencies, self-documented security risks, active maintenance, and a genuinely novel session-recovery mechanism using three persistent markdown files. Ships pre-configured for 12+ AI IDEs including Cursor, Codex, Continue, and Gemini.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed",
+    "notes": "init-session.sh, check-complete.sh, session-catchup.py all verified. All 5 SKILL.md file links resolve."
+  }
+}

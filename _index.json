@@ -1,8 +1,11 @@
 {
   "version": 1,
-  "total": 1,
-  "categories": ["content"],
-  "last_updated": "2026-03-09T04:21:32Z",
+  "total": 2,
+  "categories": [
+    "content",
+    "automation"
+  ],
+  "last_updated": "2026-03-09T04:22:26Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -12,6 +15,15 @@
       "stars": 12000,
       "average_score": 8.9,
       "verified_at": "2026-03-09T04:21:32Z"
+    },
+    {
+      "id": "planning-with-files",
+      "name": "planning-with-files",
+      "category": "automation",
+      "slug": "planning-with-files",
+      "score": 8.71,
+      "stars": 15588,
+      "verified_at": "2026-03-09T04:22:03Z"
     }
   ]
 }
