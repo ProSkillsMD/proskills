@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:40:00Z",
+  "last_updated": "2026-03-09T17:42:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -725,6 +725,16 @@
       "stars": 1563,
       "downloads": 134874,
       "verified_at": "2026-03-09T17:40:00Z"
+    },
+    {
+      "id": "risk-management-specialist",
+      "name": "risk-management-specialist",
+      "category": "research",
+      "slug": "risk-management-specialist",
+      "score": 7.4,
+      "stars": 0,
+      "downloads": 2600,
+      "verified_at": "2026-03-09T17:42:00Z"
     }
   ]
 }

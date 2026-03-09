@@ -1,0 +1,18 @@
+{
+  "id": "risk-management-specialist",
+  "name": "risk-management-specialist",
+  "slug": "risk-management-specialist",
+  "category": "research",
+  "description": "Medical device risk management specialist implementing ISO 14971.",
+  "author": {"github": "alirezarezvani", "name": "alirezarezvani"},
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/risk-management-specialist",
+  "stars": 0,
+  "downloads": 2600,
+  "tags": ["risk-management", "medical-devices", "iso-14971", "research", "compliance", "healthcare"],
+  "verified_at": "2026-03-09T17:42:00Z",
+  "scores": {"functionality": 8, "documentation": 7, "security": 9, "maintenance": 6, "usefulness": 7, "uniqueness": 8, "code_quality": 7, "average": 7.4},
+  "review": "A focused, high-value specialist skill for medical device risk management under ISO 14971. The domain is niche but high-stakes — teams building medical devices have real need for structured AI-assisted risk analysis. Security profile is excellent, uniqueness score reflects a gap in the current catalog.",
+  "notes": "",
+  "status": "verified"
+}
