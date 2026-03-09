@@ -1,20 +1,30 @@
 {
-  "total_skills": 109,
-  "verified": 101,
+  "total_skills": 111,
+  "verified": 103,
   "categories": {
     "utilities": 2,
     "data": 8,
-    "automation": 42,
+    "automation": 43,
     "coding": 13,
     "security": 4,
     "productivity": 10,
-    "devops": 7,
+    "devops": 8,
     "research": 16,
     "content": 6,
     "api": 1
   },
-  "last_scan": "2026-03-09T22:05:00Z",
+  "last_scan": "2026-03-09T22:11:00Z",
   "recent_additions": [
+    {
+      "id": "ssl-certificate-checker",
+      "name": "SSL Certificate Checker",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "agent-creator",
+      "name": "Agent Creator",
+      "added": "2026-03-09"
+    },
     {
       "id": "org-planning",
       "name": "org-planning",
@@ -53,16 +63,6 @@
     {
       "id": "newsriver-intelligence",
       "name": "NewsRiver Global Intelligence",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "microsoft-365-graph-openclaw",
-      "name": "Microsoft 365 Graph for OpenClaw",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "skill-provenance",
-      "name": "Skill Provenance",
       "added": "2026-03-09"
     }
   ],
