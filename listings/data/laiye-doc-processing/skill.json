@@ -1,0 +1,42 @@
+{
+  "id": "laiye-doc-processing",
+  "name": "laiye-doc-processing",
+  "slug": "laiye-doc-processing",
+  "category": "data",
+  "description": "Enterprise-grade agentic document processing API via Laiye. Enables agents to extract, analyze, and process complex documents at scale. Requires Laiye API credentials. Enterprise document processing with high accuracy.",
+  "author": {
+    "github": "laiye",
+    "name": "laiye"
+  },
+  "version": "1.3.0",
+  "repo_url": "https://clawhub.ai/skills/laiye-doc-processing",
+  "stars": 4,
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "document-processing",
+    "enterprise",
+    "ocr",
+    "data-extraction",
+    "laiye",
+    "api"
+  ],
+  "verified_at": "2026-03-09T08:58:00Z",
+  "scores": {
+    "average": 7.0
+  },
+  "review": "Enterprise document processing via Laiye API with 118 downloads and 4 stars. Solid adoption for enterprise use case. Requires API credentials for full functionality. Conditional approval at 7.0/10.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  },
+  "distribution": "clawhub",
+  "downloads": 118,
+  "catalog_note": "Enterprise document processing via Laiye API. Requires API credentials."
+}

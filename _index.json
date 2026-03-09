@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 40,
+  "total": 41,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T08:57:00Z",
+  "last_updated": "2026-03-09T08:58:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -371,6 +371,15 @@
       "stars": 0,
       "average_score": 7.0,
       "verified_at": "2026-03-09T08:57:00Z"
+    },
+    {
+      "id": "laiye-doc-processing",
+      "slug": "laiye-doc-processing",
+      "category": "data",
+      "name": "laiye-doc-processing",
+      "stars": 4,
+      "average_score": 7.0,
+      "verified_at": "2026-03-09T08:58:00Z"
     }
   ]
 }
