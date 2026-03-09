@@ -1,0 +1,36 @@
+{
+  "id": "progressive-estimation",
+  "name": "Progressive Estimation",
+  "slug": "progressive-estimation",
+  "category": "coding",
+  "description": "AI skill for estimating AI-assisted and hybrid human+agent development work. Research-backed formulas from METR data, PERT statistics, progressive disclosure design, Small Council validation, and calibration feedback loops. Zero dependencies.",
+  "author": {
+    "github": "Enreign",
+    "name": "Enreign"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Enreign/progressive-estimation",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["estimation", "planning", "coding", "metr", "pert", "ai-tasks", "research-backed"],
+  "verified_at": "2026-03-09T07:25:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "Sets a new standard for research-backed estimation skills. METR research-grounded formulas with progressive disclosure design and Small Council validation. Modular reference architecture makes it highly extensible.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

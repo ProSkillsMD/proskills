@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 26,
+  "total": 27,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:22:00Z",
+  "last_updated": "2026-03-09T07:25:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -243,6 +243,15 @@
       "score": 8.7,
       "stars": 0,
       "verified_at": "2026-03-09T07:22:00Z"
+    },
+    {
+      "id": "progressive-estimation",
+      "name": "Progressive Estimation",
+      "category": "coding",
+      "slug": "progressive-estimation",
+      "score": 8.4,
+      "stars": 0,
+      "verified_at": "2026-03-09T07:25:00Z"
     }
   ]
 }

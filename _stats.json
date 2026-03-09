@@ -1,16 +1,17 @@
 {
-  "total_skills": 26,
+  "total_skills": 27,
   "verified": 24,
   "categories": {
     "content": 3,
     "automation": 9,
     "research": 6,
-    "coding": 5,
+    "coding": 6,
     "devops": 1,
     "data": 1
   },
-  "last_scan": "2026-03-09T07:22:00Z",
+  "last_scan": "2026-03-09T07:25:00Z",
   "recent_additions": [
+    "progressive-estimation",
     "interactive-slides-openclaw-skill",
     "ecommerce-predictor",
     "create-agent-arch",
@@ -19,8 +20,7 @@
     "ospex-openclaw-skill",
     "ecom-claw",
     "ai-research-skills",
-    "skill-codex",
-    "finance-news-openclaw-skill"
+    "skill-codex"
   ],
   "top_skills": [
     {
