@@ -1,14 +1,16 @@
 {
-  "total_skills": 11,
-  "verified": 11,
+  "total_skills": 12,
+  "verified": 12,
   "categories": {
     "content": 1,
     "automation": 3,
     "research": 3,
-    "coding": 3
+    "coding": 3,
+    "devops": 1
   },
-  "last_scan": "2026-03-09T06:15:59Z",
+  "last_scan": "2026-03-09T06:16:40Z",
   "recent_additions": [
+    "mma-investigator",
     "asana-cli",
     "nano-banana-pro-prompts-recommend-skill",
     "team-tasks",

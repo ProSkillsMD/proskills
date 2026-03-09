@@ -1,0 +1,37 @@
+{
+  "id": "mma-investigator",
+  "name": "mma-investigator",
+  "slug": "mma-investigator",
+  "category": "devops",
+  "description": "Expert system for investigating MMA (Multi-Metric Allocator) behavior on CockroachDB clusters. Helps oncall engineers diagnose load imbalances, understand rebalancing decisions, and identify why MMA did or didn't act.",
+  "author": {
+    "github": "cockroachdb",
+    "name": "CockroachDB"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/cockroachdb/cockroach",
+  "skill_path": "pkg/kv/kvserver/allocator/mmaprototype/.claude/skills/mma-investigator/",
+  "stars": 31997,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["cockroachdb", "devops", "oncall", "distributed-systems", "allocator", "mma", "investigation", "kubernetes"],
+  "verified_at": "2026-03-09T06:16:40Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 10,
+    "security": 7,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 7,
+    "code_quality": 7,
+    "average": 7.5
+  },
+  "review": "Expert system for CockroachDB MMA (multi-store/multi-region allocator) investigation. Outstanding documentation (10/10). Niche but invaluable for target audience. Official CockroachDB repo, extremely active with 32k stars.",
+  "rocket_findings": {
+    "license": "NOASSERTION",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

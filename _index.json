@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 11,
+  "total": 12,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:15:54Z",
+  "last_updated": "2026-03-09T06:16:40Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -107,6 +107,15 @@
       "score": 8.7,
       "stars": 0,
       "verified_at": "2026-03-09T06:15:54Z"
+    },
+    {
+      "id": "mma-investigator",
+      "name": "mma-investigator",
+      "category": "devops",
+      "slug": "mma-investigator",
+      "score": 7.5,
+      "stars": 31997,
+      "verified_at": "2026-03-09T06:16:40Z"
     }
   ]
 }
