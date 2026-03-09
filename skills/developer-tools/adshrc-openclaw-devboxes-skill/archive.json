@@ -1,0 +1,11 @@
+{
+  "slug": "adshrc-openclaw-devboxes-skill",
+  "category": "developer-tools",
+  "source_url": "https://github.com/adshrc/openclaw-devboxes-skill",
+  "source_skill_sha": "3d559e5f3cc477abbd52a64d63c881f539d4ffee",
+  "archived_at": "2026-03-09T21:36:46.155789+00:00",
+  "last_synced_at": "2026-03-09T21:36:46.155810+00:00",
+  "source_available": true,
+  "needs_review": false,
+  "change_pct_threshold": 30
+}
