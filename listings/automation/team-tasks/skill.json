@@ -1,0 +1,39 @@
+{
+  "id": "team-tasks",
+  "name": "Team Tasks",
+  "slug": "team-tasks",
+  "category": "automation",
+  "description": "Multi-agent pipeline coordination skill supporting Linear, DAG, and Debate modes for AI agent orchestration. Python stdlib-only with excellent documentation. First comprehensive orchestration infrastructure in the ProSkills catalog.",
+  "author": {
+    "github": "win4r",
+    "name": "win4r"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/win4r/team-tasks",
+  "stars": 380,
+  "license": "unknown",
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["multi-agent", "pipeline", "orchestration", "automation", "dag", "debate", "ai-agents"],
+  "verified_at": "2026-03-09T05:55:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 7,
+    "average": 8.4
+  },
+  "review": "Robust multi-agent pipeline coordination skill supporting linear, DAG, and debate execution modes. Python stdlib-only dependency makes it highly portable and reliable. Excellent documentation and actively maintained. First comprehensive orchestration infrastructure in the catalog.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed",
+    "active": true
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "Python stdlib-only. Linear, DAG, and debate pipeline modes verified. Excellent documentation."
+  },
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/77"
+}

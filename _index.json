@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 8,
+  "total": 9,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T05:54:00Z",
+  "last_updated": "2026-03-09T05:55:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -80,6 +80,15 @@
       "stars": 127,
       "score": 7.7,
       "verified_at": "2026-03-09T05:54:00Z"
+    },
+    {
+      "id": "team-tasks",
+      "slug": "team-tasks",
+      "category": "automation",
+      "name": "Team Tasks",
+      "stars": 380,
+      "score": 8.4,
+      "verified_at": "2026-03-09T05:55:00Z"
     }
   ]
 }
