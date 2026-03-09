@@ -1,0 +1,18 @@
+{
+  "id": "senior-architect",
+  "name": "senior-architect",
+  "slug": "senior-architect",
+  "category": "coding",
+  "description": "System architecture design, microservices evaluation, architecture diagrams.",
+  "author": {"github": "alirezarezvani", "name": "alirezarezvani"},
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/senior-architect",
+  "stars": 3,
+  "downloads": 3864,
+  "tags": ["architecture", "microservices", "system-design", "coding", "diagrams", "adr"],
+  "verified_at": "2026-03-09T17:40:00Z",
+  "scores": {"functionality": 7, "documentation": 7, "security": 9, "maintenance": 7, "usefulness": 7, "uniqueness": 6, "code_quality": 7, "average": 7.1},
+  "review": "Solid advisory skill for system architecture design, microservices evaluation, and architecture diagrams. At v2.1.1 with 3,864 downloads it shows steady use. Security profile is excellent — pure advisory, no code execution risk.",
+  "notes": "",
+  "status": "verified"
+}
