@@ -1,17 +1,18 @@
 {
-  "total_skills": 29,
+  "total_skills": 30,
   "verified": 24,
   "categories": {
     "content": 3,
     "automation": 9,
-    "research": 6,
+    "research": 7,
     "coding": 6,
     "devops": 2,
     "data": 1,
     "security": 1
   },
-  "last_scan": "2026-03-09T07:31:00Z",
+  "last_scan": "2026-03-09T07:34:00Z",
   "recent_additions": [
+    "claude-family-history-research-skill",
     "upgrade-guard",
     "agent-guardrails",
     "progressive-estimation",
@@ -20,8 +21,7 @@
     "create-agent-arch",
     "chow-new",
     "openclaw-skills-faahim",
-    "ospex-openclaw-skill",
-    "ecom-claw"
+    "ospex-openclaw-skill"
   ],
   "top_skills": [
     {

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 29,
+  "total": 30,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:31:00Z",
+  "last_updated": "2026-03-09T07:34:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -270,6 +270,15 @@
       "score": 7.9,
       "stars": 10,
       "verified_at": "2026-03-09T07:31:00Z"
+    },
+    {
+      "id": "claude-family-history-research-skill",
+      "name": "Claude Family History Research Skill",
+      "category": "research",
+      "slug": "claude-family-history-research-skill",
+      "score": 7.7,
+      "stars": 44,
+      "verified_at": "2026-03-09T07:34:00Z"
     }
   ]
 }

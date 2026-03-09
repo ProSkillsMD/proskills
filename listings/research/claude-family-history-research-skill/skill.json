@@ -1,0 +1,36 @@
+{
+  "id": "claude-family-history-research-skill",
+  "name": "Claude Family History Research Skill",
+  "slug": "claude-family-history-research-skill",
+  "category": "research",
+  "description": "A Claude skill to assist with family history and genealogy research planning. Features GPS compliance enforcement, comprehensive workflow templates, and professional citation standards.",
+  "author": {
+    "github": "emaynard",
+    "name": "emaynard"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/emaynard/claude-family-history-research-skill",
+  "stars": 44,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["research", "genealogy", "family-history", "gps", "citations", "ancestry"],
+  "verified_at": "2026-03-09T07:34:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.7
+  },
+  "review": "High-quality genealogical research skill with GPS compliance enforcement and professional citation standards. Comprehensive workflow templates make it practical for both amateur and professional family history researchers.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
