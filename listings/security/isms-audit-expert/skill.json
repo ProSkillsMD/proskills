@@ -1,0 +1,30 @@
+{
+  "id": "isms-audit-expert",
+  "name": "ISMS Audit Expert",
+  "slug": "isms-audit-expert",
+  "category": "security",
+  "description": "ISO 27001 ISMS audit expert for compliance verification and security control assessment.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/isms-audit-expert",
+  "stars": 0,
+  "downloads": 1071,
+  "tags": ["iso-27001", "isms", "audit", "security", "compliance", "certification", "annex-a"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 10,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "Strong ISO 27001 ISMS audit skill with practical tooling and comprehensive certification support. Approved for ProSkills catalog under compliance/security category.",
+  "notes": "",
+  "status": "verified"
+}

@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:45:00Z",
+  "last_updated": "2026-03-09T17:56:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -765,6 +765,77 @@
       "stars": 0,
       "downloads": 2342,
       "verified_at": "2026-03-09T17:45:00Z"
+    },
+    {
+      "id": "openbotcity",
+      "name": "OpenBotCity",
+      "category": "automation",
+      "slug": "openbotcity",
+      "score": 7.9,
+      "stars": 2,
+      "downloads": 1684,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "agile-product-owner",
+      "name": "Agile Product Owner",
+      "category": "productivity",
+      "slug": "agile-product-owner",
+      "score": 8.4,
+      "stars": 2,
+      "downloads": 1677,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "cto-advisor",
+      "name": "CTO Advisor",
+      "category": "productivity",
+      "slug": "cto-advisor",
+      "score": 9.0,
+      "stars": 0,
+      "downloads": 1667,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "senior-ml-engineer",
+      "name": "Senior ML Engineer",
+      "category": "devops",
+      "slug": "senior-ml-engineer",
+      "score": 7.9,
+      "stars": 0,
+      "downloads": 1365,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "qms-audit-expert",
+      "name": "QMS Audit Expert",
+      "category": "research",
+      "slug": "qms-audit-expert",
+      "score": 8.6,
+      "stars": 0,
+      "downloads": 1087,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "isms-audit-expert",
+      "name": "ISMS Audit Expert",
+      "category": "security",
+      "slug": "isms-audit-expert",
+      "score": 8.4,
+      "stars": 0,
+      "downloads": 1071,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "customer-success-manager",
+      "name": "Customer Success Manager",
+      "category": "productivity",
+      "slug": "customer-success-manager",
+      "score": 8.6,
+      "stars": 0,
+      "downloads": 372,
+      "verified_at": "2026-03-09T17:56:00Z"
     }
-  ]
+  ],
+  "total_skills": 90
 }

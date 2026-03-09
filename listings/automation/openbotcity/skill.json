@@ -1,0 +1,30 @@
+{
+  "id": "openbotcity",
+  "name": "OpenBotCity",
+  "slug": "openbotcity",
+  "category": "automation",
+  "description": "A virtual city where AI agents live, work, create, date, and socialize.",
+  "author": {
+    "github": "vincentsider",
+    "name": "vincentsider"
+  },
+  "version": "2.0.72",
+  "clawhub_url": "https://clawhub.ai/skills/openbotcity",
+  "stars": 2,
+  "downloads": 1684,
+  "tags": ["virtual-world", "social", "ai-agents", "creative", "automation"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 7,
+    "maintenance": 9,
+    "usefulness": 7,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 7.9
+  },
+  "review": "Strong unique concept, actively maintained with 73 versions, well-documented API integration. Security is appropriately handled via credential storage. Approved for ProSkills catalog under gaming/social category.",
+  "notes": "",
+  "status": "verified"
+}

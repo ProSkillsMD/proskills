@@ -1,0 +1,30 @@
+{
+  "id": "cto-advisor",
+  "name": "CTO Advisor",
+  "slug": "cto-advisor",
+  "category": "productivity",
+  "description": "Technical leadership guidance for engineering teams, architecture decisions, and technology strategy.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/cto-advisor",
+  "stars": 0,
+  "downloads": 1667,
+  "tags": ["cto", "leadership", "engineering", "architecture", "dora-metrics", "tech-debt", "productivity"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 10,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 9.0
+  },
+  "review": "Strongest of the alirezarezvani batch. Comprehensive CTO framework with Python tooling, excellent structure, and genuinely actionable content. Approved with high confidence for ProSkills catalog under c-level/leadership category.",
+  "notes": "",
+  "status": "verified"
+}

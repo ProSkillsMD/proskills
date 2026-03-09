@@ -1,0 +1,30 @@
+{
+  "id": "senior-ml-engineer",
+  "name": "Senior ML Engineer",
+  "slug": "senior-ml-engineer",
+  "category": "devops",
+  "description": "ML engineering for productionizing models, MLOps pipelines, and LLM integration.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/senior-ml-engineer",
+  "stars": 0,
+  "downloads": 1365,
+  "tags": ["mlops", "machine-learning", "rag", "llm", "model-deployment", "drift-monitoring", "devops"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 7.9
+  },
+  "review": "Solid production ML engineering skill with practical tooling. Minor deduction for slightly dated LLM pricing table. Approved for ProSkills catalog under ml-engineering category.",
+  "notes": "",
+  "status": "verified"
+}

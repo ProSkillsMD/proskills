@@ -1,0 +1,30 @@
+{
+  "id": "qms-audit-expert",
+  "name": "QMS Audit Expert",
+  "slug": "qms-audit-expert",
+  "category": "research",
+  "description": "ISO 13485 internal audit expertise for medical device QMS.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/qms-audit-expert",
+  "stars": 0,
+  "downloads": 1087,
+  "tags": ["iso-13485", "qms", "audit", "medical-devices", "compliance", "capa", "research"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 10,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.6
+  },
+  "review": "Excellent niche skill for medical device QMS auditing. High uniqueness, strong documentation, and genuinely critical compliance use case. Approved for ProSkills catalog under compliance/audit category.",
+  "notes": "",
+  "status": "verified"
+}

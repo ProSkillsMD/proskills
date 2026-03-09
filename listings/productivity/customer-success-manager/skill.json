@@ -1,0 +1,30 @@
+{
+  "id": "customer-success-manager",
+  "name": "Customer Success Manager",
+  "slug": "customer-success-manager",
+  "category": "productivity",
+  "description": "Monitors customer health, predicts churn risk, and identifies expansion opportunities using weighted scoring models for SaaS customer success.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/customer-success-manager",
+  "stars": 0,
+  "downloads": 372,
+  "tags": ["customer-success", "saas", "churn", "health-score", "expansion", "analytics", "productivity"],
+  "verified_at": "2026-03-09T17:56:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 10,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 8.6
+  },
+  "review": "Standout skill with production-grade tooling, exceptional documentation, and a clear differentiation (deterministic scoring, zero dependencies). Top-tier entry from this author. Approved for ProSkills catalog under business-growth/customer-success category.",
+  "notes": "",
+  "status": "verified"
+}
