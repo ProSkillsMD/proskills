@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 101,
+  "total": 105,
   "categories": [
     "api",
     "automation",
@@ -15,6 +15,42 @@
   ],
   "last_updated": "2026-03-09",
   "skills": [
+    {
+      "id": "openclaw-agent-skill",
+      "slug": "openclaw-agent-skill",
+      "category": "automation",
+      "name": "OpenClaw Agent Skill",
+      "stars": 4,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 8.35
+    },
+    {
+      "id": "html-coder",
+      "slug": "html-coder",
+      "category": "coding",
+      "name": "HTML Coder",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 8.06
+    },
+    {
+      "id": "launch-strategy",
+      "slug": "launch-strategy",
+      "category": "content",
+      "name": "Launch Strategy",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 6.59
+    },
+    {
+      "id": "newsriver-intelligence",
+      "slug": "newsriver-intelligence",
+      "category": "research",
+      "name": "NewsRiver Global Intelligence",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 7.41
+    },
     {
       "id": "bitrix24",
       "slug": "bitrix24",
@@ -181,7 +217,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -379,7 +415,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get笔记 (getnote)",
+      "name": "Get\u7b14\u8bb0 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -933,7 +969,7 @@
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
       "category": "coding",
-      "description": "Efficient OSS pull request workflows on GitHub — automates PR creation, review coordination, and merge processes for open source contributors.",
+      "description": "Efficient OSS pull request workflows on GitHub \u2014 automates PR creation, review coordination, and merge processes for open source contributors.",
       "author": {
         "github": "tsubasakong",
         "name": "tsubasakong"

@@ -1,20 +1,40 @@
 {
-  "total_skills": 101,
-  "verified": 93,
+  "total_skills": 105,
+  "verified": 97,
   "categories": {
     "utilities": 2,
     "data": 7,
-    "automation": 38,
-    "coding": 12,
+    "automation": 39,
+    "coding": 13,
     "security": 4,
     "productivity": 10,
     "devops": 7,
-    "research": 15,
-    "content": 5,
+    "research": 16,
+    "content": 6,
     "api": 1
   },
-  "last_scan": "2026-03-09T21:57:00Z",
+  "last_scan": "2026-03-09T22:00:00Z",
   "recent_additions": [
+    {
+      "id": "openclaw-agent-skill",
+      "name": "OpenClaw Agent Skill",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "html-coder",
+      "name": "HTML Coder",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "launch-strategy",
+      "name": "Launch Strategy",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "newsriver-intelligence",
+      "name": "NewsRiver Global Intelligence",
+      "added": "2026-03-09"
+    },
     {
       "id": "microsoft-365-graph-openclaw",
       "name": "Microsoft 365 Graph for OpenClaw",
@@ -43,26 +63,6 @@
     {
       "id": "agentwallet",
       "name": "Vincent - Wallet",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "openbroker",
-      "name": "Open-broker",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "openclaw-oss-pr",
-      "name": "OpenClaw OSS PR Workflow",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "skill-multi-publisher",
-      "name": "Skill Multi-Publisher",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "openclaw-codex-cli",
-      "name": "OpenClaw Codex CLI",
       "added": "2026-03-09"
     }
   ],
