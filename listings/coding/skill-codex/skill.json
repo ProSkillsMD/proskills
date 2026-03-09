@@ -1,0 +1,22 @@
+{
+  "id": "skill-codex",
+  "name": "skill-codex",
+  "slug": "skill-codex",
+  "category": "coding",
+  "description": "Codex CLI integration for Claude Code. High-quality skill enabling seamless use of OpenAI Codex within Claude Code workflows.",
+  "author": {
+    "github": "skills-directory",
+    "name": "skills-directory"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/skills-directory/skill-codex",
+  "stars": 769,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["coding", "codex", "cli", "openai", "claude-code"],
+  "verified_at": "2026-03-09T06:22:00Z",
+  "scores": {
+    "average": 8.1
+  },
+  "review": "High-quality Codex CLI integration for Claude Code. Active maintenance, excellent documentation.",
+  "gamora_verdict": "APPROVE"
+}

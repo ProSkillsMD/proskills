@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 17,
+  "total": 18,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:22:05Z",
+  "last_updated": "2026-03-09T06:22:57Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -161,6 +161,15 @@
       "score": 8.1,
       "stars": 8,
       "verified_at": "2026-03-09T06:21:00Z"
+    },
+    {
+      "id": "skill-codex",
+      "name": "skill-codex",
+      "category": "coding",
+      "slug": "skill-codex",
+      "score": 8.1,
+      "stars": 769,
+      "verified_at": "2026-03-09T06:22:57Z"
     }
   ]
 }

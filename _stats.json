@@ -1,15 +1,16 @@
 {
-  "total_skills": 17,
-  "verified": 17,
+  "total_skills": 18,
+  "verified": 18,
   "categories": {
     "content": 1,
     "automation": 5,
     "research": 5,
-    "coding": 4,
+    "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:22:05Z",
+  "last_scan": "2026-03-09T06:22:57Z",
   "recent_additions": [
+    "skill-codex",
     "finance-news-openclaw-skill",
     "comfyui-skills-openclaw",
     "decodo-openclaw-skill",
