@@ -1,0 +1,36 @@
+{
+  "id": "finance-news-openclaw-skill",
+  "name": "Finance News OpenClaw Skill",
+  "slug": "finance-news-openclaw-skill",
+  "category": "research",
+  "description": "Production-ready finance news skill for OpenClaw. Delivers finance news aggregation, portfolio alerts, and earnings tracking. Core functionality covers news feeds, portfolio monitoring, and earnings calendar integration.",
+  "author": {
+    "github": "kesslerio",
+    "name": "kesslerio"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/kesslerio/finance-news-openclaw-skill",
+  "stars": 8,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["finance", "news", "portfolio", "alerts", "earnings", "stocks", "research"],
+  "verified_at": "2026-03-09T06:21:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.1
+  },
+  "review": "Production-ready finance news skill from a veteran maintainer (est. 2012). Core functionality including news aggregation, portfolio alerts, and earnings tracking all working. Solid implementation with comprehensive coverage of finance data sources.",
+  "rocket_findings": {
+    "license": "Apache-2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

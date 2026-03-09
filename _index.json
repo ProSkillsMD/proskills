@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 16,
+  "total": 17,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:21:30Z",
+  "last_updated": "2026-03-09T06:22:05Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -152,6 +152,15 @@
       "score": 8.5,
       "stars": 6,
       "verified_at": "2026-03-09T06:20:00Z"
+    },
+    {
+      "id": "finance-news-openclaw-skill",
+      "name": "Finance News OpenClaw Skill",
+      "category": "research",
+      "slug": "finance-news-openclaw-skill",
+      "score": 8.1,
+      "stars": 8,
+      "verified_at": "2026-03-09T06:21:00Z"
     }
   ]
 }
