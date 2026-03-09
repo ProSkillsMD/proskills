@@ -1,15 +1,16 @@
 {
-  "total_skills": 15,
-  "verified": 15,
+  "total_skills": 16,
+  "verified": 16,
   "categories": {
     "content": 1,
-    "automation": 4,
+    "automation": 5,
     "research": 4,
     "coding": 4,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:16:00Z",
+  "last_scan": "2026-03-09T06:21:30Z",
   "recent_additions": [
+    "comfyui-skills-openclaw",
     "decodo-openclaw-skill",
     "project-memory",
     "soul-md",
@@ -53,6 +54,11 @@
       "stars": 173
     },
     {
+      "id": "comfyui-skills-openclaw",
+      "score": 8.5,
+      "stars": 6
+    },
+    {
       "id": "team-tasks",
       "score": 8.4,
       "stars": 380
@@ -66,11 +72,6 @@
       "id": "claude-skill-registry",
       "score": 8.3,
       "stars": 107
-    },
-    {
-      "id": "ui-ux-pro-max",
-      "score": 8.2,
-      "stars": 38630
     }
   ]
 }

@@ -1,0 +1,36 @@
+{
+  "id": "comfyui-skills-openclaw",
+  "name": "ComfyUI Skills OpenClaw",
+  "slug": "comfyui-skills-openclaw",
+  "category": "automation",
+  "description": "Expose curated ComfyUI workflows as callable skills/MCP capabilities for OpenClaw. Enables seamless image generation and ComfyUI pipeline automation directly from OpenClaw.",
+  "author": {
+    "github": "HuangYuChuh",
+    "name": "HuangYuChuh"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw",
+  "stars": 6,
+  "works_with": ["openclaw", "claude-code", "mcp"],
+  "tags": ["comfyui", "automation", "image-generation", "workflows", "mcp", "ai-art"],
+  "verified_at": "2026-03-09T06:20:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.5
+  },
+  "review": "Exceptional quality, active development. Exposes curated ComfyUI workflows as callable skills/MCP capabilities for OpenClaw. Bridges ComfyUI's powerful image generation ecosystem with OpenClaw's skill framework, enabling seamless AI-driven image workflows.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

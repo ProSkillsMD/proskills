@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 15,
+  "total": 16,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:16:00Z",
+  "last_updated": "2026-03-09T06:21:30Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -143,6 +143,15 @@
       "score": 7.1,
       "stars": 61,
       "verified_at": "2026-03-09T06:16:00Z"
+    },
+    {
+      "id": "comfyui-skills-openclaw",
+      "name": "ComfyUI Skills OpenClaw",
+      "category": "automation",
+      "slug": "comfyui-skills-openclaw",
+      "score": 8.5,
+      "stars": 6,
+      "verified_at": "2026-03-09T06:20:00Z"
     }
   ]
 }
