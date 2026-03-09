@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 14,
+  "total": 15,
   "categories": [
     "automation",
     "coding",
@@ -133,6 +133,15 @@
       "slug": "project-memory",
       "score": 8.0,
       "stars": 51,
+      "verified_at": "2026-03-09T06:16:00Z"
+    },
+    {
+      "id": "decodo-openclaw-skill",
+      "name": "decodo-openclaw-skill",
+      "category": "research",
+      "slug": "decodo-openclaw-skill",
+      "score": 7.1,
+      "stars": 61,
       "verified_at": "2026-03-09T06:16:00Z"
     }
   ]

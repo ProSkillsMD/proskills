@@ -1,15 +1,16 @@
 {
-  "total_skills": 14,
-  "verified": 14,
+  "total_skills": 15,
+  "verified": 15,
   "categories": {
     "content": 1,
     "automation": 4,
-    "research": 3,
+    "research": 4,
     "coding": 4,
     "devops": 1
   },
   "last_scan": "2026-03-09T06:16:00Z",
   "recent_additions": [
+    "decodo-openclaw-skill",
     "project-memory",
     "soul-md",
     "mma-investigator",
@@ -18,8 +19,7 @@
     "team-tasks",
     "claude-d3js-skill",
     "claude-skill-registry",
-    "accessibility",
-    "ui-ux-pro-max"
+    "accessibility"
   ],
   "top_skills": [
     {
