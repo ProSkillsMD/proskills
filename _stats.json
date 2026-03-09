@@ -1,18 +1,53 @@
 {
-  "total_skills": 63,
+  "total_skills": 70,
   "verified": 24,
   "categories": {
     "content": 4,
-    "automation": 24,
+    "automation": 25,
     "research": 9,
-    "coding": 8,
+    "coding": 10,
     "devops": 5,
-    "data": 6,
-    "security": 1,
-    "productivity": 5
+    "data": 7,
+    "security": 2,
+    "productivity": 7
   },
-  "last_scan": "2026-03-09T17:05:00Z",
+  "last_scan": "2026-03-09T17:17:00Z",
   "recent_additions": [
+    {
+      "id": "context-slim",
+      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "loopy-claude",
+      "name": "Loopy Claude",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "clawguard",
+      "name": "ClawGuard",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "openclaw-reference-docs",
+      "name": "OpenClaw Reference Docs",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "codex-cli-task",
+      "name": "Codex CLI Task Runner",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "tariffx-hts-classifier",
+      "name": "TariffX HTS Classifier",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "agent-orchestration-20260309-lzw",
+      "name": "OPC Agent Orchestration",
+      "added": "2026-03-09"
+    },
     {
       "id": "openclaw-devboxes-skill",
       "name": "openclaw-devboxes-skill",
@@ -26,41 +61,6 @@
     {
       "id": "notion",
       "name": "notion",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "blogwatcher",
-      "name": "blogwatcher",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "blucli",
-      "name": "blucli",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "diffs",
-      "name": "diffs",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "xurl",
-      "name": "xurl",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "feishu-doc",
-      "name": "feishu-doc",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "apple-notes",
-      "name": "apple-notes",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "defillama-watchdog",
-      "name": "defillama-watchdog",
       "added": "2026-03-09"
     }
   ],

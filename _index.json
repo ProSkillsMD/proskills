@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 49,
+  "total": 70,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T17:15:00Z",
+  "last_updated": "2026-03-09T17:17:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -582,6 +582,69 @@
       "stars": 0,
       "average_score": 7.4,
       "verified_at": "2026-03-09T17:15:00Z"
+    },
+    {
+      "id": "agent-orchestration-20260309-lzw",
+      "slug": "agent-orchestration-20260309-lzw",
+      "category": "automation",
+      "name": "OPC Agent Orchestration",
+      "stars": 0,
+      "average_score": 7.6,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "tariffx-hts-classifier",
+      "slug": "tariffx-hts-classifier",
+      "category": "data",
+      "name": "TariffX HTS Classifier",
+      "stars": 0,
+      "average_score": 7.1,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "codex-cli-task",
+      "slug": "codex-cli-task",
+      "category": "coding",
+      "name": "Codex CLI Task Runner",
+      "stars": 0,
+      "average_score": 8.4,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "openclaw-reference-docs",
+      "slug": "openclaw-reference-docs",
+      "category": "productivity",
+      "name": "OpenClaw Reference Docs",
+      "stars": 151,
+      "average_score": 9.0,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "clawguard",
+      "slug": "clawguard",
+      "category": "security",
+      "name": "ClawGuard",
+      "stars": 0,
+      "average_score": 8.1,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "loopy-claude",
+      "slug": "loopy-claude",
+      "category": "coding",
+      "name": "Loopy Claude",
+      "stars": 3,
+      "average_score": 7.0,
+      "verified_at": "2026-03-09T17:17:00Z"
+    },
+    {
+      "id": "context-slim",
+      "slug": "context-slim",
+      "category": "productivity",
+      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "stars": 0,
+      "average_score": 8.3,
+      "verified_at": "2026-03-09T17:17:00Z"
     }
   ]
 }
