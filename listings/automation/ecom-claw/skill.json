@@ -1,0 +1,23 @@
+{
+  "id": "ecom-claw",
+  "name": "ecom-claw",
+  "slug": "ecom-claw",
+  "category": "automation",
+  "description": "Comprehensive Chinese e-commerce automation skill for OpenClaw. Automates workflows for major Chinese e-commerce platforms.",
+  "author": {
+    "github": "RAMBOXIE",
+    "name": "RAMBOXIE"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/RAMBOXIE/ecom-claw",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["automation", "ecommerce", "chinese", "shopping"],
+  "verified_at": "2026-03-09T06:22:00Z",
+  "scores": {
+    "average": 6.5
+  },
+  "review": "Comprehensive Chinese e-commerce automation. Conditional: needs English docs and LICENSE file.",
+  "gamora_verdict": "CONDITIONAL",
+  "catalog_note": "Primary documentation in Chinese. License pending. Author notified to add English docs and LICENSE."
+}

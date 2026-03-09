@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 19,
+  "total": 20,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:23:20Z",
+  "last_updated": "2026-03-09T06:23:48Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -179,6 +179,15 @@
       "score": 7.2,
       "stars": 4616,
       "verified_at": "2026-03-09T06:23:20Z"
+    },
+    {
+      "id": "ecom-claw",
+      "name": "ecom-claw",
+      "category": "automation",
+      "slug": "ecom-claw",
+      "score": 6.5,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:23:48Z"
     }
   ]
 }
