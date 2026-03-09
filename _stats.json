@@ -1,15 +1,16 @@
 {
-  "total_skills": 23,
-  "verified": 23,
+  "total_skills": 24,
+  "verified": 24,
   "categories": {
     "content": 2,
-    "automation": 8,
+    "automation": 9,
     "research": 6,
     "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:57:00Z",
+  "last_scan": "2026-03-09T06:58:00Z",
   "recent_additions": [
+    "create-agent-arch",
     "chow-new",
     "openclaw-skills-faahim",
     "ospex-openclaw-skill",
@@ -18,8 +19,7 @@
     "skill-codex",
     "finance-news-openclaw-skill",
     "comfyui-skills-openclaw",
-    "decodo-openclaw-skill",
-    "project-memory"
+    "decodo-openclaw-skill"
   ],
   "top_skills": [
     {

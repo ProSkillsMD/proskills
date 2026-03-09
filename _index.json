@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 23,
+  "total": 24,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:57:00Z",
+  "last_updated": "2026-03-09T06:58:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -215,6 +215,15 @@
       "score": 7.8,
       "stars": 0,
       "verified_at": "2026-03-09T06:57:00Z"
+    },
+    {
+      "id": "create-agent-arch",
+      "name": "create-agent-arch",
+      "category": "automation",
+      "slug": "create-agent-arch",
+      "score": 6.9,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:58:00Z"
     }
   ]
 }

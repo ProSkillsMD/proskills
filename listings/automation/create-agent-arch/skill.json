@@ -1,0 +1,38 @@
+{
+  "id": "create-agent-arch",
+  "name": "create-agent-arch",
+  "slug": "create-agent-arch",
+  "category": "automation",
+  "description": "End-to-end OpenClaw agent creation workflow covering 5 phases: architecture design, file scaffolding, configuration, testing, and deployment. Most ambitious ClawHub submission to date.",
+  "author": {
+    "github": "dao24dao",
+    "name": "dao24dao"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/create-agent-arch",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["agent", "architecture", "automation", "scaffolding", "workflow", "openClaw"],
+  "verified_at": "2026-03-09T06:58:00Z",
+  "catalog_note": "Documentation primarily in Chinese. npx playbooks dependency required. English translation in progress.",
+  "scores": {
+    "functionality": 7,
+    "documentation": 6,
+    "security": 7,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 6,
+    "average": 6.9
+  },
+  "review": "Most ambitious ClawHub submission — 5-phase agent creation workflow covering the full OpenClaw agent lifecycle. All referenced files present and structure is sound. Conditional approval: npx playbooks dependency is undocumented and documentation is currently Chinese-only. English translation in progress.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "source": "clawhub"
+  },
+  "drax_results": {
+    "install": "conditional",
+    "smoke_test": "passed",
+    "notes": "Requires npx playbooks. All referenced files present. Chinese-only docs noted."
+  }
+}
