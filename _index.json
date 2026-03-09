@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:34:00Z",
+  "last_updated": "2026-03-09T17:40:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -144,7 +144,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
+      "name": "ContextSlim — Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -342,7 +342,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get\u7b14\u8bb0 (getnote)",
+      "name": "Get笔记 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -715,6 +715,16 @@
       "stars": 12000,
       "verified_at": "2026-03-09T04:21:32Z",
       "score": 8.9
+    },
+    {
+      "id": "self-improving-agent",
+      "name": "self-improving-agent",
+      "category": "automation",
+      "slug": "self-improving-agent",
+      "score": 9.1,
+      "stars": 1563,
+      "downloads": 134874,
+      "verified_at": "2026-03-09T17:40:00Z"
     }
   ]
 }

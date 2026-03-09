@@ -1,0 +1,18 @@
+{
+  "id": "self-improving-agent",
+  "name": "self-improving-agent",
+  "slug": "self-improving-agent",
+  "category": "automation",
+  "description": "Captures learnings, errors, and corrections to enable continuous improvement.",
+  "author": {"github": "pskoett", "name": "pskoett"},
+  "version": "3.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/self-improving-agent",
+  "stars": 1563,
+  "downloads": 134874,
+  "tags": ["self-improvement", "learning", "automation", "ai", "corrections", "memory"],
+  "verified_at": "2026-03-09T17:40:00Z",
+  "scores": {"functionality": 9, "documentation": 9, "security": 9, "maintenance": 9, "usefulness": 10, "uniqueness": 9, "code_quality": 9, "average": 9.1},
+  "review": "Flagship self-improvement skill with exceptional adoption metrics — 134,874 downloads and 1,563 ClawHub stars. Mature at v3.0.0, actively maintained. Best-in-class for continuous agent learning.",
+  "notes": "",
+  "status": "verified"
+}

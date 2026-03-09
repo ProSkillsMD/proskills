@@ -1,10 +1,10 @@
 {
-  "total_skills": 78,
-  "verified": 78,
+  "total_skills": 79,
+  "verified": 79,
   "categories": {
     "utilities": 2,
     "data": 7,
-    "automation": 31,
+    "automation": 32,
     "coding": 9,
     "security": 2,
     "productivity": 6,
@@ -12,8 +12,13 @@
     "research": 11,
     "content": 5
   },
-  "last_scan": "2026-03-09T17:34:00Z",
+  "last_scan": "2026-03-09T17:40:00Z",
   "recent_additions": [
+    {
+      "id": "self-improving-agent",
+      "name": "self-improving-agent",
+      "added": "2026-03-09"
+    },
     {
       "id": "dream-head-tail-to-video",
       "name": "Dream Head Tail to Video",
@@ -58,11 +63,6 @@
       "id": "context-slim",
       "name": "ContextSlim Context Window Profiler & Optimizer",
       "added": "2026-03-09"
-    },
-    {
-      "id": "tariffx-hts-classifier",
-      "name": "TariffX HTS Classifier",
-      "added": "2026-03-09"
     }
   ],
   "top_skills": [
@@ -70,6 +70,11 @@
       "id": "accessibility",
       "score": 9.5,
       "stars": 182462
+    },
+    {
+      "id": "self-improving-agent",
+      "score": 9.1,
+      "stars": 1563
     },
     {
       "id": "xurl",
@@ -97,25 +102,20 @@
       "stars": 15588
     },
     {
-      "id": "interactive-slides-openclaw-skill",
-      "score": 8.7,
-      "stars": 0
-    },
-    {
       "id": "soul-md",
       "score": 8.7,
       "stars": 173
     },
     {
-      "id": "asana-cli",
+      "id": "interactive-slides-openclaw-skill",
       "score": 8.7,
       "stars": 0
     },
     {
-      "id": "clawd-cursor",
-      "score": 8.6,
-      "stars": 133
+      "id": "asana-cli",
+      "score": 8.7,
+      "stars": 0
     }
   ],
-  "average_score": 7.72
+  "average_score": 7.74
 }
