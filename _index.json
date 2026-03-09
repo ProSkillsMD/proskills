@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 34,
+  "total": 35,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T08:09:00Z",
+  "last_updated": "2026-03-09T08:10:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -316,6 +316,16 @@
       "stars": 1,
       "downloads": 1682,
       "verified_at": "2026-03-09T08:09:00Z"
+    },
+    {
+      "id": "idfm-journey-skill",
+      "name": "idfm-journey-skill",
+      "category": "automation",
+      "slug": "idfm-journey-skill",
+      "score": 7.43,
+      "stars": 0,
+      "downloads": 1689,
+      "verified_at": "2026-03-09T08:10:00Z"
     }
   ]
 }

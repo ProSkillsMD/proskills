@@ -1,0 +1,37 @@
+{
+  "id": "idfm-journey-skill",
+  "name": "idfm-journey-skill",
+  "slug": "idfm-journey-skill",
+  "category": "automation",
+  "description": "Query Paris public transit (IDFM) — place search, journey planning, and incident reports. Integrates with Île-de-France Mobilités API for real-time transit data.",
+  "author": {
+    "github": "anthonymq",
+    "name": "anthonymq"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthonymq/idfm-journey-skill",
+  "clawhub_url": "https://clawhub.ai/skills/idfm-journey-skill",
+  "stars": 0,
+  "downloads": 1689,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["paris", "transit", "idfm", "journey-planning", "public-transport", "automation", "france"],
+  "verified_at": "2026-03-09T08:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 7,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.43
+  },
+  "review": "Solid Paris IDFM transit integration covering place search, journey planning, and incident reports. 1689 downloads. Useful niche skill for Paris commuters and travel automation. Conditional approval — good functionality and uniqueness.",
+  "rocket_findings": {
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
