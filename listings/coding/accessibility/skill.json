@@ -1,0 +1,40 @@
+{
+  "id": "accessibility",
+  "name": "VS Code Accessibility Engineering",
+  "slug": "accessibility",
+  "category": "coding",
+  "description": "Exceptional Microsoft VS Code accessibility engineering documentation covering accessibility help dialogs, accessible views, verbosity settings, ARIA, keyboard navigation, and ARIA labels. Production-quality, actively maintained, authoritative source for building fully accessible VS Code extensions and features.",
+  "author": {
+    "github": "microsoft",
+    "name": "Microsoft"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/microsoft/vscode",
+  "skill_path": "https://github.com/microsoft/vscode/tree/main/.github/skills/accessibility",
+  "stars": 182462,
+  "license": "MIT",
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["accessibility", "vscode", "a11y", "aria", "keyboard-navigation", "screen-reader", "microsoft"],
+  "verified_at": "2026-03-09T05:23:00Z",
+  "scores": {
+    "functionality": 10,
+    "documentation": 10,
+    "security": 9,
+    "maintenance": 10,
+    "usefulness": 10,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 9.5
+  },
+  "review": "Exceptional Microsoft VS Code accessibility engineering documentation covering accessibility help dialogs, accessible views, verbosity settings, ARIA, keyboard navigation, and ARIA labels. Production-quality, actively maintained, authoritative source. Outstanding score at 9.5/10.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed",
+    "active": true
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "16KB comprehensive VS Code accessibility engineering guidance. All source files confirmed."
+  },
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/175"
+}

@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 5,
+  "total": 6,
   "categories": [
-    "content",
     "automation",
-    "research",
-    "coding"
+    "coding",
+    "content",
+    "research"
   ],
-  "last_updated": "2026-03-09T04:23:00Z",
+  "last_updated": "2026-03-09T05:23:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -53,6 +53,15 @@
       "score": 7.53,
       "stars": 0,
       "verified_at": "2026-03-09T04:23:00Z"
+    },
+    {
+      "id": "accessibility",
+      "slug": "accessibility",
+      "category": "coding",
+      "name": "VS Code Accessibility Engineering",
+      "stars": 182462,
+      "score": 9.5,
+      "verified_at": "2026-03-09T05:23:00Z"
     }
   ]
 }

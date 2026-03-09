@@ -1,15 +1,26 @@
 {
-  "total_skills": 4,
-  "verified": 4,
+  "total_skills": 6,
+  "verified": 6,
   "categories": {
     "content": 1,
     "automation": 1,
     "research": 1,
-    "coding": 1
+    "coding": 2
   },
-  "last_scan": "2026-03-09T04:22:00Z",
-  "recent_additions": ["ui-ux-pro-max", "last30days-skill", "planning-with-files", "marketingskills"],
+  "last_scan": "2026-03-09T05:23:00Z",
+  "recent_additions": [
+    "accessibility",
+    "ui-ux-pro-max",
+    "last30days-skill",
+    "planning-with-files",
+    "marketingskills"
+  ],
   "top_skills": [
+    {
+      "id": "accessibility",
+      "score": 9.5,
+      "stars": 182462
+    },
     {
       "id": "last30days-skill",
       "score": 9.03,
