@@ -1,0 +1,36 @@
+{
+  "id": "interactive-slides-openclaw-skill",
+  "name": "Interactive Slides OpenClaw Skill",
+  "slug": "interactive-slides-openclaw-skill",
+  "category": "content",
+  "description": "OpenClaw skill for creating interactive, animated web presentations. Single HTML file, GSAP animations, slide/scroll modes, PPT export, style presets, brand kit integration, and accessibility compliance.",
+  "author": {
+    "github": "webleon",
+    "name": "webleon"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/webleon/interactive-slides-openclaw-skill",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["presentations", "slides", "content", "animation", "gsap", "ppt-export", "accessibility"],
+  "verified_at": "2026-03-09T07:22:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.7
+  },
+  "review": "Professional-grade presentation tooling with 700+ line documentation. Features style presets, brand kit integration, PPT export, and accessibility compliance. Sets a high bar for content creation skills in OpenClaw.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

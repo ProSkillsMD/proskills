@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 25,
+  "total": 26,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:11:00Z",
+  "last_updated": "2026-03-09T07:22:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -234,6 +234,15 @@
       "stars": 0,
       "score": 6.9,
       "verified_at": "2026-03-09T07:11:00Z"
+    },
+    {
+      "id": "interactive-slides-openclaw-skill",
+      "name": "Interactive Slides OpenClaw Skill",
+      "category": "content",
+      "slug": "interactive-slides-openclaw-skill",
+      "score": 8.7,
+      "stars": 0,
+      "verified_at": "2026-03-09T07:22:00Z"
     }
   ]
 }
