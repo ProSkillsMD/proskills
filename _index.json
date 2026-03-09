@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:44:00Z",
+  "last_updated": "2026-03-09T17:45:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -755,6 +755,16 @@
       "stars": 5,
       "downloads": 5690,
       "verified_at": "2026-03-09T17:44:00Z"
+    },
+    {
+      "id": "quality-documentation-manager",
+      "name": "quality-documentation-manager",
+      "category": "research",
+      "slug": "quality-documentation-manager",
+      "score": 8.47,
+      "stars": 0,
+      "downloads": 2342,
+      "verified_at": "2026-03-09T17:45:00Z"
     }
   ]
 }

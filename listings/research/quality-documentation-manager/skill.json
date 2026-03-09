@@ -1,0 +1,18 @@
+{
+  "id": "quality-documentation-manager",
+  "name": "quality-documentation-manager",
+  "slug": "quality-documentation-manager",
+  "category": "research",
+  "description": "Document control system for medical device QMS covering document numbering, version control, ISO 13485 §4.2.4 and FDA 21 CFR 820.40 compliance.",
+  "author": {"github": "alirezarezvani", "name": "alirezarezvani"},
+  "version": "2.1.1",
+  "clawhub_url": "https://clawhub.ai/skills/quality-documentation-manager",
+  "stars": 0,
+  "downloads": 2342,
+  "tags": ["qms", "medical-devices", "document-control", "iso-13485", "fda", "compliance", "research"],
+  "verified_at": "2026-03-09T17:45:00Z",
+  "scores": {"functionality": 9, "documentation": 9, "security": 10, "maintenance": 7, "usefulness": 8, "uniqueness": 9, "code_quality": 9, "average": 8.47},
+  "review": "Strongest technical entry in the alirezarezvani QMS suite. Working document_validator.py CLI with proper OOP, rule codes, severity weighting — professionally written. Best documentation in the suite (12 triggers, full TOC, validation checkpoints, sample JSON). Covers mandatory high-stakes regulatory domain (ISO 13485 §4.2.4, FDA 21 CFR 820.40, Part 11). Zero security concerns — pure stdlib Python, no network calls.",
+  "notes": "",
+  "status": "verified"
+}
