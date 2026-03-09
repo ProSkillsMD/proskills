@@ -12,7 +12,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:42:00Z",
+  "last_updated": "2026-03-09T17:44:00Z",
   "skills": [
     {
       "id": "dream-head-tail-to-video",
@@ -745,6 +745,16 @@
       "stars": 3,
       "downloads": 3864,
       "verified_at": "2026-03-09T17:40:00Z"
+    },
+    {
+      "id": "tencent-docs",
+      "name": "tencent-docs",
+      "category": "productivity",
+      "slug": "tencent-docs",
+      "score": 6.6,
+      "stars": 5,
+      "downloads": 5690,
+      "verified_at": "2026-03-09T17:44:00Z"
     }
   ]
 }

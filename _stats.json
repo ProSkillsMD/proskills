@@ -1,19 +1,24 @@
 {
-  "total_skills": 81,
-  "verified": 81,
+  "total_skills": 82,
+  "verified": 82,
   "categories": {
     "utilities": 2,
     "data": 7,
     "automation": 32,
     "coding": 10,
     "security": 2,
-    "productivity": 6,
+    "productivity": 7,
     "devops": 5,
     "research": 12,
     "content": 5
   },
-  "last_scan": "2026-03-09T17:42:00Z",
+  "last_scan": "2026-03-09T17:44:00Z",
   "recent_additions": [
+    {
+      "id": "tencent-docs",
+      "name": "tencent-docs",
+      "added": "2026-03-09"
+    },
     {
       "id": "senior-architect",
       "name": "senior-architect",
@@ -57,11 +62,6 @@
     {
       "id": "knowfun-skills",
       "name": "Knowfun",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "tax",
-      "name": "Tax",
       "added": "2026-03-09"
     }
   ],
@@ -117,5 +117,5 @@
       "stars": 0
     }
   ],
-  "average_score": 7.73
+  "average_score": 7.71
 }

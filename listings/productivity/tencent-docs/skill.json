@@ -1,0 +1,18 @@
+{
+  "id": "tencent-docs",
+  "name": "tencent-docs",
+  "slug": "tencent-docs",
+  "category": "productivity",
+  "description": "Complete Tencent Docs operations — create, query, manage online documents.",
+  "author": {"github": "liyang58", "name": "liyang58"},
+  "version": "1.0.6",
+  "clawhub_url": "https://clawhub.ai/skills/tencent-docs",
+  "stars": 5,
+  "downloads": 5690,
+  "tags": ["tencent", "documents", "productivity", "mcp", "integration", "china"],
+  "verified_at": "2026-03-09T17:44:00Z",
+  "scores": {"functionality": 7, "documentation": 7, "security": 6, "maintenance": 6, "usefulness": 5, "uniqueness": 8, "code_quality": 7, "average": 6.6},
+  "review": "Tencent Docs is a valid integration skill with clear functionality, but its utility is geographically constrained to users with Tencent ecosystem access (primarily mainland China). Security flagged for region-locked credential pattern. Published with advisory notes.",
+  "notes": "Best suited for users in China or with Tencent ecosystem access. Requires TENCENT_DOCS_TOKEN. Geographic constraints may limit usefulness outside mainland China.",
+  "status": "verified"
+}
