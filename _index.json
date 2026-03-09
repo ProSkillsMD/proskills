@@ -1,1 +1,17 @@
-{"version":1,"total":0,"categories":[],"last_updated":null}
+{
+  "version": 1,
+  "total": 1,
+  "categories": ["content"],
+  "last_updated": "2026-03-09T04:21:32Z",
+  "skills": [
+    {
+      "id": "marketingskills",
+      "slug": "marketingskills",
+      "category": "content",
+      "name": "marketingskills",
+      "stars": 12000,
+      "average_score": 8.9,
+      "verified_at": "2026-03-09T04:21:32Z"
+    }
+  ]
+}

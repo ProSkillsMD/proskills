@@ -1,1 +1,16 @@
-{"total_skills":0,"verified":0,"categories":{},"last_scan":null}
+{
+  "total_skills": 1,
+  "verified": 1,
+  "categories": {
+    "content": 1
+  },
+  "last_scan": "2026-03-09T04:21:32Z",
+  "recent_additions": ["marketingskills"],
+  "top_skills": [
+    {
+      "id": "marketingskills",
+      "score": 8.9,
+      "stars": 12000
+    }
+  ]
+}
