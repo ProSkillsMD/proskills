@@ -1,0 +1,39 @@
+{
+  "id": "nano-banana-pro-prompts-recommend-skill",
+  "name": "Nano Banana Pro Prompts Recommend",
+  "slug": "nano-banana-pro-prompts-recommend-skill",
+  "category": "research",
+  "description": "AI skill for OpenClaw & Claude Code that recommends from 10,000+ Nano Banana Pro (Gemini) image prompts. Features smart search by use case, content remix mode, and sample images. Automated twice-daily updates keep the prompt library current.",
+  "author": {
+    "github": "YouMind-OpenLab",
+    "name": "YouMind-OpenLab"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill",
+  "stars": 1169,
+  "license": "unknown",
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["prompts", "image-generation", "gemini", "recommendation", "search", "ai-prompts", "content-remix"],
+  "verified_at": "2026-03-09T05:56:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "Sophisticated prompt recommendation service with 10,000+ curated prompts for Gemini image generation. Automated twice-daily updates, grep-optimized search, and content remix mode make this an exemplary skill. Highly starred (1160+) with exceptional maintenance cadence.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed",
+    "active": true
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "10,000+ prompt library with automated updates, smart search, and content remix mode verified."
+  },
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/76"
+}
