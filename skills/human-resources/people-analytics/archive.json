@@ -1,0 +1,11 @@
+{
+  "slug": "people-analytics",
+  "category": "human-resources",
+  "source_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "source_skill_sha": null,
+  "archived_at": "2026-03-09T22:05:38.051256+00:00",
+  "last_synced_at": "2026-03-09T22:05:38.051275+00:00",
+  "source_available": true,
+  "needs_review": false,
+  "change_pct_threshold": 30
+}
