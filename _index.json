@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T17:05:00Z",
+  "last_updated": "2026-03-09T17:10:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -456,6 +456,51 @@
       "score": 8.3,
       "stars": 36,
       "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "nemp-memory",
+      "slug": "nemp-memory",
+      "category": "productivity",
+      "name": "nemp-memory",
+      "stars": 74,
+      "average_score": 7.3,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "ham",
+      "slug": "ham",
+      "category": "productivity",
+      "name": "ham",
+      "stars": 25,
+      "average_score": 8.1,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "iblai-openclaw-router",
+      "slug": "iblai-openclaw-router",
+      "category": "automation",
+      "name": "iblai-openclaw-router",
+      "stars": 20,
+      "average_score": 8.3,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "ultimate-ai-media-generator-skill",
+      "slug": "ultimate-ai-media-generator-skill",
+      "category": "content",
+      "name": "Ultimate AI Media Generator",
+      "stars": 11,
+      "average_score": 7.7,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "defillama-watchdog",
+      "slug": "defillama-watchdog",
+      "category": "data",
+      "name": "defillama-watchdog",
+      "stars": 8,
+      "average_score": 7.9,
+      "verified_at": "2026-03-09T17:10:00Z"
     }
   ]
 }

@@ -1,0 +1,37 @@
+{
+  "id": "defillama-watchdog",
+  "name": "defillama-watchdog",
+  "slug": "defillama-watchdog",
+  "category": "data",
+  "description": "DeFi protocol sentinel for proactive TVL monitoring via the DeFiLlama public API. 8 modular scripts covering TVL drops, capital rotation, bridge surges, hack checks, smart money signals, token unlock risks, and revenue growth. HEARTBEAT_OK/ALERT output pattern for agent parsing.",
+  "author": {
+    "github": "Neros0",
+    "name": "Neros0"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Neros0/defillama-watchdog",
+  "stars": 8,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["defi", "monitoring", "tvl", "blockchain", "data", "alerts", "defillama"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 6,
+    "usefulness": 7,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 7.9
+  },
+  "review": "Dedicated DeFi protocol sentinel filling a genuine gap in the OpenClaw catalog. Multi-signal HEARTBEAT_OK/ALERT architecture with risk-chaining (TVL drop → capital rotation → hack check) shows intelligent design. Exemplary security hygiene: MIT license, public API, stdlib-only Python, no hardcoded secrets.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 36,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "nemp-memory",
+  "name": "nemp-memory",
+  "slug": "nemp-memory",
+  "category": "productivity",
+  "description": "Persistent local memory for AI agents. Save and recall memories as local JSON with keyword-expanded search, CLAUDE.md two-way sync, auto-stack detection, agent ID tracking, and access logs. Zero-dependency, zero-cloud, plain JSON storage.",
+  "author": {
+    "github": "SukinShetty",
+    "name": "SukinShetty"
+  },
+  "version": "0.2.0",
+  "repo_url": "https://github.com/SukinShetty/Nemp-memory",
+  "stars": 74,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["memory", "persistence", "context", "productivity", "local", "zero-dependency"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 6,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 6,
+    "code_quality": 6,
+    "average": 7.3
+  },
+  "review": "Privacy-first persistent memory skill with zero-dependency local JSON storage, CLAUDE.md sync, and cross-session recall. Security 9/10 — fully local, no credentials. Documentation 8/10 — exceptional README with feature demos. Core SKILL.md body needs agent trigger phrases for full discoverability.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 16,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

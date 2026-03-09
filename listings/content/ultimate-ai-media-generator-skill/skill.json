@@ -1,0 +1,37 @@
+{
+  "id": "ultimate-ai-media-generator-skill",
+  "name": "Ultimate AI Media Generator",
+  "slug": "ultimate-ai-media-generator-skill",
+  "category": "content",
+  "description": "AI image and video generation via the CyberBara API. Supports Sora-2, Kling, Seedance, and Nano Banana models. Layered Python CLI architecture with credit quoting, confirmation gate before submission, batch generation, auto-save, and multi-platform support.",
+  "author": {
+    "github": "ZeroLu",
+    "name": "ZeroLu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ZeroLu/Ultimate-AI-Media-Generator-Skill",
+  "stars": 11,
+  "works_with": ["openclaw", "claude-code", "codex", "cursor"],
+  "tags": ["media", "image-generation", "video-generation", "ai", "content", "cyberbara", "sora"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 6,
+    "maintenance": 8,
+    "usefulness": 7,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.7
+  },
+  "review": "First media generation skill in the OpenClaw catalog. Comprehensive CLI covering models listing, credit quoting, task creation, polling, and batch generation via CyberBara API. Confirmation-gate before every submission is an excellent safety feature. Requires paid CyberBara API key and credits.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 30,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
