@@ -1,0 +1,37 @@
+{
+  "id": "feishu-doc",
+  "name": "feishu-doc",
+  "slug": "feishu-doc",
+  "category": "productivity",
+  "description": "Feishu/Lark document API integration with 15 operations covering the full document lifecycle: read, write, append, create, get/update/delete blocks, create tables, write table cells, upload images/files. Block-level granularity for enterprise document automation.",
+  "author": {
+    "github": "openclaw",
+    "name": "OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "skill_path": "extensions/feishu/skills/feishu-doc",
+  "stars": 289168,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["feishu", "lark", "documents", "enterprise", "productivity", "api", "china"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "High-quality Feishu/Lark document skill from the trusted openclaw monorepo. 15-action API design covers full document lifecycle with complete JSON examples for every operation. Edge cases (owner_open_id, image scaling, markdown table limitations) well-documented. Feishu enterprise use cases are underserved in current catalog.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

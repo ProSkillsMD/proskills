@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T17:10:00Z",
+  "last_updated": "2026-03-09T17:15:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -500,6 +500,51 @@
       "name": "defillama-watchdog",
       "stars": 8,
       "average_score": 7.9,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "apple-notes",
+      "slug": "apple-notes",
+      "category": "productivity",
+      "name": "apple-notes",
+      "stars": 289168,
+      "average_score": 7.9,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "feishu-doc",
+      "slug": "feishu-doc",
+      "category": "productivity",
+      "name": "feishu-doc",
+      "stars": 289168,
+      "average_score": 8.3,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "xurl",
+      "slug": "xurl",
+      "category": "automation",
+      "name": "xurl",
+      "stars": 428,
+      "average_score": 9.1,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "diffs",
+      "slug": "diffs",
+      "category": "coding",
+      "name": "diffs",
+      "stars": 289168,
+      "average_score": 8.1,
+      "verified_at": "2026-03-09T17:10:00Z"
+    },
+    {
+      "id": "blucli",
+      "slug": "blucli",
+      "category": "automation",
+      "name": "blucli",
+      "stars": 289168,
+      "average_score": 6.6,
       "verified_at": "2026-03-09T17:10:00Z"
     }
   ]

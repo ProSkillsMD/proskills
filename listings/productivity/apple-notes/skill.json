@@ -1,0 +1,39 @@
+{
+  "id": "apple-notes",
+  "name": "apple-notes",
+  "slug": "apple-notes",
+  "category": "productivity",
+  "description": "Apple Notes integration via the memo CLI. Create, view, edit, delete, search, move, and export notes to HTML/Markdown. macOS-only skill using Homebrew-installable memo binary. Fully local, no cloud APIs required.",
+  "author": {
+    "github": "openclaw",
+    "name": "OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "skill_path": "skills/apple-notes",
+  "stars": 289168,
+  "os": ["darwin"],
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["apple-notes", "macos", "notes", "productivity", "memo", "darwin"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 7,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.9
+  },
+  "review": "Apple Notes CLI integration from the official openclaw monorepo. Covers full note lifecycle (create/view/edit/delete/search/move/export). macOS-only by design with correct os:darwin metadata. Purely local, no network calls. Backed by the trusted openclaw/openclaw monorepo (289K stars). Drax PARTIAL is expected — not a defect.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "partial",
+    "smoke_test": "partial",
+    "notes": "macOS-only — requires memo CLI and Apple Notes.app"
+  }
+}

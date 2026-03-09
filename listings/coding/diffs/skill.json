@@ -1,0 +1,37 @@
+{
+  "id": "diffs",
+  "name": "diffs",
+  "slug": "diffs",
+  "category": "coding",
+  "description": "OpenClaw-native diff visualization skill. Produce shareable diffs with before/after text or unified patch input. Modes: view (gateway-hosted URL), file (PNG/PDF artifact), both. Canvas integration for rich agent workflows. Trains agents to use the native diffs tool instead of manual edit summaries.",
+  "author": {
+    "github": "openclaw",
+    "name": "OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "skill_path": "extensions/diffs/skills/diffs",
+  "stars": 289168,
+  "works_with": ["openclaw"],
+  "tags": ["diffs", "code-review", "visualization", "native", "canvas", "productivity"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 8.1
+  },
+  "review": "Clean, well-crafted OpenClaw-native tool wrapper from the trusted monorepo. Trains agents to use the diffs tool correctly and avoid inferior manual summaries. mode=view (canvas-hosted viewer URL) + mode=file (PNG/PDF) + message tool delivery pattern are well-specified. Short but high-density skill guidance.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

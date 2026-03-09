@@ -1,0 +1,37 @@
+{
+  "id": "xurl",
+  "name": "xurl",
+  "slug": "xurl",
+  "category": "automation",
+  "description": "Official X (Twitter) API CLI from the xdevplatform team. Comprehensive coverage: posts, replies, quotes, DMs, media upload, search, timelines, social graph, bookmarks, streaming. Multiple auth methods (OAuth 2.0, 1.0a, app-only). Gold-standard security documentation for agent credential handling.",
+  "author": {
+    "github": "xdevplatform",
+    "name": "X Developer Platform"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/xdevplatform/xurl",
+  "stars": 428,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["twitter", "x", "social-media", "api", "automation", "go", "oauth"],
+  "verified_at": "2026-03-09T17:10:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 10,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 9.1
+  },
+  "review": "Highest-scoring skill in this batch. Official first-party X API CLI from xdevplatform. Exceptional security documentation — explicit forbidden flags list, credential handling rules, and agent session safety guidance. Gold standard for secure credential design in agent skills. Comprehensive coverage of all X API v2 endpoints.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 42,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
