@@ -3,6 +3,18 @@ description: Submit an OpenClaw skill for review and listing on ProSkills.md
 title: "[Submission] "
 labels: ["submission"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ SKILL.md Required
+        Your repo **must contain a `SKILL.md` file** to be considered for listing.
+        A `README.md` alone will be **automatically rejected**.
+        
+        → [View the required SKILL.md format](https://proskills.md/docs/skill-format)
+        → [See example SKILL.md](https://github.com/ProSkillsMD/proskills/blob/main/EXAMPLE_SKILL.md)
+        
+        Skills are reviewed by our automated pipeline (Rocket → Drax → Gamora) and must score ≥ 6.5/10 to be listed.
+
   - type: input
     id: skill_url
     attributes:
@@ -23,14 +35,14 @@ body:
     attributes:
       label: Category
       options:
-        - wordpress
-        - shopify
-        - frontend
-        - backend
+        - coding
+        - automation
+        - api
         - devops
-        - security
-        - productivity
+        - content
+        - research
         - data
+        - security
     validations:
       required: true
   - type: textarea
@@ -45,9 +57,13 @@ body:
     attributes:
       label: Pre-submission checklist
       options:
-        - label: The repo has a valid SKILL.md with complete frontmatter
+        - label: "My repo contains a valid SKILL.md (not just a README.md)"
+          required: true
+        - label: The SKILL.md has complete frontmatter (name, description, version, author, triggers)
           required: true
         - label: I have tested this skill myself and it works as documented
+          required: true
+        - label: This skill has an open-source license (MIT, Apache-2.0, ISC, etc.)
           required: true
         - label: This skill does not contain malicious code or suspicious shell commands
           required: true
