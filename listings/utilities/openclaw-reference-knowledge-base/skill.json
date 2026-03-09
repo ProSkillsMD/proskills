@@ -1,0 +1,34 @@
+{
+  "id": "openclaw-reference-knowledge-base",
+  "name": "OpenClaw Reference Knowledge Base",
+  "slug": "openclaw-reference-knowledge-base",
+  "category": "utilities",
+  "description": "Exceptional skill. 151 stars, 51 reference files, 5,500+ lines. Comprehensive OpenClaw knowledge base covering installation, 20+ channels, gateway ops, security, multi-agent, memory, streaming, voice, troubleshooting. Bilingual EN/ZH. This is the most comprehensive OpenClaw knowledge skill reviewed.",
+  "author": {
+    "github": "win4r",
+    "name": "win4r"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/win4r/OpenClaw-Skill",
+  "stars": 151,
+  "works_with": ["openclaw"],
+  "tags": ["knowledge-base", "reference", "documentation", "troubleshooting", "bilingual", "zh", "en"],
+  "verified_at": "2026-03-09T17:21:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 10,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 9.0
+  },
+  "review": "Exceptional skill. 151 stars, 51 reference files, 5,500+ lines. Comprehensive OpenClaw knowledge base covering installation, 20+ channels, gateway ops, security, multi-agent, memory, streaming, voice, troubleshooting. Bilingual EN/ZH. This is the most comprehensive OpenClaw knowledge skill reviewed.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "manual_review",
+    "notes": "No license, but Gamora approved — 151 stars, established author"
+  },
+  "catalog_notes": "HIGH PRIORITY — 151 stars. Established author (68 repos, 973 followers since 2018)."
+}

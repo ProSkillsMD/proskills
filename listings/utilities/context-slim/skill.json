@@ -1,0 +1,33 @@
+{
+  "id": "context-slim",
+  "name": "ContextSlim Context Window Profiler & Optimizer",
+  "slug": "context-slim",
+  "category": "utilities",
+  "description": "Clean, well-documented, security-conscious utility that fills a real gap. Local-only design — no external API calls, no data leaves the machine. Pure Python, zero external dependencies. Provides context profiling, compression suggestions, and HTML reports. LIMITATIONS.md shows intellectual honesty.",
+  "author": {
+    "github": "TheShadowRose",
+    "name": "TheShadowRose"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://clawhub.ai/skills/context-slim",
+  "stars": null,
+  "works_with": ["openclaw"],
+  "tags": ["context-window", "profiler", "optimizer", "local-only", "privacy", "python"],
+  "verified_at": "2026-03-09T17:21:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "Clean, well-documented, security-conscious utility that fills a real gap. Local-only design — no external API calls, no data leaves the machine. Pure Python, zero external dependencies. Provides context profiling, compression suggestions, and HTML reports. LIMITATIONS.md shows intellectual honesty.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "catalog_notes": "ClawHub source. Local-only design, privacy-focused."
+}

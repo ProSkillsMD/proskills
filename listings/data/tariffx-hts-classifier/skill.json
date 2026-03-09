@@ -3,18 +3,19 @@
   "name": "TariffX HTS Classifier",
   "slug": "tariffx-hts-classifier",
   "category": "data",
-  "description": "US trade compliance skill: HTS code classification, Section 301 tariff rates, UFLPA/AD-CVD compliance screening via TariffX cloud API. Bilingual (EN/ZH) docs with JSON output parsing. Requires TariffX API key.",
+  "description": "Specialized trade compliance integration with real business value. HTS code classification, Section 301 tariff rates, UFLPA/AD-CVD compliance screening via TariffX cloud API. First trade compliance/HTS classification skill in the ecosystem.",
   "author": {
     "github": "tariffxai",
-    "name": "TariffX AI"
+    "name": "tariffxai"
   },
   "version": "1.0.0",
   "repo_url": "https://github.com/tariffxai/openclaw-skill-tariffx",
   "stars": 0,
   "works_with": ["openclaw"],
-  "tags": ["trade", "compliance", "hts", "tariff", "finance", "api"],
-  "requires_api_key": "tariffx.ai",
-  "verified_at": "2026-03-09T17:17:00Z",
+  "tags": ["trade-compliance", "hts", "tariff", "customs", "classification", "api-integration"],
+  "verified_at": "2026-03-09T17:21:00Z",
+  "requires_api_key": true,
+  "api_provider": "tariffx.ai",
   "scores": {
     "functionality": 7,
     "documentation": 8,
@@ -25,13 +26,10 @@
     "code_quality": 7,
     "average": 7.1
   },
-  "review": "Specialized trade compliance integration with real business value. First HTS classification skill — niche but no substitute exists. Requires TariffX commercial API key. US trade compliance is complex, time-sensitive, and costly to get wrong.",
+  "review": "Specialized trade compliance integration with real business value. HTS code classification, Section 301 tariff rates, UFLPA/AD-CVD compliance screening via TariffX cloud API. First trade compliance/HTS classification skill in the ecosystem.",
   "rocket_findings": {
-    "license": "none",
+    "license": "unknown",
     "security_scan": "passed"
   },
-  "drax_results": {
-    "install": "n/a",
-    "smoke_test": "manual-review"
-  }
+  "catalog_notes": "Requires API key from tariffx.ai. First trade compliance skill in ecosystem."
 }

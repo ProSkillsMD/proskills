@@ -1,0 +1,33 @@
+{
+  "id": "clawguard-security-middleware",
+  "name": "ClawGuard Security Middleware",
+  "slug": "clawguard-security-middleware",
+  "category": "security",
+  "description": "Outstanding security product that fills a critical gap in the OpenClaw ecosystem. Multi-layer security enforcement (shell+file+network) with YAML policy, deny-by-default, fail-closed on timeout, JSONL audit trail, human-in-the-loop approval. Available as npm package and Python SDK.",
+  "author": {
+    "github": "afroCoderHanane",
+    "name": "afroCoderHanane"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/afroCoderHanane/clawguard",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["security", "middleware", "policy", "audit", "compliance", "human-in-the-loop"],
+  "verified_at": "2026-03-09T17:21:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.1
+  },
+  "review": "Outstanding security product that fills a critical gap in the OpenClaw ecosystem. Multi-layer security enforcement (shell+file+network) with YAML policy, deny-by-default, fail-closed on timeout, JSONL audit trail, human-in-the-loop approval. Available as npm package and Python SDK.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "catalog_notes": "Conditional approval. Author should add YAML frontmatter to openclaw-skill/skill.md and add root SKILL.md. Excellent security tool — actively maintained."
+}

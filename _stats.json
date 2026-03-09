@@ -1,41 +1,27 @@
 {
-  "total_skills": 70,
-  "verified": 24,
+  "total_skills": 71,
+  "verified": 71,
   "categories": {
-    "content": 4,
-    "automation": 25,
-    "research": 9,
-    "coding": 10,
-    "devops": 5,
+    "utilities": 2,
     "data": 7,
+    "automation": 26,
+    "coding": 9,
     "security": 2,
-    "productivity": 7
+    "productivity": 6,
+    "devops": 5,
+    "research": 10,
+    "content": 4
   },
-  "last_scan": "2026-03-09T17:17:00Z",
+  "last_scan": "2026-03-09T17:24:57Z",
   "recent_additions": [
     {
+      "id": "openclaw-reference-knowledge-base",
+      "name": "OpenClaw Reference Knowledge Base",
+      "added": "2026-03-09"
+    },
+    {
       "id": "context-slim",
-      "name": "ContextSlim — Context Window Profiler & Optimizer",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "loopy-claude",
-      "name": "Loopy Claude",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "clawguard",
-      "name": "ClawGuard",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "openclaw-reference-docs",
-      "name": "OpenClaw Reference Docs",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "codex-cli-task",
-      "name": "Codex CLI Task Runner",
+      "name": "ContextSlim Context Window Profiler & Optimizer",
       "added": "2026-03-09"
     },
     {
@@ -44,8 +30,28 @@
       "added": "2026-03-09"
     },
     {
-      "id": "agent-orchestration-20260309-lzw",
-      "name": "OPC Agent Orchestration",
+      "id": "openclaw-skill-codex-cli",
+      "name": "Codex CLI Task Runner",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "opc-multi-agent-orchestration",
+      "name": "OPC Multi-Agent Orchestration",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "loopy-claude-feature-designer",
+      "name": "Loopy Claude Feature Designer",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "clawguard-security-middleware",
+      "name": "ClawGuard Security Middleware",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "context-slim",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
       "added": "2026-03-09"
     },
     {
@@ -54,13 +60,8 @@
       "added": "2026-03-09"
     },
     {
-      "id": "espocrm",
-      "name": "espocrm",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "notion",
-      "name": "notion",
+      "id": "blogwatcher",
+      "name": "blogwatcher",
       "added": "2026-03-09"
     }
   ],
@@ -71,9 +72,19 @@
       "stars": 182462
     },
     {
+      "id": "xurl",
+      "score": 9.1,
+      "stars": 428
+    },
+    {
       "id": "last30days-skill",
       "score": 9.03,
       "stars": 3858
+    },
+    {
+      "id": "openclaw-reference-knowledge-base",
+      "score": 9.0,
+      "stars": 151
     },
     {
       "id": "marketingskills",
@@ -86,7 +97,7 @@
       "stars": 15588
     },
     {
-      "id": "asana-cli",
+      "id": "interactive-slides-openclaw-skill",
       "score": 8.7,
       "stars": 0
     },
@@ -96,7 +107,7 @@
       "stars": 173
     },
     {
-      "id": "interactive-slides-openclaw-skill",
+      "id": "asana-cli",
       "score": 8.7,
       "stars": 0
     },
@@ -104,17 +115,7 @@
       "id": "clawd-cursor",
       "score": 8.6,
       "stars": 133
-    },
-    {
-      "id": "comfyui-skills-openclaw",
-      "score": 8.5,
-      "stars": 6
-    },
-    {
-      "id": "team-tasks",
-      "score": 8.4,
-      "stars": 380
     }
   ],
-  "average_score": 7.61
+  "average_score": 7.78
 }

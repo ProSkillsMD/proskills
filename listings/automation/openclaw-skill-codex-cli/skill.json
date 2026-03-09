@@ -1,9 +1,9 @@
 {
-  "id": "codex-cli-task",
+  "id": "openclaw-skill-codex-cli",
   "name": "Codex CLI Task Runner",
-  "slug": "codex-cli-task",
-  "category": "coding",
-  "description": "Async Codex CLI task runner for OpenClaw. Runs long-running Codex tasks in background via nohup with 60s heartbeats, crash-safe notifications, session resumption, and PID tracking. Multi-channel delivery via Telegram DM threads and WhatsApp. 752-line SKILL.md is one of the most thorough in the ecosystem.",
+  "slug": "openclaw-skill-codex-cli",
+  "category": "automation",
+  "description": "Polished, production-quality skill that solves a real problem elegantly. The SKILL.md alone is one of the most thorough in the ecosystem. The async architecture (nohup + heartbeat + wake) is well thought out.",
   "author": {
     "github": "sbrin",
     "name": "sbrin"
@@ -11,9 +11,9 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/sbrin/openclaw-skill-codex-cli",
   "stars": 0,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["codex", "async", "background", "coding", "automation", "telegram"],
-  "verified_at": "2026-03-09T17:17:00Z",
+  "works_with": ["openclaw"],
+  "tags": ["codex", "cli", "task-runner", "automation", "async", "heartbeat"],
+  "verified_at": "2026-03-09T17:21:00Z",
   "scores": {
     "functionality": 9,
     "documentation": 9,
@@ -27,11 +27,11 @@
   "review": "Polished, production-quality skill that solves a real problem elegantly. The SKILL.md alone is one of the most thorough in the ecosystem. The async architecture (nohup + heartbeat + wake) is well thought out. Drax confirmed everything works.",
   "rocket_findings": {
     "license": "MIT",
-    "author_repos": 35,
     "security_scan": "passed"
   },
   "drax_results": {
     "install": "passed",
-    "smoke_test": "passed"
+    "smoke_test": "passed",
+    "notes": "npm/python3+requests confirmed, 752-line docs"
   }
 }
