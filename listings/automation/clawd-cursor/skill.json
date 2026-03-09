@@ -1,0 +1,40 @@
+{
+  "id": "clawd-cursor",
+  "name": "Clawd Cursor",
+  "slug": "clawd-cursor",
+  "category": "automation",
+  "description": "Full desktop GUI automation for OpenClaw via a 5-layer pipeline (Browser→Action Router→Smart Interaction→A11y Reasoner→Computer Use). Supports Windows/macOS with Linux browser-only. Multi-provider including free Ollama mode — 80%+ of tasks at zero cost. REST API binds to 127.0.0.1 only. 3-tier safety system (Auto/Preview/Confirm). 133 stars.",
+  "author": {
+    "github": "AmrDab",
+    "name": "AmrDab"
+  },
+  "version": "0.6.3",
+  "repo_url": "https://github.com/AmrDab/clawd-cursor",
+  "stars": 133,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["desktop-automation", "gui", "computer-use", "ollama", "typescript", "accessibility", "safety"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.6
+  },
+  "review": "clawd-cursor is an exceptionally well-engineered skill. The 5-layer pipeline, multi-provider support (including free Ollama), 3-tier safety approval system, and thorough documentation set a high bar for the catalog. REST API hard-binds to 127.0.0.1; screenshots stay in memory. Fills a genuine capability gap — GUI automation unavailable through any OpenClaw native tool. No blocking issues.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 5,
+    "security_scan": "passed",
+    "stars": 133
+  },
+  "drax_results": {
+    "install": "passed",
+    "build": "passed",
+    "smoke_test": "partial",
+    "note": "libXtst.so.6 missing in headless sandbox (expected for desktop automation skill — not a defect)"
+  }
+}

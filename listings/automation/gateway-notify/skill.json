@@ -1,0 +1,38 @@
+{
+  "id": "gateway-notify",
+  "name": "Gateway Notify",
+  "slug": "gateway-notify",
+  "category": "automation",
+  "description": "Hook-based gateway startup notification skill for OpenClaw. Sends multi-channel alerts (iMessage, WhatsApp, Telegram, Discord) when your gateway restarts — so you know without having to watch it manually. Bilingual docs (EN + ZH).",
+  "author": {
+    "github": "unknown",
+    "name": "ClawHub Author"
+  },
+  "version": "1.0.5",
+  "repo_url": "https://clawhub.ai/skills/gateway-notify",
+  "clawhub_url": "https://clawhub.ai/skills/gateway-notify",
+  "stars": 1,
+  "downloads": 49,
+  "works_with": ["openclaw"],
+  "tags": ["gateway", "notifications", "telegram", "discord", "imessage", "whatsapp", "automation"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 7,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.5
+  },
+  "review": "Gateway Notify solves a specific, real problem for OpenClaw users: knowing when your gateway restarts without having to monitor it manually. The implementation is refreshingly clean — input validation in the setup script prevents obvious injection issues, and the multi-channel approach via the OpenClaw message API is idiomatic. Documentation is bilingual (EN + ZH) which is a bonus. The main weakness is that it's brand-new with limited production track record.",
+  "rocket_findings": {
+    "security_scan": "manual-review",
+    "note": "ClawHub SPA — metadata extracted from issue review"
+  },
+  "drax_results": {
+    "install": "clawhub",
+    "smoke_test": "passed"
+  }
+}

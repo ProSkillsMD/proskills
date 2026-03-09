@@ -1,0 +1,40 @@
+{
+  "id": "polyclawster-agent",
+  "name": "PolyClawster Agent",
+  "slug": "polyclawster-agent",
+  "category": "automation",
+  "description": "Non-custodial Polymarket prediction market trading agent for OpenClaw. Supports setup, browse, trade, balance, auto-trading, and sell operations. Private key never transmitted — EIP-712 signing happens locally. Demo mode for safe onboarding. 153 downloads.",
+  "author": {
+    "github": "al1enjesus",
+    "name": "al1enjesus"
+  },
+  "version": "1.4.1",
+  "repo_url": "https://github.com/al1enjesus/polyclawster",
+  "clawhub_url": "https://clawhub.ai/skills/polyclawster-agent",
+  "stars": 2,
+  "downloads": 153,
+  "works_with": ["openclaw"],
+  "tags": ["polymarket", "prediction-market", "trading", "defi", "polygon", "automation", "financial"],
+  "warning_tags": ["Financial", "Third-party Relay"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 5,
+    "maintenance": 8,
+    "usefulness": 7,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 7.4
+  },
+  "review": "PolyClawster Agent is technically impressive — the non-custodial architecture is correctly implemented, code quality is above catalog average, and documentation is excellent. It's the first financial trading / prediction market skill in the catalog (Uniqueness 9/10). The conditional is warranted due to: all live trades routing through the author's relay server (polyclawster.com) for geo-bypass purposes, creating a centralized trust point, and the geo-bypass may violate Polymarket's ToS in restricted regions.",
+  "notes": "CONDITIONAL LISTING — ⚠️ Financial Skill with Third-party Relay. (1) All live trades route through author-operated relay at polyclawster.com for geo-bypass. Users accept a trust dependency on this third-party server. (2) Geo-bypass may violate Polymarket Terms of Service in restricted regions — verify legality in your jurisdiction. (3) Prediction market trading carries inherent financial risk. Use demo mode first. (4) SKILL.md must add relay/ToS disclaimer (required per Gamora conditional). (5) OpenClaw metadata must declare network permissions: polyclawster.com and polygon-rpc.com. Listing published with conditions per score 7.4/10 ≥ 6.5 threshold. See GitHub Issue #295.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "note": "No moderation flags on ClawHub; GitHub repo al1enjesus/polyclawster confirmed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 42,
+  "total": 49,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T16:35:06Z",
+  "last_updated": "2026-03-09T17:05:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -398,6 +398,64 @@
       "stars": 10,
       "average_score": 6.9,
       "verified_at": "2026-03-09T16:34:00Z"
+    },
+    {
+      "id": "gateway-notify",
+      "name": "Gateway Notify",
+      "category": "automation",
+      "slug": "gateway-notify",
+      "score": 7.5,
+      "stars": 1,
+      "downloads": 49,
+      "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "baidu-ecommerce-search",
+      "name": "Baidu Ecommerce Search",
+      "category": "data",
+      "slug": "baidu-ecommerce-search",
+      "score": 7.1,
+      "stars": 0,
+      "downloads": 1000,
+      "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "openclaw-dx",
+      "name": "Openclaw DX",
+      "category": "devops",
+      "slug": "openclaw-dx",
+      "score": 6.6,
+      "stars": 0,
+      "downloads": 173,
+      "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "polyclawster-agent",
+      "name": "PolyClawster Agent",
+      "category": "automation",
+      "slug": "polyclawster-agent",
+      "score": 7.4,
+      "stars": 2,
+      "downloads": 153,
+      "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "clawd-cursor",
+      "name": "Clawd Cursor",
+      "category": "automation",
+      "slug": "clawd-cursor",
+      "score": 8.6,
+      "stars": 133,
+      "verified_at": "2026-03-09T17:05:00Z"
+    },
+    {
+      "id": "xint",
+      "name": "Xint",
+      "category": "research",
+      "slug": "xint",
+      "score": 8.3,
+      "stars": 36,
+      "verified_at": "2026-03-09T17:05:00Z"
     }
   ]
 }

@@ -1,0 +1,40 @@
+{
+  "id": "openclaw-dx",
+  "name": "Openclaw DX",
+  "slug": "openclaw-dx",
+  "category": "devops",
+  "description": "OpenClaw gateway diagnostic and troubleshooting skill. Covers 14+ documented failure modes: crash loops, stale locks, auth token expiry, invalid JSON configs, port conflicts, memory bloat, and more. 173 downloads in 6 days — highest usefulness score in this batch (9/10).",
+  "author": {
+    "github": "siraustin",
+    "name": "siraustin"
+  },
+  "version": "1.5.1",
+  "repo_url": "https://clawhub.ai/skills/openclaw-dx",
+  "clawhub_url": "https://clawhub.ai/skills/openclaw-dx",
+  "stars": 0,
+  "downloads": 173,
+  "works_with": ["openclaw"],
+  "tags": ["diagnostics", "gateway", "troubleshooting", "devops", "crash-loop", "maintenance"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 7,
+    "security": 3,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 5,
+    "average": 6.6
+  },
+  "review": "OpenClaw Dx has the highest usefulness score of this batch (9/10) — it would be a flagship catalog entry that OpenClaw users genuinely need. The concept and changelog quality both impress. However, a VirusTotal flag on the published package is a concern that the author must address by providing a source repository for audit.",
+  "notes": "CONDITIONAL LISTING. Required: (1) VirusTotal flag (suspicious.vt_suspicious) — author @siraustin must provide GitHub source repo so flagged content can be audited. Very likely a false positive for a diagnostic tool (process-killing, port-checking, lock-file inspection routinely trip VT heuristics). (2) Version discrepancy: SKILL.md reports 1.4.0, ClawHub reports 1.5.1 — must sync. Listing published with conditions per score 6.6/10 ≥ 6.5 threshold. See GitHub Issue #294.",
+  "rocket_findings": {
+    "security_scan": "flagged",
+    "vt_flag": "suspicious.vt_suspicious",
+    "note": "Likely false positive for diagnostic skill; pending source audit"
+  },
+  "drax_results": {
+    "install": "clawhub",
+    "smoke_test": "not-verified"
+  }
+}

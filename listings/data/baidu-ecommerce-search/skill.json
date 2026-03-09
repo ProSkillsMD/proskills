@@ -1,0 +1,39 @@
+{
+  "id": "baidu-ecommerce-search",
+  "name": "Baidu Ecommerce Search",
+  "slug": "baidu-ecommerce-search",
+  "category": "data",
+  "description": "Search Baidu's e-commerce platform for products, rankings, and brand/category data. Serves agents operating in Chinese-market contexts. Supports product search, rankings, parameters, brand and category knowledge. ~1000 downloads validating real demand.",
+  "author": {
+    "github": "crossallen",
+    "name": "crossallen"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://clawhub.ai/skills/baidu-ecommerce-search",
+  "clawhub_url": "https://clawhub.ai/skills/baidu-ecommerce-search",
+  "stars": 0,
+  "downloads": 1000,
+  "works_with": ["openclaw"],
+  "tags": ["baidu", "ecommerce", "search", "chinese-market", "data", "products"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 7,
+    "security": 7,
+    "maintenance": 8,
+    "usefulness": 7,
+    "uniqueness": 8,
+    "code_quality": 6,
+    "average": 7.1
+  },
+  "review": "Baidu Ecommerce Search is a solid niche offering with genuine usage traction (~1000 downloads). The skill has been actively refined, with the latest version sensibly narrowing scope to core strengths. No Baidu or Chinese e-commerce skill exists in the current catalog — unique regional coverage. Primary concern is absence of a publicly linkable GitHub repository for code audit.",
+  "notes": "CONDITIONAL LISTING. Required: (1) Author must provide a GitHub source repository URL for code audit (contact @crossallen on GitHub Issue #291). (2) English description should be added alongside the Chinese summary in SKILL.md for international discoverability. Listing published with conditions per score 7.1/10 ≥ 6.5 threshold.",
+  "rocket_findings": {
+    "security_scan": "manual-review",
+    "note": "No GitHub repo confirmed; ClawHub SPA metadata only"
+  },
+  "drax_results": {
+    "install": "clawhub",
+    "smoke_test": "not-verified"
+  }
+}

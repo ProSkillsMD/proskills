@@ -1,0 +1,40 @@
+{
+  "id": "xint",
+  "name": "Xint",
+  "slug": "xint",
+  "category": "research",
+  "description": "Full-spectrum X/Twitter intelligence CLI for OpenClaw agents. Supports search, watch, stream, profile, thread, follower-diff, bookmarks, likes, trends, Grok AI analysis, intelligence reports, Obsidian sync, MCP server (stdio + SSE), cost tracking and budget enforcement. Agentic research loop natively documented. Checksum-verified install. TypeScript + Bun. 36 stars.",
+  "author": {
+    "github": "0xNyk",
+    "name": "0xNyk"
+  },
+  "version": "2026.3.7.2",
+  "repo_url": "https://github.com/0xNyk/xint",
+  "stars": 36,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["twitter", "x", "intelligence", "grok", "research", "social", "obsidian", "mcp", "monitoring"],
+  "verified_at": "2026-03-09T17:05:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "xint is a mature, agentic-first X intelligence tool with exceptional depth. Security model is sound (checksum-verified install, 127.0.0.1 binding, OAuth chmod 600, HMAC billing webhooks). Documentation is thorough with error recovery matrix, cost estimates per command, and token budget awareness. The research loop instructions make it immediately useful for coding agents. Positioned as the spiritual successor to twint. No blocking issues.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 151,
+    "security_scan": "passed",
+    "stars": 36,
+    "note": "Install script uses checksum verification"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed",
+    "note": "bun xint.ts --help executes successfully; full command list displayed"
+  }
+}

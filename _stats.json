@@ -1,27 +1,27 @@
 {
-  "total_skills": 43,
+  "total_skills": 49,
   "verified": 24,
   "categories": {
     "content": 3,
-    "automation": 17,
-    "research": 7,
+    "automation": 20,
+    "research": 8,
     "coding": 7,
-    "devops": 3,
-    "data": 4,
+    "devops": 4,
+    "data": 5,
     "security": 1
   },
-  "last_scan": "2026-03-09T16:35:19Z",
+  "last_scan": "2026-03-09T17:05:00Z",
   "recent_additions": [
+    "xint",
+    "clawd-cursor",
+    "polyclawster-agent",
+    "openclaw-dx",
+    "baidu-ecommerce-search",
+    "gateway-notify",
     "terminalskills-skills",
     "getnote",
     "laiye-doc-processing",
-    "clankers-world",
-    "task-ledger",
-    "memoclaw",
-    "openclaw-skill-atlassian-jira",
-    "clipx-skills",
-    "idfm-journey-skill",
-    "basename-agent"
+    "clankers-world"
   ],
   "top_skills": [
     {
@@ -60,6 +60,11 @@
       "stars": 0
     },
     {
+      "id": "clawd-cursor",
+      "score": 8.6,
+      "stars": 133
+    },
+    {
       "id": "comfyui-skills-openclaw",
       "score": 8.5,
       "stars": 6
@@ -68,11 +73,6 @@
       "id": "team-tasks",
       "score": 8.4,
       "stars": 380
-    },
-    {
-      "id": "nano-banana-pro-prompts-recommend-skill",
-      "score": 8.4,
-      "stars": 1169
     }
   ],
   "average_score": 7.61
