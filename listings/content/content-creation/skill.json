@@ -1,0 +1,39 @@
+{
+  "id": "content-creation",
+  "name": "content-creation",
+  "slug": "content-creation",
+  "category": "content",
+  "description": "Draft marketing content across channels \u2014 blog posts, social media, email newsletters, landing pages, press releases, and case studies. Use when writing any marketing content, when you need channel-specific formatting, SEO-optimized copy, headline options, or calls to action.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "marketing",
+    "content",
+    "blog",
+    "social-media",
+    "email",
+    "seo",
+    "copywriting"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 8.41
+  },
+  "review": "Official Anthropic knowledge-work-plugin. Multi-channel content creation templates covering blog posts, social media, email newsletters, landing pages, press releases, and case studies with SEO guidance.",
+  "status": "listed"
+}

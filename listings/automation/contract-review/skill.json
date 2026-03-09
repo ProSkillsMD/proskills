@@ -1,0 +1,38 @@
+{
+  "id": "contract-review",
+  "name": "contract-review",
+  "slug": "contract-review",
+  "category": "automation",
+  "description": "Review contracts against your organization's negotiation playbook, flagging deviations and generating redline suggestions. Use when reviewing vendor contracts, customer agreements, or any commercial agreement where you need clause-by-clause analysis against standard positions.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "legal",
+    "contract",
+    "review",
+    "redline",
+    "playbook",
+    "negotiation"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.65
+  },
+  "review": "Official Anthropic knowledge-work-plugin. Comprehensive playbook-based contract review with clause-by-clause analysis, severity classification, and redline generation for legal teams.",
+  "status": "listed"
+}

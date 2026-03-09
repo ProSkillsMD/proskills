@@ -1,68 +1,68 @@
 {
-  "total_skills": 109,
-  "verified": 101,
+  "total_skills": 119,
+  "verified": 111,
   "categories": {
     "utilities": 2,
     "data": 8,
-    "automation": 42,
+    "automation": 48,
     "coding": 13,
     "security": 4,
     "productivity": 10,
     "devops": 7,
-    "research": 16,
-    "content": 6,
+    "research": 17,
+    "content": 9,
     "api": 1
   },
-  "last_scan": "2026-03-09T22:05:00Z",
+  "last_scan": "2026-03-09T22:13:00Z",
   "recent_additions": [
     {
-      "id": "org-planning",
-      "name": "org-planning",
+      "id": "contract-review",
+      "name": "contract-review",
       "added": "2026-03-09"
     },
     {
-      "id": "people-analytics",
-      "name": "people-analytics",
+      "id": "legal-risk-assessment",
+      "name": "legal-risk-assessment",
       "added": "2026-03-09"
     },
     {
-      "id": "canned-responses",
-      "name": "canned-responses",
+      "id": "meeting-briefing",
+      "name": "meeting-briefing",
       "added": "2026-03-09"
     },
     {
-      "id": "compliance",
-      "name": "compliance",
+      "id": "nda-triage",
+      "name": "nda-triage",
       "added": "2026-03-09"
     },
     {
-      "id": "openclaw-agent-skill",
-      "name": "OpenClaw Agent Skill",
+      "id": "brand-voice",
+      "name": "brand-voice",
       "added": "2026-03-09"
     },
     {
-      "id": "html-coder",
-      "name": "HTML Coder",
+      "id": "campaign-planning",
+      "name": "campaign-planning",
       "added": "2026-03-09"
     },
     {
-      "id": "launch-strategy",
-      "name": "Launch Strategy",
+      "id": "competitive-analysis",
+      "name": "competitive-analysis",
       "added": "2026-03-09"
     },
     {
-      "id": "newsriver-intelligence",
-      "name": "NewsRiver Global Intelligence",
+      "id": "content-creation",
+      "name": "content-creation",
       "added": "2026-03-09"
     },
     {
-      "id": "microsoft-365-graph-openclaw",
-      "name": "Microsoft 365 Graph for OpenClaw",
+      "id": "atlassian-jira",
+      "name": "atlassian-jira-by-altf1be",
       "added": "2026-03-09"
     },
     {
-      "id": "skill-provenance",
-      "name": "Skill Provenance",
+      "id": "openproject",
+      "name": "openproject-by-altf1be",
       "added": "2026-03-09"
     }
   ],

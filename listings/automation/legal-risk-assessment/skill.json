@@ -1,0 +1,38 @@
+{
+  "id": "legal-risk-assessment",
+  "name": "legal-risk-assessment",
+  "slug": "legal-risk-assessment",
+  "category": "automation",
+  "description": "Assess and classify legal risks using a severity-by-likelihood framework with escalation criteria. Use when evaluating contract risk, assessing deal exposure, classifying issues by severity, or determining whether a matter needs senior counsel or outside legal review.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "legal",
+    "risk",
+    "assessment",
+    "compliance",
+    "escalation",
+    "framework"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.65
+  },
+  "review": "Official Anthropic knowledge-work-plugin. Structured severity-by-likelihood risk matrix with clear escalation criteria and risk register documentation for in-house legal teams.",
+  "status": "listed"
+}

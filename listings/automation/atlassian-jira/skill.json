@@ -1,0 +1,38 @@
+{
+  "id": "atlassian-jira",
+  "name": "atlassian-jira-by-altf1be",
+  "slug": "atlassian-jira",
+  "category": "automation",
+  "description": "Atlassian Jira Cloud CRUD skill \u2014 manage issues, comments, attachments, workflow transitions, and JQL search via Jira REST API v3 with email + API token auth.",
+  "author": {
+    "github": "ALT-F1-OpenClaw",
+    "name": "ALT-F1 OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ALT-F1-OpenClaw/openclaw-skill-atlassian-jira",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "jira",
+    "atlassian",
+    "project-management",
+    "issues",
+    "workflow",
+    "jql"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 8.12
+  },
+  "review": "ALT-F1 OpenClaw community skill. Full Jira Cloud CRUD via REST API v3 \u2014 issue management, JQL search, workflow transitions, comments, and attachments with API token authentication.",
+  "status": "listed"
+}

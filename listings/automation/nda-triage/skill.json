@@ -1,0 +1,38 @@
+{
+  "id": "nda-triage",
+  "name": "nda-triage",
+  "slug": "nda-triage",
+  "category": "automation",
+  "description": "Screen incoming NDAs and classify them as GREEN (standard), YELLOW (needs review), or RED (significant issues). Use when a new NDA comes in from sales or business development, when assessing NDA risk level, or when deciding whether an NDA needs full counsel review.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "legal",
+    "nda",
+    "triage",
+    "screening",
+    "confidentiality",
+    "risk"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.65
+  },
+  "review": "Official Anthropic knowledge-work-plugin. Rapid NDA screening with traffic-light classification (GREEN/YELLOW/RED), systematic checklist, and routing recommendations for legal teams.",
+  "status": "listed"
+}

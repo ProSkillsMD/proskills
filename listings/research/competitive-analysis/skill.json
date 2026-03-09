@@ -1,0 +1,38 @@
+{
+  "id": "competitive-analysis",
+  "name": "competitive-analysis",
+  "slug": "competitive-analysis",
+  "category": "research",
+  "description": "Research competitors and compare positioning, messaging, content strategy, and market presence. Use when analyzing a competitor, building battlecards, identifying content gaps, comparing feature messaging, or preparing competitive positioning recommendations.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "marketing",
+    "competitive",
+    "research",
+    "battlecard",
+    "positioning",
+    "market-intelligence"
+  ],
+  "verified_at": "2026-03-09T22:13:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.65
+  },
+  "review": "Official Anthropic knowledge-work-plugin. Structured competitive intelligence methodology with primary and secondary research sources, positioning comparison frameworks, and battlecard generation.",
+  "status": "listed"
+}

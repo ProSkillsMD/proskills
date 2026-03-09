@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 109,
+  "total": 119,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T22:05:00Z",
+  "last_updated": "2026-03-09T22:13:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1064,7 +1064,97 @@
       "stars": 0,
       "verified_at": "2026-03-09T22:05:00Z",
       "score": 8.6
+    },
+    {
+      "id": "contract-review",
+      "slug": "contract-review",
+      "category": "automation",
+      "name": "contract-review",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "legal-risk-assessment",
+      "slug": "legal-risk-assessment",
+      "category": "automation",
+      "name": "legal-risk-assessment",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "meeting-briefing",
+      "slug": "meeting-briefing",
+      "category": "automation",
+      "name": "meeting-briefing",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.0
+    },
+    {
+      "id": "nda-triage",
+      "slug": "nda-triage",
+      "category": "automation",
+      "name": "nda-triage",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "brand-voice",
+      "slug": "brand-voice",
+      "category": "content",
+      "name": "brand-voice",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.35
+    },
+    {
+      "id": "campaign-planning",
+      "slug": "campaign-planning",
+      "category": "content",
+      "name": "campaign-planning",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.53
+    },
+    {
+      "id": "competitive-analysis",
+      "slug": "competitive-analysis",
+      "category": "research",
+      "name": "competitive-analysis",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "content-creation",
+      "slug": "content-creation",
+      "category": "content",
+      "name": "content-creation",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.41
+    },
+    {
+      "id": "atlassian-jira",
+      "slug": "atlassian-jira",
+      "category": "automation",
+      "name": "atlassian-jira-by-altf1be",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.12
+    },
+    {
+      "id": "openproject",
+      "slug": "openproject",
+      "category": "automation",
+      "name": "openproject-by-altf1be",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.12
     }
   ],
-  "total_skills": 109
+  "total_skills": 119
 }
