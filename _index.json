@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 20,
+  "total": 21,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:23:48Z",
+  "last_updated": "2026-03-09T06:54:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -188,6 +188,15 @@
       "score": 6.5,
       "stars": 0,
       "verified_at": "2026-03-09T06:23:48Z"
+    },
+    {
+      "id": "ospex-openclaw-skill",
+      "name": "ospex-openclaw-skill",
+      "category": "automation",
+      "slug": "ospex-openclaw-skill",
+      "score": 7.1,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:54:00Z"
     }
   ]
 }

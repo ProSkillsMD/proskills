@@ -1,0 +1,23 @@
+{
+  "id": "ospex-openclaw-skill",
+  "name": "ospex-openclaw-skill",
+  "slug": "ospex-openclaw-skill",
+  "category": "automation",
+  "description": "On-chain sports betting skill for OpenClaw agents. Integrates with the live ospex.org application for decentralized sports prediction markets.",
+  "author": {
+    "github": "ospex-org",
+    "name": "ospex-org"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ospex-org/ospex-openclaw-skill",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["automation", "sports", "betting", "blockchain", "on-chain", "defi"],
+  "verified_at": "2026-03-09T06:54:00Z",
+  "scores": {
+    "average": 7.1
+  },
+  "review": "Excellent sports betting skill with an active organization and live application at ospex.org. Integrates OpenClaw agents with on-chain sports prediction markets. Conditional: needs formal LICENSE file added.",
+  "gamora_verdict": "CONDITIONAL",
+  "catalog_note": "License file pending. Author notified. Org has live application at ospex.org."
+}

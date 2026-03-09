@@ -1,15 +1,16 @@
 {
-  "total_skills": 20,
-  "verified": 20,
+  "total_skills": 21,
+  "verified": 21,
   "categories": {
     "content": 1,
-    "automation": 6,
+    "automation": 7,
     "research": 6,
     "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:23:48Z",
+  "last_scan": "2026-03-09T06:54:00Z",
   "recent_additions": [
+    "ospex-openclaw-skill",
     "ecom-claw",
     "ai-research-skills",
     "skill-codex",
@@ -18,8 +19,7 @@
     "decodo-openclaw-skill",
     "project-memory",
     "soul-md",
-    "mma-investigator",
-    "asana-cli"
+    "mma-investigator"
   ],
   "top_skills": [
     {
