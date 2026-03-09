@@ -1,0 +1,30 @@
+{
+  "id": "skill-multi-publisher",
+  "name": "Skill Multi-Publisher",
+  "slug": "skill-multi-publisher",
+  "category": "automation",
+  "description": "One-command publish a Claude Code/OpenClaw skill to multiple marketplaces: GitHub (npx skills), ClawHub, and npm. Validates SKILL.md and auto-generates missing files.",
+  "author": {
+    "github": "dongsheng123132",
+    "name": "dongsheng123132"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/dongsheng123132/skill-multi-publisher",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["automation", "publishing", "clawhub", "npm", "skill-distribution"],
+  "verified_at": "2026-03-09T21:30:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 7,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.35
+  },
+  "review": "Useful multi-marketplace publisher for skill authors. Clean security posture, genuinely unique utility. SKILL.md frontmatter is missing author and triggers fields — functional despite this gap.",
+  "notes": "SKILL.md is missing `author` and `triggers` frontmatter fields. Verify marketplace URLs before use. Conditional approval — author encouraged to fix frontmatter.",
+  "status": "listed"
+}
