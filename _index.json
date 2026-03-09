@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 36,
+  "total": 37,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T08:11:00Z",
+  "last_updated": "2026-03-09T08:15:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -335,6 +335,15 @@
       "score": 6.14,
       "stars": 0,
       "verified_at": "2026-03-09T08:11:00Z"
+    },
+    {
+      "id": "openclaw-skill-atlassian-jira",
+      "name": "Atlassian Jira Cloud Skill",
+      "slug": "openclaw-skill-atlassian-jira",
+      "category": "automation",
+      "score": 7.8,
+      "stars": 1,
+      "verified_at": "2026-03-09T08:15:00Z"
     }
   ]
 }

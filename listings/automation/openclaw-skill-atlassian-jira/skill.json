@@ -1,0 +1,36 @@
+{
+  "id": "openclaw-skill-atlassian-jira",
+  "name": "Atlassian Jira Cloud Skill",
+  "slug": "openclaw-skill-atlassian-jira",
+  "category": "automation",
+  "description": "Atlassian Jira Cloud CRUD skill — manage issues, comments, attachments, workflow transitions, and JQL search via Jira REST API v3 with email + API token auth.",
+  "author": {
+    "github": "ALT-F1-OpenClaw",
+    "name": "Abdelkrim BOUJRAF"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ALT-F1-OpenClaw/openclaw-skill-atlassian-jira",
+  "stars": 1,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["jira", "atlassian", "automation", "project-management", "issues", "crud", "rest-api", "workflow"],
+  "verified_at": "2026-03-09T08:15:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.8
+  },
+  "review": "Comprehensive Jira Cloud CRUD operations. Excellent SKILL.md with examples for every command. Strong security practices (no secret leakage, path traversal prevention, rate limiting). First Jira skill in the ecosystem. Production-ready.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
