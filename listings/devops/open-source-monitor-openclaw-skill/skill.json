@@ -1,0 +1,39 @@
+{
+  "id": "open-source-monitor-openclaw-skill",
+  "name": "Open Source Monitor OpenClaw Skill",
+  "slug": "open-source-monitor-openclaw-skill",
+  "category": "devops",
+  "description": "Open source project monitoring skill for OpenClaw. Tracks repositories, issues, stars, and activity for open source projects, providing automated monitoring and alerting workflows.",
+  "author": {
+    "github": "webleon",
+    "name": "webleon"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/webleon/open-source-monitor-openclaw-skill",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["monitoring", "open-source", "devops", "github", "tracking", "alerts"],
+  "verified_at": "2026-03-09T07:47:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 6,
+    "security": 7,
+    "maintenance": 7,
+    "usefulness": 7,
+    "uniqueness": 7,
+    "code_quality": 6,
+    "average": 6.7
+  },
+  "review": "Open source project monitoring skill by webleon, same trusted author as interactive-slides (8.7/10). Conditional approval at 6.7/10. Primary documentation is in Chinese; license review pending — author has been notified.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "active": true,
+    "license": "pending"
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "Monitoring functionality verified."
+  },
+  "catalog_note": "Primary docs in Chinese. License pending. Author notified (webleon — same author as interactive-slides, 8.7/10).",
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/223"
+}

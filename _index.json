@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 32,
+  "total": 33,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:46:00Z",
+  "last_updated": "2026-03-09T07:47:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -297,6 +297,15 @@
       "score": 6.8,
       "stars": 281,
       "verified_at": "2026-03-09T07:46:00Z"
+    },
+    {
+      "id": "open-source-monitor-openclaw-skill",
+      "name": "Open Source Monitor OpenClaw Skill",
+      "category": "devops",
+      "slug": "open-source-monitor-openclaw-skill",
+      "score": 6.7,
+      "stars": 0,
+      "verified_at": "2026-03-09T07:47:00Z"
     }
   ]
 }

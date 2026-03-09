@@ -1,17 +1,18 @@
 {
-  "total_skills": 32,
+  "total_skills": 33,
   "verified": 24,
   "categories": {
     "content": 3,
     "automation": 9,
     "research": 7,
     "coding": 7,
-    "devops": 2,
+    "devops": 3,
     "data": 2,
     "security": 1
   },
-  "last_scan": "2026-03-09T07:46:00Z",
+  "last_scan": "2026-03-09T07:47:00Z",
   "recent_additions": [
+    "open-source-monitor-openclaw-skill",
     "csv-data-summarizer-claude-skill",
     "document-specialist-skill",
     "claude-family-history-research-skill",
@@ -20,8 +21,7 @@
     "progressive-estimation",
     "interactive-slides-openclaw-skill",
     "ecommerce-predictor",
-    "create-agent-arch",
-    "chow-new"
+    "create-agent-arch"
   ],
   "top_skills": [
     {
