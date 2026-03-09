@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 13,
+  "total": 14,
   "categories": [
     "automation",
     "coding",
@@ -124,6 +124,15 @@
       "slug": "soul-md",
       "score": 8.7,
       "stars": 173,
+      "verified_at": "2026-03-09T06:16:00Z"
+    },
+    {
+      "id": "project-memory",
+      "name": "project-memory",
+      "category": "coding",
+      "slug": "project-memory",
+      "score": 8.0,
+      "stars": 51,
       "verified_at": "2026-03-09T06:16:00Z"
     }
   ]

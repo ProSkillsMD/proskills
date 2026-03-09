@@ -1,0 +1,37 @@
+{
+  "id": "project-memory",
+  "name": "project-memory",
+  "slug": "project-memory",
+  "category": "coding",
+  "description": "A Claude Code skill for tracking project state — bugs, decisions, and key facts. Structured memory system with exceptional documentation for persistent context across Claude Code sessions.",
+  "author": {
+    "github": "SpillwaveSolutions",
+    "name": "SpillwaveSolutions"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SpillwaveSolutions/project-memory",
+  "stars": 51,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["memory", "project-state", "coding", "context", "bugs", "decisions", "claude-code"],
+  "verified_at": "2026-03-09T06:16:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.0
+  },
+  "review": "Structured memory system for tracking bugs, decisions, and key facts across Claude Code sessions. Exceptional documentation sets it apart — one of the best-documented skills reviewed. Gamora score: 8.0/10.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  },
+  "catalog_notes": "License pending. Author notified."
+}
