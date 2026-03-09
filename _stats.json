@@ -1,15 +1,16 @@
 {
-  "total_skills": 21,
-  "verified": 21,
+  "total_skills": 22,
+  "verified": 22,
   "categories": {
     "content": 1,
-    "automation": 7,
+    "automation": 8,
     "research": 6,
     "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:54:00Z",
+  "last_scan": "2026-03-09T06:55:00Z",
   "recent_additions": [
+    "openclaw-skills-faahim",
     "ospex-openclaw-skill",
     "ecom-claw",
     "ai-research-skills",
@@ -18,8 +19,7 @@
     "comfyui-skills-openclaw",
     "decodo-openclaw-skill",
     "project-memory",
-    "soul-md",
-    "mma-investigator"
+    "soul-md"
   ],
   "top_skills": [
     {

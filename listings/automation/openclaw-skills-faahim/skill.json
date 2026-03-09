@@ -1,0 +1,23 @@
+{
+  "id": "openclaw-skills-faahim",
+  "name": "openclaw-skills (faahim)",
+  "slug": "openclaw-skills-faahim",
+  "category": "automation",
+  "description": "A collection of 200+ utility skills for OpenClaw agents. Covers a wide range of automation tasks and workflows for everyday use.",
+  "author": {
+    "github": "faahim",
+    "name": "faahim"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/faahim/openclaw-skills",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["automation", "utility", "collection", "productivity", "agents"],
+  "verified_at": "2026-03-09T06:55:00Z",
+  "scores": {
+    "average": 6.8
+  },
+  "review": "Comprehensive collection of 200+ utility skills for OpenClaw agents by an established author (GitHub since 2016). Covers a broad range of automation use cases. Conditional: needs formal LICENSE file and catalog organization strategy.",
+  "gamora_verdict": "CONDITIONAL",
+  "catalog_note": "200+ skills collection. License pending. Use individual skills as needed."
+}

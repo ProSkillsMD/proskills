@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 21,
+  "total": 22,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:54:00Z",
+  "last_updated": "2026-03-09T06:55:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -197,6 +197,15 @@
       "score": 7.1,
       "stars": 0,
       "verified_at": "2026-03-09T06:54:00Z"
+    },
+    {
+      "id": "openclaw-skills-faahim",
+      "name": "openclaw-skills (faahim)",
+      "category": "automation",
+      "slug": "openclaw-skills-faahim",
+      "score": 6.8,
+      "stars": 0,
+      "verified_at": "2026-03-09T06:55:00Z"
     }
   ]
 }
