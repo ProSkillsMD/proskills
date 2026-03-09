@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T12:41:00Z",
+  "last_updated": "2026-03-09T16:35:06Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -389,6 +389,15 @@
       "stars": 12,
       "score": 7.4,
       "verified_at": "2026-03-09T12:41:00Z"
+    },
+    {
+      "id": "terminalskills-skills",
+      "slug": "terminalskills-skills",
+      "category": "automation",
+      "name": "TerminalSkills Skills Library",
+      "stars": 10,
+      "average_score": 6.9,
+      "verified_at": "2026-03-09T16:34:00Z"
     }
   ]
 }

@@ -1,0 +1,54 @@
+{
+  "id": "terminalskills-skills",
+  "name": "TerminalSkills Skills Library",
+  "slug": "terminalskills-skills",
+  "category": "automation",
+  "description": "Open-source library of AI agent skills — SKILL.md files for Claude Code, Codex, Gemini CLI, Cursor. A collection of 19 ready-to-use skill definitions covering automation, coding, research, and productivity workflows.",
+  "author": {
+    "github": "TerminalSkills",
+    "name": "TerminalSkills"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/TerminalSkills/skills",
+  "stars": 10,
+  "works_with": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "cursor",
+    "openclaw"
+  ],
+  "tags": [
+    "skill-library",
+    "automation",
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "cursor",
+    "multi-agent",
+    "collection"
+  ],
+  "verified_at": "2026-03-09T16:34:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 8,
+    "security": 7,
+    "maintenance": 5,
+    "usefulness": 8,
+    "uniqueness": 6,
+    "code_quality": 7,
+    "average": 6.9
+  },
+  "review": "Library of 19 SKILL.md files for Claude Code, Codex, Gemini CLI, and Cursor. Well-documented with clear structure. Security scan clean — all SKILL.md content, no executable code. Apache-2.0 licensed. Conditionally approved at 6.9/10; some skills may overlap with existing catalog entries.",
+  "rocket_findings": {
+    "license": "Apache-2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "not_run",
+    "smoke_test": "not_run",
+    "note": "Manual review route — Gamora reviewed directly"
+  },
+  "catalog_note": "Library of 19 SKILL.md files for Claude Code, Codex, Gemini CLI, and Cursor. Conditionally listed — some skills may overlap with existing catalog entries. Verify individual skill uniqueness before using. Account is new (36 days); long-term maintenance TBD.",
+  "status": "conditional"
+}
