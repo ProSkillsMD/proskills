@@ -1,0 +1,36 @@
+{
+  "id": "upgrade-guard",
+  "name": "Upgrade Guard",
+  "slug": "upgrade-guard",
+  "category": "devops",
+  "description": "Safe OpenClaw upgrades with snapshot, pre-flight checks, controlled upgrade, post-verification, and emergency rollback. Comprehensive 6-step workflow with watchdog self-healing. Never lose a working system to a bad update.",
+  "author": {
+    "github": "jzOcb",
+    "name": "jzOcb"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/jzOcb/upgrade-guard",
+  "stars": 10,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["devops", "upgrade", "safety", "rollback", "watchdog", "openclaw", "infrastructure"],
+  "verified_at": "2026-03-09T07:31:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.9
+  },
+  "review": "Production-ready infrastructure tooling for safe OpenClaw upgrades. Comprehensive 6-step workflow with watchdog self-healing makes this a must-have for anyone running OpenClaw in production environments.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

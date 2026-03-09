@@ -1,17 +1,18 @@
 {
-  "total_skills": 28,
+  "total_skills": 29,
   "verified": 24,
   "categories": {
     "content": 3,
     "automation": 9,
     "research": 6,
     "coding": 6,
-    "devops": 1,
+    "devops": 2,
     "data": 1,
     "security": 1
   },
-  "last_scan": "2026-03-09T07:28:00Z",
+  "last_scan": "2026-03-09T07:31:00Z",
   "recent_additions": [
+    "upgrade-guard",
     "agent-guardrails",
     "progressive-estimation",
     "interactive-slides-openclaw-skill",
@@ -20,8 +21,7 @@
     "chow-new",
     "openclaw-skills-faahim",
     "ospex-openclaw-skill",
-    "ecom-claw",
-    "ai-research-skills"
+    "ecom-claw"
   ],
   "top_skills": [
     {
