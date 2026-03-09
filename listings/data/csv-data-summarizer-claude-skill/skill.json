@@ -1,0 +1,39 @@
+{
+  "id": "csv-data-summarizer-claude-skill",
+  "name": "CSV Data Summarizer Claude Skill",
+  "slug": "csv-data-summarizer-claude-skill",
+  "category": "data",
+  "description": "AI-powered CSV data analysis and summarization skill for OpenClaw. Enables rapid exploration and summarization of tabular data using Claude, making data insights accessible without manual analysis.",
+  "author": {
+    "github": "coffeefuelbump",
+    "name": "coffeefuelbump"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
+  "stars": 281,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["csv", "data", "summarization", "analysis", "spreadsheet", "tabular"],
+  "verified_at": "2026-03-09T07:46:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 7,
+    "security": 7,
+    "maintenance": 6,
+    "usefulness": 8,
+    "uniqueness": 6,
+    "code_quality": 7,
+    "average": 6.8
+  },
+  "review": "CSV data analysis and summarization skill with strong community adoption (281 stars). Conditional approval at 6.8/10. License review pending — author has been notified.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "active": true,
+    "license": "pending"
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "CSV summarization functionality verified."
+  },
+  "catalog_note": "License pending. Author notified. 281 stars.",
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/225"
+}

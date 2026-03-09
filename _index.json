@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 31,
+  "total": 32,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T07:45:00Z",
+  "last_updated": "2026-03-09T07:46:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -288,6 +288,15 @@
       "score": 8.0,
       "stars": 11,
       "verified_at": "2026-03-09T07:45:00Z"
+    },
+    {
+      "id": "csv-data-summarizer-claude-skill",
+      "name": "CSV Data Summarizer Claude Skill",
+      "category": "data",
+      "slug": "csv-data-summarizer-claude-skill",
+      "score": 6.8,
+      "stars": 281,
+      "verified_at": "2026-03-09T07:46:00Z"
     }
   ]
 }
