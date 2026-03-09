@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 35,
+  "total": 36,
   "categories": [
     "automation",
     "coding",
@@ -8,7 +8,7 @@
     "research",
     "data"
   ],
-  "last_updated": "2026-03-09T08:10:00Z",
+  "last_updated": "2026-03-09T08:11:00Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -326,6 +326,15 @@
       "stars": 0,
       "downloads": 1689,
       "verified_at": "2026-03-09T08:10:00Z"
+    },
+    {
+      "id": "clipx-skills",
+      "name": "clipx-skills",
+      "category": "data",
+      "slug": "clipx-skills",
+      "score": 6.14,
+      "stars": 0,
+      "verified_at": "2026-03-09T08:11:00Z"
     }
   ]
 }

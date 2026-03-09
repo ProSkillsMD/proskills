@@ -1,0 +1,29 @@
+{
+  "id": "clipx-skills",
+  "name": "clipx-skills",
+  "slug": "clipx-skills",
+  "category": "data",
+  "description": "BNB Chain protocol metrics and analysis powered by ClipX private API. Menu-driven interface for protocol performance, token metrics, and chain analytics. Requires ClipX API access. BNB Chain metrics only.",
+  "author": {
+    "github": "clipx",
+    "name": "clipx"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/clipx-skills",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["bnb-chain", "defi", "metrics", "analytics", "blockchain", "clipx", "data"],
+  "verified_at": "2026-03-09T08:11:00Z",
+  "catalog_note": "Requires ClipX API access. BNB Chain metrics only.",
+  "scores": {
+    "average": 6.14
+  },
+  "review": "BNB Chain protocol metrics via ClipX private API with menu-driven interface. Functional for BNB Chain analytics but limited to ClipX subscribers and single-chain scope. Conditional approval — niche utility for existing ClipX users.",
+  "rocket_findings": {
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

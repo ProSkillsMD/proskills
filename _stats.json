@@ -1,5 +1,5 @@
 {
-  "total_skills": 35,
+  "total_skills": 36,
   "verified": 24,
   "categories": {
     "content": 3,
@@ -7,11 +7,12 @@
     "research": 7,
     "coding": 7,
     "devops": 3,
-    "data": 2,
+    "data": 3,
     "security": 1
   },
-  "last_scan": "2026-03-09T08:10:00Z",
+  "last_scan": "2026-03-09T08:11:00Z",
   "recent_additions": [
+    "clipx-skills",
     "idfm-journey-skill",
     "basename-agent",
     "open-source-monitor-openclaw-skill",
@@ -20,8 +21,7 @@
     "claude-family-history-research-skill",
     "upgrade-guard",
     "agent-guardrails",
-    "progressive-estimation",
-    "interactive-slides-openclaw-skill"
+    "progressive-estimation"
   ],
   "top_skills": [
     {
