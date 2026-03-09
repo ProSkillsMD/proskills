@@ -1,0 +1,41 @@
+{
+  "id": "task-ledger",
+  "name": "Task Ledger",
+  "slug": "task-ledger",
+  "category": "automation",
+  "description": "Durable workflow layer for OpenClaw long-running work. Provides multi-stage workflow tracking with persistence, enabling agents to manage complex multi-step tasks without losing state. ClawHub-only distribution.",
+  "author": {
+    "github": "task-ledger",
+    "name": "task-ledger"
+  },
+  "version": "0.3.0",
+  "repo_url": "https://clawhub.ai/skills/task-ledger",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "workflow",
+    "durable-tasks",
+    "persistence",
+    "multi-stage",
+    "task-management",
+    "long-running"
+  ],
+  "verified_at": "2026-03-09T08:55:00Z",
+  "scores": {
+    "average": 7.3
+  },
+  "review": "Durable multi-stage workflow tracking for OpenClaw. Addresses a real need for agents handling long-running work. ClawHub-only distribution with 78 downloads. Conditional approval at 7.3/10.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  },
+  "distribution": "clawhub",
+  "downloads": 78,
+  "catalog_note": "Durable multi-stage workflow tracking. ClawHub-only distribution."
+}
