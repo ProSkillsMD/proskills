@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 109,
+  "total": 111,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T22:05:00Z",
+  "last_updated": "2026-03-09T22:11:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -217,7 +217,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
+      "name": "ContextSlim — Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -415,7 +415,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get\u7b14\u8bb0 (getnote)",
+      "name": "Get笔记 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -969,7 +969,7 @@
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
       "category": "coding",
-      "description": "Efficient OSS pull request workflows on GitHub \u2014 automates PR creation, review coordination, and merge processes for open source contributors.",
+      "description": "Efficient OSS pull request workflows on GitHub — automates PR creation, review coordination, and merge processes for open source contributors.",
       "author": {
         "github": "tsubasakong",
         "name": "tsubasakong"
@@ -1064,6 +1064,24 @@
       "stars": 0,
       "verified_at": "2026-03-09T22:05:00Z",
       "score": 8.6
+    },
+    {
+      "id": "agent-creator",
+      "slug": "agent-creator",
+      "category": "automation",
+      "name": "Agent Creator",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:10:00Z",
+      "score": 6.94
+    },
+    {
+      "id": "ssl-certificate-checker",
+      "slug": "ssl-certificate-checker",
+      "category": "devops",
+      "name": "SSL Certificate Checker",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:10:00Z",
+      "score": 8.24
     }
   ],
   "total_skills": 109

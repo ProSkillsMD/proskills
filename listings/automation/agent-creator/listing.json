@@ -1,0 +1,31 @@
+{
+  "id": "agent-creator",
+  "name": "Agent Creator",
+  "slug": "agent-creator",
+  "category": "automation",
+  "description": "Multi-agent setup workflow — 13-step process to create and configure OpenClaw agents with Feishu/Lark integration and customizable naming conventions.",
+  "author": {
+    "github": "josephway",
+    "name": "josephway"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/josephway/openclaw-agent-creator",
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw"],
+  "tags": ["agents", "multi-agent", "automation", "feishu", "setup"],
+  "verified_at": "2026-03-09T22:10:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 7,
+    "maintenance": 5,
+    "usefulness": 7,
+    "uniqueness": 8,
+    "code_quality": 6,
+    "average": 6.94
+  },
+  "review": "Complete 13-step agent creation workflow with unique multi-agent orchestration approach. Deep documentation in Chinese. Feishu-first design narrows audience but fills a genuine gap. Conditional approval — author needs to add license, English triggers, and generalize naming.",
+  "notes": "⚠️ No license specified — contact author before commercial use. Trigger patterns are Chinese-language only. Early project (2 days old at time of review).",
+  "status": "listed"
+}

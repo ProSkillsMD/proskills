@@ -1,0 +1,31 @@
+{
+  "id": "ssl-certificate-checker",
+  "name": "SSL Certificate Checker",
+  "slug": "ssl-certificate-checker",
+  "category": "devops",
+  "description": "Comprehensive SSL/TLS certificate inspection skill — check expiry, chain validity, STARTTLS protocols, and edge cases. Zero dependencies, cross-platform, GPG-signed via SkillSeal.",
+  "author": {
+    "github": "mcyork",
+    "name": "mcyork"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mcyork/skillseal-demo-sslcheck",
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw"],
+  "tags": ["ssl", "tls", "certificates", "devops", "security", "monitoring"],
+  "verified_at": "2026-03-09T22:10:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 9,
+    "uniqueness": 7,
+    "code_quality": 9,
+    "average": 8.24
+  },
+  "review": "Exemplary SSL certificate skill — complete workflow with STARTTLS, edge case handling, platform-aware commands, and full MANIFEST/TRUST infrastructure. First GPG-signed skill in the catalog via SkillSeal. Documentation is best-in-class.",
+  "notes": "⚠️ LICENSE: Business Source License 1.1 (BSL 1.1) — non-commercial use is FREE. Commercial/production use requires contacting ian@esoup.net. License automatically converts to Apache 2.0 on 2030-02-14.",
+  "status": "listed"
+}
