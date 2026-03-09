@@ -1,0 +1,30 @@
+{
+  "id": "claw-helper",
+  "name": "claw-helper",
+  "slug": "claw-helper",
+  "category": "automation",
+  "description": "Helper utility skill for OpenClaw that assists with common CLI tasks and automation workflows within the OpenClaw ecosystem.",
+  "author": {
+    "github": "unknown",
+    "name": "Unknown"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/claw-helper",
+  "stars": 0,
+  "downloads": 0,
+  "tags": ["helper", "cli", "automation", "utilities", "openclaw"],
+  "verified_at": "2026-03-09T17:31:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 6,
+    "security": 7,
+    "maintenance": 7,
+    "usefulness": 7,
+    "uniqueness": 7,
+    "code_quality": 7,
+    "average": 6.9
+  },
+  "review": "Gamora reviewed and conditionally approved this skill. Score 6.9/10. Useful CLI helper with adequate functionality but needs security documentation.",
+  "notes": "CONDITIONAL: Security review of CLI command execution required, verify sandboxed operations, add security documentation before production use.",
+  "status": "verified"
+}

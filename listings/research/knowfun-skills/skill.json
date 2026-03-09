@@ -1,0 +1,30 @@
+{
+  "id": "knowfun-skills",
+  "name": "Knowfun",
+  "slug": "knowfun-skills",
+  "category": "research",
+  "description": "Knowledge and fun research skill for OpenClaw. Enables interactive knowledge discovery and research workflows with an engaging approach.",
+  "author": {
+    "github": "unknown",
+    "name": "Unknown"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/knowfun-skills",
+  "stars": 0,
+  "downloads": 0,
+  "tags": ["knowledge", "research", "fun", "learning", "interactive"],
+  "verified_at": "2026-03-09T17:31:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.6
+  },
+  "review": "Gamora reviewed and approved this skill. Score 7.6/10. Strong research skill with good functionality, documentation, and unique approach to knowledge discovery.",
+  "notes": "",
+  "status": "verified"
+}

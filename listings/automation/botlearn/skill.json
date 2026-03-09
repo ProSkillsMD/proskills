@@ -1,0 +1,30 @@
+{
+  "id": "botlearn",
+  "name": "botlearn",
+  "slug": "botlearn",
+  "category": "automation",
+  "description": "Bot learning and training skill for OpenClaw. Enables bots to learn from interactions, improve responses, and adapt to user preferences over time.",
+  "author": {
+    "github": "unknown",
+    "name": "Unknown"
+  },
+  "version": "1.0.0",
+  "clawhub_url": "https://clawhub.ai/skills/botlearn",
+  "stars": 0,
+  "downloads": 0,
+  "tags": ["bot", "learning", "training", "automation", "ai", "adaptive"],
+  "verified_at": "2026-03-09T17:31:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 7.7
+  },
+  "review": "Gamora reviewed and approved this skill. Score 7.7/10. Excellent bot learning capability with strong functionality and documentation. Well-maintained and highly useful.",
+  "notes": "",
+  "status": "verified"
+}

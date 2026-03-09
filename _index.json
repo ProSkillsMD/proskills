@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 71,
+  "total": 78,
   "categories": [
     "automation",
     "coding",
@@ -12,8 +12,71 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T17:24:44Z",
+  "last_updated": "2026-03-09T17:34:00Z",
   "skills": [
+    {
+      "id": "dream-head-tail-to-video",
+      "slug": "dream-head-tail-to-video",
+      "category": "content",
+      "name": "Dream Head Tail to Video",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 6.6
+    },
+    {
+      "id": "open-claw-cash",
+      "slug": "open-claw-cash",
+      "category": "automation",
+      "name": "OpenClawCash",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "iret77-smart-memory",
+      "slug": "iret77-smart-memory",
+      "category": "automation",
+      "name": "Smart Memory",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.4
+    },
+    {
+      "id": "botlearn",
+      "slug": "botlearn",
+      "category": "automation",
+      "name": "botlearn",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.7
+    },
+    {
+      "id": "claw-helper",
+      "slug": "claw-helper",
+      "category": "automation",
+      "name": "claw-helper",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 6.9
+    },
+    {
+      "id": "knowfun-skills",
+      "slug": "knowfun-skills",
+      "category": "research",
+      "name": "Knowfun",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.6
+    },
+    {
+      "id": "tax",
+      "slug": "tax",
+      "category": "automation",
+      "name": "Tax",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 6.7
+    },
     {
       "id": "openclaw-reference-knowledge-base",
       "slug": "openclaw-reference-knowledge-base",
