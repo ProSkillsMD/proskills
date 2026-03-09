@@ -1,15 +1,16 @@
 {
-  "total_skills": 18,
-  "verified": 18,
+  "total_skills": 19,
+  "verified": 19,
   "categories": {
     "content": 1,
     "automation": 5,
-    "research": 5,
+    "research": 6,
     "coding": 5,
     "devops": 1
   },
-  "last_scan": "2026-03-09T06:22:57Z",
+  "last_scan": "2026-03-09T06:23:20Z",
   "recent_additions": [
+    "ai-research-skills",
     "skill-codex",
     "finance-news-openclaw-skill",
     "comfyui-skills-openclaw",
@@ -18,11 +19,7 @@
     "soul-md",
     "mma-investigator",
     "asana-cli",
-    "nano-banana-pro-prompts-recommend-skill",
-    "team-tasks",
-    "claude-d3js-skill",
-    "claude-skill-registry",
-    "accessibility"
+    "nano-banana-pro-prompts-recommend-skill"
   ],
   "top_skills": [
     {

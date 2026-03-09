@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "total": 18,
+  "total": 19,
   "categories": [
     "automation",
     "coding",
     "content",
     "research"
   ],
-  "last_updated": "2026-03-09T06:22:57Z",
+  "last_updated": "2026-03-09T06:23:20Z",
   "skills": [
     {
       "id": "marketingskills",
@@ -170,6 +170,15 @@
       "score": 8.1,
       "stars": 769,
       "verified_at": "2026-03-09T06:22:57Z"
+    },
+    {
+      "id": "ai-research-skills",
+      "name": "AI-Research-SKILLs",
+      "category": "research",
+      "slug": "ai-research-skills",
+      "score": 7.2,
+      "stars": 4616,
+      "verified_at": "2026-03-09T06:23:20Z"
     }
   ]
 }

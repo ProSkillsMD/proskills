@@ -1,0 +1,22 @@
+{
+  "id": "ai-research-skills",
+  "name": "AI-Research-SKILLs",
+  "slug": "ai-research-skills",
+  "category": "research",
+  "description": "Exceptional library of 85 AI research skills covering a wide range of research workflows and methodologies. Large collection with individual skills accessible via the repo.",
+  "author": {
+    "github": "Orchestra-Research",
+    "name": "Orchestra-Research"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
+  "stars": 4616,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["research", "ai", "collection", "academic", "analysis"],
+  "verified_at": "2026-03-09T06:22:00Z",
+  "scores": {
+    "average": 7.2
+  },
+  "review": "Exceptional library of 85 AI research skills. 4,616 stars. Conditional note: large collection; individual skills are accessible via the repo.",
+  "gamora_verdict": "CONDITIONAL"
+}
