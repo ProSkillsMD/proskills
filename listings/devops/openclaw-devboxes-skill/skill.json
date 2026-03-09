@@ -1,0 +1,36 @@
+{
+  "id": "openclaw-devboxes-skill",
+  "name": "openclaw-devboxes-skill",
+  "slug": "openclaw-devboxes-skill",
+  "category": "devops",
+  "description": "Dev container lifecycle management via OpenClaw. Create, start, stop, and list web-accessible dev environments with VSCode Web, noVNC desktop, Chromium CDP, Traefik/Cloudflare Tunnel routing. Two-phase startup architecture with main/subagent separation.",
+  "author": {
+    "github": "adshrc",
+    "name": "adshrc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/adshrc/openclaw-devboxes-skill",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["devops", "docker", "containers", "vscode", "vnc", "dev-environments", "infrastructure"],
+  "verified_at": "2026-03-09T17:15:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 7,
+    "maintenance": 5,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 7,
+    "average": 7.4
+  },
+  "review": "Sophisticated, well-designed infrastructure skill for web-accessible dev environments from chat. Novel capability — no equivalent exists in the marketplace. Covers VSCode Web, noVNC, Chromium CDP, and dual routing modes (Traefik/Cloudflare Tunnel). Docker socket access clearly documented with sandbox mode enforcement.",
+  "rocket_findings": {
+    "license": "unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

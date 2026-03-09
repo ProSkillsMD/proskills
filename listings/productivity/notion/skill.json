@@ -1,0 +1,37 @@
+{
+  "id": "notion",
+  "name": "notion",
+  "slug": "notion",
+  "category": "productivity",
+  "description": "Official Notion API integration with complete curl-based workflow. 8 operations: search, get page, get blocks, create page, query database, create database, update properties, add blocks. Supports API v2025-09-03 with data_sources migration. Rate limits and payload constraints documented.",
+  "author": {
+    "github": "openclaw",
+    "name": "OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "skill_path": "skills/notion",
+  "stars": 289168,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["notion", "productivity", "api", "databases", "pages", "knowledge-management"],
+  "verified_at": "2026-03-09T17:15:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "Excellent Notion API skill from the trusted openclaw monorepo supporting the latest API v2025-09-03 with data_source migration. All operations include complete copy-pasteable curl examples. Rate limits (3 req/s, 429 handling) and payload limits (100 blocks, 500KB) thoroughly documented. Highly demanded integration with broad workflow applicability.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

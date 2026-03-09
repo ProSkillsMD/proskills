@@ -1,18 +1,38 @@
 {
-  "total_skills": 59,
+  "total_skills": 63,
   "verified": 24,
   "categories": {
     "content": 4,
-    "automation": 23,
-    "research": 8,
+    "automation": 24,
+    "research": 9,
     "coding": 8,
-    "devops": 4,
+    "devops": 5,
     "data": 6,
     "security": 1,
-    "productivity": 4
+    "productivity": 5
   },
   "last_scan": "2026-03-09T17:05:00Z",
   "recent_additions": [
+    {
+      "id": "openclaw-devboxes-skill",
+      "name": "openclaw-devboxes-skill",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "espocrm",
+      "name": "espocrm",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "notion",
+      "name": "notion",
+      "added": "2026-03-09"
+    },
+    {
+      "id": "blogwatcher",
+      "name": "blogwatcher",
+      "added": "2026-03-09"
+    },
     {
       "id": "blucli",
       "name": "blucli",
@@ -41,26 +61,6 @@
     {
       "id": "defillama-watchdog",
       "name": "defillama-watchdog",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "ultimate-ai-media-generator-skill",
-      "name": "Ultimate AI Media Generator",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "iblai-openclaw-router",
-      "name": "iblai-openclaw-router",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "ham",
-      "name": "ham",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "nemp-memory",
-      "name": "nemp-memory",
       "added": "2026-03-09"
     }
   ],

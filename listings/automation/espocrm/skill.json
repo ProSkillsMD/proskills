@@ -1,0 +1,36 @@
+{
+  "id": "espocrm",
+  "name": "espocrm",
+  "slug": "espocrm",
+  "category": "automation",
+  "description": "EspoCRM integration for managing contacts, leads, accounts, tasks, meetings, calls, and opportunities via Python scripts against the EspoCRM REST API. API key loaded from .env only — never exposed in prompts. Supports Cloudflare Access for hosted instances.",
+  "author": {
+    "github": "thegitmate",
+    "name": "thegitmate"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/thegitmate/openclaw-skill-espocrm",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["crm", "espocrm", "contacts", "leads", "sales", "automation", "python"],
+  "verified_at": "2026-03-09T17:15:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 6,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.7
+  },
+  "review": "Well-built CRM integration with exemplary security design — API key never exposed in prompts or tool calls, loads only from .env, no remote code execution, no telemetry. First EspoCRM skill in the marketplace filling a real gap. Complete CRM lifecycle coverage with clean modular Python structure.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
