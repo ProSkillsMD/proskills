@@ -1,0 +1,30 @@
+{
+  "id": "skill-provenance",
+  "name": "Skill Provenance",
+  "slug": "skill-provenance",
+  "category": "security",
+  "description": "Cross-surface provenance tracking for OpenClaw skills — verify authenticity, integrity, and chain of custody with sha256-verified bundles and 22-eval test suite.",
+  "author": {
+    "github": "snapsynapse",
+    "name": "snapsynapse"
+  },
+  "version": "4.7.2",
+  "repo_url": "https://github.com/snapsynapse/skill-provenance",
+  "stars": 0,
+  "downloads": 96,
+  "works_with": ["openclaw"],
+  "tags": ["security", "provenance", "integrity", "verification", "sha256"],
+  "verified_at": "2026-03-09T21:57:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.41
+  },
+  "review": "Exceptional documentation and best-in-class security posture. The only author-side cross-surface provenance skill in the catalog at v4.7.2 with 22 verified evals. SHA256-verified bundles, clean MANIFEST.yaml, pure convention (no network deps). High uniqueness fills a genuine gap.",
+  "status": "listed"
+}

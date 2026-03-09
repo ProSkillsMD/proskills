@@ -1,0 +1,31 @@
+{
+  "id": "microsoft-365-graph-openclaw",
+  "name": "Microsoft 365 Graph for OpenClaw",
+  "slug": "microsoft-365-graph-openclaw",
+  "category": "api",
+  "description": "Microsoft 365 Graph API integration for OpenClaw — manage email, calendar, Teams, SharePoint, and OneDrive via push-webhook architecture.",
+  "author": {
+    "github": "draeden79",
+    "name": "draeden79"
+  },
+  "version": "0.1.6",
+  "repo_url": "https://github.com/draeden79/microsoft-365-graph-openclaw",
+  "stars": 0,
+  "downloads": 52,
+  "works_with": ["openclaw"],
+  "tags": ["microsoft", "m365", "graph-api", "email", "calendar", "teams", "sharepoint"],
+  "verified_at": "2026-03-09T21:57:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 7.88
+  },
+  "review": "First M365 Graph skill in the catalog. Push-webhook architecture is genuinely novel for OpenClaw. Excellent documentation (9/10), clean Python code, dry-run guards on privileged scripts. Maintenance score reflects early v0.x stage — non-blocking given architectural quality.",
+  "notes": "Early v0.x stage. Sync ClawHub listing version when releasing v0.2.0. Consider env-var fallback for --hook-token.",
+  "status": "listed"
+}
