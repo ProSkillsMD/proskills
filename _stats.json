@@ -1,17 +1,18 @@
 {
-  "total_skills": 37,
+  "total_skills": 38,
   "verified": 24,
   "categories": {
     "content": 3,
-    "automation": 12,
+    "automation": 13,
     "research": 7,
     "coding": 7,
     "devops": 3,
     "data": 3,
     "security": 1
   },
-  "last_scan": "2026-03-09T08:15:00Z",
+  "last_scan": "2026-03-09T08:55:00Z",
   "recent_additions": [
+    "memoclaw",
     "openclaw-skill-atlassian-jira",
     "clipx-skills",
     "idfm-journey-skill",
@@ -20,8 +21,7 @@
     "csv-data-summarizer-claude-skill",
     "document-specialist-skill",
     "claude-family-history-research-skill",
-    "upgrade-guard",
-    "agent-guardrails"
+    "upgrade-guard"
   ],
   "top_skills": [
     {
