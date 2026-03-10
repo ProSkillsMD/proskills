@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 119,
+  "total": 121,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-09T22:13:00Z",
+  "last_updated": "2026-03-10T18:31:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1154,6 +1154,24 @@
       "stars": 0,
       "verified_at": "2026-03-09T22:13:00Z",
       "score": 8.12
+    },
+    {
+      "id": "claude-skills",
+      "slug": "claude-skills",
+      "category": "coding",
+      "name": "Claude Skills & Plugins",
+      "stars": 3600,
+      "verified_at": "2026-03-10T18:31:00Z",
+      "score": 7.5
+    },
+    {
+      "id": "database-designer",
+      "slug": "database-designer",
+      "category": "data",
+      "name": "Database Designer",
+      "stars": 0,
+      "verified_at": "2026-03-10T18:31:00Z",
+      "score": 6.8
     }
   ],
   "total_skills": 119
