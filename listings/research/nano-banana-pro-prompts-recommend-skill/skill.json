@@ -16,16 +16,22 @@
   "tags": ["prompts", "image-generation", "gemini", "recommendation", "search", "ai-prompts", "content-remix"],
   "verified_at": "2026-03-09T05:56:00Z",
   "scores": {
-    "functionality": 9,
-    "documentation": 9,
-    "security": 8,
-    "maintenance": 9,
+    "functionality": 8,
+    "documentation": 7,
+    "security": 6,
+    "maintenance": 7,
     "usefulness": 8,
     "uniqueness": 8,
-    "code_quality": 8,
-    "average": 8.4
+    "code_quality": 7,
+    "average": 7.4
   },
-  "review": "Sophisticated prompt recommendation service with 10,000+ curated prompts for Gemini image generation. Automated twice-daily updates, grep-optimized search, and content remix mode make this an exemplary skill. Highly starred (1160+) with exceptional maintenance cadence.",
+  "review": "Prompt recommendation service with 10,000+ curated prompts for Gemini. Conditional approval with content safety requirements. APPROVED WITH CONDITIONS: (1) Filter explicit imagery, (2) Add deepfake disclaimers, (3) Audit celebrity prompts to prevent misuse.",
+  "approval_status": "CONDITIONAL_APPROVED",
+  "conditions": [
+    "Filter explicit imagery from prompt library",
+    "Add deepfake disclaimers to relevant prompts",
+    "Audit all celebrity/person-related prompts to prevent misuse"
+  ],
   "rocket_findings": {
     "license": "unknown",
     "security_scan": "passed",
