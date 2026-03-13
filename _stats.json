@@ -1,20 +1,36 @@
 {
-  "total_skills": 121,
-  "verified": 113,
+  "total_skills": 123,
+  "verified": 123,
   "categories": {
-    "utilities": 2,
-    "data": 9,
+    "api": 1,
     "automation": 48,
-    "coding": 14,
-    "security": 4,
-    "productivity": 10,
-    "devops": 7,
-    "research": 17,
+    "coding": 16,
     "content": 9,
-    "api": 1
+    "data": 9,
+    "devops": 7,
+    "productivity": 10,
+    "research": 16,
+    "creative": 1,
+    "security": 4,
+    "utilities": 2
   },
-  "last_scan": "2026-03-10T18:31:00Z",
+  "last_scan": "2026-03-13T04:37:26Z",
   "recent_additions": [
+    {
+      "id": "nano-banana-pro-prompts-recommend-skill",
+      "name": "Nano Banana Pro Prompts Recommend",
+      "added": "2026-03-13"
+    },
+    {
+      "id": "coding-router",
+      "name": "Coding Router",
+      "added": "2026-03-13"
+    },
+    {
+      "id": "code-moment-codex-switch",
+      "name": "Code Moment Codex Switch",
+      "added": "2026-03-13"
+    },
     {
       "id": "claude-skills",
       "name": "Claude Skills & Plugins",
@@ -49,21 +65,6 @@
       "id": "brand-voice",
       "name": "brand-voice",
       "added": "2026-03-09"
-    },
-    {
-      "id": "campaign-planning",
-      "name": "campaign-planning",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "competitive-analysis",
-      "name": "competitive-analysis",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "content-creation",
-      "name": "content-creation",
-      "added": "2026-03-09"
     }
   ],
   "top_skills": [
@@ -93,6 +94,11 @@
       "stars": 151
     },
     {
+      "id": "nano-banana-pro-prompts-recommend-skill",
+      "score": 9.0,
+      "stars": 1169
+    },
+    {
       "id": "marketingskills",
       "score": 8.9,
       "stars": 12000
@@ -111,12 +117,7 @@
       "id": "interactive-slides-openclaw-skill",
       "score": 8.7,
       "stars": 0
-    },
-    {
-      "id": "asana-cli",
-      "score": 8.7,
-      "stars": 0
     }
   ],
-  "average_score": 7.71
+  "average_score": 7.87
 }

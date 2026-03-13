@@ -1,0 +1,31 @@
+{
+  "id": "coding-router",
+  "name": "Coding Router",
+  "slug": "coding-router",
+  "category": "coding",
+  "description": "The skill clearly defines its purpose as a router for coding tasks, with logical rules for planning and implementation requests, and command routing via aliases. The Runtime Status Contract adds valuable observability.",
+  "author": {
+    "github": "kesslerio",
+    "name": "Kessler IO"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/kesslerio/coding-agent-openclaw-skill",
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw"],
+  "tags": ["coding", "router", "task-planning", "implementation", "workflow"],
+  "verified_at": "2026-03-13T04:34:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "The skill clearly defines its purpose as a router for coding tasks, with logical rules for planning and implementation requests, and command routing via aliases. The Runtime Status Contract adds valuable observability.",
+  "gamora_verdict": "APPROVE",
+  "status": "listed"
+}

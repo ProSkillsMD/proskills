@@ -1,0 +1,14 @@
+{
+  "slug": "nano-banana-pro-prompts-recommend-skill",
+  "category": "creative",
+  "source_url": "https://github.com/YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill",
+  "source_skill_sha": "main",
+  "archived_at": "2026-03-13T04:36:00Z",
+  "last_synced_at": "2026-03-13T04:36:00Z",
+  "source_available": true,
+  "needs_review": false,
+  "change_pct_threshold": 30,
+  "score": 9.0,
+  "verdict": "APPROVE",
+  "issue": "#1070"
+}
