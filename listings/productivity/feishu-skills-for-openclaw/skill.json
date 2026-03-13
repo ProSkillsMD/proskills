@@ -1,0 +1,30 @@
+{
+  "id": "feishu-skills-for-openclaw",
+  "name": "Feishu Skills for OpenClaw",
+  "slug": "feishu-skills-for-openclaw",
+  "category": "productivity",
+  "description": "The skill pack significantly enhances Feishu integration, providing intelligent routing, improved UX, and extended capabilities like interactive card design. The `send-card` skill's ability to design complex cards and leverage system JSON sending is a powerful feature.",
+  "author": {
+    "github": "reneexiaoxiao",
+    "name": "reneexiaoxiao"
+  },
+  "version": "1.0.0",
+  "source_url": "https://github.com/reneexiaoxiao/feishu-skills-for-openclaw",
+  "stars": 0,
+  "downloads": 0,
+  "tags": ["feishu", "integration", "messaging", "collaboration", "interactive-cards"],
+  "verified_at": "2026-03-13T04:38:00Z",
+  "scores": {
+    "functionality": 7,
+    "documentation": 6,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 7,
+    "average": 7.3
+  },
+  "review": "Feature-rich Feishu integration pack with innovative routing and interactive card design. Specialized focus on Feishu's unique features offers distinct value. SKILL.md definitions are well-structured with good examples. Install script follows best practices.",
+  "notes": "CONDITIONAL APPROVAL: All documentation, including the main README and individual SKILL.md files, is exclusively in Chinese. This severe language barrier limits accessibility and usability for a global audience, despite the content being otherwise comprehensive. The skill pack significantly enhances Feishu integration, providing intelligent routing, improved UX, and extended capabilities like interactive card design. The `send-card` skill's ability to design complex cards and leverage system JSON sending is a powerful feature. The concept of an \"enhancement pack\" that intelligently routes to and extends an existing official plugin is innovative. The specialized focus on Feishu's unique features, particularly the sophisticated interactive card design and user-centric prompts, offers a distinct value proposition. The `SKILL.md` definitions, acting as the primary \"code,\" are well-structured, clear, and include good examples. The `install.sh` script is well-written and follows good practices. The main challenge to code quality assessment is the language barrier.",
+  "status": "conditional"
+}
