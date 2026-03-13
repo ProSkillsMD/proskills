@@ -1,0 +1,36 @@
+{
+  "id": "alpha",
+  "name": "Alpha Radar Report",
+  "slug": "alpha",
+  "category": "research",
+  "description": "All functionality verified working correctly. Includes all rendering modes, data validation, comprehensive documentation, and passed unit tests.",
+  "author": {
+    "github": "0xXIAOc",
+    "name": "0xXIAOc"
+  },
+  "version": "1.0.2",
+  "repo_url": "https://github.com/0xXIAOc/alpha-radar-openclaw-skill",
+  "stars": 0,
+  "works_with": ["openclaw", "telegram"],
+  "tags": ["finance", "binance", "market-analysis", "trading", "reports", "alpha-radar", "sentiment"],
+  "verified_at": "2026-03-13T04:43:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 8.9
+  },
+  "review": "All functionality verified working correctly. Includes all rendering modes, data validation, comprehensive documentation, and passed unit tests.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
