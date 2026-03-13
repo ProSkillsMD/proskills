@@ -1,0 +1,11 @@
+{
+  "slug": "proskillsmd-skill-claude-code-cli",
+  "category": "developer-tools",
+  "source_url": "https://github.com/ProSkillsMD/skill-claude-code-cli",
+  "source_skill_sha": "15313e7",
+  "archived_at": "2026-03-13T21:05:37.737631+00:00",
+  "last_synced_at": "2026-03-13T21:05:37.737676+00:00",
+  "source_available": true,
+  "needs_review": false,
+  "change_pct_threshold": 30
+}
