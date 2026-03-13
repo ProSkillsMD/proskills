@@ -1,10 +1,10 @@
 {
-  "total_skills": 122,
+  "total_skills": 123,
   "verified": 114,
   "categories": {
     "utilities": 2,
     "data": 10,
-    "automation": 48,
+    "automation": 49,
     "coding": 14,
     "security": 4,
     "productivity": 10,
@@ -13,8 +13,13 @@
     "content": 9,
     "api": 1
   },
-  "last_scan": "2026-03-13T04:43:00Z",
+  "last_scan": "2026-03-13T04:43:59.289849Z",
   "recent_additions": [
+    {
+      "id": "openclaw-pyautogui",
+      "name": "PyAutoGUI - UI Automation & Image Utils",
+      "added": "2026-03-13"
+    },
     {
       "id": "1688-product-import",
       "name": "1688 Product Import",
@@ -58,16 +63,6 @@
     {
       "id": "campaign-planning",
       "name": "campaign-planning",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "competitive-analysis",
-      "name": "competitive-analysis",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "content-creation",
-      "name": "content-creation",
       "added": "2026-03-09"
     }
   ],
@@ -123,5 +118,5 @@
       "stars": 0
     }
   ],
-  "average_score": 7.71
+  "average_score": 7.7
 }
