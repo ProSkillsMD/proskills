@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 121,
+  "total": 122,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-10T18:31:00Z",
+  "last_updated": "2026-03-13T08:30:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1172,6 +1172,25 @@
       "stars": 0,
       "verified_at": "2026-03-10T18:31:00Z",
       "score": 6.8
+    },
+    {
+      "id": "avenger-initiative",
+      "name": "Avenger Initiative",
+      "slug": "avenger-initiative",
+      "category": "security",
+      "description": "Encrypted GitHub backup & restore for any OpenClaw agent system. Branch-per-night with 7/8/12 retention. AES-256 encrypted config backup.",
+      "author": "ProSkillsMD",
+      "version": "1.0.2",
+      "repo_url": "https://github.com/ProSkillsMD/avenger-initiative",
+      "works_with": [
+        "openclaw"
+      ],
+      "paid": false,
+      "verified_at": "2026-03-13T08:00:00Z",
+      "scores": {
+        "average": 9.0
+      },
+      "reviewed": true
     }
   ],
   "total_skills": 119
