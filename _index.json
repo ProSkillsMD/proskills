@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 122,
+  "total": 123,
   "categories": [
     "api",
     "automation",
@@ -13,70 +13,17 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-13T04:33:00Z",
+  "last_updated": "2026-03-13T04:34:00Z",
   "skills": [
     {
-      "id": "openclaw-agent-skill",
-      "slug": "openclaw-agent-skill",
-      "category": "automation",
-      "name": "OpenClaw Agent Skill",
-      "stars": 4,
-      "verified_at": "2026-03-09T22:00:00Z",
-      "score": 8.35
-    },
-    {
-      "id": "html-coder",
-      "slug": "html-coder",
-      "category": "coding",
-      "name": "HTML Coder",
+      "id": "microsoft-365-graph-openclaw",
+      "slug": "microsoft-365-graph-openclaw",
+      "category": "api",
+      "name": "Microsoft 365 Graph for OpenClaw",
       "stars": 0,
-      "verified_at": "2026-03-09T22:00:00Z",
-      "score": 8.06
-    },
-    {
-      "id": "launch-strategy",
-      "slug": "launch-strategy",
-      "category": "content",
-      "name": "Launch Strategy",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:00:00Z",
-      "score": 6.59
-    },
-    {
-      "id": "newsriver-intelligence",
-      "slug": "newsriver-intelligence",
-      "category": "research",
-      "name": "NewsRiver Global Intelligence",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:00:00Z",
-      "score": 7.41
-    },
-    {
-      "id": "bitrix24",
-      "slug": "bitrix24",
-      "category": "automation",
-      "name": "Bitrix24",
-      "stars": 0,
-      "verified_at": "2026-03-09T21:49:00Z",
-      "score": 8.29
-    },
-    {
-      "id": "hookaido",
-      "slug": "hookaido",
-      "category": "automation",
-      "name": "Hookaido Operator",
-      "stars": 0,
-      "verified_at": "2026-03-09T21:49:00Z",
+      "downloads": 52,
+      "verified_at": "2026-03-09T21:57:00Z",
       "score": 7.88
-    },
-    {
-      "id": "vincent-brave-search",
-      "slug": "vincent-brave-search",
-      "category": "research",
-      "name": "Vincent - Brave Search",
-      "stars": 0,
-      "verified_at": "2026-03-09T21:49:00Z",
-      "score": 7.53
     },
     {
       "id": "agentwallet",
@@ -88,400 +35,22 @@
       "score": 8.35
     },
     {
-      "id": "dream-head-tail-to-video",
-      "slug": "dream-head-tail-to-video",
-      "category": "content",
-      "name": "Dream Head Tail to Video",
+      "id": "asana-cli",
+      "slug": "asana-cli",
+      "category": "automation",
+      "name": "asana-cli",
       "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 6.6
+      "verified_at": "2026-03-09T06:15:50Z",
+      "score": 8.7
     },
     {
-      "id": "open-claw-cash",
-      "slug": "open-claw-cash",
+      "id": "atlassian-jira",
+      "slug": "atlassian-jira",
       "category": "automation",
-      "name": "OpenClawCash",
+      "name": "atlassian-jira-by-altf1be",
       "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "iret77-smart-memory",
-      "slug": "iret77-smart-memory",
-      "category": "automation",
-      "name": "Smart Memory",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 7.4
-    },
-    {
-      "id": "botlearn",
-      "slug": "botlearn",
-      "category": "automation",
-      "name": "botlearn",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 7.7
-    },
-    {
-      "id": "claw-helper",
-      "slug": "claw-helper",
-      "category": "automation",
-      "name": "claw-helper",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 6.9
-    },
-    {
-      "id": "knowfun-skills",
-      "slug": "knowfun-skills",
-      "category": "research",
-      "name": "Knowfun",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 7.6
-    },
-    {
-      "id": "tax",
-      "slug": "tax",
-      "category": "automation",
-      "name": "Tax",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:31:00Z",
-      "score": 6.7
-    },
-    {
-      "id": "openclaw-reference-knowledge-base",
-      "slug": "openclaw-reference-knowledge-base",
-      "category": "utilities",
-      "name": "OpenClaw Reference Knowledge Base",
-      "stars": 151,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 9.0
-    },
-    {
-      "id": "context-slim",
-      "slug": "context-slim",
-      "category": "utilities",
-      "name": "ContextSlim Context Window Profiler & Optimizer",
-      "stars": null,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "tariffx-hts-classifier",
-      "slug": "tariffx-hts-classifier",
-      "category": "data",
-      "name": "TariffX HTS Classifier",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "openclaw-skill-codex-cli",
-      "slug": "openclaw-skill-codex-cli",
-      "category": "automation",
-      "name": "Codex CLI Task Runner",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 8.4
-    },
-    {
-      "id": "opc-multi-agent-orchestration",
-      "slug": "opc-multi-agent-orchestration",
-      "category": "automation",
-      "name": "OPC Multi-Agent Orchestration",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 7.6
-    },
-    {
-      "id": "loopy-claude-feature-designer",
-      "slug": "loopy-claude-feature-designer",
-      "category": "coding",
-      "name": "Loopy Claude Feature Designer",
-      "stars": 3,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 7.0
-    },
-    {
-      "id": "clawguard-security-middleware",
-      "slug": "clawguard-security-middleware",
-      "category": "security",
-      "name": "ClawGuard Security Middleware",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:21:00Z",
-      "score": 8.1
-    },
-    {
-      "id": "context-slim",
-      "slug": "context-slim",
-      "category": "productivity",
-      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:17:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "openclaw-devboxes-skill",
-      "slug": "openclaw-devboxes-skill",
-      "category": "devops",
-      "name": "openclaw-devboxes-skill",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:15:00Z",
-      "score": 7.4
-    },
-    {
-      "id": "blogwatcher",
-      "slug": "blogwatcher",
-      "category": "research",
-      "name": "blogwatcher",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:15:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "espocrm",
-      "slug": "espocrm",
-      "category": "automation",
-      "name": "espocrm",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:15:00Z",
-      "score": 7.7
-    },
-    {
-      "id": "notion",
-      "slug": "notion",
-      "category": "productivity",
-      "name": "notion",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:15:00Z",
-      "score": 8.4
-    },
-    {
-      "id": "defillama-watchdog",
-      "slug": "defillama-watchdog",
-      "category": "data",
-      "name": "defillama-watchdog",
-      "stars": 8,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 7.9
-    },
-    {
-      "id": "iblai-openclaw-router",
-      "slug": "iblai-openclaw-router",
-      "category": "automation",
-      "name": "iblai-openclaw-router",
-      "stars": 20,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "blucli",
-      "slug": "blucli",
-      "category": "automation",
-      "name": "blucli",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 6.6
-    },
-    {
-      "id": "xurl",
-      "slug": "xurl",
-      "category": "automation",
-      "name": "xurl",
-      "stars": 428,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 9.1
-    },
-    {
-      "id": "nemp-memory",
-      "slug": "nemp-memory",
-      "category": "productivity",
-      "name": "nemp-memory",
-      "stars": 74,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 7.3
-    },
-    {
-      "id": "apple-notes",
-      "slug": "apple-notes",
-      "category": "productivity",
-      "name": "apple-notes",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 7.9
-    },
-    {
-      "id": "ham",
-      "slug": "ham",
-      "category": "productivity",
-      "name": "ham",
-      "stars": 25,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 8.1
-    },
-    {
-      "id": "feishu-doc",
-      "slug": "feishu-doc",
-      "category": "productivity",
-      "name": "feishu-doc",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "diffs",
-      "slug": "diffs",
-      "category": "coding",
-      "name": "diffs",
-      "stars": 289168,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 8.1
-    },
-    {
-      "id": "ultimate-ai-media-generator-skill",
-      "slug": "ultimate-ai-media-generator-skill",
-      "category": "content",
-      "name": "Ultimate AI Media Generator",
-      "stars": 11,
-      "verified_at": "2026-03-09T17:10:00Z",
-      "score": 7.7
-    },
-    {
-      "id": "openclaw-dx",
-      "slug": "openclaw-dx",
-      "category": "devops",
-      "name": "Openclaw DX",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 6.6
-    },
-    {
-      "id": "xint",
-      "slug": "xint",
-      "category": "research",
-      "name": "Xint",
-      "stars": 36,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "baidu-ecommerce-search",
-      "slug": "baidu-ecommerce-search",
-      "category": "data",
-      "name": "Baidu Ecommerce Search",
-      "stars": 0,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "polyclawster-agent",
-      "slug": "polyclawster-agent",
-      "category": "automation",
-      "name": "PolyClawster Agent",
-      "stars": 2,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 7.4
-    },
-    {
-      "id": "gateway-notify",
-      "slug": "gateway-notify",
-      "category": "automation",
-      "name": "Gateway Notify",
-      "stars": 1,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 7.5
-    },
-    {
-      "id": "clawd-cursor",
-      "slug": "clawd-cursor",
-      "category": "automation",
-      "name": "Clawd Cursor",
-      "stars": 133,
-      "verified_at": "2026-03-09T17:05:00Z",
-      "score": 8.6
-    },
-    {
-      "id": "terminalskills-skills",
-      "slug": "terminalskills-skills",
-      "category": "automation",
-      "name": "TerminalSkills Skills Library",
-      "stars": 10,
-      "verified_at": "2026-03-09T16:34:00Z",
-      "score": 6.9
-    },
-    {
-      "id": "getnote",
-      "slug": "getnote",
-      "category": "automation",
-      "name": "Get\u7b14\u8bb0 (getnote)",
-      "stars": 12,
-      "verified_at": "2026-03-09T12:41:00Z",
-      "score": 7.4
-    },
-    {
-      "id": "laiye-doc-processing",
-      "slug": "laiye-doc-processing",
-      "category": "data",
-      "name": "laiye-doc-processing",
-      "stars": 4,
-      "verified_at": "2026-03-09T08:58:00Z",
-      "score": 7.0
-    },
-    {
-      "id": "clankers-world",
-      "slug": "clankers-world",
-      "category": "automation",
-      "name": "Clanker's World",
-      "stars": 0,
-      "verified_at": "2026-03-09T08:57:00Z",
-      "score": 7.0
-    },
-    {
-      "id": "memoclaw",
-      "slug": "memoclaw",
-      "category": "automation",
-      "name": "Memoclaw",
-      "stars": 4,
-      "verified_at": "2026-03-09T21:24:00Z",
-      "score": 7.97
-    },
-    {
-      "id": "task-ledger",
-      "slug": "task-ledger",
-      "category": "automation",
-      "name": "Task Ledger",
-      "stars": 1,
-      "verified_at": "2026-03-09T08:55:00Z",
-      "score": 7.3
-    },
-    {
-      "id": "openclaw-skill-atlassian-jira",
-      "slug": "openclaw-skill-atlassian-jira",
-      "category": "automation",
-      "name": "Atlassian Jira Cloud Skill",
-      "stars": 1,
-      "verified_at": "2026-03-09T08:15:00Z",
-      "score": 7.8
-    },
-    {
-      "id": "clipx-skills",
-      "slug": "clipx-skills",
-      "category": "data",
-      "name": "clipx-skills",
-      "stars": 0,
-      "verified_at": "2026-03-09T08:11:00Z",
-      "score": 6.14
-    },
-    {
-      "id": "idfm-journey-skill",
-      "slug": "idfm-journey-skill",
-      "category": "automation",
-      "name": "idfm-journey-skill",
-      "stars": 0,
-      "verified_at": "2026-03-09T08:10:00Z",
-      "score": 7.43
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.12
     },
     {
       "id": "basename-agent",
@@ -493,157 +62,67 @@
       "score": 7.6
     },
     {
-      "id": "open-source-monitor-openclaw-skill",
-      "slug": "open-source-monitor-openclaw-skill",
-      "category": "devops",
-      "name": "Open Source Monitor OpenClaw Skill",
+      "id": "bitrix24",
+      "slug": "bitrix24",
+      "category": "automation",
+      "name": "Bitrix24",
       "stars": 0,
-      "verified_at": "2026-03-09T07:47:00Z",
-      "score": 6.7
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 8.29
     },
     {
-      "id": "csv-data-summarizer-claude-skill",
-      "slug": "csv-data-summarizer-claude-skill",
-      "category": "data",
-      "name": "CSV Data Summarizer Claude Skill",
-      "stars": 281,
-      "verified_at": "2026-03-09T07:46:00Z",
-      "score": 6.8
+      "id": "blucli",
+      "slug": "blucli",
+      "category": "automation",
+      "name": "blucli",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 6.6
     },
     {
-      "id": "document-specialist-skill",
-      "slug": "document-specialist-skill",
-      "category": "coding",
-      "name": "Document Specialist Skill",
-      "stars": 11,
-      "verified_at": "2026-03-09T07:45:00Z",
-      "score": 8.0
-    },
-    {
-      "id": "claude-family-history-research-skill",
-      "slug": "claude-family-history-research-skill",
-      "category": "research",
-      "name": "Claude Family History Research Skill",
-      "stars": 44,
-      "verified_at": "2026-03-09T07:34:00Z",
+      "id": "botlearn",
+      "slug": "botlearn",
+      "category": "automation",
+      "name": "botlearn",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
       "score": 7.7
     },
     {
-      "id": "upgrade-guard",
-      "slug": "upgrade-guard",
-      "category": "devops",
-      "name": "Upgrade Guard",
-      "stars": 10,
-      "verified_at": "2026-03-09T07:31:00Z",
-      "score": 7.9
-    },
-    {
-      "id": "agent-guardrails",
-      "slug": "agent-guardrails",
-      "category": "security",
-      "name": "Agent Guardrails",
-      "stars": 10,
-      "verified_at": "2026-03-09T07:28:00Z",
-      "score": 8.1
-    },
-    {
-      "id": "progressive-estimation",
-      "slug": "progressive-estimation",
-      "category": "coding",
-      "name": "Progressive Estimation",
+      "id": "canned-responses",
+      "slug": "canned-responses",
+      "category": "automation",
+      "name": "canned-responses",
       "stars": 0,
-      "verified_at": "2026-03-09T07:25:00Z",
-      "score": 8.4
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 7.7
     },
     {
-      "id": "interactive-slides-openclaw-skill",
-      "slug": "interactive-slides-openclaw-skill",
-      "category": "content",
-      "name": "Interactive Slides OpenClaw Skill",
+      "id": "clankers-world",
+      "slug": "clankers-world",
+      "category": "automation",
+      "name": "Clanker's World",
       "stars": 0,
-      "verified_at": "2026-03-09T07:22:00Z",
-      "score": 8.7
+      "verified_at": "2026-03-09T08:57:00Z",
+      "score": 7.0
     },
     {
-      "id": "ecommerce-predictor",
-      "slug": "ecommerce-predictor",
-      "category": "data",
-      "name": "ecommerce-predictor",
+      "id": "claw-helper",
+      "slug": "claw-helper",
+      "category": "automation",
+      "name": "claw-helper",
       "stars": 0,
-      "verified_at": "2026-03-09T07:11:00Z",
+      "verified_at": "2026-03-09T17:31:00Z",
       "score": 6.9
     },
     {
-      "id": "create-agent-arch",
-      "slug": "create-agent-arch",
+      "id": "clawd-cursor",
+      "slug": "clawd-cursor",
       "category": "automation",
-      "name": "create-agent-arch",
-      "stars": 0,
-      "verified_at": "2026-03-09T06:58:00Z",
-      "score": 6.9
-    },
-    {
-      "id": "chow-new",
-      "slug": "chow-new",
-      "category": "content",
-      "name": "chow-new",
-      "stars": 0,
-      "verified_at": "2026-03-09T06:56:00Z",
-      "score": 7.8
-    },
-    {
-      "id": "openclaw-skills-faahim",
-      "slug": "openclaw-skills-faahim",
-      "category": "automation",
-      "name": "openclaw-skills (faahim)",
-      "stars": 0,
-      "verified_at": "2026-03-09T06:55:00Z",
-      "score": 6.8
-    },
-    {
-      "id": "ospex-openclaw-skill",
-      "slug": "ospex-openclaw-skill",
-      "category": "automation",
-      "name": "ospex-openclaw-skill",
-      "stars": 0,
-      "verified_at": "2026-03-09T06:54:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "ai-research-skills",
-      "slug": "ai-research-skills",
-      "category": "research",
-      "name": "AI-Research-SKILLs",
-      "stars": 4616,
-      "verified_at": "2026-03-09T06:22:00Z",
-      "score": 7.2
-    },
-    {
-      "id": "ecom-claw",
-      "slug": "ecom-claw",
-      "category": "automation",
-      "name": "ecom-claw",
-      "stars": 0,
-      "verified_at": "2026-03-09T06:22:00Z",
-      "score": 6.5
-    },
-    {
-      "id": "skill-codex",
-      "slug": "skill-codex",
-      "category": "coding",
-      "name": "skill-codex",
-      "stars": 769,
-      "verified_at": "2026-03-09T06:22:00Z",
-      "score": 8.1
-    },
-    {
-      "id": "finance-news-openclaw-skill",
-      "slug": "finance-news-openclaw-skill",
-      "category": "research",
-      "name": "Finance News OpenClaw Skill",
-      "stars": 8,
-      "verified_at": "2026-03-09T06:21:00Z",
-      "score": 8.1
+      "name": "Clawd Cursor",
+      "stars": 133,
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 8.6
     },
     {
       "id": "comfyui-skills-openclaw",
@@ -655,189 +134,157 @@
       "score": 8.5
     },
     {
-      "id": "mma-investigator",
-      "slug": "mma-investigator",
-      "category": "devops",
-      "name": "mma-investigator",
-      "stars": 31997,
-      "verified_at": "2026-03-09T06:16:40Z",
-      "score": 7.5
-    },
-    {
-      "id": "decodo-openclaw-skill",
-      "slug": "decodo-openclaw-skill",
-      "category": "research",
-      "name": "decodo-openclaw-skill",
-      "stars": 61,
-      "verified_at": "2026-03-09T06:16:00Z",
-      "score": 7.1
-    },
-    {
-      "id": "soul-md",
-      "slug": "soul-md",
+      "id": "compliance",
+      "slug": "compliance",
       "category": "automation",
-      "name": "soul.md",
-      "stars": 173,
-      "verified_at": "2026-03-09T06:16:00Z",
-      "score": 8.7
-    },
-    {
-      "id": "project-memory",
-      "slug": "project-memory",
-      "category": "coding",
-      "name": "project-memory",
-      "stars": 51,
-      "verified_at": "2026-03-09T06:16:00Z",
-      "score": 8.0
-    },
-    {
-      "id": "asana-cli",
-      "slug": "asana-cli",
-      "category": "automation",
-      "name": "asana-cli",
+      "name": "compliance",
       "stars": 0,
-      "verified_at": "2026-03-09T06:15:50Z",
-      "score": 8.7
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.6
     },
     {
-      "id": "nano-banana-pro-prompts-recommend-skill",
-      "slug": "nano-banana-pro-prompts-recommend-skill",
-      "category": "research",
-      "name": "Nano Banana Pro Prompts Recommend",
-      "stars": 1169,
-      "verified_at": "2026-03-09T05:56:00Z",
-      "score": 7.4
-    },
-    {
-      "id": "team-tasks",
-      "slug": "team-tasks",
+      "id": "contract-review",
+      "slug": "contract-review",
       "category": "automation",
-      "name": "Team Tasks",
-      "stars": 380,
-      "verified_at": "2026-03-09T05:55:00Z",
-      "score": 8.4
+      "name": "contract-review",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
     },
     {
-      "id": "claude-d3js-skill",
-      "slug": "claude-d3js-skill",
-      "category": "coding",
-      "name": "Claude D3.js Skill",
-      "stars": 127,
-      "verified_at": "2026-03-09T05:54:00Z",
+      "id": "create-agent-arch",
+      "slug": "create-agent-arch",
+      "category": "automation",
+      "name": "create-agent-arch",
+      "stars": 0,
+      "verified_at": "2026-03-09T06:58:00Z",
+      "score": 6.9
+    },
+    {
+      "id": "ecom-claw",
+      "slug": "ecom-claw",
+      "category": "automation",
+      "name": "ecom-claw",
+      "stars": 0,
+      "verified_at": "2026-03-09T06:22:00Z",
+      "score": 6.5
+    },
+    {
+      "id": "espocrm",
+      "slug": "espocrm",
+      "category": "automation",
+      "name": "espocrm",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:15:00Z",
       "score": 7.7
     },
     {
-      "id": "claude-skill-registry",
-      "slug": "claude-skill-registry",
-      "category": "research",
-      "name": "Claude Skill Registry",
-      "stars": 107,
-      "verified_at": "2026-03-09T05:49:00Z",
+      "id": "gateway-notify",
+      "slug": "gateway-notify",
+      "category": "automation",
+      "name": "Gateway Notify",
+      "stars": 1,
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 7.5
+    },
+    {
+      "id": "getnote",
+      "slug": "getnote",
+      "category": "automation",
+      "name": "Get\u7b14\u8bb0 (getnote)",
+      "stars": 12,
+      "verified_at": "2026-03-09T12:41:00Z",
+      "score": 7.4
+    },
+    {
+      "id": "hookaido",
+      "slug": "hookaido",
+      "category": "automation",
+      "name": "Hookaido Operator",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 7.88
+    },
+    {
+      "id": "iblai-openclaw-router",
+      "slug": "iblai-openclaw-router",
+      "category": "automation",
+      "name": "iblai-openclaw-router",
+      "stars": 20,
+      "verified_at": "2026-03-09T17:10:00Z",
       "score": 8.3
     },
     {
-      "id": "accessibility",
-      "slug": "accessibility",
-      "category": "coding",
-      "name": "VS Code Accessibility Engineering",
-      "stars": 182462,
-      "verified_at": "2026-03-09T05:23:00Z",
-      "score": 9.5
-    },
-    {
-      "id": "openclaw-docs-rag",
-      "slug": "openclaw-docs-rag",
-      "category": "research",
-      "name": "openclaw-docs-rag",
-      "stars": 0,
-      "verified_at": "2026-03-09T04:23:00Z",
-      "score": 7.53
-    },
-    {
-      "id": "last30days-skill",
-      "slug": "last30days-skill",
-      "category": "research",
-      "name": "last30days-skill",
-      "stars": 3858,
-      "verified_at": "2026-03-09T04:22:00Z",
-      "score": 9.03
-    },
-    {
-      "id": "ui-ux-pro-max",
-      "slug": "ui-ux-pro-max",
-      "category": "coding",
-      "name": "ui-ux-pro-max",
-      "stars": 38630,
-      "verified_at": "2026-03-09T04:22:00Z",
-      "score": 8.2
-    },
-    {
-      "id": "planning-with-files",
-      "slug": "planning-with-files",
+      "id": "idfm-journey-skill",
+      "slug": "idfm-journey-skill",
       "category": "automation",
-      "name": "planning-with-files",
-      "stars": 15588,
-      "verified_at": "2026-03-09T04:21:57Z",
-      "score": 8.71
+      "name": "idfm-journey-skill",
+      "stars": 0,
+      "verified_at": "2026-03-09T08:10:00Z",
+      "score": 7.43
     },
     {
-      "id": "marketingskills",
-      "slug": "marketingskills",
-      "category": "content",
-      "name": "marketingskills",
-      "stars": 12000,
-      "verified_at": "2026-03-09T04:21:32Z",
-      "score": 8.9
-    },
-    {
-      "id": "self-improving-agent",
-      "name": "self-improving-agent",
+      "id": "iret77-smart-memory",
+      "slug": "iret77-smart-memory",
       "category": "automation",
-      "slug": "self-improving-agent",
-      "score": 9.1,
-      "stars": 1563,
-      "downloads": 134874,
-      "verified_at": "2026-03-09T17:40:00Z"
-    },
-    {
-      "id": "risk-management-specialist",
-      "name": "risk-management-specialist",
-      "category": "research",
-      "slug": "risk-management-specialist",
-      "score": 7.4,
+      "name": "Smart Memory",
       "stars": 0,
-      "downloads": 2600,
-      "verified_at": "2026-03-09T17:42:00Z"
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.4
     },
     {
-      "id": "senior-architect",
-      "name": "senior-architect",
-      "category": "coding",
-      "slug": "senior-architect",
-      "score": 7.1,
-      "stars": 3,
-      "downloads": 3864,
-      "verified_at": "2026-03-09T17:40:00Z"
-    },
-    {
-      "id": "tencent-docs",
-      "name": "tencent-docs",
-      "category": "productivity",
-      "slug": "tencent-docs",
-      "score": 6.6,
-      "stars": 5,
-      "downloads": 5690,
-      "verified_at": "2026-03-09T17:44:00Z"
-    },
-    {
-      "id": "quality-documentation-manager",
-      "name": "quality-documentation-manager",
-      "category": "research",
-      "slug": "quality-documentation-manager",
-      "score": 8.47,
+      "id": "legal-risk-assessment",
+      "slug": "legal-risk-assessment",
+      "category": "automation",
+      "name": "legal-risk-assessment",
       "stars": 0,
-      "downloads": 2342,
-      "verified_at": "2026-03-09T17:45:00Z"
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "meeting-briefing",
+      "slug": "meeting-briefing",
+      "category": "automation",
+      "name": "meeting-briefing",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.0
+    },
+    {
+      "id": "memoclaw",
+      "slug": "memoclaw",
+      "category": "automation",
+      "name": "Memoclaw",
+      "stars": 4,
+      "verified_at": "2026-03-09T21:24:00Z",
+      "score": 7.97
+    },
+    {
+      "id": "nda-triage",
+      "slug": "nda-triage",
+      "category": "automation",
+      "name": "nda-triage",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "opc-multi-agent-orchestration",
+      "slug": "opc-multi-agent-orchestration",
+      "category": "automation",
+      "name": "OPC Multi-Agent Orchestration",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 7.6
+    },
+    {
+      "id": "open-claw-cash",
+      "slug": "open-claw-cash",
+      "category": "automation",
+      "name": "OpenClawCash",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.1
     },
     {
       "id": "openbotcity",
@@ -850,82 +297,104 @@
       "verified_at": "2026-03-09T17:56:00Z"
     },
     {
-      "id": "agile-product-owner",
-      "name": "Agile Product Owner",
-      "category": "productivity",
-      "slug": "agile-product-owner",
-      "score": 8.4,
+      "id": "openbroker",
+      "slug": "openbroker",
+      "category": "automation",
+      "name": "Open-broker",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:44:00Z",
+      "score": 8.12
+    },
+    {
+      "id": "openclaw-agent-skill",
+      "slug": "openclaw-agent-skill",
+      "category": "automation",
+      "name": "OpenClaw Agent Skill",
+      "stars": 4,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 8.35
+    },
+    {
+      "id": "openclaw-skill-atlassian-jira",
+      "slug": "openclaw-skill-atlassian-jira",
+      "category": "automation",
+      "name": "Atlassian Jira Cloud Skill",
+      "stars": 1,
+      "verified_at": "2026-03-09T08:15:00Z",
+      "score": 7.8
+    },
+    {
+      "id": "openclaw-skill-codex-cli",
+      "slug": "openclaw-skill-codex-cli",
+      "category": "automation",
+      "name": "Codex CLI Task Runner",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "openclaw-skills-faahim",
+      "slug": "openclaw-skills-faahim",
+      "category": "automation",
+      "name": "openclaw-skills (faahim)",
+      "stars": 0,
+      "verified_at": "2026-03-09T06:55:00Z",
+      "score": 6.8
+    },
+    {
+      "id": "openproject",
+      "slug": "openproject",
+      "category": "automation",
+      "name": "openproject-by-altf1be",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.12
+    },
+    {
+      "id": "org-planning",
+      "slug": "org-planning",
+      "category": "automation",
+      "name": "org-planning",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "ospex-openclaw-skill",
+      "slug": "ospex-openclaw-skill",
+      "category": "automation",
+      "name": "ospex-openclaw-skill",
+      "stars": 0,
+      "verified_at": "2026-03-09T06:54:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "planning-with-files",
+      "slug": "planning-with-files",
+      "category": "automation",
+      "name": "planning-with-files",
+      "stars": 15588,
+      "verified_at": "2026-03-09T04:21:57Z",
+      "score": 8.71
+    },
+    {
+      "id": "polyclawster-agent",
+      "slug": "polyclawster-agent",
+      "category": "automation",
+      "name": "PolyClawster Agent",
       "stars": 2,
-      "downloads": 1677,
-      "verified_at": "2026-03-09T17:56:00Z"
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 7.4
     },
     {
-      "id": "cto-advisor",
-      "name": "CTO Advisor",
-      "category": "productivity",
-      "slug": "cto-advisor",
-      "score": 9.0,
-      "stars": 0,
-      "downloads": 1667,
-      "verified_at": "2026-03-09T17:56:00Z"
-    },
-    {
-      "id": "senior-ml-engineer",
-      "name": "Senior ML Engineer",
-      "category": "devops",
-      "slug": "senior-ml-engineer",
-      "score": 7.9,
-      "stars": 0,
-      "downloads": 1365,
-      "verified_at": "2026-03-09T17:56:00Z"
-    },
-    {
-      "id": "qms-audit-expert",
-      "name": "QMS Audit Expert",
-      "category": "research",
-      "slug": "qms-audit-expert",
-      "score": 8.6,
-      "stars": 0,
-      "downloads": 1087,
-      "verified_at": "2026-03-09T17:56:00Z"
-    },
-    {
-      "id": "isms-audit-expert",
-      "name": "ISMS Audit Expert",
-      "category": "security",
-      "slug": "isms-audit-expert",
-      "score": 8.4,
-      "stars": 0,
-      "downloads": 1071,
-      "verified_at": "2026-03-09T17:56:00Z"
-    },
-    {
-      "id": "customer-success-manager",
-      "name": "Customer Success Manager",
-      "category": "productivity",
-      "slug": "customer-success-manager",
-      "score": 8.6,
-      "stars": 0,
-      "downloads": 372,
-      "verified_at": "2026-03-09T17:56:00Z"
-    },
-    {
-      "id": "openclaw-devboxes",
-      "slug": "openclaw-devboxes",
-      "category": "devops",
-      "name": "OpenClaw Devboxes",
-      "stars": 0,
-      "verified_at": "2026-03-09T21:30:00Z",
-      "score": 7.41
-    },
-    {
-      "id": "openclaw-codex-cli",
-      "slug": "openclaw-codex-cli",
-      "category": "coding",
-      "name": "OpenClaw Codex CLI",
-      "stars": 0,
-      "verified_at": "2026-03-09T21:30:00Z",
-      "score": 8.41
+      "id": "self-improving-agent",
+      "name": "self-improving-agent",
+      "category": "automation",
+      "slug": "self-improving-agent",
+      "score": 9.1,
+      "stars": 1563,
+      "downloads": 134874,
+      "verified_at": "2026-03-09T17:40:00Z"
     },
     {
       "id": "skill-multi-publisher",
@@ -965,6 +434,150 @@
       "status": "listed"
     },
     {
+      "id": "soul-md",
+      "slug": "soul-md",
+      "category": "automation",
+      "name": "soul.md",
+      "stars": 173,
+      "verified_at": "2026-03-09T06:16:00Z",
+      "score": 8.7
+    },
+    {
+      "id": "task-ledger",
+      "slug": "task-ledger",
+      "category": "automation",
+      "name": "Task Ledger",
+      "stars": 1,
+      "verified_at": "2026-03-09T08:55:00Z",
+      "score": 7.3
+    },
+    {
+      "id": "tax",
+      "slug": "tax",
+      "category": "automation",
+      "name": "Tax",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 6.7
+    },
+    {
+      "id": "team-tasks",
+      "slug": "team-tasks",
+      "category": "automation",
+      "name": "Team Tasks",
+      "stars": 380,
+      "verified_at": "2026-03-09T05:55:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "terminalskills-skills",
+      "slug": "terminalskills-skills",
+      "category": "automation",
+      "name": "TerminalSkills Skills Library",
+      "stars": 10,
+      "verified_at": "2026-03-09T16:34:00Z",
+      "score": 6.9
+    },
+    {
+      "id": "xurl",
+      "slug": "xurl",
+      "category": "automation",
+      "name": "xurl",
+      "stars": 428,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 9.1
+    },
+    {
+      "id": "accessibility",
+      "slug": "accessibility",
+      "category": "coding",
+      "name": "VS Code Accessibility Engineering",
+      "stars": 182462,
+      "verified_at": "2026-03-09T05:23:00Z",
+      "score": 9.5
+    },
+    {
+      "id": "claude-d3js-skill",
+      "slug": "claude-d3js-skill",
+      "category": "coding",
+      "name": "Claude D3.js Skill",
+      "stars": 127,
+      "verified_at": "2026-03-09T05:54:00Z",
+      "score": 7.7
+    },
+    {
+      "id": "claude-skills",
+      "slug": "claude-skills",
+      "category": "coding",
+      "name": "Claude Skills & Plugins",
+      "stars": 3600,
+      "verified_at": "2026-03-10T18:31:00Z",
+      "score": 7.5
+    },
+    {
+      "id": "code-moment-codex-switch",
+      "slug": "code-moment-codex-switch",
+      "category": "coding",
+      "name": "Code Moment Codex Switch",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:33:00Z",
+      "score": 9.0
+    },
+    {
+      "id": "coding-router",
+      "slug": "coding-router",
+      "category": "coding",
+      "name": "Coding Router",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:34:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "diffs",
+      "slug": "diffs",
+      "category": "coding",
+      "name": "diffs",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "document-specialist-skill",
+      "slug": "document-specialist-skill",
+      "category": "coding",
+      "name": "Document Specialist Skill",
+      "stars": 11,
+      "verified_at": "2026-03-09T07:45:00Z",
+      "score": 8.0
+    },
+    {
+      "id": "html-coder",
+      "slug": "html-coder",
+      "category": "coding",
+      "name": "HTML Coder",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 8.06
+    },
+    {
+      "id": "loopy-claude-feature-designer",
+      "slug": "loopy-claude-feature-designer",
+      "category": "coding",
+      "name": "Loopy Claude Feature Designer",
+      "stars": 3,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 7.0
+    },
+    {
+      "id": "openclaw-codex-cli",
+      "slug": "openclaw-codex-cli",
+      "category": "coding",
+      "name": "OpenClaw Codex CLI",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:30:00Z",
+      "score": 8.41
+    },
+    {
       "id": "openclaw-oss-pr",
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
@@ -1001,105 +614,50 @@
       "status": "listed"
     },
     {
-      "id": "openbroker",
-      "slug": "openbroker",
-      "category": "automation",
-      "name": "Open-broker",
+      "id": "progressive-estimation",
+      "slug": "progressive-estimation",
+      "category": "coding",
+      "name": "Progressive Estimation",
       "stars": 0,
-      "verified_at": "2026-03-09T21:44:00Z",
-      "score": 8.12
-    },
-    {
-      "id": "skill-provenance",
-      "slug": "skill-provenance",
-      "category": "security",
-      "name": "Skill Provenance",
-      "stars": 0,
-      "downloads": 96,
-      "verified_at": "2026-03-09T21:57:00Z",
-      "score": 8.41
-    },
-    {
-      "id": "microsoft-365-graph-openclaw",
-      "slug": "microsoft-365-graph-openclaw",
-      "category": "api",
-      "name": "Microsoft 365 Graph for OpenClaw",
-      "stars": 0,
-      "downloads": 52,
-      "verified_at": "2026-03-09T21:57:00Z",
-      "score": 7.88
-    },
-    {
-      "id": "org-planning",
-      "slug": "org-planning",
-      "category": "automation",
-      "name": "org-planning",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:05:00Z",
-      "score": 8.3
-    },
-    {
-      "id": "people-analytics",
-      "slug": "people-analytics",
-      "category": "data",
-      "name": "people-analytics",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:05:00Z",
+      "verified_at": "2026-03-09T07:25:00Z",
       "score": 8.4
     },
     {
-      "id": "canned-responses",
-      "slug": "canned-responses",
-      "category": "automation",
-      "name": "canned-responses",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:05:00Z",
-      "score": 7.7
-    },
-    {
-      "id": "compliance",
-      "slug": "compliance",
-      "category": "automation",
-      "name": "compliance",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:05:00Z",
-      "score": 8.6
-    },
-    {
-      "id": "contract-review",
-      "slug": "contract-review",
-      "category": "automation",
-      "name": "contract-review",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.65
-    },
-    {
-      "id": "legal-risk-assessment",
-      "slug": "legal-risk-assessment",
-      "category": "automation",
-      "name": "legal-risk-assessment",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.65
-    },
-    {
-      "id": "meeting-briefing",
-      "slug": "meeting-briefing",
-      "category": "automation",
-      "name": "meeting-briefing",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
+      "id": "project-memory",
+      "slug": "project-memory",
+      "category": "coding",
+      "name": "project-memory",
+      "stars": 51,
+      "verified_at": "2026-03-09T06:16:00Z",
       "score": 8.0
     },
     {
-      "id": "nda-triage",
-      "slug": "nda-triage",
-      "category": "automation",
-      "name": "nda-triage",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.65
+      "id": "senior-architect",
+      "name": "senior-architect",
+      "category": "coding",
+      "slug": "senior-architect",
+      "score": 7.1,
+      "stars": 3,
+      "downloads": 3864,
+      "verified_at": "2026-03-09T17:40:00Z"
+    },
+    {
+      "id": "skill-codex",
+      "slug": "skill-codex",
+      "category": "coding",
+      "name": "skill-codex",
+      "stars": 769,
+      "verified_at": "2026-03-09T06:22:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "ui-ux-pro-max",
+      "slug": "ui-ux-pro-max",
+      "category": "coding",
+      "name": "ui-ux-pro-max",
+      "stars": 38630,
+      "verified_at": "2026-03-09T04:22:00Z",
+      "score": 8.2
     },
     {
       "id": "brand-voice",
@@ -1120,13 +678,13 @@
       "score": 8.53
     },
     {
-      "id": "competitive-analysis",
-      "slug": "competitive-analysis",
-      "category": "research",
-      "name": "competitive-analysis",
+      "id": "chow-new",
+      "slug": "chow-new",
+      "category": "content",
+      "name": "chow-new",
       "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.65
+      "verified_at": "2026-03-09T06:56:00Z",
+      "score": 7.8
     },
     {
       "id": "content-creation",
@@ -1138,31 +696,76 @@
       "score": 8.41
     },
     {
-      "id": "atlassian-jira",
-      "slug": "atlassian-jira",
-      "category": "automation",
-      "name": "atlassian-jira-by-altf1be",
+      "id": "dream-head-tail-to-video",
+      "slug": "dream-head-tail-to-video",
+      "category": "content",
+      "name": "Dream Head Tail to Video",
       "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.12
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 6.6
     },
     {
-      "id": "openproject",
-      "slug": "openproject",
-      "category": "automation",
-      "name": "openproject-by-altf1be",
+      "id": "interactive-slides-openclaw-skill",
+      "slug": "interactive-slides-openclaw-skill",
+      "category": "content",
+      "name": "Interactive Slides OpenClaw Skill",
       "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.12
+      "verified_at": "2026-03-09T07:22:00Z",
+      "score": 8.7
     },
     {
-      "id": "claude-skills",
-      "slug": "claude-skills",
-      "category": "coding",
-      "name": "Claude Skills & Plugins",
-      "stars": 3600,
-      "verified_at": "2026-03-10T18:31:00Z",
-      "score": 7.5
+      "id": "launch-strategy",
+      "slug": "launch-strategy",
+      "category": "content",
+      "name": "Launch Strategy",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 6.59
+    },
+    {
+      "id": "marketingskills",
+      "slug": "marketingskills",
+      "category": "content",
+      "name": "marketingskills",
+      "stars": 12000,
+      "verified_at": "2026-03-09T04:21:32Z",
+      "score": 8.9
+    },
+    {
+      "id": "ultimate-ai-media-generator-skill",
+      "slug": "ultimate-ai-media-generator-skill",
+      "category": "content",
+      "name": "Ultimate AI Media Generator",
+      "stars": 11,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 7.7
+    },
+    {
+      "id": "baidu-ecommerce-search",
+      "slug": "baidu-ecommerce-search",
+      "category": "data",
+      "name": "Baidu Ecommerce Search",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "clipx-skills",
+      "slug": "clipx-skills",
+      "category": "data",
+      "name": "clipx-skills",
+      "stars": 0,
+      "verified_at": "2026-03-09T08:11:00Z",
+      "score": 6.14
+    },
+    {
+      "id": "csv-data-summarizer-claude-skill",
+      "slug": "csv-data-summarizer-claude-skill",
+      "category": "data",
+      "name": "CSV Data Summarizer Claude Skill",
+      "stars": 281,
+      "verified_at": "2026-03-09T07:46:00Z",
+      "score": 6.8
     },
     {
       "id": "database-designer",
@@ -1174,12 +777,418 @@
       "score": 6.8
     },
     {
-      "id": "code-moment-codex-switch",
-      "slug": "code-moment-codex-switch",
-      "category": "coding",
-      "name": "Code Moment Codex Switch",
+      "id": "defillama-watchdog",
+      "slug": "defillama-watchdog",
+      "category": "data",
+      "name": "defillama-watchdog",
+      "stars": 8,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 7.9
+    },
+    {
+      "id": "ecommerce-predictor",
+      "slug": "ecommerce-predictor",
+      "category": "data",
+      "name": "ecommerce-predictor",
       "stars": 0,
-      "verified_at": "2026-03-13T04:33:00Z",
+      "verified_at": "2026-03-09T07:11:00Z",
+      "score": 6.9
+    },
+    {
+      "id": "laiye-doc-processing",
+      "slug": "laiye-doc-processing",
+      "category": "data",
+      "name": "laiye-doc-processing",
+      "stars": 4,
+      "verified_at": "2026-03-09T08:58:00Z",
+      "score": 7.0
+    },
+    {
+      "id": "people-analytics",
+      "slug": "people-analytics",
+      "category": "data",
+      "name": "people-analytics",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:05:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "tariffx-hts-classifier",
+      "slug": "tariffx-hts-classifier",
+      "category": "data",
+      "name": "TariffX HTS Classifier",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "mma-investigator",
+      "slug": "mma-investigator",
+      "category": "devops",
+      "name": "mma-investigator",
+      "stars": 31997,
+      "verified_at": "2026-03-09T06:16:40Z",
+      "score": 7.5
+    },
+    {
+      "id": "open-source-monitor-openclaw-skill",
+      "slug": "open-source-monitor-openclaw-skill",
+      "category": "devops",
+      "name": "Open Source Monitor OpenClaw Skill",
+      "stars": 0,
+      "verified_at": "2026-03-09T07:47:00Z",
+      "score": 6.7
+    },
+    {
+      "id": "openclaw-devboxes",
+      "slug": "openclaw-devboxes",
+      "category": "devops",
+      "name": "OpenClaw Devboxes",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:30:00Z",
+      "score": 7.41
+    },
+    {
+      "id": "openclaw-devboxes-skill",
+      "slug": "openclaw-devboxes-skill",
+      "category": "devops",
+      "name": "openclaw-devboxes-skill",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:15:00Z",
+      "score": 7.4
+    },
+    {
+      "id": "openclaw-dx",
+      "slug": "openclaw-dx",
+      "category": "devops",
+      "name": "Openclaw DX",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 6.6
+    },
+    {
+      "id": "senior-ml-engineer",
+      "name": "Senior ML Engineer",
+      "category": "devops",
+      "slug": "senior-ml-engineer",
+      "score": 7.9,
+      "stars": 0,
+      "downloads": 1365,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "upgrade-guard",
+      "slug": "upgrade-guard",
+      "category": "devops",
+      "name": "Upgrade Guard",
+      "stars": 10,
+      "verified_at": "2026-03-09T07:31:00Z",
+      "score": 7.9
+    },
+    {
+      "id": "agile-product-owner",
+      "name": "Agile Product Owner",
+      "category": "productivity",
+      "slug": "agile-product-owner",
+      "score": 8.4,
+      "stars": 2,
+      "downloads": 1677,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "apple-notes",
+      "slug": "apple-notes",
+      "category": "productivity",
+      "name": "apple-notes",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 7.9
+    },
+    {
+      "id": "context-slim",
+      "slug": "context-slim",
+      "category": "productivity",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:17:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "cto-advisor",
+      "name": "CTO Advisor",
+      "category": "productivity",
+      "slug": "cto-advisor",
+      "score": 9.0,
+      "stars": 0,
+      "downloads": 1667,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "customer-success-manager",
+      "name": "Customer Success Manager",
+      "category": "productivity",
+      "slug": "customer-success-manager",
+      "score": 8.6,
+      "stars": 0,
+      "downloads": 372,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "feishu-doc",
+      "slug": "feishu-doc",
+      "category": "productivity",
+      "name": "feishu-doc",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "ham",
+      "slug": "ham",
+      "category": "productivity",
+      "name": "ham",
+      "stars": 25,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "nemp-memory",
+      "slug": "nemp-memory",
+      "category": "productivity",
+      "name": "nemp-memory",
+      "stars": 74,
+      "verified_at": "2026-03-09T17:10:00Z",
+      "score": 7.3
+    },
+    {
+      "id": "notion",
+      "slug": "notion",
+      "category": "productivity",
+      "name": "notion",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:15:00Z",
+      "score": 8.4
+    },
+    {
+      "id": "tencent-docs",
+      "name": "tencent-docs",
+      "category": "productivity",
+      "slug": "tencent-docs",
+      "score": 6.6,
+      "stars": 5,
+      "downloads": 5690,
+      "verified_at": "2026-03-09T17:44:00Z"
+    },
+    {
+      "id": "ai-research-skills",
+      "slug": "ai-research-skills",
+      "category": "research",
+      "name": "AI-Research-SKILLs",
+      "stars": 4616,
+      "verified_at": "2026-03-09T06:22:00Z",
+      "score": 7.2
+    },
+    {
+      "id": "blogwatcher",
+      "slug": "blogwatcher",
+      "category": "research",
+      "name": "blogwatcher",
+      "stars": 289168,
+      "verified_at": "2026-03-09T17:15:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "claude-family-history-research-skill",
+      "slug": "claude-family-history-research-skill",
+      "category": "research",
+      "name": "Claude Family History Research Skill",
+      "stars": 44,
+      "verified_at": "2026-03-09T07:34:00Z",
+      "score": 7.7
+    },
+    {
+      "id": "claude-skill-registry",
+      "slug": "claude-skill-registry",
+      "category": "research",
+      "name": "Claude Skill Registry",
+      "stars": 107,
+      "verified_at": "2026-03-09T05:49:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "competitive-analysis",
+      "slug": "competitive-analysis",
+      "category": "research",
+      "name": "competitive-analysis",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:13:00Z",
+      "score": 8.65
+    },
+    {
+      "id": "decodo-openclaw-skill",
+      "slug": "decodo-openclaw-skill",
+      "category": "research",
+      "name": "decodo-openclaw-skill",
+      "stars": 61,
+      "verified_at": "2026-03-09T06:16:00Z",
+      "score": 7.1
+    },
+    {
+      "id": "finance-news-openclaw-skill",
+      "slug": "finance-news-openclaw-skill",
+      "category": "research",
+      "name": "Finance News OpenClaw Skill",
+      "stars": 8,
+      "verified_at": "2026-03-09T06:21:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "knowfun-skills",
+      "slug": "knowfun-skills",
+      "category": "research",
+      "name": "Knowfun",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:31:00Z",
+      "score": 7.6
+    },
+    {
+      "id": "last30days-skill",
+      "slug": "last30days-skill",
+      "category": "research",
+      "name": "last30days-skill",
+      "stars": 3858,
+      "verified_at": "2026-03-09T04:22:00Z",
+      "score": 9.03
+    },
+    {
+      "id": "nano-banana-pro-prompts-recommend-skill",
+      "slug": "nano-banana-pro-prompts-recommend-skill",
+      "category": "research",
+      "name": "Nano Banana Pro Prompts Recommend",
+      "stars": 1169,
+      "verified_at": "2026-03-09T05:56:00Z",
+      "score": 7.4
+    },
+    {
+      "id": "newsriver-intelligence",
+      "slug": "newsriver-intelligence",
+      "category": "research",
+      "name": "NewsRiver Global Intelligence",
+      "stars": 0,
+      "verified_at": "2026-03-09T22:00:00Z",
+      "score": 7.41
+    },
+    {
+      "id": "openclaw-docs-rag",
+      "slug": "openclaw-docs-rag",
+      "category": "research",
+      "name": "openclaw-docs-rag",
+      "stars": 0,
+      "verified_at": "2026-03-09T04:23:00Z",
+      "score": 7.53
+    },
+    {
+      "id": "qms-audit-expert",
+      "name": "QMS Audit Expert",
+      "category": "research",
+      "slug": "qms-audit-expert",
+      "score": 8.6,
+      "stars": 0,
+      "downloads": 1087,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "quality-documentation-manager",
+      "name": "quality-documentation-manager",
+      "category": "research",
+      "slug": "quality-documentation-manager",
+      "score": 8.47,
+      "stars": 0,
+      "downloads": 2342,
+      "verified_at": "2026-03-09T17:45:00Z"
+    },
+    {
+      "id": "risk-management-specialist",
+      "name": "risk-management-specialist",
+      "category": "research",
+      "slug": "risk-management-specialist",
+      "score": 7.4,
+      "stars": 0,
+      "downloads": 2600,
+      "verified_at": "2026-03-09T17:42:00Z"
+    },
+    {
+      "id": "vincent-brave-search",
+      "slug": "vincent-brave-search",
+      "category": "research",
+      "name": "Vincent - Brave Search",
+      "stars": 0,
+      "verified_at": "2026-03-09T21:49:00Z",
+      "score": 7.53
+    },
+    {
+      "id": "xint",
+      "slug": "xint",
+      "category": "research",
+      "name": "Xint",
+      "stars": 36,
+      "verified_at": "2026-03-09T17:05:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "agent-guardrails",
+      "slug": "agent-guardrails",
+      "category": "security",
+      "name": "Agent Guardrails",
+      "stars": 10,
+      "verified_at": "2026-03-09T07:28:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "clawguard-security-middleware",
+      "slug": "clawguard-security-middleware",
+      "category": "security",
+      "name": "ClawGuard Security Middleware",
+      "stars": 0,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 8.1
+    },
+    {
+      "id": "isms-audit-expert",
+      "name": "ISMS Audit Expert",
+      "category": "security",
+      "slug": "isms-audit-expert",
+      "score": 8.4,
+      "stars": 0,
+      "downloads": 1071,
+      "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "skill-provenance",
+      "slug": "skill-provenance",
+      "category": "security",
+      "name": "Skill Provenance",
+      "stars": 0,
+      "downloads": 96,
+      "verified_at": "2026-03-09T21:57:00Z",
+      "score": 8.41
+    },
+    {
+      "id": "context-slim",
+      "slug": "context-slim",
+      "category": "utilities",
+      "name": "ContextSlim Context Window Profiler & Optimizer",
+      "stars": null,
+      "verified_at": "2026-03-09T17:21:00Z",
+      "score": 8.3
+    },
+    {
+      "id": "openclaw-reference-knowledge-base",
+      "slug": "openclaw-reference-knowledge-base",
+      "category": "utilities",
+      "name": "OpenClaw Reference Knowledge Base",
+      "stars": 151,
+      "verified_at": "2026-03-09T17:21:00Z",
       "score": 9.0
     }
   ],
