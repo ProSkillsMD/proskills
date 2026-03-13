@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 121,
+  "total": 123,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-10T18:31:00Z",
+  "last_updated": "2026-03-13T04:38:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -217,7 +217,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
+      "name": "ContextSlim — Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -331,6 +331,15 @@
       "score": 8.3
     },
     {
+      "id": "feishu-skills-for-openclaw",
+      "slug": "feishu-skills-for-openclaw",
+      "category": "productivity",
+      "name": "Feishu Skills for OpenClaw",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:38:00Z",
+      "score": 7.3
+    },
+    {
       "id": "diffs",
       "slug": "diffs",
       "category": "coding",
@@ -415,7 +424,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get\u7b14\u8bb0 (getnote)",
+      "name": "Get笔记 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -969,7 +978,7 @@
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
       "category": "coding",
-      "description": "Efficient OSS pull request workflows on GitHub \u2014 automates PR creation, review coordination, and merge processes for open source contributors.",
+      "description": "Efficient OSS pull request workflows on GitHub — automates PR creation, review coordination, and merge processes for open source contributors.",
       "author": {
         "github": "tsubasakong",
         "name": "tsubasakong"
@@ -1172,7 +1181,16 @@
       "stars": 0,
       "verified_at": "2026-03-10T18:31:00Z",
       "score": 6.8
+    },
+    {
+      "id": "lark-doc-scraper",
+      "slug": "championeer-lark-doc-scraper",
+      "category": "productivity",
+      "name": "Lark Doc Scraper",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:41:00Z",
+      "score": 7.3
     }
   ],
-  "total_skills": 119
+  "total_skills": 120
 }

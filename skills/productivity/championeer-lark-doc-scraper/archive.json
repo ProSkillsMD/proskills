@@ -1,0 +1,15 @@
+{
+  "slug": "championeer-lark-doc-scraper",
+  "category": "productivity",
+  "source_url": "https://github.com/championeer/lark-doc-scraper-openclaw-skill",
+  "source_skill_sha": "8401d0b9294b2d03bde768c774409b8e81a568d6",
+  "archived_at": "2026-03-13T04:41:00Z",
+  "last_synced_at": "2026-03-13T04:41:00Z",
+  "source_available": true,
+  "needs_review": false,
+  "change_pct_threshold": 30,
+  "verdict": "CONDITIONAL",
+  "score": 7.3,
+  "conditions": "The skill has solid code and correct logic, but is not fully installable/runnable without either (1) a package.json being added, or (2) clearer setup docs. The core functionality cannot be verified without access to a real Feishu/Lark document.",
+  "issue_number": 1843
+}
