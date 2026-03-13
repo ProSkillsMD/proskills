@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 121,
+  "total": 122,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-10T18:31:00Z",
+  "last_updated": "2026-03-13T04:38:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -329,6 +329,15 @@
       "stars": 289168,
       "verified_at": "2026-03-09T17:10:00Z",
       "score": 8.3
+    },
+    {
+      "id": "feishu-skills-for-openclaw",
+      "slug": "feishu-skills-for-openclaw",
+      "category": "productivity",
+      "name": "Feishu Skills for OpenClaw",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:38:00Z",
+      "score": 7.3
     },
     {
       "id": "diffs",
@@ -1174,5 +1183,5 @@
       "score": 6.8
     }
   ],
-  "total_skills": 119
+  "total_skills": 120
 }
