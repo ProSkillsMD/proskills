@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 121,
+  "total": 122,
   "categories": [
     "api",
     "automation",
@@ -13,7 +13,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-10T18:31:00Z",
+  "last_updated": "2026-03-13T04:33:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1172,7 +1172,16 @@
       "stars": 0,
       "verified_at": "2026-03-10T18:31:00Z",
       "score": 6.8
+    },
+    {
+      "id": "code-moment-codex-switch",
+      "slug": "code-moment-codex-switch",
+      "category": "coding",
+      "name": "Code Moment Codex Switch",
+      "stars": 0,
+      "verified_at": "2026-03-13T04:33:00Z",
+      "score": 9.0
     }
   ],
-  "total_skills": 119
+  "total_skills": 122
 }
