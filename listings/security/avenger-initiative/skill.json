@@ -1,0 +1,49 @@
+{
+  "id": "avenger-initiative",
+  "name": "Avenger Initiative",
+  "slug": "avenger-initiative",
+  "category": "security",
+  "featured": false,
+  "description": "Encrypted GitHub backup & restore for any OpenClaw agent system. Branch-per-night strategy with smart retention (7 daily / 8 weekly / 12 monthly). Backs up openclaw.json (AES-256 encrypted), agent memories, SOUL/IDENTITY files, cron jobs, and custom skills. Guided agent setup flow.",
+  "author": "ProSkillsMD",
+  "author_url": "https://github.com/ProSkillsMD",
+  "version": "1.0.2",
+  "repo_url": "https://github.com/ProSkillsMD/avenger-initiative",
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "backup",
+    "security",
+    "encryption",
+    "disaster-recovery",
+    "git-backup"
+  ],
+  "paid": false,
+  "price": 0,
+  "verified_at": "2026-03-13T08:00:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 9.0
+  },
+  "review": "First-party ProSkillsMD skill. Solves a critical gap \u2014 full encrypted disaster recovery for any OpenClaw system. Branch-per-night Git strategy with 7/8/12 retention tiers. AES-256 encryption for config. Agent-guided setup. Thoroughly documented with SECURITY.md and .clawhubsafe. Production-tested.",
+  "reviewed": true,
+  "is_collection": false,
+  "github_stars": 0,
+  "open_issues": 0,
+  "last_commit": "2026-03-13T08:00:00Z",
+  "readme": "# \ud83d\udee1\ufe0f Avenger Initiative\n\n> Encrypted GitHub backup & restore for any [OpenClaw](https://openclaw.ai) agent system.\n\n<p align=\"center\">\n  <a href=\"https://proskills.md/skills/avenger-initiative\">\n    <img src=\"https://img.shields.io/badge/ProSkills.md-Browse%20%26%20Install-brightgreen?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyQzYuNDggMiAyIDYuNDggMiAxMnM0LjQ4IDEwIDEwIDEwIDEwLTQuNDggMTAtMTBTMTcuNTIgMiAxMiAyek0xMCAxN2wtNS01IDEuNDEtMS40MUwxMCAxNC4xN2w3LjU5LTcuNTlMMTkgOGwtOSA5eiIvPjwvc3ZnPg==\" alt=\"ProSkills.md\">\n  </a>\n  &nbsp;\n  <a href=\"https://clawhub.ai/Asif2BD/avenger-initiative\">\n    <img src=\"https://img.shields.io/badge/ClawHub-Install%20via%20CLI-orange?style=for-the-badge\" alt=\"ClawHub\">\n  </a>\n  &nbsp;\n  <a href=\"LICENSE\">\n    <img src=\"https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge\" alt=\"MIT License\">\n  </a>\n</p>\n\n<p align=\"center\">\n  <strong>\n    &nbsp;\n    <a href=\"https://proskills.md/skills/avenger-initiative\">\ud83d\udce6 ProSkills.md</a>\n    &nbsp;\u00b7&nbsp;\n    <a href=\"https://clawhub.ai/Asif2BD/avenger-initiative\">\ud83d\udd27 ClawHub</a>\n    &nbsp;\u00b7&nbsp;\n    <a href=\"#installation\">\u2b07\ufe0f Install</a>\n    &nbsp;\u00b7&nbsp;\n    <a href=\"#quick-start\">\ud83d\ude80 Quick Start</a>\n    &nbsp;\u00b7&nbsp;\n    <a href=\"SECURITY.md\">\ud83d\udd12 Security</a>\n  </strong>\n</p>\n\n---\n\n## What It Does\n\nAvenger Initiative backs up your entire OpenClaw system to a **private GitHub repo** every night \u2014 configs, agent memories, SOUL files, custom skills, cron jobs \u2014 everything needed to fully restore from zero.\n\n**Security model:**\n- `openclaw.json` (API keys, bot tokens) \u2192 **AES-256-CBC encrypted** before leaving disk\n- Everything else (SOUL.md, MEMORY.md, etc.) \u2192 plaintext in your private repo\n- Encryption key stays on your machine \u2014 never committed to Git\n\n**Branch-per-night strategy with smart retention:**\n\n| Branch | Pattern | Retention |\n|--------|---------|-----------|\n| Daily | `backup/daily/YYYY-MM-DD` | Last 7 days |\n| Weekly | `backup/weekly/YYYY-WNN` | Last 8 weeks |\n| Monthly | `backup/monthly/YYYY-MM` | Last 12 months |\n\n---\n\n## Installation\n\n### Option 1 \u2014 ClawHub CLI (recommended)\n\n```bash\nclawhub install avenger-initiative\n```\n\n> Get the ClawHub CLI: `npm install -g clawhub`\n\n### Option 2 \u2014 ProSkills.md\n\nVisit **[proskills.md/skills/avenger-initiative](https://proskills.md/skills/avenger-initiative)** and click **Install** \u2014 the skill is listed for free, no login required to browse.\n\n### Option 3 \u2014 Manual (git clone)\n\n```bash\nmkdir -p ~/.openclaw/workspace/skills\ngit clone https://github.com/ProSkillsMD/avenger-initiative \\\n  ~/.openclaw/workspace/skills/avenger-initiative\nchmod +x ~/.openclaw/workspace/skills/avenger-initiative/scripts/*.sh\n```\n\n---\n\n## Quick Start\n\n### 1. Create a private GitHub vault repo\n\nGo to [github.com/new](https://github.com/new) and create a **private** repo (e.g. `my-openclaw-vault`).\n\n### 2. Set up Avenger Initiative\n\nTell your OpenClaw agent:\n\n> **\"Setup avenger\"**\n\nYour agent will walk you through the rest \u2014 vault repo URL, encryption key, first backup.\n\nOr run manually:\n\n```bash\nbash ~/.openclaw/workspace/skills/avenger-initiative/scripts/setup.sh \\\n  --repo https://github.com/yourname/your-vault\n```\n\n### 3. Save your encryption key\n\nAfter setup, you'll see a 64-character hex key. **Save it in your password manager immediately.**  \nWithout it, `openclaw.json.enc` cannot be decrypted.\n\n### 4. First backup runs automatically\n\nDaily backups are scheduled at 02:00 UTC via OpenClaw cron.\n\n---\n\n## Usage\n\n| Say this to your agent | What happens |\n|------------------------|-------------|\n| `\"avenger backup\"` | Runs backup now |\n| `\"avenger status\"` | Shows last backup time and branch |\n| `\"restore from vault\"` | Guided restore flow |\n| `\"avenger setup\"` | First-time setup wizard |\n\n---\n\n## Restore\n\n```bash\n# Restore latest (main branch)\nbash ~/.openclaw/workspace/skills/avenger-initiative/scripts/restore.sh\n\n# Restore from a specific date\nbash ~/.openclaw/workspace/skills/avenger-initiative/scripts/restore.sh \\\n  --branch backup/daily/2026-03-10\n\n# After restore\nopenclaw gateway restart\n```\n\n---\n\n## Requirements\n\n- [OpenClaw](https://openclaw.ai) installed and running\n- [GitHub CLI](https://cli.github.com) (`gh`) authenticated (`gh auth login`)\n- `git`, `openssl` (standard on most systems)\n- A private GitHub repo for your vault\n\n---\n\n## Security\n\nThis skill uses:\n- **`openssl enc -aes-256-cbc`** \u2014 encrypts your `openclaw.json` with your own key\n- **`git push`** \u2014 pushes to your own private vault repo only\n- **No external servers** \u2014 data goes only to your own GitHub account\n\nSee [SECURITY.md](SECURITY.md) for full script-by-script analysis and audit instructions.\n\n---\n\n## License\n\nMIT \u00a9 [ProSkillsMD](https://github.com/ProSkillsMD)\n\n---\n\n<p align=\"center\">\n  <sub>\n    Find more OpenClaw skills at\n    <a href=\"https://proskills.md\"><strong>ProSkills.md</strong></a>\n    \u2014 the verified AI skills directory\n  </sub>\n</p>\n",
+  "status": "listed",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed",
+    "has_skill_md": true
+  },
+  "notes": "First-party skill published by ProSkillsMD. Also available on ClawHub: https://clawhub.ai/Asif2BD/avenger-initiative"
+}
