@@ -1,5 +1,5 @@
 {
-  "total_skills": 121,
+  "total_skills": 122,
   "verified": 113,
   "categories": {
     "utilities": 2,
@@ -118,5 +118,10 @@
       "stars": 0
     }
   ],
-  "average_score": 7.71
+  "average_score": 7.71,
+  "reviewed_skills": 432,
+  "last_updated": "2026-03-13T08:30:00Z",
+  "category_breakdown": {
+    "security": 1
+  }
 }
