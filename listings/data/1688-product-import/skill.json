@@ -1,0 +1,39 @@
+{
+  "id": "1688-product-import",
+  "name": "1688 Product Import",
+  "slug": "1688-product-import",
+  "category": "data",
+  "description": "Import products from 1688 links into 24fulfill. Extracts product data via Python scripts, AI-optimizes product information (title translation, category, HS code), then submits via API with admin authentication.",
+  "author": {
+    "github": "WeihuaTong",
+    "name": "Weihua Tong"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/WeihuaTong/openclaw-skills",
+  "stars": 0,
+  "works_with": ["openclaw", "24fulfill"],
+  "tags": ["ecommerce", "1688", "product-import", "data-scraping", "ai-optimization", "automation"],
+  "verified_at": "2026-03-13T04:43:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "All scripts execute correctly, properly scrape and process product data, and the workflow pipeline functions as expected. Error handling is robust and documentation is detailed and accurate.",
+  "rocket_findings": {
+    "security_scan": "passed",
+    "active": true,
+    "license": "verified"
+  },
+  "drax_results": {
+    "status": "passed",
+    "notes": "Product import and AI optimization workflow verified. API integration confirmed."
+  },
+  "catalog_note": "Approved for publication. High-quality implementation with excellent documentation.",
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/1840"
+}
