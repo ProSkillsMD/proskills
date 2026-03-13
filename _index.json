@@ -6,6 +6,7 @@
     "automation",
     "coding",
     "content",
+    "creative",
     "data",
     "devops",
     "productivity",
@@ -13,7 +14,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-13T04:34:00Z",
+  "last_updated": "2026-03-13T04:37:20.409229Z",
   "skills": [
     {
       "id": "microsoft-365-graph-openclaw",
@@ -1063,11 +1064,11 @@
     {
       "id": "nano-banana-pro-prompts-recommend-skill",
       "slug": "nano-banana-pro-prompts-recommend-skill",
-      "category": "research",
+      "category": "creative",
       "name": "Nano Banana Pro Prompts Recommend",
       "stars": 1169,
-      "verified_at": "2026-03-09T05:56:00Z",
-      "score": 7.4
+      "verified_at": "2026-03-13T04:37:20.409229Z",
+      "score": 9.0
     },
     {
       "id": "newsriver-intelligence",
