@@ -1,5 +1,5 @@
 {
-  "total_skills": 126,
+  "total_skills": 127,
   "verified": 114,
   "categories": {
     "utilities": 2,
@@ -12,11 +12,16 @@
     "research": 17,
     "content": 9,
     "api": 1,
-    "developer-tools": 1,
+    "developer-tools": 2,
     "integration": 1
   },
   "last_scan": "2026-03-10T18:31:00Z",
   "recent_additions": [
+    {
+      "id": "openclaw-search-skills",
+      "name": "OpenClaw-Search-Skills",
+      "added": "2026-03-14"
+    },
     {
       "id": "feishu-skills-for-openclaw",
       "name": "Feishu Skills for OpenClaw",
@@ -61,11 +66,6 @@
     {
       "id": "meeting-briefing",
       "name": "meeting-briefing",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "nda-triage",
-      "name": "nda-triage",
       "added": "2026-03-09"
     }
   ],
@@ -121,9 +121,9 @@
       "score": 8.9
     }
   ],
-  "average_score": 7.68,
+  "average_score": 7.69,
   "reviewed_skills": 432,
-  "last_updated": "2026-03-14T14:00:24Z",
+  "last_updated": "2026-03-14T14:15:00Z",
   "category_breakdown": {
     "security": 1
   }

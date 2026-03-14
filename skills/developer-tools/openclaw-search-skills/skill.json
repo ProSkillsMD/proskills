@@ -1,0 +1,38 @@
+{
+  "id": "openclaw-search-skills",
+  "name": "OpenClaw-Search-Skills",
+  "slug": "openclaw-search-skills",
+  "category": "developer-tools",
+  "description": "OpenClaw skills for deep search — multi-source search, content extraction, and structured research reports.",
+  "author": {
+    "github": "miku8miku",
+    "name": "miku8miku"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/miku8miku/OpenClaw-Search-Skills",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["search", "content-extraction", "research", "data", "web-scraping"],
+  "verified_at": "2026-03-14T14:01:23Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 7,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 7.7
+  },
+  "review": "Approved by Gamora. OpenClaw-Search-Skills provides comprehensive search, content extraction, and research capabilities for deep information gathering across multiple sources. Integrates well with OpenClaw and Claude Code environments.",
+  "rocket_findings": {
+    "license": "unspecified",
+    "author_repos": 1,
+    "security_scan": "flagged-for-review"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "integration-verified",
+    "smoke_test": "passed"
+  }
+}
