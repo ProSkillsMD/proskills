@@ -1,0 +1,49 @@
+{
+  "id": "planning-with-files",
+  "name": "Planning With Files",
+  "slug": "planning-with-files",
+  "category": "productivity",
+  "description": "Claude Code skill implementing Manus-style persistent markdown planning — the workflow pattern behind the $2B acquisition. Work like the AI agent company Meta acquired for $2 billion.",
+  "author": {
+    "github": "OthmanAdi",
+    "name": "OthmanAdi"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/OthmanAdi/planning-with-files",
+  "skill_path": ".",
+  "stars": 15722,
+  "works_with": [
+    "claude-code",
+    "openclaw",
+    "codex",
+    "cursor"
+  ],
+  "tags": [
+    "planning",
+    "manus",
+    "task-management",
+    "claude-code",
+    "markdown",
+    "agent-skills"
+  ],
+  "verified_at": "2026-03-14T19:36:36Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 9.1
+  },
+  "review": "Viral, high-quality planning skill with 15k+ stars implementing Manus-style persistent markdown task management. Proven 96.7% benchmark pass rate, security-audited, actively maintained with broad multi-agent compatibility (Claude Code, Cursor, Codex, OpenClaw, etc.).",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
