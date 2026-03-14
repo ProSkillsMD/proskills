@@ -1,13 +1,13 @@
 {
-  "total_skills": 122,
+  "total_skills": 124,
   "verified": 113,
   "categories": {
     "utilities": 2,
     "data": 9,
-    "automation": 48,
+    "automation": 49,
     "coding": 14,
     "security": 4,
-    "productivity": 10,
+    "productivity": 11,
     "devops": 7,
     "research": 17,
     "content": 9,
@@ -15,6 +15,17 @@
   },
   "last_scan": "2026-03-10T18:31:00Z",
   "recent_additions": [
+    {
+      "id": "feishu-skills-for-openclaw",
+      "name": "Feishu Skills for OpenClaw",
+      "added": "2026-03-14"
+    },
+    {
+      "id": "openclaw-skills",
+      "name": "openclaw-skills",
+      "score": 7.9,
+      "added": "2026-03-14"
+    },
     {
       "id": "claude-skills",
       "name": "Claude Skills & Plugins",
@@ -54,16 +65,6 @@
       "id": "campaign-planning",
       "name": "campaign-planning",
       "added": "2026-03-09"
-    },
-    {
-      "id": "competitive-analysis",
-      "name": "competitive-analysis",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "content-creation",
-      "name": "content-creation",
-      "added": "2026-03-09"
     }
   ],
   "top_skills": [
@@ -88,6 +89,16 @@
       "stars": 3858
     },
     {
+      "id": "feishu-skills-for-openclaw",
+      "score": 9.0,
+      "stars": 0
+    },
+    {
+      "id": "cto-advisor",
+      "score": 9.0,
+      "stars": 0
+    },
+    {
       "id": "openclaw-reference-knowledge-base",
       "score": 9.0,
       "stars": 151
@@ -103,24 +114,14 @@
       "stars": 15588
     },
     {
-      "id": "soul-md",
-      "score": 8.7,
-      "stars": 173
-    },
-    {
-      "id": "interactive-slides-openclaw-skill",
-      "score": 8.7,
-      "stars": 0
-    },
-    {
       "id": "asana-cli",
       "score": 8.7,
       "stars": 0
     }
   ],
-  "average_score": 7.71,
+  "average_score": 7.66,
   "reviewed_skills": 432,
-  "last_updated": "2026-03-13T08:30:00Z",
+  "last_updated": "2026-03-14T12:02:35Z",
   "category_breakdown": {
     "security": 1
   }
