@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-14T14:15:00Z",
+  "last_updated": "2026-03-14T19:19:38Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1246,7 +1246,16 @@
       "stars": 0,
       "verified_at": "2026-03-14T14:15:00Z",
       "score": 9.0
+    },
+    {
+      "id": "learn",
+      "name": "Learn",
+      "category": "developer-tools",
+      "slug": "learn",
+      "score": 9.86,
+      "stars": 7,
+      "verified_at": "2026-03-14T19:20:00Z"
     }
   ],
-  "total_skills": 127
+  "total_skills": 129
 }

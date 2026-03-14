@@ -1,0 +1,38 @@
+{
+  "id": "learn",
+  "name": "Learn",
+  "slug": "learn",
+  "category": "developer-tools",
+  "description": "Find & install agent skills. The /learn command for Claude Code, Codex, Cursor, Copilot, and more.",
+  "author": {
+    "github": "agentskill-sh",
+    "name": "agentskill.sh"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/agentskill-sh/learn",
+  "stars": 7,
+  "works_with": ["openclaw", "claude-code", "codex", "cursor", "copilot"],
+  "tags": ["skill-discovery", "skill-installer", "marketplace", "agent-capabilities", "skill-management"],
+  "verified_at": "2026-03-14T19:20:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 10,
+    "security": 10,
+    "maintenance": 10,
+    "usefulness": 10,
+    "uniqueness": 10,
+    "code_quality": 10,
+    "average": 9.86
+  },
+  "review": "This skill provides a comprehensive and well-thought-out solution for dynamic skill management. It effectively turns an agent into a self-improving system. The documentation is exemplary, and the security precautions are robust and detailed. This skill is a foundational component for a healthy and secure skill ecosystem. It addresses a fundamental need for agents to be able to dynamically acquire new capabilities, making it incredibly useful.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 15,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "12 passed",
+    "smoke_test": "passed"
+  }
+}
