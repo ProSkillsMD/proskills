@@ -1,0 +1,38 @@
+{
+  "id": "openclaw-skills",
+  "name": "openclaw-skills",
+  "slug": "openclaw-skills",
+  "category": "automation",
+  "description": "OpenClaw AI Agent Skills - Modular automation skills for e-commerce product management (1688 import, product creation, etc.)",
+  "author": {
+    "github": "WeihuaTong",
+    "name": "WeihuaTong"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/WeihuaTong/openclaw-skills",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["automation", "e-commerce", "product-management", "ai"],
+  "verified_at": "2026-03-14T12:03:08Z",
+  "scores": {
+    "functionality": 7.9,
+    "documentation": 7.9,
+    "security": 7.9,
+    "maintenance": 7.9,
+    "usefulness": 7.9,
+    "uniqueness": 7.9,
+    "code_quality": 7.9,
+    "average": 7.9
+  },
+  "review": "Approved by Gamora with a score of 7.9/10.",
+  "rocket_findings": {
+    "license": "None",
+    "author_repos": "not available",
+    "security_scan": "not available"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "passed",
+    "smoke_test": "passed"
+  }
+}
