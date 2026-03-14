@@ -11,9 +11,10 @@
     "productivity",
     "research",
     "security",
-    "utilities"
+    "utilities",
+    "developer-tools"
   ],
-  "last_updated": "2026-03-14T12:02:35Z",
+  "last_updated": "2026-03-14T14:00:24Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1209,7 +1210,16 @@
       "score": 9.0,
       "stars": 0,
       "verified_at": "2026-03-14T12:02:35Z"
+    },
+    {
+      "id": "claude-code-cli-for-openclaw",
+      "name": "Claude Code CLI for OpenClaw",
+      "category": "developer-tools",
+      "slug": "claude-code-cli-for-openclaw",
+      "score": 9.2,
+      "stars": 0,
+      "verified_at": "2026-03-14T14:00:24Z"
     }
   ],
-  "total_skills": 124
+  "total_skills": 125
 }

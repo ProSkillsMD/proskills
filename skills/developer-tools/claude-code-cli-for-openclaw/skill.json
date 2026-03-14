@@ -1,0 +1,38 @@
+{
+  "id": "claude-code-cli-for-openclaw",
+  "name": "Claude Code CLI for OpenClaw",
+  "slug": "claude-code-cli-for-openclaw",
+  "category": "developer-tools",
+  "description": "A command-line interface for integrating Claude Code with OpenClaw.",
+  "author": {
+    "github": "openclaw",
+    "name": "OpenClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/OpenClaw/claude-code-cli-for-openclaw",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["developer-tools", "ai", "cli", "claude-code"],
+  "verified_at": "2026-03-14T14:00:24Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 9.2
+  },
+  "review": "Gamora's review: This is an excellent integration of Claude Code, offering a powerful CLI for OpenClaw users. The design is robust and well-thought-out, providing significant value for developers.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 0,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all passed",
+    "smoke_test": "passed"
+  }
+}
