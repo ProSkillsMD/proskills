@@ -1,0 +1,38 @@
+{
+  "id": "alpha-radar-openclaw-skill",
+  "name": "Alpha Radar OpenClaw Skill",
+  "slug": "alpha-radar-openclaw-skill",
+  "category": "developer-tools",
+  "description": "Generate tailored crypto market reports, token reports, and help cards with multi-chain scope, Chinese NLP, and customizable rendering modes. Integrates Binance data and multiple upstream skills for comprehensive market analysis.",
+  "author": {
+    "github": "0xXIAOc",
+    "name": "0xXIAOc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/0xXIAOc/alpha-radar-openclaw-skill",
+  "stars": 0,
+  "works_with": ["openclaw"],
+  "tags": ["crypto", "market-data", "reporting", "chinese-nlp", "binance"],
+  "verified_at": "2026-03-14T14:15:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 10,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 9.0
+  },
+  "review": "This skill provides a well-designed and highly useful solution for generating tailored crypto market reports, token reports, and help cards. It excels in its comprehensive documentation, especially regarding Chinese natural language processing and various report parameters. The code is well-structured, actively maintained with recent commits and no open issues, and appears secure. The integration of multiple upstream skills to synthesize data into customizable reports is a significant strength, catering effectively to its target audience.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 5,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all passed",
+    "smoke_test": "passed"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 122,
+  "total": 128,
   "categories": [
     "api",
     "automation",
@@ -1237,6 +1237,15 @@
       "score": 7.7,
       "stars": 0,
       "verified_at": "2026-03-14T14:01:23Z"
+    },
+    {
+      "id": "alpha-radar-openclaw-skill",
+      "slug": "alpha-radar-openclaw-skill",
+      "category": "developer-tools",
+      "name": "Alpha Radar OpenClaw Skill",
+      "stars": 0,
+      "verified_at": "2026-03-14T14:15:00Z",
+      "score": 9.0
     }
   ],
   "total_skills": 127

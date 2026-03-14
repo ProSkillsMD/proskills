@@ -1,5 +1,5 @@
 {
-  "total_skills": 127,
+  "total_skills": 128,
   "verified": 114,
   "categories": {
     "utilities": 2,
@@ -12,11 +12,16 @@
     "research": 17,
     "content": 9,
     "api": 1,
-    "developer-tools": 2,
+    "developer-tools": 3,
     "integration": 1
   },
-  "last_scan": "2026-03-10T18:31:00Z",
+  "last_scan": "2026-03-14T14:15:00Z",
   "recent_additions": [
+    {
+      "id": "alpha-radar-openclaw-skill",
+      "name": "Alpha Radar OpenClaw Skill",
+      "added": "2026-03-14"
+    },
     {
       "id": "openclaw-search-skills",
       "name": "OpenClaw-Search-Skills",
@@ -61,11 +66,6 @@
     {
       "id": "legal-risk-assessment",
       "name": "legal-risk-assessment",
-      "added": "2026-03-09"
-    },
-    {
-      "id": "meeting-briefing",
-      "name": "meeting-briefing",
       "added": "2026-03-09"
     }
   ],
