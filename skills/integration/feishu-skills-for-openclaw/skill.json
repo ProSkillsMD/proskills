@@ -1,0 +1,38 @@
+{
+  "id": "feishu-skills-for-openclaw",
+  "name": "Feishu Skills for OpenClaw",
+  "slug": "feishu-skills-for-openclaw",
+  "category": "integration",
+  "description": "OpenClaw Feishu skill package - Enhancement suite for the official Feishu plugin providing intent routing, UX optimization, and capability extension for messaging, cards, and media handling.",
+  "author": {
+    "github": "reneexiaoxiao",
+    "name": "Xiaoxiao"
+  },
+  "version": "2.1.0",
+  "repo_url": "https://github.com/reneexiaoxiao/feishu-skills-for-openclaw",
+  "stars": 1,
+  "works_with": ["openclaw", "feishu", "claude-code"],
+  "tags": ["feishu", "integration", "messaging", "cards", "automation", "ux-optimization"],
+  "verified_at": "2026-03-14T14:15:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 10,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 9.0
+  },
+  "review": "This skill package provides a highly valuable enhancement to the official Feishu OpenClaw plugin. It excels in delivering a user-friendly experience through intelligent intent routing and UX optimization, significantly simplifying complex interactions for agents. The skill is particularly noteworthy for its comprehensive design guidelines and automated JSON sending, showcasing a deep understanding of Feishu's capabilities. Documentation is exceptional, providing clear guidance at every step. The project demonstrates active maintenance and a strong commitment to code quality, even for the generated outputs. While building upon an existing plugin, its unique approach to user experience and extended capabilities makes it a strong and distinct addition to the catalog.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 5,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all passed",
+    "smoke_test": "passed"
+  }
+}

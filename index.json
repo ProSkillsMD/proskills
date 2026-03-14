@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-14T14:00:24Z",
+  "last_updated": "2026-03-14T14:15:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1219,7 +1219,25 @@
       "score": 9.2,
       "stars": 0,
       "verified_at": "2026-03-14T14:00:24Z"
+    },
+    {
+      "id": "feishu-skills-for-openclaw",
+      "name": "Feishu Skills for OpenClaw",
+      "category": "integration",
+      "slug": "feishu-skills-for-openclaw",
+      "score": 9.0,
+      "stars": 1,
+      "verified_at": "2026-03-14T14:15:00Z"
+    },
+    {
+      "id": "openclaw-search-skills",
+      "name": "OpenClaw-Search-Skills",
+      "category": "developer-tools",
+      "slug": "openclaw-search-skills",
+      "score": 7.7,
+      "stars": 0,
+      "verified_at": "2026-03-14T14:01:23Z"
     }
   ],
-  "total_skills": 125
+  "total_skills": 127
 }
