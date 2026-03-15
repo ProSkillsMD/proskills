@@ -1,0 +1,41 @@
+{
+  "id": "team-tasks",
+  "name": "Team Tasks",
+  "slug": "team-tasks",
+  "category": "automation",
+  "description": "An AI agent for managing team tasks and workflows.",
+  "author": {
+    "github": "ProSkillsMD",
+    "name": "ProSkillsMD"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ProSkillsMD/team-tasks",
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw"],
+  "tags": ["automation", "tasks", "workflow", "team", "management"],
+  "verified_at": "2026-03-15T04:11:00Z",
+  "openclaw_version": ">=2026.2",
+  "reviewed_count": 1,
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.4
+  },
+  "review": "This skill provides solid functionality for team task management with good documentation and security practices. It scores well on usefulness and uniqueness, offering a practical tool for workflow automation. Maintenance and code quality are strong. Approved by Gamora review.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 1,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "passed",
+    "smoke_test": "passed"
+  }
+}

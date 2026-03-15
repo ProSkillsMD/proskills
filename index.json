@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-14T19:19:38Z",
+  "last_updated": "2026-03-15T04:12:00.648Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -158,7 +158,7 @@
       "name": "OpenClaw Reference Knowledge Base",
       "stars": 151,
       "verified_at": "2026-03-09T17:21:00Z",
-      "score": 9.0
+      "score": 9
     },
     {
       "id": "context-slim",
@@ -203,7 +203,7 @@
       "name": "Loopy Claude Feature Designer",
       "stars": 3,
       "verified_at": "2026-03-09T17:21:00Z",
-      "score": 7.0
+      "score": 7
     },
     {
       "id": "clawguard-security-middleware",
@@ -428,7 +428,7 @@
       "name": "laiye-doc-processing",
       "stars": 4,
       "verified_at": "2026-03-09T08:58:00Z",
-      "score": 7.0
+      "score": 7
     },
     {
       "id": "clankers-world",
@@ -437,7 +437,7 @@
       "name": "Clanker's World",
       "stars": 0,
       "verified_at": "2026-03-09T08:57:00Z",
-      "score": 7.0
+      "score": 7
     },
     {
       "id": "memoclaw",
@@ -518,7 +518,7 @@
       "name": "Document Specialist Skill",
       "stars": 11,
       "verified_at": "2026-03-09T07:45:00Z",
-      "score": 8.0
+      "score": 8
     },
     {
       "id": "claude-family-history-research-skill",
@@ -689,7 +689,7 @@
       "name": "project-memory",
       "stars": 51,
       "verified_at": "2026-03-09T06:16:00Z",
-      "score": 8.0
+      "score": 8
     },
     {
       "id": "asana-cli",
@@ -865,7 +865,7 @@
       "name": "CTO Advisor",
       "category": "productivity",
       "slug": "cto-advisor",
-      "score": 9.0,
+      "score": 9,
       "stars": 0,
       "downloads": 1667,
       "verified_at": "2026-03-09T17:56:00Z"
@@ -997,7 +997,7 @@
         "usefulness": 8,
         "uniqueness": 7,
         "code_quality": 8,
-        "average": 8.0
+        "average": 8
       },
       "status": "listed"
     },
@@ -1091,7 +1091,7 @@
       "name": "meeting-briefing",
       "stars": 0,
       "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.0
+      "score": 8
     },
     {
       "id": "nda-triage",
@@ -1189,7 +1189,7 @@
       "paid": false,
       "verified_at": "2026-03-13T08:00:00Z",
       "scores": {
-        "average": 9.0
+        "average": 9
       },
       "reviewed": true
     },
@@ -1207,7 +1207,7 @@
       "name": "Feishu Skills for OpenClaw",
       "category": "productivity",
       "slug": "feishu-skills-for-openclaw",
-      "score": 9.0,
+      "score": 9,
       "stars": 0,
       "verified_at": "2026-03-14T12:02:35Z"
     },
@@ -1225,7 +1225,7 @@
       "name": "Feishu Skills for OpenClaw",
       "category": "integration",
       "slug": "feishu-skills-for-openclaw",
-      "score": 9.0,
+      "score": 9,
       "stars": 1,
       "verified_at": "2026-03-14T14:15:00Z"
     },
@@ -1245,7 +1245,7 @@
       "name": "Alpha Radar OpenClaw Skill",
       "stars": 0,
       "verified_at": "2026-03-14T14:15:00Z",
-      "score": 9.0
+      "score": 9
     },
     {
       "id": "learn",
@@ -1255,7 +1255,19 @@
       "score": 9.86,
       "stars": 7,
       "verified_at": "2026-03-14T19:20:00Z"
+    },
+    {
+      "id": "team-tasks",
+      "name": "Team Tasks",
+      "slug": "team-tasks",
+      "category": "automation",
+      "description": "An AI agent for managing team tasks and workflows.",
+      "author": "ProSkillsMD",
+      "version": "1.0.0",
+      "repo_url": "https://github.com/ProSkillsMD/team-tasks",
+      "verified_at": "2026-03-15T04:11:00Z",
+      "score": 8.4
     }
   ],
-  "total_skills": 129
+  "total_skills": 130
 }
