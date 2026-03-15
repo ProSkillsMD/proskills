@@ -1,0 +1,31 @@
+{
+  "id": "low-altitude-guardian",
+  "name": "Low-Altitude Guardian",
+  "slug": "low-altitude-guardian",
+  "category": "automation",
+  "description": "Low-altitude unmanned device emergency crisis response system. Provides real-time situation awareness, crisis classification (L1-L5), optimal minimum-loss avoidance decision-making (human safety > public property > device safety), solution matching from knowledge base, and incident reporting with continuous self-iteration capability. Designed for UAVs, drones, and autonomous devices operating in low-altitude economy scenarios.",
+  "author": {
+    "github": "AAAlenwow",
+    "name": "AAAlenwow"
+  },
+  "version": "0.2.0",
+  "repo_url": "https://github.com/AAAlenwow/low-altitude-guardian",
+  "homepage": null,
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw"],
+  "tags": ["uav", "emergency-response", "crisis-management", "decision-making", "drone", "automation", "safety"],
+  "verified_at": "2026-03-15T04:17:31Z",
+  "scores": {
+    "functionality": 5,
+    "documentation": 9,
+    "security": 7,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 7.9
+  },
+  "review": "Highly specialized and comprehensive within its domain. Addresses a critical and emerging need in the low-altitude economy for emergency response in unmanned devices. Exceptional documentation with detailed multi-phase system explanation. Strong emphasis on human safety with robust security principles. Modular Python script structure with clear data models supporting long-term maintenance. ALPHA stage implementation with mocked functionalities; not yet validated for real-world, safety-critical deployment.",
+  "status": "listed"
+}
