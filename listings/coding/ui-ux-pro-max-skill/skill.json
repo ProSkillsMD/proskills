@@ -1,0 +1,32 @@
+{
+  "id": "ui-ux-pro-max-skill",
+  "name": "UI/UX Pro Max Skill",
+  "slug": "ui-ux-pro-max-skill",
+  "category": "coding",
+  "description": "An AI SKILL that provides design intelligence for building professional UI/UX across multiple platforms. Features advanced design patterns, accessibility guidelines, and modern frontend frameworks integration.",
+  "author": {
+    "github": "nextlevelbuilder",
+    "name": "Next Level Builder"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "homepage": "https://www.uupm.cc/",
+  "stars": 41527,
+  "downloads": 0,
+  "works_with": ["claude-code", "openai-codex", "cursor", "windsurf", "openclaw"],
+  "tags": ["ui-design", "ux-design", "react", "tailwindcss", "html5", "design-intelligence", "frontend", "mobile-ui"],
+  "verified_at": "2026-03-15T05:06:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "Highly starred project (41K+ stars) providing professional UI/UX design intelligence across multiple platforms. Supports modern frameworks including React, TailwindCSS, and HTML5. Active repository with MIT license. Excellent for designers and developers building responsive, accessible interfaces.",
+  "gamora_verdict": "APPROVE",
+  "status": "listed"
+}
