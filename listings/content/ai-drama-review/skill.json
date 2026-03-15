@@ -1,0 +1,35 @@
+{
+  "id": "ai-drama-review",
+  "name": "AI Drama Review",
+  "slug": "ai-drama-review",
+  "category": "content",
+  "description": "AI-driven drama/film compliance review and analysis skill. Detects copyright infringement, age rating violations, and unauthorized novel adaptations in AI-generated short drama scripts. Uses a two-layer architecture combining local keyword scanning with AI-powered deep semantic analysis.",
+  "author": {
+    "github": "AAAlenwow",
+    "name": "AAAlenwow"
+  },
+  "version": "0.1.0",
+  "repo_url": "https://github.com/AAAlenwow/ai-drama-review",
+  "homepage": "https://clawhub.com/skills/ai-drama-review",
+  "stars": 0,
+  "downloads": 0,
+  "works_with": ["openclaw", "clawhub"],
+  "tags": ["compliance", "content-analysis", "copyright-detection", "age-rating", "drama", "film", "ai-generated", "script-review"],
+  "verified_at": "2026-03-15T05:05:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.29
+  },
+  "review": "Comprehensive AI-driven compliance checking tool for short drama scripts. Provides multi-dimensional analysis including copyright infringement detection using triple similarity algorithms (n-gram Jaccard, edit distance, TF-IDF), age rating compliance scanning, and adaptation detection using dynamic programming. Well-documented bilingual SKILL.md with clear phased execution model. Beta stage with graceful local-only fallback when API keys unavailable. Highly unique and useful for content creators managing compliance risks.",
+  "gamora_verdict": "APPROVE",
+  "status": "listed",
+  "github_issue": 833,
+  "stage": "beta",
+  "requires_env": ["OPENAI_API_KEY"]
+}
