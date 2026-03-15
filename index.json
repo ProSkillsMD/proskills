@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 128,
+  "total": 132,
   "categories": [
     "api",
     "automation",
@@ -14,8 +14,17 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-15T04:11:00Z",
+  "last_updated": "2026-03-15T05:02:00Z",
   "skills": [
+    {
+      "id": "low-altitude-guardian",
+      "slug": "low-altitude-guardian",
+      "category": "automation",
+      "name": "Low-Altitude Guardian",
+      "stars": 0,
+      "verified_at": "2026-03-15T04:17:31Z",
+      "score": 7.9
+    },
     {
       "id": "openclaw-agent-skill",
       "slug": "openclaw-agent-skill",
@@ -218,7 +227,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -416,7 +425,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get笔记 (getnote)",
+      "name": "Get\u7b14\u8bb0 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -970,7 +979,7 @@
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
       "category": "coding",
-      "description": "Efficient OSS pull request workflows on GitHub — automates PR creation, review coordination, and merge processes for open source contributors.",
+      "description": "Efficient OSS pull request workflows on GitHub \u2014 automates PR creation, review coordination, and merge processes for open source contributors.",
       "author": {
         "github": "tsubasakong",
         "name": "tsubasakong"
