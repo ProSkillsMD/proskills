@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 129,
+  "total": 130,
   "categories": [
     "api",
     "automation",
@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-15T05:06:58.200680Z",
+  "last_updated": "2026-03-15T05:05:00Z",
   "skills": [
     {
       "id": "accessibility",
@@ -52,6 +52,15 @@
       "stars": 2,
       "downloads": 1677,
       "verified_at": "2026-03-09T17:56:00Z"
+    },
+    {
+      "id": "ai-drama-review",
+      "slug": "ai-drama-review",
+      "category": "content",
+      "name": "AI Drama Review",
+      "stars": 0,
+      "verified_at": "2026-03-15T05:05:00Z",
+      "score": 8.29
     },
     {
       "id": "ai-research-skills",
