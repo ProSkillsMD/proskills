@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 128,
+  "total": 129,
   "categories": [
     "api",
     "automation",
@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-15T04:11:00Z",
+  "last_updated": "2026-03-15T05:10:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1277,6 +1277,15 @@
       "author": "@ProSkillsMD",
       "verified_at": "2026-03-15T04:11:00Z",
       "stars": 0
+    },
+    {
+      "id": "navigator",
+      "slug": "navigator",
+      "category": "coding",
+      "name": "Navigator",
+      "stars": 158,
+      "verified_at": "2026-03-15T05:10:00Z",
+      "score": 8.7
     }
   ],
   "total_skills": 131
