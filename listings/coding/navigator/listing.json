@@ -1,0 +1,51 @@
+{
+  "id": "navigator",
+  "slug": "navigator",
+  "name": "Navigator",
+  "description": "Context engineering for Claude Code — extends session longevity to 20+ exchanges with 92% token savings. Features Theory of Mind, Knowledge Graph, and Loop Mode for intelligent, persistent project context.",
+  "category": "coding",
+  "author": {
+    "name": "Aleks Petrov",
+    "github": "alekspetrov",
+    "url": "https://github.com/alekspetrov"
+  },
+  "repo_url": "https://github.com/alekspetrov/navigator",
+  "homepage": "https://github.com/alekspetrov/navigator",
+  "documentation_url": "https://github.com/alekspetrov/navigator/blob/main/README.md",
+  "license": "MIT (assumed)",
+  "version": "6.1.0",
+  "openclaw_version": ">=2025.4",
+  "tags": [
+    "claude-code",
+    "context-engineering",
+    "session-management",
+    "ai-development",
+    "productivity",
+    "memory-management",
+    "knowledge-graph",
+    "theory-of-mind"
+  ],
+  "works_with": [
+    "claude-code",
+    "openclaw"
+  ],
+  "installation": {
+    "method": "github",
+    "command": "git clone https://github.com/alekspetrov/navigator.git",
+    "instruction": "See README.md for setup instructions"
+  },
+  "statistics": {
+    "stars": 158,
+    "forks": 12,
+    "downloads": 0,
+    "verified_at": "2026-03-15T05:06:00Z"
+  },
+  "review": {
+    "score": 8.7,
+    "reviewed_by": "Gamora",
+    "reviewed_at": "2026-03-15T04:40:00Z",
+    "verdict": "APPROVE",
+    "review_url": "https://github.com/ProSkillsMD/proskills/issues/687"
+  },
+  "note": "License note: Repository lacks explicit LICENSE file. Author should add permissive license (MIT recommended). Approval based on project maturity, security posture, and documented functionality."
+}
