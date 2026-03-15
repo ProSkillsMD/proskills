@@ -1,0 +1,32 @@
+{
+  "id": "claude-code-skillforge",
+  "slug": "claude-code-skillforge",
+  "name": "claude-code-skillforge",
+  "description": "A skill for Claude Code to forge new skills.",
+  "author": "@ProSkillsMD",
+  "repo_url": "https://github.com/ProSkillsMD/claude-code-skillforge",
+  "category": "developer-tools",
+  "openclaw_version": ">=2026.2",
+  "version": "1.0.0",
+  "stars": 0,
+  "downloads": 0,
+  "reviewed_count": 1,
+  "verified_at": "2026-03-15T04:11:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 10,
+    "code_quality": 9,
+    "average": 9.3
+  },
+  "verdict": "APPROVE",
+  "tags": [
+    "developer-tools",
+    "code-generation",
+    "claude-code"
+  ],
+  "license": "MIT"
+}
