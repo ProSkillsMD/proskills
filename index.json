@@ -1,20 +1,21 @@
 {
   "version": 1,
-  "total": 138,
+  "total": 143,
   "categories": [
     "api",
     "automation",
     "coding",
     "content",
     "data",
+    "developer-tools",
     "devops",
+    "marketing",
     "productivity",
     "research",
     "security",
-    "utilities",
-    "developer-tools"
+    "utilities"
   ],
-  "last_updated": "2026-03-16T13:53:00Z",
+  "last_updated": "2026-03-16T14:00:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1376,6 +1377,15 @@
       "score": 9.43,
       "stars": 3,
       "verified_at": "2026-03-15T04:41:00Z"
+    },
+    {
+      "id": "brand-voice",
+      "slug": "brand-voice",
+      "category": "marketing",
+      "name": "Brand Voice",
+      "stars": 9658,
+      "verified_at": "2026-03-16T13:57:00Z",
+      "score": 8.57
     }
   ],
   "total_skills": 142

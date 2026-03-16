@@ -1,0 +1,38 @@
+{
+  "id": "brand-voice",
+  "name": "Brand Voice",
+  "slug": "brand-voice",
+  "category": "marketing",
+  "description": "AI-powered brand consistency enforcement. Discovers brand materials across Confluence, Google Drive, Box, SharePoint, Slack, and Gong; generates LLM-ready guidelines; enforces voice across all AI-generated content.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic (Tribe AI Partnership)"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins/tree/main/partner-built/brand-voice",
+  "stars": 9658,
+  "works_with": ["claude-cowork", "mcp"],
+  "tags": ["brand", "marketing", "content", "ai-guardrails", "compliance", "voice-consistency"],
+  "verified_at": "2026-03-16T13:57:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.57
+  },
+  "review": "Official Anthropic partnership plugin. Transforms brand knowledge across enterprise platforms into AI-enforceable guidelines. Excellent documentation, proven architecture, active maintenance. Solves critical gap in brand consistency for AI-generated content.",
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "author_repos": "official-anthropic",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "core-functionality-verified",
+    "smoke_test": "passed"
+  }
+}
