@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:50:00Z",
+  "last_updated": "2026-03-16T13:52:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1313,7 +1313,25 @@
       "stars": 9657,
       "verified_at": "2026-03-16T13:50:00Z",
       "score": 8.7
+    },
+    {
+      "id": "indic-ai-skills",
+      "name": "Indic AI Skills",
+      "category": "integration",
+      "slug": "indic-ai-skills",
+      "score": 8.57,
+      "stars": 35,
+      "verified_at": "2026-03-15T04:46:28Z"
+    },
+    {
+      "id": "ssl-certificate-checker",
+      "name": "SSL Certificate Checker",
+      "category": "security",
+      "slug": "ssl-certificate-checker",
+      "score": 8.24,
+      "stars": 0,
+      "verified_at": "2026-03-09T22:10:28Z"
     }
   ],
-  "total_skills": 134
+  "total_skills": 137
 }

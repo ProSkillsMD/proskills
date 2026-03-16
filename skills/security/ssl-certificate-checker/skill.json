@@ -1,0 +1,40 @@
+{
+  "id": "ssl-certificate-checker",
+  "name": "SSL Certificate Checker",
+  "slug": "ssl-certificate-checker",
+  "category": "security",
+  "description": "Check SSL/TLS certificate details including expiration date, issuer, validity, cipher suites, and security warnings for any domain. Supports STARTTLS protocols and batch checking.",
+  "author": {
+    "github": "mcyork",
+    "name": "mcyork"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mcyork/skillseal-demo-sslcheck",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["security", "ssl", "tls", "certificates", "devops"],
+  "verified_at": "2026-03-09T22:10:28Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 6,
+    "usefulness": 9,
+    "uniqueness": 7,
+    "code_quality": 9,
+    "average": 8.24
+  },
+  "review": "Complete SSL/TLS inspection workflow with exceptional documentation. Handles edge cases like STARTTLS protocols, self-signed certificates, and hostname mismatches. Uses only standard system tools (openssl) with GPG signing via SkillSeal. First GPG-signed skill in the catalog. Documentation is exemplary — every openssl flag explained with rationale and cross-platform differences explicitly handled.",
+  "license": "BSL-1.1",
+  "license_note": "Non-commercial, personal, educational, and evaluation use permitted. Commercial use requires separate license from author (ian@esoup.net). Converts to Apache 2.0 on 2030-02-14.",
+  "rocket_findings": {
+    "source_repo": "https://github.com/mcyork/skillseal-demo-sslcheck",
+    "security_scan": "passed",
+    "signed": true,
+    "signing_method": "GPG-SkillSeal"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
