@@ -1,21 +1,20 @@
 {
   "version": 1,
-  "total": 136,
+  "total": 135,
   "categories": [
     "api",
     "automation",
     "coding",
     "content",
     "data",
-    "developer-tools",
     "devops",
-    "legal",
     "productivity",
     "research",
     "security",
-    "utilities"
+    "utilities",
+    "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:48:00Z",
+  "last_updated": "2026-03-16T13:50:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1307,22 +1306,13 @@
       "score": 8.43
     },
     {
-      "id": "review-contract",
-      "slug": "review-contract",
+      "id": "legal-risk-assessment",
+      "slug": "legal-risk-assessment",
       "category": "legal",
-      "name": "Review Contract",
-      "stars": 156,
-      "verified_at": "2026-03-16T13:48:00Z",
-      "score": 8.6
-    },
-    {
-      "id": "review-contract",
-      "slug": "review-contract",
-      "category": "legal",
-      "name": "Contract Review & Negotiation",
+      "name": "Legal Risk Assessment",
       "stars": 9657,
-      "verified_at": "2026-03-16T13:48:00Z",
-      "score": 8.6
+      "verified_at": "2026-03-16T13:50:00Z",
+      "score": 8.7
     }
   ],
   "total_skills": 134

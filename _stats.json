@@ -1,6 +1,6 @@
 {
   "total_skills": 135,
-  "verified": 117,
+  "verified": 118,
   "categories": {
     "utilities": 2,
     "data": 9,
@@ -17,12 +17,13 @@
     "planning": 1,
     "legal": 1
   },
-  "last_scan": "2026-03-16T13:43:00Z",
+  "last_scan": "2026-03-16T13:50:00Z",
   "recent_additions": [
     {
-      "id": "review-contract",
-      "name": "Contract Review & Negotiation",
-      "added": "2026-03-16"
+      "id": "legal-risk-assessment",
+      "name": "Legal Risk Assessment",
+      "score": 8.7,
+      "verified_at": "2026-03-16T13:50:00Z"
     },
     {
       "id": "ui-ux-pro-max-skill",
@@ -127,9 +128,9 @@
       "score": 9
     }
   ],
-  "average_score": "9.18",
+  "average_score": "9.16",
   "reviewed_skills": 433,
-  "last_updated": "2026-03-16T13:43:00Z",
+  "last_updated": "2026-03-16T13:50:00Z",
   "category_breakdown": {
     "security": 1
   },

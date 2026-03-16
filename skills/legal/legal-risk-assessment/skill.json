@@ -1,0 +1,39 @@
+{
+  "id": "legal-risk-assessment",
+  "name": "Legal Risk Assessment",
+  "slug": "legal-risk-assessment",
+  "category": "legal",
+  "description": "Assess and classify legal risks using a severity-by-likelihood framework with escalation criteria. Use when evaluating contract risk, assessing deal exposure, classifying issues by severity, or determining whether a matter needs senior counsel or outside legal review.",
+  "author": {
+    "github": "anthropics",
+    "name": "Anthropic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "repo_path": "legal/skills/legal-risk-assessment",
+  "stars": 9657,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["legal", "risk-assessment", "compliance", "contract-review"],
+  "verified_at": "2026-03-16T13:50:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 9,
+    "average": 8.7
+  },
+  "review": "Official Anthropic Knowledge Work Plugin for legal risk assessment. Provides a structured severity-by-likelihood framework for evaluating legal risks in in-house legal teams. Comprehensive documentation, excellent implementation, and maintained by official Anthropic team. Recommended for organizations with active legal operations.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 1000,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "verified",
+    "smoke_test": "passed"
+  }
+}
