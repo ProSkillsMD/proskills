@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:55:00Z",
+  "last_updated": "2026-03-16T13:53:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1367,7 +1367,16 @@
       "score": 9.4,
       "stars": 434,
       "verified_at": "2026-03-16T13:51:00Z"
+    },
+    {
+      "id": "openclaw-skills-explorer",
+      "name": "ClawEye",
+      "category": "development-tools",
+      "slug": "openclaw-skills-explorer",
+      "score": 9.43,
+      "stars": 3,
+      "verified_at": "2026-03-15T04:41:00Z"
     }
   ],
-  "total_skills": 141
+  "total_skills": 142
 }

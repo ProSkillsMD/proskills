@@ -1,0 +1,38 @@
+{
+  "id": "openclaw-skills-explorer",
+  "name": "ClawEye",
+  "slug": "openclaw-skills-explorer",
+  "category": "development-tools",
+  "description": "A comprehensive catalog system for the OpenClaw agentic skills registry with built-in static security scanning and visualization dashboard.",
+  "author": {
+    "github": "nitzzzu",
+    "name": "nitzzzu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/nitzzzu/openclaw-skills-explorer",
+  "stars": 3,
+  "works_with": ["openclaw"],
+  "tags": ["catalog", "skill-discovery", "security-scanning", "registry", "python", "react"],
+  "verified_at": "2026-03-15T04:41:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 10,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 10,
+    "code_quality": 9,
+    "average": 9.43
+  },
+  "review": "ClawEye is a highly unique and essential contribution to the OpenClaw ecosystem. It provides a comprehensive Python CLI for catalog building and a user-friendly React dashboard for visualization, with integrated static security scanning. The documentation is exceptionally detailed with architecture diagrams and complete usage guides. The skill uses modern development practices (Python 3.12+, uv, React 19, DuckDB WASM) and offers significant community value through centralized, searchable, security-audited skill discovery.",
+  "rocket_findings": {
+    "license": "MIT (added post-review)",
+    "author_repos": 7,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "verified",
+    "smoke_test": "passed"
+  }
+}
