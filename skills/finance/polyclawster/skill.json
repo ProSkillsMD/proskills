@@ -1,0 +1,40 @@
+{
+  "id": "polyclawster",
+  "name": "polyclawster",
+  "slug": "polyclawster",
+  "category": "finance",
+  "description": "Trade on Polymarket prediction markets. Non-custodial — your agent generates a Polygon wallet, signs orders locally, and submits via polyclawster.com relay (geo-bypass). Private key never leaves your machine. Fund with POL — agent auto-swaps to USDC.e.",
+  "author": {
+    "github": "al1enjesus",
+    "name": "Virix Labs"
+  },
+  "version": "2.0.1",
+  "repo_url": "https://github.com/al1enjesus/polyclawster",
+  "stars": 7,
+  "works_with": ["openclaw"],
+  "tags": ["polymarket", "trading", "defi", "prediction-markets", "polygon"],
+  "verified_at": "2026-03-16T13:40:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.0
+  },
+  "review": "Polyclawster is a specialized trading skill for prediction markets on Polymarket. Rocket screening confirmed security best practices: non-custodial wallet management with local key signing and proper network permission scoping. Drax testing passed all installation and smoke tests. The SKILL.md documentation is clear with explicit setup flows and user experience guidelines. Well-structured npm package with proper dependency management (ethers, @polymarket/clob-client). Active maintenance from Virix Labs team. Fills a unique niche for AI-powered Polymarket trading.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 1,
+    "security_scan": "passed",
+    "notes": "Non-custodial design: private keys never transmitted, always signed locally. Network perms properly scoped to relay and RPC endpoints."
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "automated setup verified",
+    "smoke_test": "passed",
+    "notes": "npm deps installed cleanly. Setup flow verified. Wallet generation and trade execution pathways confirmed."
+  }
+}
