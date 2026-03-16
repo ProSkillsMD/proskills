@@ -1,13 +1,13 @@
 {
-  "total_skills": 138,
-  "verified": 120,
+  "total_skills": 136,
+  "verified": 119,
   "categories": {
     "utilities": 2,
     "data": 9,
     "automation": 51,
     "coding": 14,
     "security": 5,
-    "productivity": 11,
+    "productivity": 12,
     "devops": 7,
     "research": 17,
     "content": 9,
@@ -19,6 +19,18 @@
   },
   "last_scan": "2026-03-16T13:51:00Z",
   "recent_additions": [
+    {
+      "id": "indic-ai-skills",
+      "name": "Indic AI Skills",
+      "score": 8.57,
+      "verified_at": "2026-03-15T04:46:28Z"
+    },
+    {
+      "id": "lenny-skills",
+      "name": "Lenny's Product Management Skills",
+      "score": 9.4,
+      "added": "2026-03-16"
+    },
     {
       "id": "review-contract",
       "name": "Contract Review Against Playbook",
@@ -64,73 +76,10 @@
       "name": "claude-code-skillforge",
       "score": 9.3,
       "verified_at": "2026-03-15T04:11:00Z"
-    },
-    {
-      "id": "team-tasks",
-      "name": "Team Tasks",
-      "score": 8.4,
-      "added_at": "2026-03-15T04:11:00Z"
-    },
-    {
-      "id": "learn",
-      "name": "Learn",
-      "added": "2026-03-14"
     }
   ],
-  "top_skills": [
-    {
-      "id": "learn",
-      "name": "Learn",
-      "score": 9.86
-    },
-    {
-      "id": "accessibility",
-      "name": "VS Code Accessibility Engineering",
-      "score": 9.5
-    },
-    {
-      "id": "blueprint",
-      "name": "Blueprint",
-      "score": 9.29,
-      "verified_at": "2026-03-16T13:43:00Z"
-    },
-    {
-      "id": "claude-code-cli-for-openclaw",
-      "name": "Claude Code CLI for OpenClaw",
-      "score": 9.2
-    },
-    {
-      "id": "self-improving-agent",
-      "name": "self-improving-agent",
-      "score": 9.1
-    },
-    {
-      "id": "xurl",
-      "name": "xurl",
-      "score": 9.1
-    },
-    {
-      "id": "last30days-skill",
-      "name": "last30days-skill",
-      "score": 9.03
-    },
-    {
-      "id": "cto-advisor",
-      "name": "CTO Advisor",
-      "score": 9
-    },
-    {
-      "id": "feishu-skills-for-openclaw",
-      "name": "Feishu Skills for OpenClaw",
-      "score": 9
-    },
-    {
-      "id": "openclaw-reference-knowledge-base",
-      "name": "OpenClaw Reference Knowledge Base",
-      "score": 9
-    }
-  ],
-  "average_score": "7.95",
+  "top_skills": [],
+  "average_score": "7.97",
   "reviewed_skills": 433,
   "last_updated": "2026-03-16T13:51:00Z",
   "category_breakdown": {
