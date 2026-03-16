@@ -1,0 +1,38 @@
+{
+  "id": "bambu-studio-ai",
+  "name": "Bambu Studio Ai",
+  "slug": "bambu-studio-ai",
+  "category": "automation",
+  "description": "Full-stack Bambu Lab 3D printing skill for OpenClaw — search, generate, analyze, print, monitor",
+  "author": {
+    "github": "heyixuan2",
+    "name": "heyixuan2"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/heyixuan2/bambu-studio-ai",
+  "stars": 45,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["3d-printing", "automation", "bambu-lab", "ai-generation", "manufacturing"],
+  "verified_at": "2026-03-15T04:14:16Z",
+  "scores": {
+    "functionality": 10,
+    "documentation": 10,
+    "security": 9,
+    "maintenance": 9,
+    "usefulness": 10,
+    "uniqueness": 9,
+    "code_quality": 9,
+    "average": 9.43
+  },
+  "review": "This skill provides an outstanding, full-stack solution for Bambu Lab 3D printing. The documentation is a standout feature, offering exceptional clarity and detailed guidance for safe and effective use. Security is meticulously handled with no credentials shipped and strong emphasis on user consent and secure local storage. The project is actively maintained with comprehensive features including AI 3D generation, print monitoring, and Bambu Studio integration. Code quality is high with thoughtful design and robust implementation.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": "established",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all_working",
+    "smoke_test": "passed"
+  }
+}

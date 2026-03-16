@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 128,
+  "total": 132,
   "categories": [
     "api",
     "automation",
@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-15T04:11:00Z",
+  "last_updated": "2026-03-16T13:40:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1277,6 +1277,15 @@
       "author": "@ProSkillsMD",
       "verified_at": "2026-03-15T04:11:00Z",
       "stars": 0
+    },
+    {
+      "id": "bambu-studio-ai",
+      "slug": "bambu-studio-ai",
+      "category": "automation",
+      "name": "Bambu Studio Ai",
+      "stars": 45,
+      "verified_at": "2026-03-15T04:14:16Z",
+      "score": 9.43
     }
   ],
   "total_skills": 131
