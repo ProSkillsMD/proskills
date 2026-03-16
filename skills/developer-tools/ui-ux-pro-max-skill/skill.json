@@ -1,0 +1,52 @@
+{
+  "id": "ui-ux-pro-max-skill",
+  "name": "UI UX Pro Max Skill",
+  "slug": "ui-ux-pro-max-skill",
+  "category": "developer-tools",
+  "description": "An AI-powered design intelligence skill that provides professional UI/UX system generation across multiple platforms and frameworks. Features 161 industry-specific reasoning rules, 67 UI styles, 57 font pairings, and comprehensive design system generation.",
+  "author": {
+    "github": "nextlevelbuilder",
+    "name": "nextlevelbuilder"
+  },
+  "version": "2.0.0",
+  "repo_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "stars": 39501,
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "design-teams"
+  ],
+  "tags": [
+    "ui-design",
+    "ux-design",
+    "design-system",
+    "ai-design",
+    "design-intelligence",
+    "reasoning-engine",
+    "typography",
+    "color-palette",
+    "style-guide"
+  ],
+  "verified_at": "2026-03-16T13:45:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.43
+  },
+  "review": "UI UX Pro Max delivers a comprehensive, AI-powered design intelligence system that excels at generating professional design systems tailored to specific industries and product types. The 161 industry-specific reasoning rules and 67 curated UI styles demonstrate exceptional feature depth and thoughtful design curation. Documentation is outstanding, with detailed README, clear feature descriptions, and practical examples. Security and maintenance standards are met, with 39,501 community stars indicating strong adoption and active support. Code quality is solid with all tests passing. The tool solves a genuine problem in design automation and offers high practical value for developers building professional UI/UX systems.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": "established",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all_working",
+    "smoke_test": "passed"
+  }
+}

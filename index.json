@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:43:00Z",
+  "last_updated": "2026-03-16T13:45:55Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1295,7 +1295,16 @@
       "stars": 3,
       "verified_at": "2026-03-16T13:43:00Z",
       "score": 9.29
+    },
+    {
+      "id": "ui-ux-pro-max-skill",
+      "slug": "ui-ux-pro-max-skill",
+      "category": "developer-tools",
+      "name": "UI UX Pro Max Skill",
+      "stars": 39501,
+      "verified_at": "2026-03-16T13:45:55Z",
+      "score": 8.43
     }
   ],
-  "total_skills": 133
+  "total_skills": 134
 }
