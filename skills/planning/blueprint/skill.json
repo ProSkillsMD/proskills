@@ -1,0 +1,37 @@
+{
+  "id": "blueprint",
+  "slug": "blueprint",
+  "name": "Blueprint",
+  "category": "planning",
+  "description": "Create a construction plan for a multi-step engineering task that requires multiple PRs or a phased approach. Produces a self-contained plan file with dependency graph, review gates, and step-by-step execution instructions for coding agents.",
+  "author": {
+    "github": "antbotlab",
+    "name": "Ant Bot Lab"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/antbotlab/blueprint",
+  "stars": 3,
+  "license": "MIT",
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["planning", "engineering", "multi-pr", "roadmap", "task-decomposition"],
+  "verified_at": "2026-03-16T13:43:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 10,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 10,
+    "uniqueness": 10,
+    "code_quality": 9,
+    "average": 9.29
+  },
+  "review": "The skill provides a highly detailed and logical framework for planning complex engineering tasks. The SKILL.md is exceptionally thorough, clearly outlining purpose, triggers, prerequisites, and a comprehensive multi-phase decision flow. It demonstrates strong security awareness with explicit handling of Git authentication and user identity verification. The blueprint concept of generating comprehensive, agent-centric engineering plans with dependency graphs and review gates is highly innovative and distinct. Immense value for automating the critical process of breaking down large objectives into agent-executable, multi-PR plans.",
+  "rocket_findings": {
+    "license": "MIT",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}

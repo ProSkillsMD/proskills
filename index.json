@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:40:00Z",
+  "last_updated": "2026-03-16T13:43:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1286,7 +1286,16 @@
       "stars": 45,
       "verified_at": "2026-03-15T04:14:16Z",
       "score": 9.43
+    },
+    {
+      "id": "blueprint",
+      "slug": "blueprint",
+      "category": "planning",
+      "name": "Blueprint",
+      "stars": 3,
+      "verified_at": "2026-03-16T13:43:00Z",
+      "score": 9.29
     }
   ],
-  "total_skills": 131
+  "total_skills": 133
 }
