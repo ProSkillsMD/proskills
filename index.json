@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 143,
+  "total": 142,
   "categories": [
     "api",
     "automation",
@@ -1102,15 +1102,6 @@
       "stars": 0,
       "verified_at": "2026-03-09T22:13:00Z",
       "score": 8.65
-    },
-    {
-      "id": "brand-voice",
-      "slug": "brand-voice",
-      "category": "content",
-      "name": "brand-voice",
-      "stars": 0,
-      "verified_at": "2026-03-09T22:13:00Z",
-      "score": 8.35
     },
     {
       "id": "campaign-planning",
