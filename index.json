@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 135,
+  "total": 138,
   "categories": [
     "api",
     "automation",
@@ -14,7 +14,7 @@
     "utilities",
     "developer-tools"
   ],
-  "last_updated": "2026-03-16T13:52:00Z",
+  "last_updated": "2026-03-16T13:51:00Z",
   "skills": [
     {
       "id": "openclaw-agent-skill",
@@ -1331,6 +1331,15 @@
       "score": 8.24,
       "stars": 0,
       "verified_at": "2026-03-09T22:10:28Z"
+    },
+    {
+      "id": "review-contract",
+      "slug": "review-contract",
+      "category": "legal",
+      "name": "Contract Review Against Playbook",
+      "stars": 9657,
+      "verified_at": "2026-03-16T13:50:00Z",
+      "score": 8.6
     }
   ],
   "total_skills": 137

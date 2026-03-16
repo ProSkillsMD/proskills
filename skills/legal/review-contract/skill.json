@@ -1,33 +1,38 @@
 {
   "id": "review-contract",
-  "name": "Review Contract",
+  "name": "Contract Review Against Playbook",
   "slug": "review-contract",
   "category": "legal",
   "description": "Review a contract against your organization's negotiation playbook — flag deviations, generate redlines, provide business impact analysis. Use when reviewing vendor or customer agreements, when you need clause-by-clause analysis against standard positions, or when preparing a negotiation strategy with prioritized redlines and fallback positions.",
   "author": {
-    "github": "anthropics",
-    "name": "Anthropic"
+    "github": "mattpic",
+    "name": "Matt Piccolella"
   },
   "version": "1.0.0",
   "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
-  "stars": 156,
+  "stars": 9657,
   "works_with": ["openclaw", "claude-code"],
-  "tags": ["legal", "contracts", "negotiation", "business-analysis", "compliance"],
-  "verified_at": "2026-03-16T13:48:00Z",
+  "tags": ["legal", "contracts", "negotiation", "compliance", "business"],
+  "verified_at": "2026-03-16T13:50:00Z",
   "scores": {
     "functionality": 9,
     "documentation": 9,
     "security": 8,
-    "maintenance": 9,
+    "maintenance": 8,
     "usefulness": 9,
     "uniqueness": 8,
-    "code_quality": 8,
+    "code_quality": 9,
     "average": 8.6
   },
-  "review": "Official Anthropic knowledge-work-plugins skill for contract review and negotiation. Comprehensive clause-by-clause analysis with playbook integration, redline generation, and business impact assessment. Production-ready implementation from trusted official source.",
+  "review": "Comprehensive contract review skill with strong clause analysis, negotiation support, and business impact assessment. Excellent documentation and practical workflow. Security properly scoped for legal document handling.",
   "rocket_findings": {
     "license": "MIT",
-    "author_repos": 1000,
+    "author_repos": 1,
     "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "integration passed",
+    "smoke_test": "passed"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "total_skills": 137,
-  "verified": 119,
+  "total_skills": 138,
+  "verified": 120,
   "categories": {
     "utilities": 2,
     "data": 9,
@@ -15,10 +15,16 @@
     "developer-tools": 6,
     "integration": 2,
     "planning": 1,
-    "legal": 1
+    "legal": 2
   },
   "last_scan": "2026-03-16T13:51:00Z",
   "recent_additions": [
+    {
+      "id": "review-contract",
+      "name": "Contract Review Against Playbook",
+      "score": 8.6,
+      "verified_at": "2026-03-16T13:51:00Z"
+    },
     {
       "id": "indic-ai-skills",
       "name": "Indic AI Skills",
@@ -68,11 +74,6 @@
     {
       "id": "learn",
       "name": "Learn",
-      "added": "2026-03-14"
-    },
-    {
-      "id": "alpha-radar-openclaw-skill",
-      "name": "Alpha Radar OpenClaw Skill",
       "added": "2026-03-14"
     }
   ],
