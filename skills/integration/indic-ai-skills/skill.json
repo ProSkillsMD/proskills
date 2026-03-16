@@ -1,0 +1,38 @@
+{
+  "id": "indic-ai-skills",
+  "name": "Indic AI Skills",
+  "slug": "indic-ai-skills",
+  "category": "integration",
+  "description": "A curated collection of AI skills for Indian languages and services. Includes TTS/STT, translation, payment integrations, train booking, ride-sharing, news, astrology, and ONDC platform support. Covers 23+ Indian languages via Sarvam AI.",
+  "author": {
+    "github": "ankitjh4",
+    "name": "Ankit"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ankitjh4/indic-ai-skills",
+  "stars": 35,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["indian-languages", "integrations", "payment", "travel", "services", "ai"],
+  "verified_at": "2026-03-15T04:46:28Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 9,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 10,
+    "uniqueness": 10,
+    "code_quality": 7,
+    "average": 8.57
+  },
+  "review": "Exceptional collection targeting Indian ecosystem with 23+ language support. Provides immense value for localized capabilities including Sarvam AI (TTS/STT/translation), payment integrations (PhonePe, Razorpay), travel (IRCTC, Namma Yatri), ONDC e-commerce platform, and more. Highly unique in catalog with no direct competition. Comprehensive documentation and clear setup instructions. Modular structure supports ongoing development and community contributions.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 35,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "integration_tests_passed",
+    "smoke_test": "passed"
+  }
+}
