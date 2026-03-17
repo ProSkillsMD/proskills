@@ -1,0 +1,33 @@
+{
+  "id": "invoice-organizer",
+  "name": "Invoice Organizer",
+  "slug": "invoice-organizer",
+  "category": "finance",
+  "description": "Automatically organizes invoices and receipts for tax preparation by reading messy files, extracting key information, renaming them consistently, and sorting them into logical folders. Turns hours of manual bookkeeping into minutes of automated organization.",
+  "author": {
+    "github": "ComposioHQ",
+    "name": "Composio"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ComposioHQ/awesome-claude-skills",
+  "stars": 44876,
+  "works_with": ["claude-code", "openclaw"],
+  "tags": ["finance", "invoices", "organization", "bookkeeping", "tax-prep", "automation"],
+  "verified_at": "2026-03-15T04:20:28Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 8.0
+  },
+  "review": "Invoice Organizer is a well-crafted prompt-based skill for Claude Code that automates financial document organization. Drax testing confirmed excellent structure with 446-line SKILL.md, 11 main sections, and 21 code blocks demonstrating comprehensive use cases. Clear when-to-use guidance covering tax preparation, expense management, receipt organization, and bookkeeping automation. Strong documentation with multiple organization patterns and edge case handling. Includes CSV export functionality for accounting integration. Ready for production use.",
+  "drax_results": {
+    "install": "passed",
+    "tests": "passed",
+    "smoke_test": "passed"
+  }
+}

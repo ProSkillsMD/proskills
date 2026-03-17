@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 142,
+  "total": 144,
   "categories": [
     "api",
     "automation",
@@ -15,8 +15,17 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-16T14:00:00Z",
+  "last_updated": "2026-03-17T07:04:00Z",
   "skills": [
+    {
+      "id": "invoice-organizer",
+      "name": "Invoice Organizer",
+      "category": "finance",
+      "slug": "invoice-organizer",
+      "score": 8.0,
+      "stars": 44876,
+      "verified_at": "2026-03-15T04:20:28Z"
+    },
     {
       "id": "openclaw-agent-skill",
       "slug": "openclaw-agent-skill",
@@ -219,7 +228,7 @@
       "id": "context-slim",
       "slug": "context-slim",
       "category": "productivity",
-      "name": "ContextSlim — Context Window Profiler & Optimizer",
+      "name": "ContextSlim \u2014 Context Window Profiler & Optimizer",
       "stars": 0,
       "verified_at": "2026-03-09T17:17:00Z",
       "score": 8.3
@@ -417,7 +426,7 @@
       "id": "getnote",
       "slug": "getnote",
       "category": "automation",
-      "name": "Get笔记 (getnote)",
+      "name": "Get\u7b14\u8bb0 (getnote)",
       "stars": 12,
       "verified_at": "2026-03-09T12:41:00Z",
       "score": 7.4
@@ -971,7 +980,7 @@
       "name": "OpenClaw OSS PR Workflow",
       "slug": "openclaw-oss-pr",
       "category": "coding",
-      "description": "Efficient OSS pull request workflows on GitHub — automates PR creation, review coordination, and merge processes for open source contributors.",
+      "description": "Efficient OSS pull request workflows on GitHub \u2014 automates PR creation, review coordination, and merge processes for open source contributors.",
       "author": {
         "github": "tsubasakong",
         "name": "tsubasakong"
@@ -1377,6 +1386,15 @@
       "stars": 9658,
       "verified_at": "2026-03-16T13:57:00Z",
       "score": 8.57
+    },
+    {
+      "id": "lead-research-assistant",
+      "slug": "lead-research-assistant",
+      "category": "productivity",
+      "name": "Lead Research Assistant",
+      "stars": 44876,
+      "verified_at": "2026-03-17T07:04:00Z",
+      "score": 7.4
     }
   ],
   "total_skills": 142
