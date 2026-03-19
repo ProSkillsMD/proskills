@@ -11,8 +11,20 @@
   "version": "2.9.5",
   "repo_url": "https://github.com/mvanhorn/last30days-skill",
   "stars": 3858,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["research", "trends", "social-media", "aggregator", "reddit", "hackernews", "twitter", "youtube"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "research",
+    "trends",
+    "social-media",
+    "aggregator",
+    "reddit",
+    "hackernews",
+    "twitter",
+    "youtube"
+  ],
   "verified_at": "2026-03-09T04:22:00Z",
   "scores": {
     "functionality": 8.5,
@@ -33,5 +45,34 @@
     "install": "passed",
     "smoke_test": "partial",
     "notes": "Core engine + free-tier sources verified. Full coverage requires API keys (documented). Mock mode works."
+  },
+  "readme": "# /last30days v2.9.5\n\n### Claude Code (recommended)\n```\n/plugin marketplace add mvanhorn/last30days-skill\n/plugin install last30days@last30days-skill\n```\n\n[![ClawHub](https://img.shields.io/badge/ClawHub-last30days--official-blue)](https://clawhub.ai/skills/last30days-official)\n\n```bash\nclawhub install last30days-official\n```\n\n**The AI world reinvents itself every month. This skill keeps you current.** /last30days researches your topic across Reddit, X, Bluesky, YouTube, TikTok, Instagram, Hacker News, Polymarket, and the web from the last 30 days, finds what the community is actually upvoting, sharing, betting on, and saying on camera, and writes you a grounded narrative with real citations. Whether it's Seedance 2.0 access, paper.design prompts, or the latest Nano Banana Pro techniques, you'll know what people who are paying attention already know.\n\n**New in v2.9.5 \u2014 Bluesky, Comparative Mode, and Config Improvements:**\n\n- **Bluesky/AT Protocol** is now a social source. Opt-in via `BSKY_HANDLE` + `BSKY_APP_PASSWORD` (create at bsky.app/settings/app-passwords). Full pipeline: search, score, dedupe, render.\n- **Comparative mode** - ask \"X vs Y\" (e.g., `/last30 cursor vs windsurf`) and get 3 parallel research passes with a side-by-side comparison: strengths, weaknesses, head-to-head table, and a data-driven verdict.\n- **Per-project .env config** - drop a `.claude/last30days.env` in your project root for per-project API keys.\n- **SessionStart config check** - validates your config automatically when a Claude Code session starts.\n- **Expanded test coverage** - 455+ tests across all modules.\n\n**New in v2.9.1 \u2014 Auto-save to ~/Documents/Last30Days/:** Every run now saves the complete briefing as a topic-named `.md` file to your Documents folder. Build a personal research library automatically. Inspired by [@devin_explores](https://x.com/devin_explores).\n\n**New in v2.9 \u2014 ScrapeCreators Reddit + Top Comments + Smart Discovery:**\n\nReddit now runs on [ScrapeCreators](https://scrapecreators.com) by default \u2014 one `SCRAPECREATORS_API_KEY` covers Reddit, TikTok, and Instagram (3 sources, 1 key). Smart subreddit discovery finds the right communities automatically, and top comments are elevated with a 10% scoring weight and `\ud83d\udcac` display with upvote counts. [Details below.](#whats-new-in-v29)\n\n**New in v2.8 \u2014 Instagram Reels + ScrapeCreators:**\n\nInstagram Reels is now the 8th signal source. TikTok and Instagram both run on ScrapeCreators \u2014 one API key covers both. [Details below.](#whats-new-in-v28)\n\n**New in V2.5 - dramatically better results:**\n\n1. **Polymarket prediction markets and Hacker News.** See what people are betting real money on and what the technical community is actually discussing. Search \"Arizona Basketball\" and get NCAA Tournament championship odds (Arizona: 12%), #1 seed probability (88%), and Big 12 title race (69%) - pulled from 50+ open markets across 10 events, not just Reddit opinions. Search \"Iran War\" and get 15 live prediction markets with strike probabilities, regime change bets, and war declaration odds. Two-pass query expansion with tag-based domain bridging discovers markets where your topic is an outcome buried inside a broader event, not just a title keyword match. HN stories, Show HN posts, and comment insights are scored by points + comments and participate in cross-source convergence detection.\n2. **Multi-signal quality-ranked relevance scoring.** Every result across all six sources runs through a composite scoring pipeline: bidirectional text similarity with synonym expansion and token overlap, engagement velocity normalization, source authority weighting, cross-platform convergence detection via hybrid trigram-token Jaccard similarity, and temporal recency decay. Polymarket markets are ranked on a 5-factor weighted composite - text relevance (30%), 24-hour volume (30%), liquidity depth (15%), price movement velocity (15%), and outcome competitiveness (10%) - with outcome-aware scoring that matches your topic against individual market positions, not just event titles. A blinded evaluation scored v2.5 at 4.38/5.0 vs 3.73/5.0 for v1 across 5 test topics.\n3. **X handle resolution.** Search \"Dor Brothers\" and the skill resolves their handle (@thedorbrothers), then searches their posts directly - finding their 5,600-like viral tweet that keyword search missed entirely. Works for people, brands, products, and tools.\n\n**New in V2.1:** Open-class skill with watchlists, YouTube transcripts as a source, works in OpenAI Codex CLI. [Full changelog below.](#whats-new-in-v21)\n\n**New in V2:** Smarter query construction, two-phase supplemental search, free X search via bundled Bird client, `--days=N` flag, automatic model fallback. [Full changelog below.](#whats-new-in-v2)\n\n**The tradeoff:** /last30days finds a lot of content but takes 2-8 minutes depending on how niche your topic is. Up to 10 sources searched in parallel, results scored, deduplicated, and synthesized. We think the depth is worth the wait, but `--quick` mode is there if you need speed over thoroughness.\n\n**Best for prompt research**: discover what prompting techniques actually work for any tool (ChatGPT, Midjourney, Claude, Paper, etc.) by learning from real community discussions and best practices.\n\n**But also great for anything trending**: music, culture, news, product recommendations, viral trends, or any question where \"what are people saying right now?\" matters.\n\n## Installation\n\n### Claude Code Plugin (recommended)\n```\n/plugin marketplace add mvanhorn/last30days-skill\n/plugin install last30days@last30days-skill\n```\n\n### Gemini CLI\n```bash\ngemini extensions install https://github.com/mvanhorn/last30days-skill.git\n```\n\n### Manual Install (Claude Code / Codex)\n```bash\n# Clone the repo\ngit clone https://github.com/mvanhorn/last30days-skill.git ~/.claude/skills/last30days\n\n# Add your API keys (optional if signed in to Codex)\nmkdir -p ~/.config/last30days\ncat > ~/.config/last30days/.env << 'EOF'\nSCRAPECREATORS_API_KEY=... # Reddit + TikTok + Instagram (one key, all three) - scrapecreators.com\nOPENAI_API_KEY=sk-...      # optional - legacy Reddit fallback if using `codex login`\nAUTH_TOKEN=...             # recommended for X search - copy once from x.com cookies\nCT0=...                    # recommended for X search - copy once from x.com cookies\nXAI_API_KEY=xai-...        # optional - X fallback if you do not want cookie-based auth\nBSKY_HANDLE=you.bsky.social       # optional - Bluesky search (create app password below)\nBSKY_APP_PASSWORD=xxxx-xxxx-xxxx  # optional - bsky.app/settings/app-passwords\nEOF\nchmod 600 ~/.config/last30days/.env\n```\n\nIf you're signed in to Codex (`codex login`), the skill will use your Codex credentials for the OpenAI Responses API and you can omit `OPENAI_API_KEY`. If you're not signed in, run `codex login` first.\n\nFor project-specific overrides, create `.claude/last30days.env` in the repo root. It overrides the global `~/.config/last30days/.env`.\n\n### X Search Authentication\n\nX search prefers explicit env auth. This keeps local runs headless and avoids browser-cookie and macOS Keychain prompts.\n\n**Recommended setup:**\n1. While logged into x.com once, open browser dev tools and copy the `auth_token` and `ct0` cookies for `x.com`.\n2. Save them as `AUTH_TOKEN` and `CT0` in `~/.config/last30days/.env`, export them in your shell, or add them to `.claude/last30days.env` for a single project.\n3. Re-run `/last30days`.\n\n**xAI fallback:** If you do not want to provide `AUTH_TOKEN` and `CT0`, set `XAI_API_KEY` and the skill will use xAI's `x_search` backend instead.\n\n**Verify it's working:**\n```bash\nnode ~/.claude/skills/last30days/scripts/lib/vendor/bird-search/bird-search.mjs --whoami\n```\n\n**Requirements:** Node.js 22+ (for the vendored Twitter GraphQL client).\n\n### Codex CLI\n\nThis skill also works in OpenAI Codex CLI. Install to the Codex skills directory instead:\n\n```bash\ngit clone https://github.com/mvanhorn/last30days-skill.git ~/.agents/skills/last30days\n```",
+  "github_stars": 4373,
+  "last_commit": "2026-03-16T05:56:00Z",
+  "open_issues": 3,
+  "files_found": [
+    ".clawhubignore",
+    ".gitignore",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "LICENSE",
+    "README.md",
+    "SKILL-original.md",
+    "SKILL.md",
+    "SPEC.md",
+    "TASKS.md",
+    "gemini-extension.json",
+    "release-notes.md",
+    "test-run.log"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:36:44Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
   }
 }

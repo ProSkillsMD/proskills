@@ -11,8 +11,22 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/OthmanAdi/planning-with-files",
   "stars": 15588,
-  "works_with": ["openclaw", "claude-code", "cursor", "codex", "continue", "gemini"],
-  "tags": ["planning", "automation", "session-recovery", "workflow", "markdown", "ai-ide"],
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "cursor",
+    "codex",
+    "continue",
+    "gemini"
+  ],
+  "tags": [
+    "planning",
+    "automation",
+    "session-recovery",
+    "workflow",
+    "markdown",
+    "ai-ide"
+  ],
   "verified_at": "2026-03-09T04:21:57Z",
   "scores": {
     "functionality": 9,
@@ -33,5 +47,27 @@
     "install": "passed",
     "smoke_test": "passed",
     "notes": "init-session.sh, check-complete.sh, session-catchup.py all verified. All 5 SKILL.md file links resolve."
+  },
+  "readme": "# Planning with Files\n\n> **Work like Manus** \u2014 the AI agent company Meta acquired for **$2 billion**.\n\n[![Closed Issues](https://img.shields.io/github/issues-closed/OthmanAdi/planning-with-files?color=success)](https://github.com/OthmanAdi/planning-with-files/issues?q=is%3Aissue+is%3Aclosed)\n[![Closed PRs](https://img.shields.io/github/issues-pr-closed/OthmanAdi/planning-with-files?color=success)](https://github.com/OthmanAdi/planning-with-files/pulls?q=is%3Apr+is%3Aclosed)\n[![Benchmark](https://img.shields.io/badge/Benchmark-96.7%25_pass_rate-brightgreen)](docs/evals.md)\n[![A/B Verified](https://img.shields.io/badge/A%2FB_Blind-3%2F3_wins-brightgreen)](docs/evals.md)\n[![Security Verified](https://img.shields.io/badge/Security-Audited_%26_Fixed_v2.21.0-blue)](docs/evals.md)\n\n<details>\n<summary><strong>\ud83d\udcac A Note from the Author</strong></summary>\n\nTo everyone who starred, forked, and shared this skill \u2014 thank you. This project blew up in less than 24 hours, and the support from the community has been incredible.\n\nIf this skill helps you work smarter, that's all I wanted.\n\n</details>\n\n<details open>\n<summary><strong>\ud83c\udf0d See What the Community Built</strong></summary>\n\n| Fork | Author | Features |\n|------|--------|----------|\n| [devis](https://github.com/st01cs/devis) | [@st01cs](https://github.com/st01cs) | Interview-first workflow, `/devis:intv` and `/devis:impl` commands, guaranteed activation |\n| [multi-manus-planning](https://github.com/kmichels/multi-manus-planning) | [@kmichels](https://github.com/kmichels) | Multi-project support, SessionStart git sync |\n| [plan-cascade](https://github.com/Taoidle/plan-cascade) | [@Taoidle](https://github.com/Taoidle) | Multi-level task orchestration, parallel execution, multi-agent collaboration |\n| [agentfund-skill](https://github.com/RioTheGreat-ai/agentfund-skill) | [@RioTheGreat-ai](https://github.com/RioTheGreat-ai) | Crowdfunding for AI agents with milestone-based escrow on Base |\n\n*Built something? [Open an issue](https://github.com/OthmanAdi/planning-with-files/issues) to get listed!*\n\n</details>\n\n<details>\n<summary><strong>\ud83e\udd1d Contributors</strong></summary>\n\nSee the full list of everyone who made this project better in [CONTRIBUTORS.md](./CONTRIBUTORS.md).\n\n</details>\n\n<details>\n<summary><strong>\ud83d\udce6 Releases & Session Recovery</strong></summary>\n\n### Current Version: v2.18.2\n\n| Version | Highlights |\n|---------|------------|\n| **v2.18.2** | Mastra Code hooks fix (hooks.json + docs accuracy) |\n| **v2.18.1** | Copilot garbled characters complete fix |\n| **v2.18.0** | BoxLite sandbox runtime integration |\n| **v2.17.0** | Mastra Code support + all IDE SKILL.md spec fixes |\n| **v2.16.1** | Copilot garbled characters fix \u2014 PS1 UTF-8 encoding + bash ensure_ascii (thanks @Hexiaopi!) |\n| **v2.16.0** | GitHub Copilot hooks support (thanks @lincolnwan!) |\n| **v2.15.1** | Session catchup false-positive fix (thanks @gydx6!) |\n| **v2.15.0** | `/plan:status` command, OpenCode compatibility fix |\n| **v2.14.0** | Pi Agent support, OpenClaw docs update, Codex path fix |\n| **v2.11.0** | `/plan` command for easier autocomplete |\n| **v2.10.0** | Kiro steering files support |\n| **v2.7.0** | Gemini CLI support |\n| **v2.2.0** | Session recovery, Windows PowerShell, OS-aware hooks |\n\n[View all releases](https://github.com/OthmanAdi/planning-with-files/releases) \u00b7 [CHANGELOG](CHANGELOG.md)\n\n> \ud83e\uddea **Experimental:** Isolated parallel planning (`.planning/{uuid}/` folders) is being tested on [`experimental/isolated-planning`](https://github.com/OthmanAdi/planning-with-files/tree/experimental/isolated-planning). Try it and share feedback!\n\n---\n\n### Session Recovery\n\nWhen your context fills up and you run `/clear`, this skill **automatically recovers** your previous session.\n\n**How it works:**\n1. Checks for previous session data in `~/.claude/projects/`\n2. Finds when planning files were last updated\n3. Extracts conversation that happened after (potentially lost context)\n4. Shows a catchup report so you can sync\n\n**Pro tip:** Disable auto-compact to maximize context before clearing:\n```json\n{ \"autoCompact\": false }\n```\n\n</details>\n\n<details>\n<summary><strong>\ud83d\udee0\ufe0f Supported IDEs (16 Platforms)</strong></summary>\n\n| IDE | Status | Installation Guide | Format |\n|-----|--------|-------------------|--------|\n| Claude Code | \u2705 Full Support | [Installation](docs/installation.md) | Plugin + SKILL.md |\n| Gemini CLI | \u2705 Full Support | [Gemini Setup](docs/gemini.md) | Agent Skills |\n| OpenClaw | \u2705 Full Support | [OpenClaw Setup](docs/openclaw.md) | Workspace/Local Skills |\n| Kiro | \u2705 Full Support | [Kiro Setup](docs/kiro.md) | Steering Files |\n| Cursor | \u2705 Full Support | [Cursor Setup](docs/cursor.md) | Skills + Hooks |\n| Continue | \u2705 Full Support | [Continue Setup](docs/continue.md) | Skills + Prompt files |\n| Kilocode | \u2705 Full Support | [Kilocode Setup](docs/kilocode.md) | Skills |\n| OpenCode | \u26a0\ufe0f Partial Support | [OpenCode Setup](docs/opencode.md) | Personal/Project Skill (session catchup limited) |\n| Codex | \u2705 Full Support | [Codex Setup](docs/codex.md) | Personal Skill |\n| FactoryAI Droid | \u2705 Full Support | [Factory Setup](docs/factory.md) | Workspace/Personal Skill |\n| Antigravity | \u2705 Full Support | [Antigravity Setup](docs/antigravity.md) | Workspace/Personal Skill |\n| CodeBuddy | \u2705 Full Support | [CodeBuddy Setup](docs/codebuddy.md) | Workspace/Personal Skill |\n| AdaL CLI (Sylph AI) | \u2705 Full Support | [AdaL Setup](docs/adal.md) | Personal/Project Skills |\n| Pi Agent | \u2705 Full Support | [Pi Agent Setup](docs/pi-agent.md) | Agent Skills |\n| GitHub Copilot | \u2705 Full Support | [Copilot Setup](docs/copilot.md) | Hooks |\n| Mastra Code | \u2705 Full Support | [Mastra Setup](docs/mastra.md) | Skills + Hooks |\n\n> **Note:** If your IDE uses the legacy Rules system instead of Skills, see the [`legacy-rules-support`](https://github.com/OthmanAdi/planning-with-files/tree/legacy-rules-support) branch.\n\n</details>\n\n<details>\n<summary><strong>\ud83e\uddf1 Sandbox Runtimes (1 Platform)</strong></summary>\n\n| Runtime | Status | Guide | Notes |\n|---------|--------|-------|-------|\n| BoxLite | \u2705 Documented | [BoxLite Setup](docs/boxlite.md) | Run Claude Code + planning-with-files inside hardware-isolated micro-VMs |\n\n> **Note:** BoxLite is a sandbox runtime, not an IDE. Skills load via [ClaudeBox](https://github.com/boxlite-ai/claudebox) \u2014 BoxLite\u2019s official Claude Code integration layer.\n\n</details>\n\n---\n\nA Claude Code plugin that transforms your workflow to use persistent markdown files for planning, progress tracking, and knowledge storage \u2014 the exact pattern that made Manus worth billions.\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://code.claude.com/docs/en/plugins)\n[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-green)](https://code.claude.com/docs/en/skills)\n[![Cursor Skills](https://img.shields.io/badge/Cursor-Skills-purple)](https://docs.cursor.com/context/skills)\n[![Kilocode Skills](https://img.shields.io/badge/Kilocode-Skills-orange)](https://kilo.ai/docs/agent-behavior/skills)\n[![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-Skills-4285F4)](https://geminicli.com/docs/cli/skills/)\n[![OpenClaw](https://img.shields.io/badge/OpenClaw-Skills-FF6B6B)](https://openclaw.ai)\n[![Kiro](https://img.shields.io/badge/Kiro-Steering-00D4AA)](https://kiro.dev/docs/cli/steering/)\n[![AdaL CLI](https://img.shields.io/badge/AdaL%20CLI-Skills-9B59B6)](https://docs.sylph.ai/features/plugins-and-skills)\n[![Pi Agent](https://img.shields.io/badge/Pi%20Agent-Skills-FF4081)](https://pi.dev)\n[![GitHub Copilot](https://img.shields.io/badge/GitHub%20Copilot-Hooks-000000)](https://docs.github.com/en/copilot/reference/hooks-configuration)\n[![Mastra Code](https://img.shields.io/badge/Mastra%20Code-Skills-00BCD4)](https://code.mastra.ai)\n[![BoxLite](https://img.shields.io/badge/BoxLite-Sandbox-6C3483)](https://boxlite.ai)\n[![",
+  "github_stars": 16498,
+  "last_commit": "2026-03-15T23:14:09Z",
+  "open_issues": 8,
+  "files_found": [
+    ".gitignore",
+    "CHANGELOG.md",
+    "CONTRIBUTORS.md",
+    "LICENSE",
+    "MIGRATION.md",
+    "README.md"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:36:38Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
   }
 }

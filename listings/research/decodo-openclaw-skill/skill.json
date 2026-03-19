@@ -11,8 +11,18 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/decodo/decodo-openclaw-skill",
   "stars": 61,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["web-scraping", "research", "decodo", "api", "scraper", "data-collection"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "web-scraping",
+    "research",
+    "decodo",
+    "api",
+    "scraper",
+    "data-collection"
+  ],
   "verified_at": "2026-03-09T06:16:00Z",
   "scores": {
     "functionality": 7,
@@ -33,5 +43,29 @@
     "install": "passed",
     "smoke_test": "passed"
   },
-  "catalog_notes": "README states MIT. Formal LICENSE file pending."
+  "catalog_notes": "README states MIT. Formal LICENSE file pending.",
+  "readme": "# Decodo Scraper OpenClaw Skill\n![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg?logo=python)\n![License](https://img.shields.io/github/license/decodo/decodo)\n![powered by Decodo](https://img.shields.io/badge/powered_by-Decodo-red?)\n![GitHub Repo stars](https://img.shields.io/github/stars/Decodo/decodo-openclaw-skill)\n\n<p align=\"center\">\n<p align=\"center\">\n<a href=\"https://dashboard.decodo.com/scrapers/pricing?utm_source=github&utm_medium=social&utm_campaign=openclaw\"> <img src=\"https://github.com/user-attachments/assets/a1e52a9e-3da1-4081-b3c6-053aafb8f196\"/></a>\n\n[![](https://dcbadge.limes.pink/api/server/https://discord.gg/Ja8dqKgvbZ)](https://discord.gg/Ja8dqKgvbZ)\n## Overview\nThis [OpenClaw](https://openclaw.ai/) skill integrates [Decodo's Web Scraping API](https://decodo.com/scraping/web?utm_source=github&utm_medium=social&utm_campaign=openclaw) into any OpenClaw-compatible AI agent or LLM pipeline. It exposes these tools that agents can call directly:\n\n| Tool              | Description                                                          | Perfect for                                                                              |\n| :---------------- | :------------------------------------------------------------------- | :--------------------------------------------------------------------------------------- |\n| `google_search`   | Real-time Google Search (SERP) results as structured JSON.           | Market research, competitor analysis, news monitoring, fact-checking, RAG pipelines.     |\n| `universal`       | Scrape & parse any public webpage into clean Markdown.           | Summarizing articles, content aggregation, building custom datasets, general web browsing for AI agents. |\n| `amazon`          | Parse Amazon product page data (price, reviews, specs, ASIN).        | eCommerce monitoring, price tracking, competitive intelligence, product research.        |\n| `amazon_search`   | Search Amazon for products by keyword and get parsed results.        | Discovering products, tracking trends, and broad market analysis.                        |\n| `youtube_subtitles` | Extract subtitles/transcripts from YouTube videos (by video ID).   | Video summarization, content analysis, sentiment tracking, accessibility.                |\n| `reddit_post`     | Fetch a Reddit post's content, comments, and metadata (by post URL). | Social listening, community sentiment analysis, trend tracking, and gathering user feedback. |\n| `reddit_subreddit` | Scrape Reddit subreddit listings (by subreddit URL).                | Monitoring specific communities, content discovery, niche market research.               |\n\nBacked by Decodo's residential and datacenter proxy infrastructure, the skill handles JavaScript rendering, bot detection bypass, and geo-targeting out of the box.\n\n## Why use Decodo for your OpenClaw agent?\n\n*   **Zero blocks & CAPTCHAs**. Backed by Decodo's proxy infrastructure from 125M+ locations, the skill automatically handles JavaScript rendering, bot detection, and CAPTCHA bypass.\n*   **Real-time data**. Access fresh, up-to-the-minute web data directly within your AI agent's workflow.\n*   **LLM-optimized output**. Data is returned in structured JSON or clean Markdown, making it easy for LLMs to understand and process.\n*   **Scalability**. Designed for high-volume data collection, ensuring your agent can scale from small tasks to complex projects.\n*   **Minimal Friction**. Easy setup with a single authentication token.\n\n## Features\n- Real-time Google Search results scraping\n- Universal URL scraping\n- Amazon product page parsing (by URL)\n- Amazon search (by query)\n- YouTube subtitles/transcript by video ID\n- Reddit post content by URL\n- Reddit subreddit listing by URL\n- Structured JSON or Markdown results\n- Simple CLI interface compatible with any OpenClaw agent runtime\n- Designed for scalable AI agent web scraping\n- Minimal dependencies \u2014 just Python with Requests\n- Authentication via a single Base64 token from the [Decodo dashboard](https://dashboard.decodo.com/?utm_source=github&utm_medium=social&utm_campaign=openclaw)\n\n## Prerequisites\n- [Python 3.9](https://www.python.org/downloads/) or higher\n- [Decodo account](https://dashboard.decodo.com/?utm_source=github&utm_medium=social&utm_campaign=openclaw) with access to the Web Scraping API\n- [OpenClaw](https://openclaw.ai/) installed on your machine\n\n## Setup\n1. Clone this repo.\n```\ngit clone https://github.com/Decodo/decodo-openclaw-skill.git\n```\n2. Install dependencies.\n```\npip install -r requirements.txt\n```\n3. Set your Decodo auth token as an environment variable (or create a ```.env``` file in the project root):\n```\n# Linux/macOS Terminal\nexport DECODO_AUTH_TOKEN=\"your_base64_token\"\n\n# Windows (PowerShell)\n$env:DECODO_AUTH_TOKEN=\"your_base64_token\"\n```\n```\n# .env file\nDECODO_AUTH_TOKEN=your_base64_token\n```\n## OpenClaw agent integration\nThis skill ships with a [SKILL.md](https://github.com/Decodo/decodo-openclaw-skill/blob/main/SKILL.md) file that defines all tools in the OpenClaw skill format. OpenClaw-compatible agents automatically discover and invoke the tools from this file without additional configuration.\n\nTo register the skill with your OpenClaw agent, point it at the repo root \u2014 the agent will read ```SKILL.md``` and expose ```google_search```, ```universal```, ```amazon```, ```amazon_search```, ```youtube_subtitles```, ```reddit_post```, and ```reddit_subreddit``` as callable tools.\n## Usage\n### Google Search\nSearch Google and receive structured JSON. Results are grouped by type: **organic** (main results), **ai_overviews** (AI-generated summaries), **paid** (ads), **related_questions**, **related_searches**, **discussions_and_forums**, and others depending on the query.\n```\npython3 tools/scrape.py --target google_search --query \"your query\"\n```\n### Scrape a URL\nFetch and convert any webpage to a clean Markdown file:\n```\npython3 tools/scrape.py --target universal --url \"https://example.com/article\"\n```\n### Amazon product page\nFetch parsed data from an Amazon product page (e.g., ads, product details). Use the product URL:\n```\npython3 tools/scrape.py --target amazon --url \"https://www.amazon.com/dp/B09H74FXNW\"\n```\n### Amazon search\nSearch Amazon and get parsed results (e.g., results list, delivery_postcode):\n```\npython3 tools/scrape.py --target amazon_search --query \"laptop\"\n```\n### YouTube subtitles\nFetch subtitles/transcript for a YouTube video (use the video ID, e.g., from `?v=VIDEO_ID`):\n```\npython3 tools/scrape.py --target youtube_subtitles --query \"dFu9aKJoqGg\"\n```\n### Reddit post\nFetch a Reddit post\u2019s content (use the full post URL):\n```\npython3 tools/scrape.py --target reddit_post --url \"https://www.reddit.com/r/nba/comments/17jrqc5/serious_next_day_thread_postgame_discussion/\"\n```\n### Reddit subreddit\nFetch a Reddit subreddit listing (use the subreddit URL):\n```\npython3 tools/scrape.py --target reddit_subreddit --url \"https://www.reddit.com/r/nba/\"\n```\n## Related resources\n[Decodo Web Scraping API documentation](https://help.decodo.com/docs/web-scraping-api-introduction)\n\n[OpenClaw documentation](https://docs.openclaw.ai/start/getting-started)\n\n[ClaWHub \u2013 OpenClaw skill registry](https://docs.openclaw.ai/tools/clawhub)\n\n## License\nAll code is released under the [MIT License](https://github.com/Decodo/Decodo/blob/master/LICENSE).\n",
+  "github_stars": 76,
+  "last_commit": "2026-03-10T12:45:53Z",
+  "open_issues": 1,
+  "files_found": [
+    ".DS_Store",
+    ".env.dist",
+    ".gitignore",
+    "README.md",
+    "SKILL.md",
+    "requirements.txt"
+  ],
+  "tech_stack": [
+    "Python"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:09Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

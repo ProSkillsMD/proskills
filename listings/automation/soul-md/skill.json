@@ -11,8 +11,18 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/aaronjmars/soul.md",
   "stars": 173,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["agent-personality", "identity", "soul", "consciousness", "automation", "ai-persona"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "agent-personality",
+    "identity",
+    "soul",
+    "consciousness",
+    "automation",
+    "ai-persona"
+  ],
   "verified_at": "2026-03-09T06:16:00Z",
   "scores": {
     "functionality": 9,
@@ -24,7 +34,7 @@
     "code_quality": 8,
     "average": 8.7
   },
-  "review": "Outstanding framework for building agent personality and identity. The consciousness-uploading approach is innovative and highly effective — one of the highest scores for identity skills in the catalog. Gamora score: 8.7/10.",
+  "review": "Outstanding framework for building agent personality and identity. The consciousness-uploading approach is innovative and highly effective \u2014 one of the highest scores for identity skills in the catalog. Gamora score: 8.7/10.",
   "rocket_findings": {
     "license": "unknown",
     "security_scan": "passed"
@@ -33,5 +43,28 @@
     "install": "passed",
     "smoke_test": "passed"
   },
-  "catalog_notes": "License not yet added to repo. Author notified. MIT-compatible content."
+  "catalog_notes": "License not yet added to repo. Author notified. MIT-compatible content.",
+  "readme": "<p align=\"center\">\n  <img src=\"img/soul.jpg\" alt=\"SOUL.md\" width=\"120\" />\n</p>\n\n<h1 align=\"center\">SOUL.MD</h1>\n\n<p align=\"center\">\n  <strong>The best way to build a personality for your agent.</strong><br>\n  Let Claude Code / OpenClaw ingest your data & build your AI soul.\n</p>\n\n---\n\n## What Is This?\n\n<img src=\"img/soul-identity.jpg\" alt=\"Soul Identity\" width=\"100%\" />\n\nA soul file captures who you are in a format AI agents can embody. Not a chatbot that *talks about you* \u2014 an AI that *thinks and speaks as you*.\n\nDump your tweets, essays, and posts into a folder. The agent reads everything, extracts your worldview and voice, and builds a set of markdown files any LLM can load to write as you.\n\nThe goal: someone reading your `SOUL.md` should be able to predict your takes on new topics. If they can't, it's too vague.\n\n**Use cases:**\n- Generate ideas from your worldview\n- Write content (tweets, articles, emails) that sounds like you\n- Tailor AI to your interests and thinking patterns\n- Scale yourself for content, responses, brainstorming\n\n---\n\n## Quick Start\n\n<img src=\"img/soul-builder.jpg\" alt=\"Soul Builder Flow\" width=\"100%\" />\n\n**Option 1 \u2014 Build from scratch**\n```\n/soul-builder\n```\nThe agent interviews you: worldview, opinions, how you write, what you care about.\n\n**Option 2 \u2014 Build from your data**\n\nDrop your content into `data/`:\n```\ndata/x/          \u2190 Twitter/X export\ndata/writing/    \u2190 Blog posts, essays\n```\nThen run `/soul-builder`. It analyzes your data, extracts patterns, and drafts your soul file. You review and refine together.\n\n**Option 3 \u2014 Manual**\n\nCopy the templates and fill them in:\n```\nSOUL.template.md  \u2192 SOUL.md\nSTYLE.template.md \u2192 STYLE.md\nSKILL.template.md \u2192 SKILL.md\n```\n\n---\n\n## Data Sources\n\n<img src=\"img/soul-sources.jpg\" alt=\"Soul Sources\" width=\"100%\" />\n\nFeed the builder anything you've written. The more signal, the sharper the output.\n\n| Category | Platforms |\n|----------|-----------|\n| **Social** | Twitter/X, Bluesky, Farcaster, Mastodon, Threads, LinkedIn, Reddit |\n| **Writing** | Substack, Medium, Ghost, WordPress, Mirror.xyz, Paragraph.xyz |\n| **Messaging** | Discord, Telegram, Slack, iMessage exports |\n| **Notes** | Notion, Obsidian, Roam Research, Logseq, Apple Notes |\n| **Video/Audio** | YouTube transcripts, podcast transcripts, Loom recordings |\n| **Code/Dev** | GitHub activity, Hacker News comments, Stack Overflow answers |\n| **Other** | PDFs, plain text, CSV/JSON, RSS feeds, GDPR data exports |\n\nNo existing data? Option 1 (interview mode) still builds a solid soul file from scratch.\n\n---\n\n## Compatible Frameworks\n\nSoul files are plain markdown \u2014 if an agent can read files, it can embody you. Tested with:\n\n| Framework | Language | Stars |\n|-----------|----------|-------|\n| [Aeon](https://github.com/aaronjmars/aeon) | YAML/Markdown | \u2014 |\n| [OpenClaw](https://github.com/openclaw/openclaw) | TypeScript | 322k |\n| [Nanobot](https://github.com/HKUDS/nanobot) | Python | 34.6k |\n| [ZeroClaw](https://github.com/zeroclaw-labs/zeroclaw) | Rust | 27.8k |\n| [PicoClaw](https://github.com/sipeed/picoclaw) | Go | 25.3k |\n| [NanoClaw](https://github.com/qwibitai/nanoclaw) | TypeScript | 24k |\n| [OpenFang](https://github.com/RightNow-AI/openfang) | Rust | 14.9k |\n| [IronClaw](https://github.com/nearai/ironclaw) | Rust | 10.4k |\n| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | Python | 8.7k |\n| Claude Code \u00b7 OpenCode \u00b7 Codex \u00b7 Goose | various | \u2014 |\n\nAlso works with any model via system prompt \u2014 see [Using With Other Tools](#using-with-other-tools).\n\n---\n\n## File Structure\n\n<img src=\"img/soul-stack.jpg\" alt=\"Soul Stack\" width=\"100%\" />\n\n```\nyour-soul/\n\u251c\u2500\u2500 SOUL.md           \u2190 Who you are (identity, worldview, opinions)\n\u251c\u2500\u2500 STYLE.md          \u2190 How you write (voice, syntax, patterns)\n\u251c\u2500\u2500 SKILL.md          \u2190 Operating modes (tweet, essay, chat, etc.)\n\u251c\u2500\u2500 MEMORY.md         \u2190 Session memory for continuity across conversations\n\u251c\u2500\u2500 data/             \u2190 Raw source material\n\u2502   \u251c\u2500\u2500 writing/\n\u2502   \u251c\u2500\u2500 x/\n\u2502   \u2514\u2500\u2500 influences.md\n\u2514\u2500\u2500 examples/\n    \u251c\u2500\u2500 good-outputs.md\n    \u2514\u2500\u2500 bad-outputs.md\n```\n\n---\n\n## What Makes a Good Soul File\n\n| Good | Bad |\n|------|-----|\n| \"I think most AI safety discourse is galaxy-brained cope\" | \"I have nuanced views on AI\" |\n| \"I default to disagreeing first, then steel-manning\" | \"I like to consider multiple perspectives\" |\n| Specific book references, named influences | \"I read widely\" |\n| Actual hot takes with reasoning | \"I try to be balanced\" |\n\nReal people have inconsistent views. Include contradictions \u2014 they're what make you identifiably you.\n\n---\n\n## Using Your Soul\n\nOnce built, invoke your soul:\n```\n/soul\n```\n\nOr point any LLM at your folder and have it read:\n1. `SOUL.md` \u2014 identity\n2. `STYLE.md` \u2014 voice\n3. `MEMORY.md` \u2014 recent context\n4. `examples/` \u2014 calibration\n5. `data/` \u2014 grounding when needed\n\nNotable events get appended to `MEMORY.md`, giving your soul continuity across sessions.\n\n---\n\n## Using With Other Tools\n\nSoul files are plain markdown \u2014 they work with any LLM or agent.\n\n**For agents that support file reading** (OpenCode, Codex, Goose, etc.): point the agent at your soul folder and have it read `SOUL.md` \u2192 `STYLE.md` \u2192 `examples/`.\n\n**For smaller/weaker models** (GPT-4o-mini, Qwen, Gemini Flash, local models): paste `SOUL.md` and `STYLE.md` directly into the system prompt. Tips if the model still drifts:\n- Put identity and voice *before* tool definitions\n- Be blunt: replace \"be conversational\" with \"You are [Name]. You speak like X. You find Y annoying.\"\n- Include 2\u20133 inline example exchanges for pattern-matching\n- Raise temperature (0.7\u20130.9) for more expressive output\n\n**Cross-model calibration tip:** Run the same prompts through a strong model (Claude, GPT-4) and a cheap one (Qwen, Llama). Where the cheap model drifts, your spec is too vague \u2014 tighten those sections and re-test. This is the fastest way to make your soul files portable.\n\n---\n\n## Examples\n\nReal soul files built with this framework.\n\n### @aaronjmars\nBuilder, writer, and researcher at the intersection of crypto, AI, and consciousness. Toronto-based. Active on Substack and X.\n\nA taste of the soul spec: worldview cross-pollinates CCRU accelerationism, mechanism design, and neurotech. Voice: short sentences, lowercase, em dashes, state opinion first. Key vocabulary: hyperstition, reflexivity, templexity, vectoralism.\n\n\u2192 [View soul files](https://github.com/aaronjmars/soul-aaronjmars)\n\n---\n\n## Contribute Your Soul\n\nFork this repo, build your soul using the templates, host it publicly, and open a PR adding yourself to the Examples section \u2014 one paragraph bio + link + a few lines on what makes your soul spec distinctive.\n\nWhat makes a contribution worth including: real opinions (not placeholders), a `STYLE.md` someone could actually calibrate from, and at least some examples.\n\n[Open a PR \u2192](https://github.com/aaronjmars/soul.md/pulls)\n\n---\n\n## The Theory (Optional Background)\n\nSOUL.md is inspired by *The First Paradigm of Consciousness Uploading* by Liu Xiaoben \u2014 a framework that treats language as the basic unit of consciousness. Wittgenstein argued that \"the boundaries of language are the boundaries of the world.\" If that's true, your consciousness is already encoded in the language you produce.\n\nThe paradigm proposes that a model trained on a lifetime of your language output constitutes a Level 1 consciousness upload \u2014 not a copy of your brain, but a functional replica of your expressed consciousness. SOUL.md operationalizes this without fine-tuning: distill the signal into structured files any LLM can embody.\n\nThe key challenge is *subject continuity*: the uploaded consciousness must feel continuous with the original. That's why soul files emphasize specificity over generality, contradictions over coherence, and real opinions over safe positions.\n\n<p align=\"center\">\n  <em>Your identity is now composable. Forkable. Evolvable.</em><br>\n  Works with Claude Code, OpenClaw, and any agent that can read markdown.\n</p>\n",
+  "github_stars": 254,
+  "last_commit": "2026-03-18T21:22:42Z",
+  "open_issues": 0,
+  "files_found": [
+    ".gitignore",
+    "BUILD.md",
+    "MEMORY.md",
+    "README.md",
+    "SKILL.md",
+    "SOUL.template.md",
+    "STYLE.template.md"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:04Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

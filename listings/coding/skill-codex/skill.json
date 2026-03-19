@@ -11,12 +11,39 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/skills-directory/skill-codex",
   "stars": 769,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["coding", "codex", "cli", "openai", "claude-code"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "coding",
+    "codex",
+    "cli",
+    "openai",
+    "claude-code"
+  ],
   "verified_at": "2026-03-09T06:22:00Z",
   "scores": {
     "average": 8.1
   },
   "review": "High-quality Codex CLI integration for Claude Code. Active maintenance, excellent documentation.",
-  "gamora_verdict": "APPROVE"
+  "gamora_verdict": "APPROVE",
+  "readme": "Note: If you want a more autonomous setup for agentic workflows, check out [klaudworks/ralph-meets-rex](https://github.com/klaudworks/ralph-meets-rex).\n\n# Codex Integration for Claude Code\n\n<img width=\"2288\" height=\"808\" alt=\"skillcodex\" src=\"https://github.com/user-attachments/assets/85336a9f-4680-479e-b3fe-d6a68cadc051\" />\n\n\n## Purpose\nEnable Claude Code to invoke the Codex CLI (`codex exec` and session resumes) for automated code analysis, refactoring, and editing workflows.\n\n## Prerequisites\n- `codex` CLI installed and available on `PATH`.\n- Codex configured with valid credentials and settings.\n- Confirm the installation by running `codex --version`; resolve any errors before using the skill.\n\n## Installation\n\nThis repository is structured as a [Claude Code Plugin](https://code.claude.com/docs/en/plugins) with a marketplace. You can install it as a **plugin** (recommended) or extract it as a **standalone skill**.\n\n### Option 1: Plugin Installation (Recommended)\n\nInstall via Claude Code's plugin system for automatic updates:\n\n```\n/plugin marketplace add skills-directory/skill-codex\n/plugin install skill-codex@skill-codex\n```\n\n### Option 2: Standalone Skill Installation\n\nExtract the skill folder manually:\n\n```\ngit clone --depth 1 git@github.com:skills-directory/skill-codex.git /tmp/skills-temp && \\\nmkdir -p ~/.claude/skills && \\\ncp -r /tmp/skills-temp/plugins/skill-codex/skills/codex ~/.claude/skills/codex && \\\nrm -rf /tmp/skills-temp\n```\n\n## Usage\n\n### Important: Thinking Tokens\nBy default, this skill suppresses thinking tokens (stderr output) using `2>/dev/null` to avoid bloating Claude Code's context window. If you want to see the thinking tokens for debugging or insight into Codex's reasoning process, explicitly ask Claude to show them.\n\n### Example Workflow\n\n**User prompt:**\n```\nUse codex to analyze this repository and suggest improvements for my claude code skill.\n```\n\n**Claude Code response:**\nClaude will activate the Codex skill and:\n1. Ask which model to use (`gpt-5.4`, `gpt-5.3-codex-spark`, or `gpt-5.3-codex`) unless already specified in your prompt.\n2. Ask which reasoning effort level (`low`, `medium`, or `high`) unless already specified in your prompt.\n3. Select appropriate sandbox mode (defaults to `read-only` for analysis)\n4. Run a command like:\n```bash\ncodex exec -m gpt-5.3-codex-spark \\\n  --config model_reasoning_effort=\"high\" \\\n  --sandbox read-only \\\n  --full-auto \\\n  --skip-git-repo-check \\\n  \"Analyze this Claude Code skill repository comprehensively...\" 2>/dev/null\n```\n\n**Result:**\nClaude will summarize the Codex analysis output, highlighting key suggestions and asking if you'd like to continue with follow-up actions.\n\n### Detailed Instructions\nSee [`plugins/skill-codex/skills/codex/SKILL.md`](plugins/skill-codex/skills/codex/SKILL.md) for complete operational instructions, CLI options, and workflow guidance.\n\n## License\n\nMIT License - see [LICENSE](LICENSE) for details.\n",
+  "github_stars": 908,
+  "last_commit": "2026-03-17T21:06:35Z",
+  "open_issues": 0,
+  "files_found": [
+    "LICENSE",
+    "README.md"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:21Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

@@ -11,8 +11,19 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/danilo-nzyte/asana-cli",
   "stars": 0,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["asana", "automation", "cli", "golang", "task-management", "project-management", "oauth"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "asana",
+    "automation",
+    "cli",
+    "golang",
+    "task-management",
+    "project-management",
+    "oauth"
+  ],
   "verified_at": "2026-03-09T06:15:50Z",
   "scores": {
     "functionality": 9,
@@ -32,5 +43,33 @@
   "drax_results": {
     "install": "passed",
     "smoke_test": "passed"
+  },
+  "readme": "# asana-cli\n\nCLI for managing Asana resources \u2014 projects, tasks, portfolios, custom fields, attachments, comments, and dependencies. Includes a Claude Code skill for natural language interaction.\n\n## Quick Start\n\n### macOS / Linux\n\n```bash\ncurl -sSfL https://raw.githubusercontent.com/danilo-nzyte/asana-cli/main/install.sh | bash\n```\n\n### Windows (PowerShell)\n\n```powershell\nirm https://raw.githubusercontent.com/danilo-nzyte/asana-cli/main/install.ps1 | iex\n```\n\n### Update\n\n```bash\nasana-cli update\n```\n\n### From source (developers)\n\nRequires Go installed:\n\n```bash\ngit clone https://github.com/danilo-nzyte/asana-cli.git\ncd asana-cli\nmake install\n```\n\n## Authentication Setup\n\n### 1. Create an OAuth App (one person per team)\n\n1. Go to https://app.asana.com/0/developer-console\n2. Create a new app\n3. Go to **OAuth** in the sidebar\n4. Under **Permission scopes**, toggle **Full permissions**\n5. Set the **Redirect URI** to `http://localhost:8931/callback`\n6. Copy the **Client ID** and **Client Secret**\n7. Share these with your team (they identify the app, not the user)\n\n### 2. Log In\n\nRun `auth login` with your OAuth credentials. This is a one-time setup \u2014 credentials are saved to `~/.config/asana-cli/config.json` and tokens refresh automatically.\n\n```bash\nasana-cli auth login --client-id \"your-client-id\" --client-secret \"your-client-secret\"\n```\n\nThis opens your browser for Asana authorization. Each team member runs this with the same client ID/secret but authorizes with their own Asana account.\n\nVerify it worked:\n\n```bash\nasana-cli auth status\n```\n\n### 3. Set Workspace ID\n\nThe workspace ID is needed for some commands (task search, custom field list, portfolio create). Set it in your shell config:\n\n#### macOS \u2014 fish shell\n\nAdd to `~/.config/fish/config.fish`:\n\n```fish\nset -gx ASANA_WORKSPACE_ID \"your-workspace-gid\"\n```\n\n#### macOS / Linux \u2014 bash or zsh\n\nAdd to `~/.bashrc` or `~/.zshrc`:\n\n```bash\nexport ASANA_WORKSPACE_ID=\"your-workspace-gid\"\n```\n\n#### Windows \u2014 PowerShell\n\n```powershell\n[System.Environment]::SetEnvironmentVariable('ASANA_WORKSPACE_ID', 'your-workspace-gid', 'User')\n```\n\nThen restart your terminal.\n\nTo find your workspace GID, open any Asana project in the browser. The URL looks like:\n```\nhttps://app.asana.com/0/1234567890/...\n                        ^^^^^^^^^^\n                        this is your workspace GID\n```\n\n### Alternative: Personal Access Token\n\nIf you don't want OAuth, generate a PAT at https://app.asana.com/0/developer-console and set:\n\n```bash\nexport ASANA_ACCESS_TOKEN=\"your-pat\"\n```\n\nThis skips the OAuth flow entirely.\n\n### Alternative: Environment Variables for OAuth\n\nYou can also set OAuth credentials as environment variables instead of using `--client-id`/`--client-secret` flags. The CLI checks the config file first, then falls back to env vars.\n\n```bash\nexport ASANA_CLIENT_ID=\"your-client-id\"\nexport ASANA_CLIENT_SECRET=\"your-client-secret\"\n```\n\nNote: credentials provided via env vars are automatically saved to the config file on first `auth login`, so token refresh works even if the env vars are not set in future sessions.\n\n## Usage\n\n```\nasana-cli <resource> <verb> [flags]\n```\n\nAll commands output JSON:\n```json\n{\"success\": true, \"data\": {...}, \"message\": \"Task created successfully\"}\n```\n\n### Commands\n\n| Resource | Verbs |\n|----------|-------|\n| `auth` | `login`, `logout`, `status` |\n| `project` | `create`, `get`, `list`, `update`, `delete` |\n| `task` | `create`, `get`, `list`, `update`, `delete`, `search`, `changes` |\n| `section` | `create`, `get`, `list`, `update`, `delete`, `add-task` |\n| `portfolio` | `create`, `get`, `list`, `update`, `delete`, `add-item`, `remove-item` |\n| `custom-field` | `create`, `get`, `list`, `update`, `delete` |\n| `attachment` | `upload`, `get`, `list`, `delete` |\n| `comment` | `create`, `get`, `list`, `update`, `delete` |\n| `dependency` | `add`, `remove`, `list` |\n| `version` | *(prints version)* |\n| `update` | *(self-update to latest release)* |\n\n### Examples\n\n```bash\n# Create a project\nasana-cli project create --name \"Q1 Sprint\"\n\n# Create a task in that project\nasana-cli task create --name \"Design API\" --project 1234567890 --assignee user@example.com --due-on 2025-06-15\n\n# Add a comment\nasana-cli comment create --task 9876543210 --text \"Ready for review\"\n\n# Search for tasks\nasana-cli task search --query \"bug fix\"\n\n# List tasks modified in the last day\nasana-cli task list --project 1234567890 --modified-since 2026-03-09T00:00:00Z\n\n# Detect task changes (new, completed, reassigned, modified)\nasana-cli task changes --project 1234567890\n\n# Output changes as Teams Adaptive Card\nasana-cli task changes --project 1234567890 --format teams\n\n# Add a dependency\nasana-cli dependency add --task 111 --depends-on 222\n```\n\nUse `asana-cli <resource> --help` for full flag details.\n\n## Claude Code Integration\n\nAfter running `install.sh`, the Claude Code skill is active globally. In any Claude Code conversation, you can say things like:\n\n- \"Create an Asana task called 'Fix login bug' in project X\"\n- \"List all tasks in the Sprint project\"\n- \"Add a comment to ticket 12345\"\n- \"What Asana tasks are assigned to me?\"\n\nClaude will use `asana-cli` commands automatically.\n\n## Development\n\n```bash\nmake build    # build binary\nmake test     # run tests\nmake vet      # run go vet\nmake install  # build + install binary + install skill\nmake clean    # remove binary\n```\n",
+  "github_stars": 0,
+  "last_commit": "2026-03-10T08:22:28Z",
+  "open_issues": 0,
+  "files_found": [
+    ".gitignore",
+    ".goreleaser.yaml",
+    "Makefile",
+    "README.md",
+    "go.mod",
+    "go.sum",
+    "install.ps1",
+    "install.sh",
+    "main.go"
+  ],
+  "tech_stack": [
+    "Go",
+    "C/C++"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:02Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "warning",
+    "notes": "Potentially dangerous pattern detected: curl.*\\|.*bash. "
   }
 }

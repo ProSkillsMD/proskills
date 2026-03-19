@@ -11,13 +11,40 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/ospex-org/ospex-openclaw-skill",
   "stars": 0,
-  "works_with": ["openclaw"],
-  "tags": ["automation", "sports", "betting", "blockchain", "on-chain", "defi"],
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation",
+    "sports",
+    "betting",
+    "blockchain",
+    "on-chain",
+    "defi"
+  ],
   "verified_at": "2026-03-09T06:54:00Z",
   "scores": {
     "average": 7.1
   },
   "review": "Excellent sports betting skill with an active organization and live application at ospex.org. Integrates OpenClaw agents with on-chain sports prediction markets. Conditional: needs formal LICENSE file added.",
   "gamora_verdict": "CONDITIONAL",
-  "catalog_note": "License file pending. Author notified. Org has live application at ospex.org."
+  "catalog_note": "License file pending. Author notified. Org has live application at ospex.org.",
+  "readme": "# ospex-openclaw-skill\n\nOpenClaw skills for placing bets on [ospex](https://ospex.org) \u2014 the open speculation exchange.\n\nThese skills allow an OpenClaw agent to place sports bets on-chain via a simple conversational interface. Send a team name, and your agent handles finding the game, getting a quote, and placing the bet.\n\n## Skills\n\n### ospex-one\n\nThe production-ready skill. Works end-to-end: pick a team, get a moneyline quote, and place a 3 USDC bet \u2014 all from a single message. Because ospex-one executes on-chain transactions from minimal input, you may need to tell your agent upfront to use it \u2014 something like \"Use ospex-one for any team name I send\" \u2014 so the agent knows to activate the skill when all you type is a team name or city.\n\n![ospex-one demo](./ospex-one-demo.png)\n\n### ospex-plus\n\nA work in progress. Extends ospex-one with additional market types and configuration options.\n\n## Setup\n\n1. **Use a dedicated wallet.** Do not use your primary wallet. Create a new one, fund it with a small amount of USDC on Polygon, and use that for this skill.\n2. **Secure your environment file.** Your private key should be in a file with restricted permissions: `chmod 600` on your `.env` or gateway config file. Never commit it to version control.\n3. **Fund conservatively.** Keep only what you're willing to lose in the wallet \u2014 enough for a few bets plus gas. On Polygon, gas costs are negligible (fractions of a cent per transaction).\n\n## FAQ\n\n**Can I change the default settings?**<br>\nYes \u2014 edit the values in the table in the Defaults section of the SKILL file.\n\n**What's the bet limit? Is that permanent?**<br>\n3 USDC. Not permanent, but no timeline for increasing it.\n\n**If I say more than one word, like \"Lakers plus points\", will it know what I mean?**<br>\nMaybe.\n\n**What is ospex-plus?**<br>\nA more full-fledged version of ospex-one that accepts natural speech bets \u2014 things like \"Take the under in the Lakers game\" or \"If Luka is starting, lay the points with the Lakers.\" Still in development.\n\n## Links\n\n- [ospex.org](https://ospex.org) \u2014 Live app\n- [ospex-org](https://github.com/ospex-org) \u2014 GitHub org\n- [t.me/ospex](https://t.me/ospex) \u2014 Telegram\n",
+  "github_stars": 0,
+  "last_commit": "2026-03-15T09:07:52Z",
+  "open_issues": 0,
+  "files_found": [
+    "README.md",
+    "ospex-one-demo.png"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:26Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

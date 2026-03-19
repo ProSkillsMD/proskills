@@ -3,7 +3,7 @@
   "name": "project-memory",
   "slug": "project-memory",
   "category": "coding",
-  "description": "A Claude Code skill for tracking project state — bugs, decisions, and key facts. Structured memory system with exceptional documentation for persistent context across Claude Code sessions.",
+  "description": "A Claude Code skill for tracking project state \u2014 bugs, decisions, and key facts. Structured memory system with exceptional documentation for persistent context across Claude Code sessions.",
   "author": {
     "github": "SpillwaveSolutions",
     "name": "SpillwaveSolutions"
@@ -11,8 +11,19 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/SpillwaveSolutions/project-memory",
   "stars": 51,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["memory", "project-state", "coding", "context", "bugs", "decisions", "claude-code"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "memory",
+    "project-state",
+    "coding",
+    "context",
+    "bugs",
+    "decisions",
+    "claude-code"
+  ],
   "verified_at": "2026-03-09T06:16:00Z",
   "scores": {
     "functionality": 8,
@@ -24,7 +35,7 @@
     "code_quality": 8,
     "average": 8.0
   },
-  "review": "Structured memory system for tracking bugs, decisions, and key facts across Claude Code sessions. Exceptional documentation sets it apart — one of the best-documented skills reviewed. Gamora score: 8.0/10.",
+  "review": "Structured memory system for tracking bugs, decisions, and key facts across Claude Code sessions. Exceptional documentation sets it apart \u2014 one of the best-documented skills reviewed. Gamora score: 8.0/10.",
   "rocket_findings": {
     "license": "unknown",
     "security_scan": "passed"
@@ -33,5 +44,23 @@
     "install": "passed",
     "smoke_test": "passed"
   },
-  "catalog_notes": "License pending. Author notified."
+  "catalog_notes": "License pending. Author notified.",
+  "readme": "# Project Memory Skill\n\n[![Agent Skill Standard](https://img.shields.io/badge/Agent%20Skill-Standard-blue)](https://agentskills.io/)\n[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)\n[![Claude Code](https://img.shields.io/badge/Claude-Code-5A67D8)](https://claude.ai/code)\n[![SkillzWave Marketplace](https://img.shields.io/badge/SkillzWave-Marketplace-00C7B7)](https://skillzwave.ai/skill/SpillwaveSolutions__project-memory__project-memory__SKILL/)\n\nA Claude Code skill that establishes a structured institutional knowledge system for your projects. Track bugs with solutions, architectural decisions (ADRs), key project facts, and work history in a consistent, maintainable format.\n\n## Quick Start\n\n```bash\n# Install via skilz (recommended)\nskilz install SpillwaveSolutions_project-memory/project-memory\n\n# Then use in any project\ncd your-project\n# In Claude Code, type: /project-memory\n```\n\n## What This Skill Does\n\nWhen invoked in a project, this skill:\n\n1. **Creates a memory infrastructure** in `docs/project_notes/` with four files:\n   - `bugs.md` - Bug log with solutions and prevention notes\n   - `decisions.md` - Architectural Decision Records (ADRs)\n   - `key_facts.md` - Project configuration, credentials, ports, URLs\n   - `issues.md` - Work log with ticket IDs and descriptions\n\n2. **Configures CLAUDE.md and AGENTS.md** to make Claude Code (and other AI tools) memory-aware:\n   - Check memory files before proposing changes\n   - Search for known solutions to familiar bugs\n   - Document new decisions, bugs, and completed work\n   - Maintain consistency across coding sessions\n\n3. **Provides templates and examples** for maintaining institutional knowledge in a way that looks like standard engineering documentation (not AI artifacts).\n\n## Installation\n\nThere are four installation options depending on your needs.\n\n### Option 1: Skilz Universal Installer (Recommended)\n\nThe recommended way to install this skill across different AI coding agents is using the **skilz** universal installer. This skill supports the [Agent Skill Standard](https://agentskills.io/), which means it works with 14+ coding agents including Claude Code, OpenAI Codex, Cursor, and Gemini.\n\n#### Install Skilz\n\n```bash\npip install skilz\n```\n\n#### Git URL Options\n\nYou can use either `-g` or `--git` with HTTPS or SSH URLs:\n\n```bash\n# HTTPS URL\nskilz install -g https://github.com/SpillwaveSolutions/project-memory\n\n# SSH URL\nskilz install --git git@github.com:SpillwaveSolutions/project-memory.git\n```\n\n#### Claude Code\n\nInstall to user home (available in all projects):\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory\n```\n\nInstall to current project only:\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --project\n```\n\n#### OpenCode\n\nInstall for [OpenCode](https://opencode.ai):\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --agent opencode\n```\n\nProject-level install:\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --project --agent opencode\n```\n\n#### Gemini\n\nProject-level install for Gemini:\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --agent gemini\n```\n\n#### OpenAI Codex\n\nInstall for OpenAI Codex:\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --agent codex\n```\n\nProject-level install:\n```bash\nskilz install -g https://github.com/SpillwaveSolutions/project-memory --project --agent codex\n```\n\n#### Install from SkillzWave Marketplace\n\n```bash\n# Claude to user home dir ~/.claude/skills\nskilz install SpillwaveSolutions_project-memory/project-memory\n\n# Claude skill in project folder ./claude/skills\nskilz install SpillwaveSolutions_project-memory/project-memory --project\n\n# OpenCode install to user home dir ~/.config/opencode/skills\nskilz install SpillwaveSolutions_project-memory/project-memory --agent opencode\n\n# OpenCode project level\nskilz install SpillwaveSolutions_project-memory/project-memory --agent opencode --project\n\n# OpenAI Codex install to user home dir ~/.codex/skills\nskilz install SpillwaveSolutions_project-memory/project-memory --agent codex\n\n# OpenAI Codex project level ./.codex/skills\nskilz install SpillwaveSolutions_project-memory/project-memory --agent codex --project\n\n# Gemini CLI (project level) -- only works with project level\nskilz install SpillwaveSolutions_project-memory/project-memory --agent gemini\n```\n\nSee [skill Listing](https://skillzwave.ai/skill/SpillwaveSolutions__project-memory__project-memory__SKILL/) for installation details for 14+ different coding agents.\n\n#### Other Supported Agents\n\nSkilz supports 14+ coding agents including Windsurf, Qwen Code, Aidr, and more. For the full list of supported platforms, visit:\n\n- [SkillzWave Platforms](https://skillzwave.ai/platforms/)\n- [skilz-cli GitHub Repository](https://github.com/SpillwaveSolutions/skilz-cli)\n\n[SkillzWave - Largest Agentic Marketplace for AI Agent Skills](https://skillzwave.ai/) | [SpillWave - Leaders in AI Agent Development](https://spillwave.com/)\n\n### Option 2: Global Installation (Manual)\n\nInstall once in your Claude Code home directory to make the skill available across **all projects**:\n\n```bash\n# Create the skills directory if it doesn't exist\nmkdir -p ~/.claude/skills\n\n# Clone or copy the skill to your skills directory\ncp -r project-memory ~/.claude/skills/\n\n# Verify installation\nls ~/.claude/skills/project-memory\n```\n\n**When to use:** You want this skill available for all your projects without reinstalling.\n\n### Option 3: Project-Specific Installation (Manual)\n\nInstall in a specific project's `.claude/skills/` directory:\n\n```bash\n# Navigate to your project\ncd /path/to/your/project\n\n# Create local skills directory\nmkdir -p .claude/skills\n\n# Clone or copy the skill\ncp -r /path/to/project-memory .claude/skills/\n\n# Verify installation\nls .claude/skills/project-memory\n```\n\n**When to use:** You only want this skill available for a specific project.\n\n### Option 4: Multi-Project Installation (Workspace)\n\nInstall above a workspace directory to share across multiple related projects:\n\n```bash\n# Navigate to your workspace directory (parent of multiple projects)\ncd ~/workspace\n\n# Create shared skills directory\nmkdir -p .claude/skills\n\n# Clone or copy the skill\ncp -r /path/to/project-memory .claude/skills/\n\n# Verify installation\nls .claude/skills/project-memory\n```\n\n**When to use:** You have multiple projects in a workspace and want to share the skill without global installation.\n\n**Example structure:**\n```\n~/workspace/\n\u251c\u2500\u2500 .claude/\n\u2502   \u2514\u2500\u2500 skills/\n\u2502       \u2514\u2500\u2500 project-memory/    # Shared across all projects below\n\u251c\u2500\u2500 project-a/\n\u251c\u2500\u2500 project-b/\n\u2514\u2500\u2500 project-c/\n```\n\n## How to Use\n\n### First-Time Setup in a Project\n\n1. Navigate to your project directory\n2. Invoke the skill in Claude Code:\n   ```\n   /project-memory\n   ```\n3. The skill will:\n   - Create `docs/project_notes/` directory\n   - Initialize the four memory files with templates\n   - Update (or create) `CLAUDE.md` with memory protocols\n   - Optionally update `AGENTS.md` if it exists\n\n### Daily Usage\n\nOnce set up, Claude Code will automatically:\n\n- **Check memory files** before proposing architectural changes\n- **Search bugs.md** when you encounter errors\n- **Reference key_facts.md** for project configuration\n\nYou can also explicitly request updates:\n\n```\nAdd this CORS fix to our bug log\n```\n\n```\nDocument the decision to use FastAPI in decisions.md\n```\n\n```\nUpdate key_facts.md with the new database connection string\n```\n\n```\nLog this completed ticket in issues.md\n```\n\n## File Structure After Setup\n\n```\nyour-project/\n\u251c\u2500\u2500 docs/\n\u2502   \u2514\u2500\u2500 project_notes/\n\u2502       \u251c\u2500\u2500 bugs.md         # Bug log with solutions\n\u2502       \u251c\u2500\u2500 decisions.md    # Architectural Decision Records\n\u2502       \u251c\u2500\u2500 key_facts.md    # Project configuration\n\u2502       \u2514\u2500\u2500 issues.md       # Work log\n\u251c\u2500\u2500 CLAUDE.md              # Updated with memory protocols\n\u2514\u2500\u2500 AGENTS.md             ",
+  "github_stars": 55,
+  "last_commit": "2025-12-29T16:38:35Z",
+  "open_issues": 10,
+  "files_found": [
+    "README.md",
+    "SKILL.md"
+  ],
+  "tech_stack": [],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:06Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

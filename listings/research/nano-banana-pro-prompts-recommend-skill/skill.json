@@ -12,8 +12,19 @@
   "repo_url": "https://github.com/YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill",
   "stars": 1169,
   "license": "unknown",
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["prompts", "image-generation", "gemini", "recommendation", "search", "ai-prompts", "content-remix"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "prompts",
+    "image-generation",
+    "gemini",
+    "recommendation",
+    "search",
+    "ai-prompts",
+    "content-remix"
+  ],
   "verified_at": "2026-03-09T05:56:00Z",
   "scores": {
     "functionality": 8,
@@ -41,5 +52,32 @@
     "status": "passed",
     "notes": "10,000+ prompt library with automated updates, smart search, and content remix mode verified."
   },
-  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/76"
+  "issue_ref": "https://github.com/ProSkillsMD/proskills/issues/76",
+  "readme": "# AI Image Prompt Recommender \u2014 10,000+ Nano Banana Pro Prompts\n\n[![Prompts](https://img.shields.io/badge/Prompts-10000%2B-brightgreen)](https://youmind.com/nano-banana-pro-prompts)\n[![OpenClaw](https://img.shields.io/badge/OpenClaw-Skill-blue)](https://clawhub.com/skill/nano-banana-pro-prompts-recommend)\n[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skill-orange)](https://github.com/YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill)\n[![Daily Updates](https://img.shields.io/badge/Updates-Twice%20Daily-purple)]()\n[![Multi-language](https://img.shields.io/badge/Language-Multi--lingual-yellow)]()\n[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)\n\n> **Stop spending hours hunting for the right AI image prompt.** Tell your AI assistant what you need in one sentence \u2014 it searches 10,000+ curated Nano Banana Pro prompts and returns the top 3 matches with sample images, ready to use.\n>\n> \ud83d\uddbc\ufe0f [Browse the Prompt Gallery \u2192](https://youmind.com/nano-banana-pro-prompts)\n\n![Demo](public/cover.png)\n\n## What Is This?\n\nAn **AI agent skill** that gives Claude, OpenClaw, Cursor, and other AI assistants the ability to intelligently search a curated library of **10,000+ Nano Banana Pro (Gemini image model) prompts**, recommend the best matches for your use case, and even customize prompts based on your content.\n\n**Nano Banana Pro** is Google's Gemini image generation model \u2014 one of the most capable AI image generators available today. High-quality prompts are the key to great results.\n\n## Why Use This Skill?\n\n- \u2705 **10,000+ prompts, organized by use case** \u2014 not a random dump, but professionally categorized\n- \u2705 **Every prompt includes sample images** \u2014 see the result before you copy\n- \u2705 **Smart semantic search** \u2014 describe what you need, the AI finds the match\n- \u2705 **Content remix mode** \u2014 paste your article or video script, get a custom prompt\n- \u2705 **Updated twice daily** \u2014 always reflects the latest viral prompts from the community\n- \u2705 **Multi-language** \u2014 responds in your language, always provides English prompt for generation\n\n---\n\n## Installation\n\n### OpenClaw (Recommended)\n\n```bash\nclawhub install nano-banana-pro-prompts-recommend\n```\n\nOr search inside OpenClaw chat:\n\n> \"Install the nano banana pro prompts skill from clawhub\"\n\n### Claude Code\n\n```bash\nnpx skills i YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill\n```\n\n### Other AI Assistants (Cursor, Codex, Gemini CLI, Windsurf)\n\n```bash\n# Universal installer \u2014 auto-detects your AI assistant\nnpx skills i YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill\n```\n\n### Manual / openskills\n\n```bash\nnpx openskills install YouMind-OpenLab/nano-banana-pro-prompts-recommend-skill\n```\n\n---\n\n## How to Use\n\n### Mode 1: Direct Search\n\nJust describe what you need:\n\n```\n\"Find me a cyberpunk-style avatar prompt\"\n\"I need prompts for travel blog article covers\"\n\"Looking for a product photo on white background\"\n\"Help me find a YouTube thumbnail for a tech review video\"\n```\n\nYou'll get up to 3 recommendations with:\n- Translated title & description (in your language)\n- The exact English prompt to copy\n- Sample images to preview the style\n- Whether reference images are needed\n\n### Mode 2: Content Illustration (Remix)\n\nPaste your content and ask for a matching illustration:\n\n```\n\"Here's my article about startup failure \u2014 help me create a cover image:\n[paste article text]\"\n\n\"I need a thumbnail for this video script: [paste script]\"\n\n\"Generate an illustration for this podcast episode about AI: [paste notes]\"\n```\n\nThe skill will:\n1. Recommend matching style templates\n2. Ask a few questions to personalize (gender, mood, setting)\n3. Generate a customized prompt tailored to your content\n\n---\n\n## Prompt Categories\n\n| Category | Count | Use Cases |\n|----------|-------|-----------|\n| Social Media Post | 10,000+ | Instagram, Twitter/X, Facebook, viral content |\n| Product Marketing | 3600+ | Ads, campaigns, promotional materials |\n| Profile / Avatar | 1000+ | Headshots, profile pictures, character portraits |\n| Others / Mixed | 900+ | Uncategorized creative prompts |\n| Poster / Flyer | 470+ | Events, announcements, banners |\n| Infographic | 450+ | Data visualization, educational content |\n| E-commerce | 370+ | Product photos, listings, white background |\n| Game Asset | 370+ | Sprites, characters, items |\n| Comic / Storyboard | 280+ | Manga, panels, sequential art |\n| YouTube Thumbnail | 170+ | Click-worthy video covers |\n| App / Web Design | 160+ | UI mockups, interface designs |\n\n---\n\n## How It Works\n\n```\nUser describes need\n      \u2193\nSkill identifies category from keyword signals\n      \u2193\nSearches matching JSON file (token-efficient grep, never loads full file)\n      \u2193\nReturns top 3 prompts with images + translated descriptions\n      \u2193\n[Optional] User picks one \u2192 Skill remixes it to match their content\n```\n\n**Token-efficient by design**: The skill never loads full category files. It uses grep-style search to extract only matching prompts, keeping token usage minimal even with 10,000+ prompts in the library.\n\n---\n\n## Data Source\n\nPrompts are curated from viral posts by top AI artists on Twitter/X, automatically synced to this repository **twice daily** via GitHub Actions. The library grows continuously.\n\n*\u63d0\u793a\u8bcd\u7531 [YouMind.com](https://youmind.com) \u901a\u8fc7\u516c\u5f00\u793e\u533a\u641c\u96c6 \u2764\ufe0f*\n*Prompts curated from the open community by [YouMind.com](https://youmind.com)*\n\n---\n\n## Frequently Asked Questions\n\n**Q: What is Nano Banana Pro?**\nNano Banana Pro is Google's Gemini image generation model (model ID: `gemini-3-pro-image-preview`). It produces high-quality, photorealistic and artistic images from text prompts. [Try it on YouMind \u2192](https://youmind.com/nano-banana-pro-prompts)\n\n**Q: Do I need a YouMind account to use this skill?**\nNo. The skill is completely free and works with any AI assistant that supports custom skills (OpenClaw, Claude Code, Cursor, Codex, Gemini CLI). You only need a YouMind account if you want to generate images directly on youmind.com.\n\n**Q: How is this different from just searching Twitter for prompts?**\nThe library is pre-curated and categorized by use case \u2014 you don't have to scroll through noise. Every prompt includes sample images so you know what you're getting. The remix mode lets you personalize a template to match your specific content.\n\n**Q: Can I contribute prompts?**\nYes! The prompts are sourced from the public YouMind community. Share your Nano Banana Pro creations on [YouMind](https://youmind.com/nano-banana-pro-prompts) and they'll be picked up in the next sync.\n\n**Q: How often is the library updated?**\nTwice daily (00:00 and 12:00 UTC) via automated GitHub Actions.\n\n**Q: Does this work with other image generation models?**\nThe prompts are optimized for Nano Banana Pro (Gemini), but many work well with other models like GPT Image, Seedream, and DALL-E with minor adjustments.\n\n**Q: What's the difference between OpenClaw and Claude Code installation?**\nOpenClaw uses the `clawhub install` command and integrates directly into your OpenClaw agent workspace. Claude Code uses `npx skills i` and installs into your Claude project context. Both use the same SKILL.md and prompt library.\n\n---\n\n## Project Structure\n\n```\nnano-banana-pro-prompts-recommend-skill/\n\u251c\u2500\u2500 SKILL.md                 # Skill instructions (works with OpenClaw, Claude Code, Cursor, etc.)\n\u251c\u2500\u2500 README.md\n\u251c\u2500\u2500 package.json\n\u251c\u2500\u2500 scripts/\n\u2502   \u2514\u2500\u2500 generate-references.ts   # Fetches & categorizes prompts from CMS\n\u251c\u2500\u2500 references/              # Auto-generated prompt data (updated twice daily)\n\u2502   \u251c\u2500\u2500 social-media-post.json\n\u2502   \u251c\u2500\u2500 product-marketing.json\n\u2502   \u251c\u2500\u2500 profile-avatar.json\n\u2502   \u251c\u2500\u2500 {other-categories}.json\n\u2502   \u2514\u2500\u2500 others.json\n\u2514\u2500\u2500 .github/workflows/\n    \u2514\u2500\u2500 generate-references.yml  # Scheduled sync job\n```\n\n---\n\n## Development\n\n### Prerequisites\n\n- Node.js 20+\n- pnpm\n\n### Setup\n\n```bash\npnpm install\n\n# Create .env with CMS credentials\necho \"CMS_HOST=your_host\" >> .env\necho \"CMS_API_KEY=your_key\" >> .env\n\n# Generate references\npnpm run generate\n",
+  "github_stars": 1257,
+  "last_commit": "2026-03-19T03:21:45Z",
+  "open_issues": 2,
+  "files_found": [
+    ".gitignore",
+    "PUBLISHING.md",
+    "README.md",
+    "SKILL.md",
+    "package.json",
+    "pnpm-lock.yaml",
+    "tsconfig.json"
+  ],
+  "tech_stack": [
+    "Node.js",
+    "TypeScript",
+    "JavaScript"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:36:59Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

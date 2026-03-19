@@ -11,8 +11,18 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/huanjizhou/ecommerce-predictor",
   "stars": 0,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["data", "forecasting", "ecommerce", "time-series", "machine-learning", "sales-prediction"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "data",
+    "forecasting",
+    "ecommerce",
+    "time-series",
+    "machine-learning",
+    "sales-prediction"
+  ],
   "verified_at": "2026-03-09T07:11:00Z",
   "scores": {
     "functionality": 8,
@@ -24,7 +34,7 @@
     "code_quality": 7,
     "average": 6.9
   },
-  "review": "Excellent technical quality — time series forecasting with MAPE 2.73%. Bilingual docs (Chinese/English). Conditional: missing LICENSE file (claims MIT but file absent), no requirements.txt, new repo.",
+  "review": "Excellent technical quality \u2014 time series forecasting with MAPE 2.73%. Bilingual docs (Chinese/English). Conditional: missing LICENSE file (claims MIT but file absent), no requirements.txt, new repo.",
   "catalog_note": "E-commerce sales forecasting with 2.73% MAPE accuracy. License file pending. Author notified to add requirements.txt and LICENSE.",
   "status": "conditional",
   "rocket_findings": {
@@ -33,5 +43,33 @@
   },
   "drax_results": {
     "smoke_test": "passed"
+  },
+  "readme": "# Ecommerce Predictor\n\n[![OpenClaw Skill](https://img.shields.io/badge/OpenClaw-Skill-blue?logo=openclaw)](https://openclaw.com)\n[![Python Version](https://img.shields.io/badge/Python-3.6+-blue?logo=python)](https://python.org)\n[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)\n[![MAPE](https://img.shields.io/badge/PV%20MAPE-2.73%25-brightgreen)]()\n[![Data](https://img.shields.io/badge/Data-REES46%20(US)-orange)]()\n\n> **Time series forecasting for ecommerce user behavior** \u2014 Predict PV, UV, and purchase volume using GradientBoosting/Lasso models with rolling training and continuous validation.\n\n---\n\n## \ud83d\udccb Table of Contents\n\n- [Features](#-features)\n- [Quick Start](#-quick-start)\n- [Installation](#-installation)\n- [Model Performance](#-model-performance)\n- [Dataset](#-dataset)\n- [Configuration](#-configuration)\n- [Feature Engineering](#-feature-engineering)\n- [Best Practices](#-best-practices)\n- [Troubleshooting](#-troubleshooting)\n- [Contributing](#-contributing)\n- [License](#-license)\n\n---\n\n## \u2728 Features\n\n- **\ud83c\udfaf Multi-Metric Prediction** \u2014 Forecast daily PV (page views), UV (unique visitors), and purchase volume\n- **\ud83e\udd16 Auto Model Selection** \u2014 Intelligently chooses between Lasso (<100 days) and GradientBoosting (\u2265100 days)\n- **\ud83d\udcc8 Rolling Training** \u2014 Continuous validation with expandable training windows\n- **\ud83c\uddfa\ud83c\uddf8 US Holiday Integration** \u2014 Veterans Day, Thanksgiving, Black Friday, Cyber Monday, Christmas\n- **\ud83d\udd0d LOO Cross-Validation** \u2014 Leave-One-Out CV ensures model stability for small samples\n- **\ud83d\udcca Auto Reporting** \u2014 Generates Markdown reports, prediction charts, and performance history\n- **\ud83d\ude80 DuckDB Acceleration** \u2014 1000x+ query speedup with DuckDB backend\n- **\ud83d\udd27 Flexible Configuration** \u2014 Support for environment variables or `.env` files\n\n---\n\n## \ud83d\ude80 Quick Start\n\n### Standard Rolling Prediction (Recommended)\n\n```bash\npython3 ecommerce_predictor_auto.py \\\n  --train-start 2019-10-01 \\\n  --train-end 2020-03-01 \\\n  --val-end 2020-04-01\n```\n\n### Quick Test (Small Sample <100 Days)\n\n```bash\npython3 ecommerce_predictor_auto.py \\\n  --train-start 2019-10-01 \\\n  --train-end 2019-10-31 \\\n  --val-end 2019-11-30\n```\n\n### Purchase Volume Optimization\n\n```bash\n# Purchase prediction requires longer training window (150+ days)\npython3 optimize_purchase_v3.py \\\n  --train-start 2019-10-01 \\\n  --train-end 2020-03-01 \\\n  --val-end 2020-04-01\n```\n\n---\n\n## \ud83d\udce6 Installation\n\n### Prerequisites\n\n- Python 3.6+\n- MySQL/MariaDB or DuckDB\n- pip package manager\n\n### Install Dependencies\n\n```bash\npip install pandas numpy scikit-learn xgboost pymysql python-dotenv matplotlib\n```\n\n### Clone or Download\n\n```bash\n# If using git\ngit clone <repository-url>\ncd ecommerce-predictor\n\n# Or copy scripts to your workspace\ncp *.py /your/workspace/\n```\n\n---\n\n## \ud83c\udfc6 Model Performance\n\n### Current Best Configurations\n\n| Target | Recommended Version | Training Window | Model | MAPE | Use Case |\n|--------|-------------------|-----------------|-------|------|----------|\n| **PV Prediction** | v3.0 / v4.0 | 92-123 days | GradientBoosting | **2.73%** | Normal periods |\n| **Purchase Volume** | v6.0 | 183 days | GradientBoosting | **12.65%** | Long-term training |\n| **Holiday Prediction** | v1.0 | 31 days | Exponential Smoothing | 11.39% (Black Friday) | Small samples |\n| **Quick Baseline** | v1.0 | 31 days | Exponential Smoothing | 26.92% | Insufficient data |\n\n### Version Performance History\n\n| \u7248\u672c | \u8bad\u7ec3\u5929\u6570 | \u6700\u4f73\u6a21\u578b | PV \u8bef\u5dee | \u8d2d\u4e70\u91cf\u8bef\u5dee | \u53d1\u751f\u4e86\u4ec0\u4e48 |\n|------|---------|---------|---------|-----------|-----------|\n| v1.0 | 31 \u5929 | \u6307\u6570\u5e73\u6ed1 | 26.92% | 11.39% | \u57fa\u7ebf\u6a21\u578b\uff0c\u9ed1\u4e94\u8bef\u5dee 45% |\n| v2.0 | 61 \u5929 | RandomForest | 8.15% | 23.17% | \u2705 \u8bad\u7ec3\u6570\u636e\u7ffb\u500d |\n| v3.0 | 92 \u5929 | GradientBoosting | 2.73% | 42.28% | \u2705 PV \u9884\u6d4b\u5386\u53f2\u6700\u4f18 |\n| v4.0 | 123 \u5929 | GradientBoosting | 2.73% | 42.28% | \u2705 \u6b63\u5f0f v1 |\n| v5.0 | 152 \u5929 | Ridge | 29.99% | 36.99% | \u26a0\ufe0f \u649e\u4e0a\u7f8e\u56fd\u75ab\u60c5\u7206\u53d1 |\n| v6.0 | 183 \u5929 | GradientBoosting | 10.03% | 12.65% | \u2705 \u8d2d\u4e70\u91cf\u9884\u6d4b\u6700\u4f18 |\n\n---\n\n## \ud83d\udcca Dataset\n\n### Source Information\n\n- **Dataset Name:** eCommerce behavior data from multi category store\n- **Platform:** [Kaggle](https://www.kaggle.com/datasets/mkechinov/ecommerce-behavior-data-from-multi-category-store)\n- **Provider:** REES46 Marketing Platform (New York, USA)\n- **Company:** Founded 2013, Founder: Michael Kechinov\n- **Website:** [rees46.com](https://rees46.com/)\n\n### Data Statistics\n\n| Metric | Value |\n|--------|-------|\n| **Total Events** | ~110 million |\n| **Unique Users** | ~5.3 million |\n| **Unique Products** | ~200,000 |\n| **Categories** | ~700 |\n| **Region** | \ud83c\uddfa\ud83c\uddf8 United States |\n| **Time Range** | 2019-10-01 ~ 2020-04-30 (7 months) |\n\n### Event Types\n\n| Type | Description | Ratio |\n|------|-------------|-------|\n| `view` | Product view | ~90% |\n| `cart` | Add to cart | ~7% |\n| `purchase` | Purchase | ~3% |\n\n### US Holiday Factors\n\n| Date | Holiday | Impact |\n|------|---------|--------|\n| November 11 | Veterans Day | Federal holiday promotions |\n| November 28 | Thanksgiving | Shopping season starts |\n| November 29 | Black Friday | Biggest shopping event |\n| December 2 | Cyber Monday | E-commerce exclusive deals |\n| December 25 | Christmas | Christmas shopping season |\n| January 1 | New Year's Day | New Year promotions |\n\n> **Important:** This is \ud83c\uddfa\ud83c\uddf8 **US e-commerce data**. Use Black Friday/Thanksgiving, **NOT China's Double 11/618**.\n\n### Special Periods\n\n| Period | Event | Impact |\n|--------|-------|--------|\n| 2020-03 (mid-late) | \ud83e\udda0 US Pandemic Outbreak | Stay-at-home orders, e-commerce surge, pattern shift |\n| 2020-04 | Full Lockdown | Online shopping peak |\n\n**Recommendation:** Data from March 2020 onwards represents pandemic period \u2014 mark separately or exclude from normal-period models.\n\n---\n\n## \u2699\ufe0f Configuration\n\n### Database Connection\n\n#### Method 1: Environment Variables (Recommended)\n\n```bash\nexport RDS_HOST=<read-replica-public-endpoint>\nexport RDS_USER=<db-username>\nexport RDS_PASSWORD=<password>\nexport RDS_DATABASE=<db-name>\nexport RDS_PORT=3306\n```\n\n#### Method 2: `.env` File\n\nCreate `{baseDir}/.env` file (automatically loaded by scripts):\n\n```bash\nRDS_HOST=<read-replica-public-endpoint>\nRDS_PORT=3306\nRDS_USER=<db-username>\nRDS_PASSWORD=<password>\nRDS_DATABASE=<db-name>\n```\n\n**Dependencies:**\n```bash\npip install python-dotenv\n```\n\n### Verification\n\n```bash\n# Check environment variables\necho $RDS_HOST\n\n# Test database connection\npython3 ecommerce_predictor_auto.py --help\n```\n\n### Database Schema\n\n```sql\nCREATE TABLE ecommerce_events (\n    event_id BIGINT PRIMARY KEY,\n    event_time DATETIME,\n    event_type ENUM('view', 'cart', 'purchase'),\n    user_id BIGINT,\n    product_id BIGINT,\n    category_id INT,\n    category_code VARCHAR(50),\n    brand VARCHAR(50),\n    price DECIMAL(10,2),\n    user_session VARCHAR(50)\n);\n```\n\n### Daily Aggregation Query\n\n```sql\nSELECT \n    DATE(event_time) as date,\n    event_type,\n    COUNT(*) as cnt,\n    COUNT(DISTINCT user_id) as uv\nFROM ecommerce_events\nWHERE event_time >= %s AND event_time < %s\nGROUP BY DATE(event_time), event_type\nORDER BY date, event_type;\n```\n\n---\n\n## \ud83d\udd27 Feature Engineering\n\n### 20 Core Features\n\n#### Time Features (3)\n- `day_of_week` \u2014 Day of week (0-6)\n- `day_of_month` \u2014 Day of month (1-31)\n- `is_weekend` \u2014 Weekend flag (Saturday/Sunday)\n\n#### US Holidays (4)\n- `is_veterans_day` \u2014 Veterans Day (Nov 11)\n- `is_thanksgiving` \u2014 Thanksgiving (4th Thursday of November)\n- `is_black_friday` \u2014 Black Friday (day after Thanksgiving)\n- `is_cyber_monday` \u2014 Cyber Monday (Monday after Thanksgiving)\n\n#### Lag Features (4)\n- `lag_1_pv` \u2014 PV lag 1 day\n- `lag_7_pv` \u2014 PV lag 7 days\n- `lag_1_uv` \u2014 UV lag 1 day\n- `lag_7_uv` \u2014 UV lag 7 days\n\n#### Rolling Statistics (4)\n- `ma_7_pv` \u2014 7-day moving average PV\n- `ma_7_uv` \u2014 7-day moving average UV\n- `median_7_pv` \u2014 7-day median PV\n- `std_7_pv` \u2014 7-day standard deviation PV\n\n#### Growth Rates (2)\n- `mom_growth_pv` \u2014 Month-over-month PV growth\n- `wow_growth_pv` \u2014 Week-over-week PV growth\n\n#### Conversion Rates (2)\n- `uv_purchase` \u2014 Purchase/UV conversion rate\n- `cart_to_purchase_rate` \u2014 Purchase/Cart conversion rate\n\n####",
+  "github_stars": 4,
+  "last_commit": "2026-03-10T09:49:12Z",
+  "open_issues": 0,
+  "files_found": [
+    ".clawhubignore",
+    ".gitignore",
+    "CHANGELOG.md",
+    "DATASET.md",
+    "HISTORY.md",
+    "README.md",
+    "README_CN.md",
+    "SKILL.md",
+    "ecommerce_predictor_auto.py",
+    "requirements.txt"
+  ],
+  "tech_stack": [
+    "Python"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:29Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
   }
 }

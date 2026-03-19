@@ -11,12 +11,47 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/Orchestra-Research/AI-Research-SKILLs",
   "stars": 4616,
-  "works_with": ["openclaw", "claude-code"],
-  "tags": ["research", "ai", "collection", "academic", "analysis"],
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "research",
+    "ai",
+    "collection",
+    "academic",
+    "analysis"
+  ],
   "verified_at": "2026-03-09T06:22:00Z",
   "scores": {
     "average": 7.2
   },
   "review": "Exceptional library of 85 AI research skills. 4,616 stars. Conditional note: large collection; individual skills are accessible via the repo.",
-  "gamora_verdict": "CONDITIONAL"
+  "gamora_verdict": "CONDITIONAL",
+  "readme": "# AI Research `Skills` Library\n\n> **The most comprehensive open-source skills library enabling AI agents to autonomously conduct AI research \u2014 from idea to paper**\n\n<p align=\"center\">\n  <img src=\"docs/assets/promo.gif\" alt=\"AI Research Skills Demo\" width=\"700\">\n</p>\n\n<p align=\"center\">\n  <a href=\"https://opensource.org/licenses/MIT\"><img src=\"https://img.shields.io/badge/License-MIT-yellow.svg\" alt=\"License: MIT\"></a>\n  <a href=\"https://www.npmjs.com/package/@orchestra-research/ai-research-skills\"><img src=\"https://img.shields.io/npm/v/@orchestra-research/ai-research-skills.svg\" alt=\"npm version\"></a>\n  <a href=\"https://www.orchestra-research.com/perspectives/ai-research-skills\"><img src=\"https://img.shields.io/badge/Blog-Read%20More-orange.svg\" alt=\"Blog Post\"></a>\n  <a href=\"https://join.slack.com/t/orchestrarese-efu1990/shared_invite/zt-3iu6gr8io-zJvpkZTPToEviQ9KFZvNSg\"><img src=\"https://img.shields.io/badge/Slack-Join%20Community-4A154B.svg?logo=slack\" alt=\"Slack\"></a>\n  <a href=\"https://x.com/orch_research\"><img src=\"https://img.shields.io/badge/Twitter-Follow-1DA1F2.svg?logo=x\" alt=\"Twitter\"></a>\n  <a href=\"https://www.linkedin.com/company/orchestra-research/\"><img src=\"https://img.shields.io/badge/LinkedIn-Follow-0A66C2.svg?logo=linkedin\" alt=\"LinkedIn\"></a>\n</p>\n\n<div align=\"center\">\n\n### **86 Skills Powering AI Research in 2026**\n\n</div>\n\n<details>\n<summary><b>View All 22 Categories</b></summary>\n\n<div align=\"center\">\n\n| | | |\n|:---:|:---:|:---:|\n| **Autoresearch** (1) | **Ideation** (2) | **ML Paper Writing** (1) |\n| **Model Architecture** (5) | **Fine-Tuning** (4) | **Post-Training** (8) |\n| **Distributed Training** (6) | **Optimization** (6) | **Inference** (4) |\n| **Tokenization** (2) | **Data Processing** (2) | **Evaluation** (3) |\n| **Safety & Alignment** (4) | **Agents** (4) | **RAG** (5) |\n| **Multimodal** (7) | **Prompt Engineering** (4) | **MLOps** (3) |\n| **Observability** (2) | **Infrastructure** (3) | **Mech Interp** (4) |\n| **Emerging Techniques** (6) | | |\n\n</div>\n\n</details>\n\n---\n\n## Table of Contents\n\n- [Our Mission](#our-mission)\n- [Path Towards AI Research Agent](#path-towards-ai-research-agent)\n- [Available AI Research Engineering Skills](#available-ai-research-engineering-skills)\n- [Demos](#demos)\n- [Skill Structure](#skill-structure)\n- [Roadmap](#roadmap)\n- [Repository Structure](#repository-structure)\n- [Use Cases](#use-cases)\n- [Contributing](#contributing)\n- [Community](#community)\n\n\n## Our Mission\n\nWe enable AI agents to **autonomously conduct AI research** \u2014 from literature survey and idea generation through experiment execution to paper writing. The library provides both the **research orchestration layer** (autoresearch, ideation, paper writing) and the **engineering skills** (training, evaluation, deployment) needed at each stage.\n<p align=\"center\">\n  <img src=\"docs/skills.png\" alt=\"AI Research Agent System\" width=\"50%\">\n  <br>\n  <em>System diagram of an AI research agent</em>\n</p>\n\n## Path Towards AI Research Agent\n\nModern AI research requires mastering dozens of specialized tools and frameworks.\nAI Researchers spend more time debugging infrastructure than testing hypotheses \u2014 slowing the pace of scientific discovery.\nWe provide a comprehensive skills library that enables AI agents to autonomously conduct the full research lifecycle \u2014 from brainstorming ideas to writing the paper.\n  - Autonomous Research - The **autoresearch** skill orchestrates the entire research workflow using a two-loop architecture, routing to domain skills as needed\n  - Specialized Expertise - Each domain skill provides deep, production-ready knowledge of a specific framework (Megatron-LM, vLLM, TRL, etc.)\n  - End-to-End Coverage - 86 skills spanning the full AI research lifecycle, from ideation and literature survey to experiments and paper writing\n  - Research-Grade Quality - Documentation sourced from official repos, real GitHub issues, and battle-tested production workflows\n\n## Available AI Research Engineering Skills\n\n**Quality over quantity**: Each skill provides comprehensive, expert-level guidance with real code examples, troubleshooting guides, and production-ready workflows.\n\n### \ud83d\udce6 Quick Install (Recommended)\n\n**For humans** \u2014 interactive installer with one command:\n\n```bash\nnpx @orchestra-research/ai-research-skills\n```\n\n**For AI agents** \u2014 point your agent to the welcome doc and it handles the rest:\n\n```\nRead https://www.orchestra-research.com/ai-research-skills/welcome.md and follow the instructions to install and use AI Research Skills.\n```\n\nThis installs all 86 skills, loads the **autoresearch** orchestration layer, and starts autonomous research.\n\n<details>\n<summary><b>What the installer does</b></summary>\n\n- **Auto-detects** your installed coding agents\n- **Installs** skills to `~/.orchestra/skills/` with symlinks to each agent (falls back to copy on Windows)\n- **Offers** everything, quickstart bundle, by category, or individual skills\n- **Updates** installed skills with latest versions\n- **Uninstalls** all or selected skills\n\n</details>\n\n<details>\n<summary><b>CLI Commands</b></summary>\n\n```bash\n# Interactive installer (recommended)\nnpx @orchestra-research/ai-research-skills\n\n# Direct commands\nnpx @orchestra-research/ai-research-skills list      # View installed skills\nnpx @orchestra-research/ai-research-skills update    # Update installed skills\n```\n\n</details>\n\n<details>\n<summary><b>Claude Code Marketplace (Alternative)</b></summary>\n\nInstall skill categories directly using the **Claude Code CLI**:\n\n```bash\n# Add the marketplace\n/plugin marketplace add orchestra-research/AI-research-SKILLs\n\n# Install by category (22 categories available)\n/plugin install fine-tuning@ai-research-skills        # Axolotl, LLaMA-Factory, PEFT, Unsloth\n/plugin install post-training@ai-research-skills      # TRL, GRPO, OpenRLHF, SimPO, verl, slime, miles, torchforge\n/plugin install inference-serving@ai-research-skills  # vLLM, TensorRT-LLM, llama.cpp, SGLang\n/plugin install distributed-training@ai-research-skills\n/plugin install optimization@ai-research-skills\n```\n\n</details>\n\n### All 22 Categories (86 Skills)\n\n| Category | Skills | Included |\n|----------|--------|----------|\n| **Autoresearch** | **1** | **Autonomous research orchestration \u2014 central layer that manages the full lifecycle and routes to all other skills** |\n| Ideation | 2 | Research Brainstorming, Creative Thinking |\n| ML Paper Writing | 1 | ML Paper Writing (LaTeX templates, citation verification) |\n| Model Architecture | 5 | LitGPT, Mamba, NanoGPT, RWKV, TorchTitan |\n| Tokenization | 2 | HuggingFace Tokenizers, SentencePiece |\n| Fine-Tuning | 4 | Axolotl, LLaMA-Factory, PEFT, Unsloth |\n| Mech Interp | 4 | TransformerLens, SAELens, pyvene, nnsight |\n| Data Processing | 2 | NeMo Curator, Ray Data |\n| Post-Training | 8 | TRL, GRPO, OpenRLHF, SimPO, verl, slime, miles, torchforge |\n| Safety | 4 | Constitutional AI, LlamaGuard, NeMo Guardrails, Prompt Guard |\n| Distributed | 6 | DeepSpeed, FSDP, Accelerate, Megatron-Core, Lightning, Ray Train |\n| Infrastructure | 3 | Modal, Lambda Labs, SkyPilot |\n| Optimization | 6 | Flash Attention, bitsandbytes, GPTQ, AWQ, HQQ, GGUF |\n| Evaluation | 3 | lm-eval-harness, BigCode, NeMo Evaluator |\n| Inference | 4 | vLLM, TensorRT-LLM, llama.cpp, SGLang |\n| MLOps | 3 | W&B, MLflow, TensorBoard |\n| Agents | 4 | LangChain, LlamaIndex, CrewAI, AutoGPT |\n| RAG | 5 | Chroma, FAISS, Pinecone, Qdrant, Sentence Transformers |\n| Prompt Eng | 4 | DSPy, Instructor, Guidance, Outlines |\n| Observability | 2 | LangSmith, Phoenix |\n| Multimodal | 7 | CLIP, Whisper, LLaVA, BLIP-2, SAM, Stable Diffusion, AudioCraft |\n| Emerging | 6 | MoE, Model Merging, Long Context, Speculative Decoding, Distillation, Pruning |\n\n<details>\n<summary><b>View All 86 Skills in Details</b></summary>\n\n### \ud83d\udd2c Autoresearch (1 skill) \u2014 Central Orchestration Layer\n- **[Autoresearch](0-autoresearch-skill/)** - Autonomous research orchestration using a two-loop architecture (inner optimization",
+  "github_stars": 5247,
+  "last_commit": "2026-03-17T16:58:46Z",
+  "open_issues": 10,
+  "files_found": [
+    ".gitignore",
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "LICENSE",
+    "README.md",
+    "WELCOME.md",
+    "package.json"
+  ],
+  "tech_stack": [
+    "Node.js",
+    "JavaScript"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:24Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
+  }
 }

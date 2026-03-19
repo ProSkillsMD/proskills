@@ -11,8 +11,19 @@
   "version": "1.0.0",
   "repo_url": "https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw",
   "stars": 6,
-  "works_with": ["openclaw", "claude-code", "mcp"],
-  "tags": ["comfyui", "automation", "image-generation", "workflows", "mcp", "ai-art"],
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "mcp"
+  ],
+  "tags": [
+    "comfyui",
+    "automation",
+    "image-generation",
+    "workflows",
+    "mcp",
+    "ai-art"
+  ],
   "verified_at": "2026-03-09T06:20:00Z",
   "scores": {
     "functionality": 9,
@@ -32,5 +43,31 @@
   "drax_results": {
     "install": "passed",
     "smoke_test": "passed"
+  },
+  "readme": "# ComfyUI Skills for OpenClaw\n\n![ComfyUI Skills Banner](./asset/banner-ui-20250309.jpg)\n<p>\n  <a href=\"./README.zh.md\">\n    <img src=\"https://img.shields.io/badge/\u7b80\u4f53\u4e2d\u6587-README.zh.md-blue?style=flat-square\" alt=\"\u7b80\u4f53\u4e2d\u6587\" />\n  </a>\n</p>\n\nThis project is a ComfyUI skill integration layer for OpenClaw, Codex, and Claude Code. It turns the workflows you build and export from ComfyUI in API format into callable skills that these agents can trigger with natural language.\n\nIt converts natural language requests into structured skill arguments, maps them to ComfyUI workflow inputs, submits jobs to ComfyUI, waits for completion, then pulls generated images back to local disk.\n\nFor the upstream ComfyUI local server routes that back this skill, see [docs/comfyui-native-routes.md](./docs/comfyui-native-routes.md).\n\n## Features\n\n### Workflow-to-Skill Conversion\n- Turn your ComfyUI workflows into skills that OpenClaw, Codex, or Claude Code can call directly\n- Set up parameters in three steps: upload a workflow, pick the nodes to expose, then name and describe each parameter\n- Input nodes are detected automatically from the workflow \u2014 no need to hunt through the JSON by hand\n- When you update a workflow, preview the parameter changes first and carry over existing mappings\n- Supports bulk workflow import from a ComfyUI server or local JSON files\n\n### Multi-Server Management\n- Manage multiple ComfyUI servers and route jobs to different machines as needed\n- Servers and workflows each have their own toggle \u2014 agents only see a workflow when both are enabled\n- Workflows with the same name on different servers stay separate, identified by `server/workflow` composite IDs\n- Set a per-server output directory and choose a default server\n\n### Web UI\n- Frontend source lives in a [separate repository](https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw-frontend); run `scripts/update_frontend.sh` to pull the latest build\n- Runtime update checks prefer pulling the main repo via git, and fall back to refreshing `ui/static/` from the frontend release when git update is unavailable\n- A local web interface for managing all servers and workflows in one place\n- Reorder workflows by dragging, or sort by name, status, or custom order\n- Search and filter workflows across all servers\n- Available in English, Simplified Chinese, and Traditional Chinese \u2014 switch languages from the UI\n\n### Configuration Transfer\n- Export your current configuration and workflows into a single portable JSON file\n- Choose exactly which workflows to include before exporting\n- Preview what will change on the target machine before applying an import\n- Control whether to overwrite existing workflows or sync environment settings from the source machine\n\n### Workflow Execution\n- Submit a job, wait for it to finish, and download the generated images to local storage automatically\n- Supports multi-image output in a single run\n- Agents can query all available workflows and their parameters from the command line for automated use\n\n### CLI Tools\n- A full set of command-line tools for headless environments and scripting\n- Covers server management, workflow listing, job execution, and configuration import/export\n\n## ComfyUI Native API Scope\n\nThis repository should be understood as two layers:\n\n- Native ComfyUI server routes on the target generation server, such as `/prompt`, `/history/{prompt_id}`, `/view`, `/ws`, and `/queue`\n- This project's own manager API under `/api/*`, used by the local UI to manage saved servers, workflows, and transfer bundles\n\nThe current skill implementation is centered on the native execution flow:\n\n1. `POST /prompt`\n2. `GET /history/{prompt_id}`\n3. `GET /view`\n\nThat route-level reference is documented in [docs/comfyui-native-routes.md](./docs/comfyui-native-routes.md).\n\n---\n\n## Installation\n\n<details>\n<summary><strong>ComfyUI Skills for OpenClaw</strong></summary>\n\nManual install:\n\n```bash\ncd ~/.openclaw/workspace/skills\ngit clone https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw.git comfyui-skill-openclaw\ncd comfyui-skill-openclaw\npython3 -m venv .venv\nsource .venv/bin/activate\npython3 -m pip install -r requirements.txt\ncp config.example.json config.json\n```\n\n\n\nLet OpenClaw install it for you:\n\nSend this prompt to OpenClaw:\n\n```text\nPlease install this ComfyUI skill into my OpenClaw workspace.\n\nTarget path:\n~/.openclaw/workspace/skills/comfyui-skill-openclaw/\n\nRequirements:\n1. Run `cd ~/.openclaw/workspace/skills` first.\n2. Clone this repository into `comfyui-skill-openclaw`.\n3. Keep SKILL.md at the project root.\n4. Install Python dependencies from requirements.txt.\n5. Run `cp config.example.json config.json`.\n6. Set the default ComfyUI server URL to http://127.0.0.1:8188 unless I specify another one.\n7. Make sure OpenClaw can discover and call this skill after installation.\n```\n\n</details>\n\n<details>\n<summary><strong>ComfyUI Skills for Claude Code</strong></summary>\n\nManual install:\n\n```bash\ncd ~/.claude/skills\ngit clone https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw.git comfyui-skill\ncd comfyui-skill\npython3 -m venv .venv\nsource .venv/bin/activate\npython3 -m pip install -r requirements.txt\ncp config.example.json config.json\n```\n\n\n\nLet Claude Code install it for you:\n\nSend this prompt to Claude Code:\n\n```text\nPlease install this ComfyUI skill into my Claude Code skills directory.\n\nTarget path:\n~/.claude/skills/comfyui-skill/\n\nRequirements:\n1. Run `cd ~/.claude/skills` first (create the directory if it doesn't exist).\n2. Clone this repository into `comfyui-skill`.\n3. Keep SKILL.md at the project root.\n4. Install Python dependencies from requirements.txt.\n5. Run `cp config.example.json config.json`.\n6. Set the default ComfyUI server URL to http://127.0.0.1:8188 unless I specify another one.\n7. Make sure Claude Code can discover and call this skill after installation.\n```\n\n</details>\n\n<details>\n<summary><strong>ComfyUI Skills for Codex</strong></summary>\n\nManual install:\n\n```bash\ncd ~/.codex/skills\ngit clone https://github.com/HuangYuChuh/ComfyUI_Skills_OpenClaw.git comfyui-skill\ncd comfyui-skill\npython3 -m venv .venv\nsource .venv/bin/activate\npython3 -m pip install -r requirements.txt\ncp config.example.json config.json\n```\n\n\n\nLet Codex install it for you:\n\nSend this prompt to Codex:\n\n```text\nPlease install this ComfyUI skill into my Codex skills directory.\n\nTarget path:\n~/.codex/skills/comfyui-skill/\n\nRequirements:\n1. Run `cd ~/.codex/skills` first (create the directory if it doesn't exist).\n2. Clone this repository into `comfyui-skill`.\n3. Keep SKILL.md at the project root.\n4. Install Python dependencies from requirements.txt.\n5. Run `cp config.example.json config.json`.\n6. Set the default ComfyUI server URL to http://127.0.0.1:8188 unless I specify another one.\n7. Make sure Codex can discover and call this skill after installation.\n```\n\n</details>\n\n## ComfyUI Workflow Setup\n\nBefore you start, make sure your ComfyUI server is already running. The default local address is `http://127.0.0.1:8188`.\n\n### UI Setup (Recommended)\n\n- macOS/Linux: `./ui/run_ui.sh`, or double-click `ui/run_ui.command`\n- Windows: `ui\\run_ui.bat`\n- Visit: `http://localhost:18189`\n- Upload a workflow JSON exported from ComfyUI with **Save (API Format)**\n- Add your first ComfyUI server in the UI\n- Select which parameters should be exposed to OpenClaw and save the mapping\n\n### Config File Setup\n\n#### 1) Edit `config.json`\n\nConfigure the server first. Minimal example:\n\n```jsonc\n{\n  \"servers\": [\n    {\n      \"id\": \"local\",                  // Server ID, also used as the directory name and workflow prefix\n      \"name\": \"Local\",                // Display name\n      \"url\": \"http://127.0.0.1:8188\", // ComfyUI server URL\n      \"enabled\": true,                // Whether this server is enabled\n      \"output_dir\": \"./outputs\"       // Image output directory\n    }\n  ],\n  \"default_server\": \"local\"           // Default server ID\n}\n```\n\n#### 2) Place Workflow Files\n\nEach workflow uses its own directory, for example:\n\n```bash\ndata/l",
+  "github_stars": 75,
+  "last_commit": "2026-03-19T06:43:09Z",
+  "open_issues": 0,
+  "files_found": [
+    ".gitignore",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "README.zh.md",
+    "SKILL.md",
+    "config.example.json",
+    "requirements.txt"
+  ],
+  "tech_stack": [
+    "Python"
+  ],
+  "security_scan": {
+    "checked_at": "2026-03-19T08:37:14Z",
+    "no_remote_eval": true,
+    "no_binary_downloads": true,
+    "license_ok": true,
+    "no_hardcoded_secrets": true,
+    "verdict": "clean",
+    "notes": ""
   }
 }
