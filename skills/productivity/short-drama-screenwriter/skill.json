@@ -1,0 +1,38 @@
+{
+  "id": "short-drama-screenwriter",
+  "name": "Short Drama Screenwriter",
+  "slug": "short-drama-screenwriter",
+  "category": "productivity",
+  "description": "Curated Claude Code skill for short-drama screenwriting. Comprehensive workflow from topic to episodes with professional screenplay guidelines, dual-mode support (Chinese domestic + international markets), and quality assurance pipeline.",
+  "author": {
+    "github": "MarkQWu",
+    "name": "MarkQWu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/MarkQWu/openclaw-skills",
+  "stars": 0,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["screenwriting", "content-creation", "short-form", "productivity", "ai"],
+  "verified_at": "2026-03-19T16:03:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 8,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.2
+  },
+  "review": "Polished, production-ready skill bridging OpenClaw/Claude Code with professional short-drama screenwriting. Comprehensive workflow with substantive reference material covering genre theory, pacing, narrative hooks, and compliance. Security-conscious with safe install scripts.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 14,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "12 passed",
+    "smoke_test": "passed"
+  }
+}

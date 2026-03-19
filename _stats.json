@@ -1,5 +1,5 @@
 {
-  "total_skills": 144,
+  "total_skills": 147,
   "verified": 119,
   "categories": {
     "finance": 1,
@@ -10,12 +10,12 @@
     "utilities": 2,
     "data": 9,
     "security": 6,
-    "productivity": 14,
+    "productivity": 16,
     "devops": 7,
     "api": 1,
     "developer-tools": 6,
     "integration": 3,
-    "planning": 1,
+    "planning": 2,
     "legal": 2,
     "development-tools": 1,
     "marketing": 1
@@ -23,106 +23,126 @@
   "last_scan": "2026-03-17T07:04:00Z",
   "recent_additions": [
     {
+      "id": "skywork-skills",
+      "name": "Skywork Skills",
+      "added": "2026-03-19",
+      "score": 8.0
+    },
+    {
+      "id": "short-drama-screenwriter",
+      "name": "Short Drama Screenwriter",
+      "added": "2026-03-19",
+      "score": 8.2
+    },
+    {
+      "id": "natural-language-planner",
+      "name": "Natural Language Planner",
+      "added": "2026-03-19",
+      "score": 7.7
+    },
+    {
       "id": "lead-research-assistant",
       "name": "Lead Research Assistant",
-      "added": "2026-03-17T07:04:00Z"
+      "added": "2026-03-17",
+      "score": 7.4
     },
     {
       "id": "brand-voice",
       "name": "Brand Voice",
-      "added": "2026-03-16T13:57:00Z"
+      "added": "2026-03-16",
+      "score": 8.57
+    },
+    {
+      "id": "openclaw-skills-explorer",
+      "name": "ClawEye",
+      "added": "2026-03-15",
+      "score": 9.43
     },
     {
       "id": "lenny-skills",
       "name": "Lenny's Product Management Skills",
-      "added": "2026-03-16T13:51:00Z"
+      "added": "2026-03-16",
+      "score": 9.4
+    },
+    {
+      "id": "indic-ai-skills",
+      "name": "Indic AI Skills",
+      "added": "2026-03-15",
+      "score": 8.57
     },
     {
       "id": "lenny-skills",
       "name": "Lenny's Product Management Skills",
-      "added": "2026-03-16T13:51:00Z"
-    },
-    {
-      "id": "legal-risk-assessment",
-      "name": "Legal Risk Assessment",
-      "added": "2026-03-16T13:50:00Z"
+      "added": "2026-03-16",
+      "score": 9.4
     },
     {
       "id": "review-contract",
       "name": "Contract Review Against Playbook",
-      "added": "2026-03-16T13:50:00Z"
-    },
-    {
-      "id": "ui-ux-pro-max-skill",
-      "name": "UI UX Pro Max Skill",
-      "added": "2026-03-16T13:45:55Z"
-    },
-    {
-      "id": "blueprint",
-      "name": "Blueprint",
-      "added": "2026-03-16T13:43:00Z"
-    },
-    {
-      "id": "indic-ai-skills",
-      "name": "Indic AI Skills",
-      "added": "2026-03-15T04:46:28Z"
-    },
-    {
-      "id": "indic-ai-skills",
-      "name": "Indic AI Skills",
-      "added": "2026-03-15T04:46:28Z"
+      "added": "2026-03-16",
+      "score": 8.6
     }
   ],
   "top_skills": [
     {
       "id": "learn",
       "name": "Learn",
-      "score": 9.86
+      "score": 9.86,
+      "category": "developer-tools"
     },
     {
       "id": "accessibility",
       "name": "VS Code Accessibility Engineering",
-      "score": 9.5
+      "score": 9.5,
+      "category": "coding"
     },
     {
       "id": "bambu-studio-ai",
       "name": "Bambu Studio Ai",
-      "score": 9.43
+      "score": 9.43,
+      "category": "automation"
     },
     {
       "id": "openclaw-skills-explorer",
       "name": "ClawEye",
-      "score": 9.43
+      "score": 9.43,
+      "category": "development-tools"
     },
     {
       "id": "lenny-skills",
       "name": "Lenny's Product Management Skills",
-      "score": 9.4
+      "score": 9.4,
+      "category": "productivity"
     },
     {
       "id": "lenny-skills",
       "name": "Lenny's Product Management Skills",
-      "score": 9.4
+      "score": 9.4,
+      "category": "productivity"
     },
     {
       "id": "claude-code-skillforge",
       "name": "claude-code-skillforge",
-      "score": 9.3
+      "score": 9.3,
+      "category": "developer-tools"
     },
     {
       "id": "blueprint",
       "name": "Blueprint",
-      "score": 9.29
+      "score": 9.29,
+      "category": "planning"
     },
     {
       "id": "claude-code-cli-for-openclaw",
       "name": "Claude Code CLI for OpenClaw",
-      "score": 9.2
+      "score": 9.2,
+      "category": "developer-tools"
     },
     {
       "id": "xurl",
       "name": "xurl",
-      "score": 9.1
+      "score": 9.1,
+      "category": "automation"
     }
   ],
   "average_score": 7.82,
