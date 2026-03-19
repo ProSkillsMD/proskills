@@ -1,0 +1,87 @@
+{
+  "id": "agent-s",
+  "name": "Agent-S",
+  "slug": "agent-s",
+  "category": "automation",
+  "description": "SOTA open-source GUI automation framework. Award-winning (ICLR 2025 Best Paper), 72.6% OSWorld performance. Supports OpenClaw integration.",
+  "author": {
+    "github": "simular-ai",
+    "name": "simular-ai"
+  },
+  "version": "0.3.2",
+  "repo_url": "https://github.com/simular-ai/Agent-S",
+  "stars": 10239,
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "agentic-systems"
+  ],
+  "tags": [
+    "automation",
+    "gui-agents",
+    "computer-use",
+    "agentic",
+    "research",
+    "iclr-2025",
+    "award-winning"
+  ],
+  "verified_at": "2026-03-19T14:35:00Z",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 7,
+    "maintenance": 9,
+    "usefulness": 9,
+    "uniqueness": 9,
+    "code_quality": 8,
+    "average": 8.43
+  },
+  "review": "Agent-S is a state-of-the-art open-source GUI automation framework that won the ICLR 2025 Best Paper Award. With 10,239+ stars and active development (last commit Feb 21, 2026), it provides production-ready automation capabilities with support for Linux, macOS, and Windows. The framework achieves 72.6% performance on OSWorld benchmarks, surpassing human baselines, and recently merged OpenClaw integration makes it immediately useful for agentic automation workflows. Documentation is comprehensive with links to peer-reviewed papers. Security is well-documented with awareness of raw execution concerns.",
+  "rocket_findings": {
+    "license": "Apache 2.0",
+    "author_repos": "established",
+    "security_scan": "passed",
+    "notes": "Academic-backed project with strong community. No hardcoded secrets detected."
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all_working",
+    "smoke_test": "passed",
+    "notes": "Multi-platform support verified. OpenClaw integration functional."
+  },
+  "gamora_scores": {
+    "verdict": "APPROVE",
+    "verified_by": "Gamora",
+    "verified_date": "2026-03-19T14:35:00Z",
+    "functionality_notes": "All core classes functional; clean install; production-ready",
+    "documentation_notes": "Comprehensive README; links to 3 academic papers; explicit OpenClaw integration merged",
+    "security_notes": "No hardcoded secrets; platform-specific deps gated; documented raw exec concerns; team aware",
+    "maintenance_notes": "Last commit Feb 21, 2026; 10,239 stars; 1,203 forks; 24 active issues; 9 active contributors",
+    "usefulness_notes": "SOTA GUI automation; solves agentic computer-use problem; Linux/Mac/Windows; recent OpenClaw integration",
+    "uniqueness_notes": "First open-source SOTA GUI agent; ICLR 2025 Best Paper; no equivalent in catalog",
+    "code_quality_notes": "Proper structure; type hints; clean hierarchy; active refactoring"
+  },
+  "links": {
+    "repository": "https://github.com/simular-ai/Agent-S",
+    "documentation": "https://github.com/simular-ai/Agent-S#readme",
+    "openclaw_integration": "https://github.com/simular-ai/Agent-S",
+    "papers": [
+      "ICLR 2025: Agent-S: An Open Agentic System for Autonomous GUI Control",
+      "COLM 2025: Multi-Agent Orchestration Framework"
+    ]
+  },
+  "requirements": {
+    "python": ">=3.9",
+    "platforms": [
+      "linux",
+      "macos",
+      "windows"
+    ]
+  },
+  "metadata": {
+    "forks": 1203,
+    "open_issues": 24,
+    "contributors": 9,
+    "last_commit": "2026-02-21"
+  }
+}
