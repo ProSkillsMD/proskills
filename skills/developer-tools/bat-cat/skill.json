@@ -1,0 +1,50 @@
+{
+  "id": "bat-cat",
+  "name": "Bat Cat",
+  "slug": "bat-cat",
+  "category": "developer-tools",
+  "description": "A cat clone with syntax highlighting, line numbers, and Git integration - a modern replacement for cat.",
+  "author": {
+    "github": "arnarsson",
+    "name": "Arnarsson"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/skills/tree/main/skills/arnarsson/bat-cat",
+  "upstream_url": "https://github.com/sharkdp/bat",
+  "stars": 57699,
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "terminal"
+  ],
+  "tags": [
+    "file-viewer",
+    "syntax-highlighting",
+    "git-integration",
+    "cli-tools",
+    "documentation",
+    "development"
+  ],
+  "verified_at": "2026-03-19T06:31:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.5
+  },
+  "review": "This skill provides an excellent, comprehensive guide to `bat` \u2014 a modern replacement for `cat` with syntax highlighting and Git integration. Documentation quality is exceptional with clear structure, actionable examples, and integration guidance. Security is solid, maintenance is active, and usefulness is significant. The skill meets all technical requirements and contributes meaningfully to the catalog.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 101,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "documentation-only",
+    "smoke_test": "passed"
+  }
+}
