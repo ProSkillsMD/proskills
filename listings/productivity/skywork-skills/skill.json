@@ -1,0 +1,42 @@
+{
+  "id": "skywork-skills",
+  "name": "Skywork Skills",
+  "slug": "skywork-skills",
+  "category": "productivity",
+  "description": "Comprehensive AI office suite skills for generating professional documents, presentations, spreadsheets, design assets, web search, and music. Includes AI PPT, AI Document, AI Excel, AI Image, AI Search/DeepResearch, and AI Music. Compatible with Claude Code, Codex CLI, and OpenClaw.",
+  "author": {
+    "github": "SkyworkAI",
+    "name": "SkyworkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SkyworkAI/Skywork-Skills",
+  "stars": 35,
+  "works_with": ["openclaw", "claude-code", "codex-cli"],
+  "tags": ["productivity", "office-suite", "ai-ppt", "ai-document", "ai-excel", "ai-design", "ai-search", "ai-music", "multilingual"],
+  "verified_at": "2026-03-19T16:00:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.0
+  },
+  "review": "Comprehensive AI office suite with six well-integrated skills (PPT, Document, Excel, Design, Search, Music). Passed Rocket screening and Drax installation testing. Clear multilingual documentation (EN, ZH, JA, KO) with installation instructions for multiple platforms. Established author (36 repos, 1651 followers). MIT licensed. Strong usefulness for content creators and office automation workflows.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 36,
+    "author_followers": 1651,
+    "security_scan": "passed",
+    "notes": "Author is well-established. No security red flags detected."
+  },
+  "drax_results": {
+    "install": "passed",
+    "structure": "passed",
+    "documentation": "passed",
+    "smoke_test": "passed"
+  },
+  "catalog_notes": "Published from issue #2078. Six-skill office productivity suite addressing document generation, presentation creation, spreadsheet operations, image design, research, and music generation."
+}

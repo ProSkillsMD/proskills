@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 144,
+  "total": 145,
   "categories": [
     "api",
     "automation",
@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-17T07:04:00Z",
+  "last_updated": "2026-03-19T16:02:26.905169Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1395,6 +1395,15 @@
       "stars": 44876,
       "verified_at": "2026-03-17T07:04:00Z",
       "score": 7.4
+    },
+    {
+      "id": "skywork-skills",
+      "name": "Skywork Skills",
+      "category": "productivity",
+      "slug": "skywork-skills",
+      "score": 8.0,
+      "stars": 35,
+      "verified_at": "2026-03-19T16:00:00Z"
     }
   ],
   "total_skills": 142
