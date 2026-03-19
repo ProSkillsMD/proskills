@@ -1,0 +1,38 @@
+{
+  "id": "skywork-skills",
+  "name": "Skywork Skills",
+  "slug": "skywork-skills",
+  "category": "productivity",
+  "description": "Skywork Agent Skills for AI office suites, including AI PPT, AI Document, AI Excel, AI Image, AI Search/DeepResearch and AI Music. These skills can be used by any skills-compatible agent, including Claude Code, Codex CLI and OpenClaw.",
+  "author": {
+    "github": "SkyworkAI",
+    "name": "SkyworkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SkyworkAI/Skywork-Skills",
+  "stars": 35,
+  "works_with": ["openclaw", "claude-code", "codex"],
+  "tags": ["productivity", "office-suite", "ai", "ppt", "document", "excel", "image", "search", "music"],
+  "verified_at": "2026-03-19T16:03:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 8,
+    "usefulness": 8,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 8.0
+  },
+  "review": "Six-skill AI office suite with multilingual documentation (EN, ZH, JA, KO). Well-established author with strong community presence. Production-ready with installation instructions for multiple platforms.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 36,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "all passed",
+    "smoke_test": "passed"
+  }
+}

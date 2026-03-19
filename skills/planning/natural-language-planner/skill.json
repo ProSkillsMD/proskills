@@ -1,0 +1,38 @@
+{
+  "id": "natural-language-planner",
+  "name": "Natural Language Planner",
+  "slug": "natural-language-planner",
+  "category": "planning",
+  "description": "An OpenClaw skill that turns natural conversation into organized tasks and projects — stored as simple Markdown files on your local machine.",
+  "author": {
+    "github": "bparticle",
+    "name": "bparticle"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/bparticle/natural-language-planner",
+  "stars": 1,
+  "works_with": ["openclaw", "claude-code"],
+  "tags": ["planning", "tasks", "productivity", "markdown", "ai"],
+  "verified_at": "2026-03-19T16:03:00Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 9,
+    "maintenance": 6,
+    "usefulness": 8,
+    "uniqueness": 7,
+    "code_quality": 8,
+    "average": 7.7
+  },
+  "review": "Production-ready skill with comprehensive documentation. Clean Python codebase, complete web dashboard with modern UI/UX. Covers advanced features: subtasks, dependencies, agent tips, reminders. Non-destructive operations and local-first data storage.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 11,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "comprehensive",
+    "smoke_test": "passed"
+  }
+}
