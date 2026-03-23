@@ -1,0 +1,32 @@
+{
+  "id": "evolink-nano-banana-2",
+  "name": "evolink-nano-banana-2",
+  "slug": "evolink-nano-banana-2",
+  "category": "content",
+  "description": "Nano Banana 2 \u2014 AI image generation powered by Google Gemini 3.1 Flash. Fast, versatile text-to-image and image editing via Evolink API. One API key.",
+  "author": {
+    "github": "EvoLinkAI",
+    "name": "EvoLinkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EvoLinkAI/Nano-banana-2-skill-for-openclaw",
+  "stars": 4,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:57:04Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
