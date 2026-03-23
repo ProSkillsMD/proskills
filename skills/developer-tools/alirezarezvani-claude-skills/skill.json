@@ -1,0 +1,32 @@
+{
+  "id": "alirezarezvani-claude-skills",
+  "name": "alirezarezvani/claude-skills",
+  "slug": "alirezarezvani-claude-skills",
+  "category": "developer-tools",
+  "description": "+192 Claude Code skills & agent plugins for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents \u2014 engineering, marketing, product, compliance, C-level advisory.",
+  "author": {
+    "github": "alirezarezvani",
+    "name": "alirezarezvani"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/alirezarezvani/claude-skills",
+  "stars": 6422,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:58:32Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
