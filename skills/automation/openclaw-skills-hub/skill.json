@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-skills-hub",
+  "name": "OpenClaw_Skills_Hub",
+  "slug": "openclaw-skills-hub",
+  "category": "automation",
+  "description": "openclaw skills union",
+  "author": {
+    "github": "11-miracle",
+    "name": "11-miracle"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/11-miracle/OpenClaw_Skills_Hub",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:47:30Z",
+  "scores": {
+    "average": 3.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
