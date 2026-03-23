@@ -1,0 +1,32 @@
+{
+  "id": "project-loop",
+  "name": "project-loop",
+  "slug": "project-loop",
+  "category": "automation",
+  "description": "Run approved long-running project work from file-backed state, continue through self-clearable tasks, pause cleanly at real gates, and recover across sessions.",
+  "author": {
+    "github": "sebclawops",
+    "name": "sebclawops"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sebclawops/project-loop-skill",
+  "stars": 10,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:13Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
