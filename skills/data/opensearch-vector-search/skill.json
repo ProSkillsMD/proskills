@@ -1,0 +1,32 @@
+{
+  "id": "opensearch-vector-search",
+  "name": "opensearch-vector-search",
+  "slug": "opensearch-vector-search",
+  "category": "data",
+  "description": "|",
+  "author": {
+    "github": "norrishuang",
+    "name": "norrishuang"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/norrishuang/opensearch-vector-search-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "data"
+  ],
+  "verified_at": "2026-03-23T04:56:55Z",
+  "scores": {
+    "average": 8.7
+  },
+  "rocket_findings": {
+    "license": "MIT No Attribution",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
