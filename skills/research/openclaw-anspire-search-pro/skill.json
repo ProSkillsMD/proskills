@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-anspire-search-pro",
+  "name": "openclaw-anspire-search-pro",
+  "slug": "openclaw-anspire-search-pro",
+  "category": "research",
+  "description": "An OpenClaw plugin that integrates Anspire AI Search for real-time web search and external knowledge retrieval.",
+  "author": {
+    "github": "moneykick",
+    "name": "moneykick"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/moneykick/openclaw-anspire-search_pro",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T05:33:06Z",
+  "scores": {
+    "average": 6.6
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
