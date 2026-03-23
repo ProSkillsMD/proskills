@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-jobsearch",
+  "name": "openclaw-jobsearch",
+  "slug": "openclaw-jobsearch",
+  "category": "research",
+  "description": "An Openclaw skill to search for applicable jobs from specified online career portals",
+  "author": {
+    "github": "jordmorr",
+    "name": "jordmorr"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/jordmorr/openclaw-jobsearch",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:57:46Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
