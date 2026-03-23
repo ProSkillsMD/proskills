@@ -1,0 +1,32 @@
+{
+  "id": "cairns",
+  "name": "cairns",
+  "slug": "cairns",
+  "category": "automation",
+  "description": "Agent-powered knowledge trail system. Lightweight static CMS built with Eleventy + OpenClaw skill.",
+  "author": {
+    "github": "gorewood",
+    "name": "gorewood"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/gorewood/cairns",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:33Z",
+  "scores": {
+    "average": 6.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
