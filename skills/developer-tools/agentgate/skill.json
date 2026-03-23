@@ -1,0 +1,30 @@
+{
+  "id": "agentgate",
+  "name": "agentgate",
+  "slug": "agentgate",
+  "category": "developer-tools",
+  "description": "API gateway for personal data with human-in-the-loop write approval. Connects agents to GitHub, Bluesky, Google Calendar, Home Assistant, and more \u2014 all through a single API with safety controls.",
+  "author": {
+    "github": "monteslu",
+    "name": "monteslu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/skills/tree/main/skills/monteslu/agentgate",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:53:25Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed"
+  }
+}
