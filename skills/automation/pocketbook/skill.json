@@ -1,0 +1,32 @@
+{
+  "id": "pocketbook",
+  "name": "pocketbook",
+  "slug": "pocketbook",
+  "category": "automation",
+  "description": ">",
+  "author": {
+    "github": "SuRu711",
+    "name": "SuRu711"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SuRu711/pocketbook",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:31:28Z",
+  "scores": {
+    "average": 8.2
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
