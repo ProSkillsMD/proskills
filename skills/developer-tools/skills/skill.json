@@ -1,0 +1,32 @@
+{
+  "id": "skills",
+  "name": "skills",
+  "slug": "skills",
+  "category": "developer-tools",
+  "description": "Provide standard AI/ML task definitions as portable skills for use with major coding agents like OpenAI Codex and Claude Code.",
+  "author": {
+    "github": "tayyabexe",
+    "name": "tayyabexe"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/tayyabexe/skills",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:26Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
