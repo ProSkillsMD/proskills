@@ -1,0 +1,32 @@
+{
+  "id": "kaomoji",
+  "name": "kaomoji",
+  "slug": "kaomoji",
+  "category": "automation",
+  "description": "\u984f\u6587\u5b57\u63a8\u85a6\u52a9\u624b - \u6839\u64da\u8a9e\u6c23\u81ea\u52d5\u63a8\u85a6\u5408\u9069\u984f\u6587\u5b57",
+  "author": {
+    "github": "redwakame",
+    "name": "redwakame"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/redwakame/openclaw-kaomoji-skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:35Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
