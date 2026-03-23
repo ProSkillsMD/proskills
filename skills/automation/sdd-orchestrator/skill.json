@@ -1,0 +1,32 @@
+{
+  "id": "sdd-orchestrator",
+  "name": "sdd-orchestrator",
+  "slug": "sdd-orchestrator",
+  "category": "automation",
+  "description": "\u7528\u4e8e\u7f16\u6392 Spec-Driven Development\uff08SDD\uff09\u5de5\u4f5c\u6d41\uff0c\u5305\u62ec\u9700\u6c42\u6f84\u6e05\u3001Specify\u3001Plan\u3001Tasks\u3001Execution Contract\u3001Implement \u4ea4\u63a5\u3001Review\u3001\u8de8\u4f1a\u8bdd\u6062\u590d\u4e0e\u6587\u6863\u8054\u52a8\u7ef4\u62a4\u3002\u5f53\u7528\u6237\u5e0c\u671b\u6309 SDD \u63a8\u8fdb\u9879\u76ee\u3001\u8d77\u8349\u6216\u5ba1\u6838 spec/plan/tasks \u6587\u6863\u3001\u5224\u65ad\u662f\u5426\u53ef\u8fdb\u5165\u4e0b\u4e00\u9636\u6bb5\u3001\u6062\u590d\u4e2d\u65ad\u9879\u76ee\u3001\u51c6\u5907 Coding Agent \u4ea4\u63a5\uff0c\u6216\u5728 MVP",
+  "author": {
+    "github": "lichangke",
+    "name": "lichangke"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/lichangke/sdd-orchestrator",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:00Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
