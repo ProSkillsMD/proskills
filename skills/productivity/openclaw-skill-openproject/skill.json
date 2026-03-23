@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-skill-openproject",
+  "name": "openclaw-skill-openproject",
+  "slug": "openclaw-skill-openproject",
+  "category": "productivity",
+  "description": "OpenClaw skill for OpenProject project management, weekly summaries, and decision logging.",
+  "author": {
+    "github": "ragnvald",
+    "name": "ragnvald"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ragnvald/openclaw-skill-openproject",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T05:34:25Z",
+  "scores": {
+    "average": 7.7
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
