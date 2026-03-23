@@ -1,0 +1,32 @@
+{
+  "id": "daily-brief",
+  "name": "daily-brief",
+  "slug": "daily-brief",
+  "category": "productivity",
+  "description": "Morning & evening personal briefings via Telegram \u2014 weather, ICS calendar (Outlook/Google/iCloud), Todoist tasks, life-ledger reminders, pulse-board rig status. OpenClaw skill. Stdlib only, no pip dep",
+  "author": {
+    "github": "LittleJakub",
+    "name": "LittleJakub"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/LittleJakub/daily-brief",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:56:32Z",
+  "scores": {
+    "average": 9.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
