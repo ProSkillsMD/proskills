@@ -1,0 +1,32 @@
+{
+  "id": "submission-open-source-monitor-openclaw-skill-github-webleon-open-source-monitor-openclaw-skill",
+  "name": "[Submission] open-source-monitor-openclaw-skill (github:webleon/open-source-monitor-openclaw-skill)",
+  "slug": "submission-open-source-monitor-openclaw-skill-github-webleon-open-source-monitor-openclaw-skill",
+  "category": "developer-tools",
+  "description": "Unified GitHub Release + Docker Hub monitor for OpenClaw. Simple config, auto-cron setup, Telegram notifications.",
+  "author": {
+    "github": "webleon",
+    "name": "webleon"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/webleon/open-source-monitor-openclaw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:46Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
