@@ -1,0 +1,32 @@
+{
+  "id": "evolve",
+  "name": "evolve",
+  "slug": "evolve",
+  "category": "automation",
+  "description": "\u81ea\u6211\u9032\u5316 Agent - \u5df2\u9077\u79fb\u81f3\u539f\u5b50\u5316\u67b6\u69cb",
+  "author": {
+    "github": "miles990",
+    "name": "miles990"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/miles990/self-evolving-agent",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:21Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
