@@ -1,0 +1,32 @@
+{
+  "id": "file-organizer",
+  "name": "file-organizer",
+  "slug": "file-organizer",
+  "category": "automation",
+  "description": "OpenClaw skill: file-organizer",
+  "author": {
+    "github": "cryptodashboard1",
+    "name": "cryptodashboard1"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/cryptodashboard1/openclaw-file-organizer",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:37:01Z",
+  "scores": {
+    "average": 7.4
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
