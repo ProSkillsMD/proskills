@@ -1,0 +1,32 @@
+{
+  "id": "nextlevelbuilder-ui-ux-pro-max-skill",
+  "name": "nextlevelbuilder/ui-ux-pro-max-skill",
+  "slug": "nextlevelbuilder-ui-ux-pro-max-skill",
+  "category": "developer-tools",
+  "description": "An AI SKILL that provide design intelligence for building professional UI/UX multiple platforms",
+  "author": {
+    "github": "nextlevelbuilder",
+    "name": "nextlevelbuilder"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",
+  "stars": 48264,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:58:25Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
