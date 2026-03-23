@@ -1,0 +1,32 @@
+{
+  "id": "openclaw",
+  "name": "openclaw",
+  "slug": "openclaw",
+  "category": "integration",
+  "description": "Comprehensive guide for installing, configuring, operating, and troubleshooting OpenClaw \u2014 a self-hosted, multi-channel AI agent gateway. Use when the user asks about OpenClaw setup, configuration, ch",
+  "author": {
+    "github": "win4r",
+    "name": "win4r"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/win4r/OpenClaw-Skill",
+  "stars": 252,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "integration"
+  ],
+  "verified_at": "2026-03-23T05:01:08Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
