@@ -1,0 +1,32 @@
+{
+  "id": "agent-skills",
+  "name": "agent-skills",
+  "slug": "agent-skills",
+  "category": "automation",
+  "description": "Custom OpenClaw skills for Fermin workflow",
+  "author": {
+    "github": "masterfermin02",
+    "name": "masterfermin02"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/masterfermin02/agent-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:47:17Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
