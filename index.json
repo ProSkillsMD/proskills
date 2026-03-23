@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-17T07:04:00Z",
+  "last_updated": "2026-03-23T04:51:19Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1395,7 +1395,52 @@
       "stars": 44876,
       "verified_at": "2026-03-17T07:04:00Z",
       "score": 7.4
+    },
+    {
+      "id": "openclaw-persona-forge",
+      "name": "openclaw-persona-forge",
+      "category": "developer-tools",
+      "slug": "openclaw-persona-forge",
+      "score": 9.3,
+      "stars": 3,
+      "verified_at": "2026-03-23T04:51:07Z"
+    },
+    {
+      "id": "a2wf",
+      "name": "a2wf",
+      "category": "security",
+      "slug": "a2wf",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:51:10Z"
+    },
+    {
+      "id": "openclaw-virtual-character",
+      "name": "openclaw-virtual-character",
+      "category": "planning",
+      "slug": "openclaw-virtual-character",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:51:12Z"
+    },
+    {
+      "id": "pdf-utils",
+      "name": "pdf-utils",
+      "category": "automation",
+      "slug": "pdf-utils",
+      "score": 8.7,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:51:15Z"
+    },
+    {
+      "id": "bank-recon-skill",
+      "name": "bank-recon-skill",
+      "category": "finance",
+      "slug": "bank-recon-skill",
+      "score": 8.3,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:51:18Z"
     }
   ],
-  "total_skills": 142
+  "total_skills": 149
 }
