@@ -1,0 +1,32 @@
+{
+  "id": "awesome-tcadclaw",
+  "name": "awesome-tcadclaw",
+  "slug": "awesome-tcadclaw",
+  "category": "automation",
+  "description": "",
+  "author": {
+    "github": "unknown",
+    "name": "unknown"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hope-young/awesome-tcadclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:45:49Z",
+  "scores": {
+    "average": 5.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
