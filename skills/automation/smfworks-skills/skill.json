@@ -1,0 +1,32 @@
+{
+  "id": "smfworks-skills",
+  "name": "smfworks-skills",
+  "slug": "smfworks-skills",
+  "category": "automation",
+  "description": "Free OpenClaw skills for small businesses",
+  "author": {
+    "github": "smfworks",
+    "name": "smfworks"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/smfworks/smfworks-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:54Z",
+  "scores": {
+    "average": 6.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
