@@ -1,0 +1,32 @@
+{
+  "id": "mindfeed",
+  "name": "mindfeed",
+  "slug": "mindfeed",
+  "category": "productivity",
+  "description": "Spaced repetition review system for resurfacing ideas at optimal intervals. Use when: (1) user wants to create review cards from conversations or notes, (2) user asks to add something to their review ",
+  "author": {
+    "github": "humanitylabs-org",
+    "name": "humanitylabs-org"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/humanitylabs-org/mindfeed",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T12:31:39Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
