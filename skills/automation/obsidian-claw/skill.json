@@ -1,0 +1,32 @@
+{
+  "id": "obsidian-claw",
+  "name": "obsidian-claw",
+  "slug": "obsidian-claw",
+  "category": "automation",
+  "description": ">",
+  "author": {
+    "github": "EdsonAlacantara",
+    "name": "EdsonAlacantara"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EdsonAlacantara/Obsidian-Claw",
+  "stars": 4,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:36Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
