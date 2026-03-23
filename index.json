@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T05:01:47Z",
+  "last_updated": "2026-03-23T05:33:43Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -2763,7 +2763,61 @@
       "score": 7.5,
       "stars": 0,
       "verified_at": "2026-03-23T05:01:46Z"
+    },
+    {
+      "id": "openclaw-security-guard",
+      "name": "openclaw-security-guard",
+      "category": "security",
+      "slug": "openclaw-security-guard",
+      "score": 7.4,
+      "stars": 15,
+      "verified_at": "2026-03-23T05:32:29Z"
+    },
+    {
+      "id": "trust-openclaw",
+      "name": "trust-openclaw",
+      "category": "automation",
+      "slug": "trust-openclaw",
+      "score": 7.1,
+      "stars": 33,
+      "verified_at": "2026-03-23T05:32:49Z"
+    },
+    {
+      "id": "openclaw-anspire-search-pro",
+      "name": "openclaw-anspire-search-pro",
+      "category": "research",
+      "slug": "openclaw-anspire-search-pro",
+      "score": 6.6,
+      "stars": 1,
+      "verified_at": "2026-03-23T05:33:06Z"
+    },
+    {
+      "id": "railway-deploy",
+      "name": "railway-deploy",
+      "category": "devops",
+      "slug": "railway-deploy",
+      "score": 7.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:33:15Z"
+    },
+    {
+      "id": "gmail-manager",
+      "name": "gmail-manager",
+      "category": "automation",
+      "slug": "gmail-manager",
+      "score": 8.1,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:33:32Z"
+    },
+    {
+      "id": "agent-orchestrator",
+      "name": "Agent Orchestrator",
+      "category": "automation",
+      "slug": "agent-orchestrator",
+      "score": 7.6,
+      "stars": 2,
+      "verified_at": "2026-03-23T05:33:38Z"
     }
   ],
-  "total_skills": 296
+  "total_skills": 302
 }
