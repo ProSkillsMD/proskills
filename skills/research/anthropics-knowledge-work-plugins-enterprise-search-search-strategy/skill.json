@@ -1,0 +1,32 @@
+{
+  "id": "anthropics-knowledge-work-plugins-enterprise-search-search-strategy",
+  "name": "anthropics/knowledge-work-plugins \u2014 enterprise-search/search-strategy",
+  "slug": "anthropics-knowledge-work-plugins-enterprise-search-search-strategy",
+  "category": "research",
+  "description": "Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork",
+  "author": {
+    "github": "anthropics",
+    "name": "anthropics"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/anthropics/knowledge-work-plugins",
+  "stars": 10193,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:59:29Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
