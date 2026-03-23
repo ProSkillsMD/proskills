@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:52:27Z",
+  "last_updated": "2026-03-23T04:53:28Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1503,7 +1503,25 @@
       "score": 8.2,
       "stars": 5834,
       "verified_at": "2026-03-23T04:52:25Z"
+    },
+    {
+      "id": "app-store-screenshot-generation",
+      "name": "app-store-screenshot-generation",
+      "category": "developer-tools",
+      "slug": "app-store-screenshot-generation",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:53:22Z"
+    },
+    {
+      "id": "agentgate",
+      "name": "agentgate",
+      "category": "developer-tools",
+      "slug": "agentgate",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:53:25Z"
     }
   ],
-  "total_skills": 156
+  "total_skills": 158
 }
