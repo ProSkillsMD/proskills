@@ -1,0 +1,32 @@
+{
+  "id": "interactive-slides",
+  "name": "interactive-slides",
+  "slug": "interactive-slides",
+  "category": "research",
+  "description": "OpenClaw skill for creating interactive, animated web presentations. Single HTML file, GSAP animations, slide/scroll modes, PPT export.",
+  "author": {
+    "github": "webleon",
+    "name": "webleon"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/webleon/interactive-slides-openclaw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T05:34:10Z",
+  "scores": {
+    "average": 7.7
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
