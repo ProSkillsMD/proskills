@@ -1,0 +1,32 @@
+{
+  "id": "favorites-hub-feishu-table",
+  "name": "favorites-hub-feishu-table",
+  "slug": "favorites-hub-feishu-table",
+  "category": "developer-tools",
+  "description": "Use when aggregating favorites/bookmarks/starred items from GitHub, X, Xiaohongshu, Douyin, or ad-hoc links into Feishu Bitable with platform-separated tables and unified fields.",
+  "author": {
+    "github": "PPFruitClaw",
+    "name": "PPFruitClaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/PPFruitClaw/favoriteshub-feishu-table-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:29Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
