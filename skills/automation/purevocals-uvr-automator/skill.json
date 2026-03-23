@@ -1,0 +1,32 @@
+{
+  "id": "purevocals-uvr-automator",
+  "name": "PureVocals-UVR-Automator",
+  "slug": "purevocals-uvr-automator",
+  "category": "automation",
+  "description": "|-",
+  "author": {
+    "github": "wangminrui2022",
+    "name": "wangminrui2022"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wangminrui2022/purevocals-uvr-automator",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:54Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
