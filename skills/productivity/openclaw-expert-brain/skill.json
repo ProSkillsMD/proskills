@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-expert-brain",
+  "name": "openclaw-expert-brain",
+  "slug": "openclaw-expert-brain",
+  "category": "productivity",
+  "description": "Query 185 curated OpenClaw sources via NotebookLM \u2014 grounded answers with real citations",
+  "author": {
+    "github": "radelqui",
+    "name": "radelqui"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/radelqui/openclaw-expert-brain",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:57:11Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
