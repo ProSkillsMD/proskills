@@ -1,0 +1,32 @@
+{
+  "id": "study-buddy",
+  "name": "study-buddy",
+  "slug": "study-buddy",
+  "category": "productivity",
+  "description": "Interactive study assistant that creates flashcards, quizzes, and spaced repetition reviews from any source material (notes, PDFs, photos, text, URLs). Use when the user wants to study, memorize, revi",
+  "author": {
+    "github": "keepfit44",
+    "name": "keepfit44"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/keepfit44/studyclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:56:39Z",
+  "scores": {
+    "average": 8.2
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
