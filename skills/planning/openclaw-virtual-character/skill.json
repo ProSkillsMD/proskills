@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-virtual-character",
+  "name": "openclaw-virtual-character",
+  "slug": "openclaw-virtual-character",
+  "category": "planning",
+  "description": "OpenClaw Virtual Character Project - AI Agent Skills and Configuration",
+  "author": {
+    "github": "Lyra-eva",
+    "name": "Lyra-eva"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Lyra-eva/openclaw-virtual-character",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T04:51:12Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
