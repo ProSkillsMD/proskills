@@ -1,0 +1,32 @@
+{
+  "id": "mp4-to-mp3-extractor",
+  "name": "mp4-to-mp3-extractor",
+  "slug": "mp4-to-mp3-extractor",
+  "category": "research",
+  "description": "|-",
+  "author": {
+    "github": "wangminrui2022",
+    "name": "wangminrui2022"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wangminrui2022/mp4-to-mp3-extractor",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:56:46Z",
+  "scores": {
+    "average": 7.2
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
