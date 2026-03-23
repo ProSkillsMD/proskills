@@ -1,0 +1,32 @@
+{
+  "id": "web3-daily-digest",
+  "name": "web3-daily-digest",
+  "slug": "web3-daily-digest",
+  "category": "research",
+  "description": "Generate a daily Web3/Crypto news digest from 30+ top crypto blogs, research firms, and DeFi protocols. Trigger with /web3digest. Fetches RSS feeds, scores articles by relevance/quality, and produces ",
+  "author": {
+    "github": "arfandi453",
+    "name": "arfandi453"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/arfandi453/web3-daily-digest",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:37:32Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
