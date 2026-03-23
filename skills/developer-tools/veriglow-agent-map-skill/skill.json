@@ -1,0 +1,32 @@
+{
+  "id": "veriglow-agent-map-skill",
+  "name": "veriglow-agent-map-skill",
+  "slug": "veriglow-agent-map-skill",
+  "category": "developer-tools",
+  "description": "Visualize and analyze agent workflows with VeriGlow's Agent Map Skill for streamlined process tracking and debugging.",
+  "author": {
+    "github": "Shroomfaerie",
+    "name": "Shroomfaerie"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Shroomfaerie/veriglow-agent-map-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:36:56Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
