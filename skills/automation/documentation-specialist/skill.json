@@ -1,0 +1,32 @@
+{
+  "id": "documentation-specialist",
+  "name": "documentation-specialist",
+  "slug": "documentation-specialist",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "SpillwaveSolutions",
+    "name": "SpillwaveSolutions"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SpillwaveSolutions/document-specialist-skill",
+  "stars": 15,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:35Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
