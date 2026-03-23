@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-phone-skills-v2",
+  "name": "openclaw-phone-skills-v2",
+  "slug": "openclaw-phone-skills-v2",
+  "category": "automation",
+  "description": "OpenClaw skills: phone-charger and phone-review",
+  "author": {
+    "github": "GiaoHYH",
+    "name": "GiaoHYH"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/GiaoHYH/openclaw-phone-skills-v2",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:46:54Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
