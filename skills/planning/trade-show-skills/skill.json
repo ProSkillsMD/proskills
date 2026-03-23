@@ -1,0 +1,32 @@
+{
+  "id": "trade-show-skills",
+  "name": "trade-show-skills",
+  "slug": "trade-show-skills",
+  "category": "planning",
+  "description": "Provide OpenClaw skills to streamline trade show selection, pre-show planning, on-site execution, and post-show follow-up.",
+  "author": {
+    "github": "rubyt5673",
+    "name": "rubyt5673"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/rubyt5673/trade-show-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T12:31:33Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
