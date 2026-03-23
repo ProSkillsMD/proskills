@@ -1,0 +1,32 @@
+{
+  "id": "glazyr-viz",
+  "name": "glazyr-viz",
+  "slug": "glazyr-viz",
+  "category": "research",
+  "description": "Cloud-isolated web automation using Zero-Copy Vision. Safely navigate, click, type, and extract data without running a local chromium instance. All web rendering happens on Glazyr's GCP Big Iron infra",
+  "author": {
+    "github": "glazyr",
+    "name": "glazyr"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/glazyr/glazyr-viz",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:40:02Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
