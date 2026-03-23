@@ -1,0 +1,32 @@
+{
+  "id": "mastering-langgraph",
+  "name": "mastering-langgraph",
+  "slug": "mastering-langgraph",
+  "category": "automation",
+  "description": "Build stateful AI agents and agentic workflows with LangGraph in Python. Covers tool-using agents with LLM-tool loops, branching workflows, conversation memory, human-in-the-loop oversight, and produc",
+  "author": {
+    "github": "SpillwaveSolutions",
+    "name": "SpillwaveSolutions"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SpillwaveSolutions/mastering-langgraph-agent-skill",
+  "stars": 26,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:37Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
