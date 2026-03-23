@@ -1,0 +1,32 @@
+{
+  "id": "github-explorer",
+  "name": "github-explorer",
+  "slug": "github-explorer",
+  "category": "developer-tools",
+  "description": ">",
+  "author": {
+    "github": "blessonism",
+    "name": "blessonism"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/blessonism/github-explorer-skill",
+  "stars": 65,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:41Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
