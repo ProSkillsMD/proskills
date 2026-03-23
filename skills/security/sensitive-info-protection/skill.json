@@ -1,0 +1,32 @@
+{
+  "id": "sensitive-info-protection",
+  "name": "sensitive-info-protection",
+  "slug": "sensitive-info-protection",
+  "category": "security",
+  "description": "Sensitive information real-time protection skill that automatically detects, alerts, and handles sensitive data in user interactions. Supports custom detection rules, external data source integration,",
+  "author": {
+    "github": "LeeFJ0606",
+    "name": "LeeFJ0606"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/LeeFJ0606/sensitive-info-protection",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:47:53Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
