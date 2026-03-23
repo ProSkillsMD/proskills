@@ -1,0 +1,32 @@
+{
+  "id": "gstack",
+  "name": "gstack",
+  "slug": "gstack",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "garrytan",
+    "name": "garrytan"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/garrytan/gstack",
+  "stars": 39036,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:56:30Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
