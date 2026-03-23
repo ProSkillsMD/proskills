@@ -1,0 +1,32 @@
+{
+  "id": "boot-resume",
+  "name": "boot-resume",
+  "slug": "boot-resume",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "Belugary",
+    "name": "Belugary"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Belugary/boot-resume",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:32Z",
+  "scores": {
+    "average": 8.7
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
