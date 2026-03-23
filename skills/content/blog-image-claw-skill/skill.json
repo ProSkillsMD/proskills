@@ -1,0 +1,32 @@
+{
+  "id": "blog-image-claw-skill",
+  "name": "blog-image-claw-skill",
+  "slug": "blog-image-claw-skill",
+  "category": "content",
+  "description": "Generate ai blog image generator images with AI \u2014 powered by Neta talesofai API.",
+  "author": {
+    "github": "BarbaraLedbettergq",
+    "name": "BarbaraLedbettergq"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/BarbaraLedbettergq/blog-image-claw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:47:45Z",
+  "scores": {
+    "average": 4.2
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
