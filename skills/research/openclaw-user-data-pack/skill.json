@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-user-data-pack",
+  "name": "openclaw-user-data-pack",
+  "slug": "openclaw-user-data-pack",
+  "category": "research",
+  "description": "Agent instructions: pack/apply OpenClaw user data via scripts; overwrite-by-path only. You dry-run first, read EXPORT_MANIFEST.txt, gate optional layers, resolve merge conflicts yourself\u2014never imply s",
+  "author": {
+    "github": "Zhaobudaoyuema",
+    "name": "Zhaobudaoyuema"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Zhaobudaoyuema/openclaw-user-data-pack",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:56:57Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
