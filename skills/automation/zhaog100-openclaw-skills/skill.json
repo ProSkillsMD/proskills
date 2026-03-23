@@ -1,0 +1,32 @@
+{
+  "id": "zhaog100-openclaw-skills",
+  "name": "zhaog100/openclaw-skills",
+  "slug": "zhaog100-openclaw-skills",
+  "category": "automation",
+  "description": "OpenClaw skills collection by miliger",
+  "author": {
+    "github": "zhaog100",
+    "name": "zhaog100"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/zhaog100/openclaw-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:40:37Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
