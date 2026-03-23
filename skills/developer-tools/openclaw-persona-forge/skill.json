@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-persona-forge",
+  "name": "openclaw-persona-forge",
+  "slug": "openclaw-persona-forge",
+  "category": "developer-tools",
+  "description": "\ud83e\udd9e\ud83d\udd28 OpenClaw AI Agent \u9f99\u867e\u4eba\u8bbe\u953b\u9020\u7089 \u2014 Claude Code Skill for generating lobster personas with identity tension, boundary rules, naming, and AI-generated avatars",
+  "author": {
+    "github": "eamanc-lab",
+    "name": "eamanc-lab"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/eamanc-lab/openclaw-persona-forge",
+  "stars": 3,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:51:07Z",
+  "scores": {
+    "average": 9.3
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
