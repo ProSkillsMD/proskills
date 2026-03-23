@@ -1,0 +1,32 @@
+{
+  "id": "soushen-hunter",
+  "name": "soushen-hunter",
+  "slug": "soushen-hunter",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "abhinav-bharti-max",
+    "name": "abhinav-bharti-max"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/abhinav-bharti-max/soushen-hunter",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:36:51Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
