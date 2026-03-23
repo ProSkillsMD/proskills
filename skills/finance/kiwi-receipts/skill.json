@@ -1,0 +1,32 @@
+{
+  "id": "kiwi-receipts",
+  "name": "kiwi-receipts",
+  "slug": "kiwi-receipts",
+  "category": "finance",
+  "description": "NZ tax assistant for sole traders. Process receipt photos into IRD-ready GST reports, track sales income for GST Box 5, calculate IR3 annual income tax, provisional tax, asset depreciation, and export",
+  "author": {
+    "github": "maxazure",
+    "name": "maxazure"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/maxazure/kiwi-receipts",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "finance"
+  ],
+  "verified_at": "2026-03-23T04:58:13Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
