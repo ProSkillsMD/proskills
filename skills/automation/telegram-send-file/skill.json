@@ -1,0 +1,32 @@
+{
+  "id": "telegram-send-file",
+  "name": "telegram-send-file",
+  "slug": "telegram-send-file",
+  "category": "automation",
+  "description": "Send local files, URLs, or reusable Telegram file_ids into a Telegram chat via Bot API. Use when the task is to deliver a file to Telegram, especially from inside an OpenClaw Telegram session where ch",
+  "author": {
+    "github": "wangwllu",
+    "name": "wangwllu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wangwllu/telegram-send-file",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:56:34Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
