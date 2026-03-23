@@ -1,0 +1,32 @@
+{
+  "id": "ultimate-ai-media-generator-skill",
+  "name": "ultimate-ai-media-generator-skill",
+  "slug": "ultimate-ai-media-generator-skill",
+  "category": "developer-tools",
+  "description": "Generate and monitor CyberBara Public API v1 image and video tasks end-to-end. Use when work involves CyberBara `/api/v1` endpoints for listing models, uploading reference images, quoting credits, cre",
+  "author": {
+    "github": "ZeroLu",
+    "name": "ZeroLu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ZeroLu/Ultimate-AI-Media-Generator-Skill",
+  "stars": 23,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:51:49Z",
+  "scores": {
+    "average": 8.3
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
