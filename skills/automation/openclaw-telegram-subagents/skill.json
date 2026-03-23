@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-telegram-subagents",
+  "name": "openclaw-telegram-subagents",
+  "slug": "openclaw-telegram-subagents",
+  "category": "automation",
+  "description": "A practical OpenClaw skill for putting multiple agents onto Telegram using separate bot accounts, with evidence-based routing validation on OpenClaw 2026.3.2.",
+  "author": {
+    "github": "willren5",
+    "name": "willren5"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/willren5/openclaw-telegram-subagents",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:34:16Z",
+  "scores": {
+    "average": 7.3
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
