@@ -1,0 +1,32 @@
+{
+  "id": "product-manager-skills",
+  "name": "product-manager-skills",
+  "slug": "product-manager-skills",
+  "category": "planning",
+  "description": "PM skill for Claude Code, Codex, Cursor, and Windsurf. Diagnoses SaaS metrics, critiques PRDs, plans roadmaps, runs discovery, coaches PM career transitions, and pressure-tests AI product decisions. S",
+  "author": {
+    "github": "Digidai",
+    "name": "Digidai"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Digidai/product-manager-skills",
+  "stars": 21,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T12:37:09Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
