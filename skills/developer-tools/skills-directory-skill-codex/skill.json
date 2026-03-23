@@ -1,0 +1,32 @@
+{
+  "id": "skills-directory-skill-codex",
+  "name": "skills-directory/skill-codex",
+  "slug": "skills-directory-skill-codex",
+  "category": "developer-tools",
+  "description": "A claude code skill to delegate prompts to codex",
+  "author": {
+    "github": "skills-directory",
+    "name": "skills-directory"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/skills-directory/skill-codex",
+  "stars": 977,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:04Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
