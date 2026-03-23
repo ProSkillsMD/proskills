@@ -1,0 +1,32 @@
+{
+  "id": "submission-fix-facebook-react-skillsmp-fix",
+  "name": "[Submission] Fix (facebook/react) (skillsmp:fix)",
+  "slug": "submission-fix-facebook-react-skillsmp-fix",
+  "category": "research",
+  "description": "The library for web and native user interfaces.",
+  "author": {
+    "github": "facebook",
+    "name": "facebook"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/facebook/react",
+  "stars": 244148,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:59:10Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
