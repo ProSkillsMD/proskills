@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:51:56Z",
+  "last_updated": "2026-03-23T04:52:27Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1494,7 +1494,16 @@
       "score": 8.7,
       "stars": 38,
       "verified_at": "2026-03-23T04:51:54Z"
+    },
+    {
+      "id": "star-office-ui",
+      "name": "star-office-ui",
+      "category": "automation",
+      "slug": "star-office-ui",
+      "score": 8.2,
+      "stars": 5834,
+      "verified_at": "2026-03-23T04:52:25Z"
     }
   ],
-  "total_skills": 155
+  "total_skills": 156
 }
