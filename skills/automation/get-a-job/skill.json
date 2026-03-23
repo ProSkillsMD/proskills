@@ -1,0 +1,32 @@
+{
+  "id": "get-a-job",
+  "name": "get-a-job",
+  "slug": "get-a-job",
+  "category": "automation",
+  "description": "GetAJob - agentic skill for job seekers (OpenClaw or Claude)",
+  "author": {
+    "github": "bitpixi2",
+    "name": "bitpixi2"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/bitpixi2/get-a-job",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:17Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
