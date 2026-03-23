@@ -1,0 +1,32 @@
+{
+  "id": "clawiser",
+  "name": "clawiser",
+  "slug": "clawiser",
+  "category": "automation",
+  "description": "Agent \u8bb0\u5fc6\u4e0e\u5de5\u4f5c\u6d41\u589e\u5f3a\u5957\u4ef6\u3002\u5305\u542b 8 \u4e2a\u6a21\u5757\uff1a\u8bb0\u5fc6\u7cfb\u7edf\uff08memory-deposit\u3001retrieval-enhance\u3001noise-reduction\uff09+ \u5de5\u4f5c\u6d41\uff08hdd\u3001sdd\u3001save-game\u3001load-game\u3001project-skill-pairing\uff09\u3002\u5f53\u7528\u6237\u8bf4\"\u5b89\u88c5 ClaWiser\"\u3001\"\u521d\u59cb\u5316 ClaWiser\"\u3001\"\u8fd0\u884c ClaWiser\"\u65f6\u89e6\u53d1\u3002",
+  "author": {
+    "github": "MattWenJun",
+    "name": "MattWenJun"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/MattWenJun/ClaWiser",
+  "stars": 47,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:15Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
