@@ -1,0 +1,32 @@
+{
+  "id": "clawsec",
+  "name": "Clawsec",
+  "slug": "clawsec",
+  "category": "security",
+  "description": "Free OpenClaw security scanner. 2,890+ agents audited. 3-Layer Audit Protocol. OWASP ASI 10/10 coverage. AI agent integrity layer.",
+  "author": {
+    "github": "ClawSecure",
+    "name": "ClawSecure"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ClawSecure/clawsecure-openclaw-security",
+  "stars": 17,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T05:35:56Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
