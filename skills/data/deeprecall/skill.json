@@ -1,0 +1,32 @@
+{
+  "id": "deeprecall",
+  "name": "deeprecall",
+  "slug": "deeprecall",
+  "category": "data",
+  "description": "A 100% local, SQLite-powered L1/L2 memory engine for AI Agents",
+  "author": {
+    "github": "Hallllllll",
+    "name": "Hallllllll"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Hallllllll/openclaw-deeprecall",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "data"
+  ],
+  "verified_at": "2026-03-23T05:35:14Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
