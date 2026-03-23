@@ -1,0 +1,32 @@
+{
+  "id": "bring",
+  "name": "bring",
+  "slug": "bring",
+  "category": "planning",
+  "description": "Manage Bring! shopping lists \u2014 view lists, add/remove items, check off purchases. Use this skill whenever the user mentions shopping lists, groceries, Bring, adding items to buy, checking what's on th",
+  "author": {
+    "github": "masone",
+    "name": "masone"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/masone/bring-shopping-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T04:51:44Z",
+  "scores": {
+    "average": 8.3
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
