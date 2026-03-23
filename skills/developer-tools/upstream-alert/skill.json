@@ -1,0 +1,32 @@
+{
+  "id": "upstream-alert",
+  "name": "upstream-alert",
+  "slug": "upstream-alert",
+  "category": "developer-tools",
+  "description": "Supply chain risk monitoring engine with AI agent skills (OpenClaw, Claude Code, Gemini)",
+  "author": {
+    "github": "ImL1s",
+    "name": "ImL1s"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ImL1s/upstream-alert",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:01Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
