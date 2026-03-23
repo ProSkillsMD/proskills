@@ -1,0 +1,32 @@
+{
+  "id": "loki-agent",
+  "name": "loki-agent",
+  "slug": "loki-agent",
+  "category": "developer-tools",
+  "description": "Deploy a stateful AI agent in your AWS account. Builds code, infrastructure, and deployments using standard AWS services. One command to deploy via CloudFormation, SAM, or Terraform.",
+  "author": {
+    "github": "inceptionstack",
+    "name": "inceptionstack"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/inceptionstack/loki-agent",
+  "stars": 5,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:39:06Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
