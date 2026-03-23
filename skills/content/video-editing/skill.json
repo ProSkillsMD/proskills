@@ -1,0 +1,32 @@
+{
+  "id": "video-editing",
+  "name": "video-editing",
+  "slug": "video-editing",
+  "category": "content",
+  "description": "Automated video editing skill for talk/vlog/standup videos. Use when: cutting video, splitting video into sentences, merging video clips, extracting audio, transcribing speech, auto-editing oral prese",
+  "author": {
+    "github": "maxazure",
+    "name": "maxazure"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/maxazure/video-editing-skill",
+  "stars": 4,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:47:02Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
