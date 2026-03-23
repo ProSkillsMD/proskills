@@ -1,0 +1,32 @@
+{
+  "id": "submission-hygiene-microsoft-vscode-skillsmp-hygiene",
+  "name": "[Submission] Hygiene (microsoft/vscode) (skillsmp:hygiene)",
+  "slug": "submission-hygiene-microsoft-vscode-skillsmp-hygiene",
+  "category": "developer-tools",
+  "description": "Visual Studio Code",
+  "author": {
+    "github": "microsoft",
+    "name": "microsoft"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/microsoft/vscode",
+  "stars": 182982,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:59:15Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
