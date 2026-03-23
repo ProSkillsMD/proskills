@@ -1,0 +1,32 @@
+{
+  "id": "project-memory",
+  "name": "project-memory",
+  "slug": "project-memory",
+  "category": "automation",
+  "description": "Set up and maintain a structured project memory system in docs/project_notes/ that tracks bugs with solutions, architectural decisions, key project facts, and work history. Use this skill when asked t",
+  "author": {
+    "github": "SpillwaveSolutions",
+    "name": "SpillwaveSolutions"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SpillwaveSolutions/project-memory",
+  "stars": 57,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:40:25Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
