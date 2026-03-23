@@ -1,0 +1,32 @@
+{
+  "id": "agent-orchestrator",
+  "name": "Agent Orchestrator",
+  "slug": "agent-orchestrator",
+  "category": "automation",
+  "description": "openclaw-agent-orchestrator is a task orchestration engine for multi-agent workflows: it turns goals into executable tasks, builds a dependency DAG, assigns tasks to the right agents, and supervises e",
+  "author": {
+    "github": "huruizhi",
+    "name": "huruizhi"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/huruizhi/openclaw-agent-orchestrator",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:33:38Z",
+  "scores": {
+    "average": 7.6
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
