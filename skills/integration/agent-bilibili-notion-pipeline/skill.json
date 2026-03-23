@@ -1,0 +1,32 @@
+{
+  "id": "agent-bilibili-notion-pipeline",
+  "name": "agent-bilibili-notion-pipeline",
+  "slug": "agent-bilibili-notion-pipeline",
+  "category": "integration",
+  "description": "Skill-first Bilibili to Notion pipeline for OpenClaw",
+  "author": {
+    "github": "hiing",
+    "name": "hiing"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hiing/agent-bilibili-notion-pipeline",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "integration"
+  ],
+  "verified_at": "2026-03-23T12:37:12Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
