@@ -1,0 +1,32 @@
+{
+  "id": "lightpanda",
+  "name": "Lightpanda",
+  "slug": "lightpanda",
+  "category": "developer-tools",
+  "description": "Lightpanda browser, drop-in replacement for Chrome and Openclaw default browser - faster and lighter for tasks without graphical rendering like data retrieval. Use it with CDP clients like Playwright ",
+  "author": {
+    "github": "lightpanda-io",
+    "name": "lightpanda-io"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/lightpanda-io/agent-skill",
+  "stars": 23,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:38:06Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
