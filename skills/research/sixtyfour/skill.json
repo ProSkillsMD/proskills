@@ -1,0 +1,32 @@
+{
+  "id": "sixtyfour",
+  "name": "sixtyfour",
+  "slug": "sixtyfour",
+  "category": "research",
+  "description": "People and company intelligence via the Sixtyfour AI API. AI research agents that read the live web \u2014 not static databases \u2014 to return structured, confidence-scored profiles. Use when you need to: (1)",
+  "author": {
+    "github": "Mtjones2501",
+    "name": "Mtjones2501"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Mtjones2501/sixtyfour-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:36:54Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
