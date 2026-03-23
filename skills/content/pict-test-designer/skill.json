@@ -1,0 +1,32 @@
+{
+  "id": "pict-test-designer",
+  "name": "pict-test-designer",
+  "slug": "pict-test-designer",
+  "category": "content",
+  "description": "Design comprehensive test cases using PICT (Pairwise Independent Combinatorial Testing) for any piece of requirements or code. Analyzes inputs, generates PICT models with parameters, values, and const",
+  "author": {
+    "github": "omkamal",
+    "name": "omkamal"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/omkamal/pypict-claude-skill",
+  "stars": 56,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:59:43Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
