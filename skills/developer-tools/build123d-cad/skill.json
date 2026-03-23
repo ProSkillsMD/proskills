@@ -1,0 +1,32 @@
+{
+  "id": "build123d-cad",
+  "name": "build123d-cad",
+  "slug": "build123d-cad",
+  "category": "developer-tools",
+  "description": "Parametric 3D CAD via build123d. Generate STEP, STL, SVG from Python scripts. Use when the user asks to design, model, create, or export 3D parts, enclosures, mounts, brackets, or mechanical component",
+  "author": {
+    "github": "wngfra",
+    "name": "wngfra"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wngfra/build123d-cad",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:56:29Z",
+  "scores": {
+    "average": 9.25
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
