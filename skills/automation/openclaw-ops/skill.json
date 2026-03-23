@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-ops",
+  "name": "openclaw-ops",
+  "slug": "openclaw-ops",
+  "category": "automation",
+  "description": "Archived legacy skill. OpenClaw self-modification guidance has been merged into `openclaw-operator-handbook`. Use the handbook instead.",
+  "author": {
+    "github": "bboyyan",
+    "name": "bboyyan"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/bboyyan/skill-openclaw-ops",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:09Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
