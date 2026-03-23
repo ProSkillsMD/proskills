@@ -1,0 +1,32 @@
+{
+  "id": "sonwr-openclaw-codex-pm-skills",
+  "name": "sonwr/openclaw-codex-pm-skills",
+  "slug": "sonwr-openclaw-codex-pm-skills",
+  "category": "developer-tools",
+  "description": "Adapts phuryn/pm-skills concepts for OpenClaw + Codex-style agents (portable, OpenClaw-friendly skill pack)",
+  "author": {
+    "github": "sonwr",
+    "name": "sonwr"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sonwr/openclaw-codex-pm-skills",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:13Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
