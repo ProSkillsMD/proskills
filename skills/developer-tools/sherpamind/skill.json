@@ -1,0 +1,32 @@
+{
+  "id": "sherpamind",
+  "name": "sherpamind",
+  "slug": "sherpamind",
+  "category": "developer-tools",
+  "description": "Use for SherpaDesk-related requests: ticket lookup, support-history retrieval, account/user/technician analysis, stale-ticket review, workload questions, operational reporting, and open-ended natural-",
+  "author": {
+    "github": "kklouzal",
+    "name": "kklouzal"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/kklouzal/SherpaMind",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:39:38Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
