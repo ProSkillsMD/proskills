@@ -1,0 +1,32 @@
+{
+  "id": "yazcaleb-skilo",
+  "name": "yazcaleb/skilo",
+  "slug": "yazcaleb-skilo",
+  "category": "developer-tools",
+  "description": "Share agent skills with a link. Publish and install SKILL.md artifacts across Claude Code, Codex, Cursor, OpenCode, and more.",
+  "author": {
+    "github": "yazcaleb",
+    "name": "yazcaleb"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/yazcaleb/skilo",
+  "stars": 6,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:32Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
