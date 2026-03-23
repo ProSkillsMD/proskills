@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-security-guard",
+  "name": "openclaw-security-guard",
+  "slug": "openclaw-security-guard",
+  "category": "security",
+  "description": "Complete security layer for OpenClaw - CLI Scanner + Live Dashboard. Secrets detection, config hardening, prompt injection scanning, MCP server auditing. Zero telemetry.",
+  "author": {
+    "github": "2pidata",
+    "name": "2pidata"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/2pidata/openclaw-security-guard",
+  "stars": 15,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T05:32:29Z",
+  "scores": {
+    "average": 7.4
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
