@@ -1,0 +1,32 @@
+{
+  "id": "analemma-gvm-openclaw",
+  "name": "analemma-gvm-openclaw",
+  "slug": "analemma-gvm-openclaw",
+  "category": "automation",
+  "description": "OpenClaw skills for AI agent governance via Analemma GVM",
+  "author": {
+    "github": "skwuwu",
+    "name": "skwuwu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/skwuwu/analemma-gvm-openclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:14Z",
+  "scores": {
+    "average": 9.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
