@@ -1,0 +1,32 @@
+{
+  "id": "data-brief",
+  "name": "data-brief",
+  "slug": "data-brief",
+  "category": "research",
+  "description": ">",
+  "author": {
+    "github": "carrielabs",
+    "name": "carrielabs"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/carrielabs/data-brief",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:38:57Z",
+  "scores": {
+    "average": 7.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
