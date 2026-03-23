@@ -1,0 +1,32 @@
+{
+  "id": "notebooklm-research",
+  "name": "notebooklm-research",
+  "slug": "notebooklm-research",
+  "category": "research",
+  "description": ">",
+  "author": {
+    "github": "claude-world",
+    "name": "claude-world"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/claude-world/notebooklm-skill",
+  "stars": 128,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:46:13Z",
+  "scores": {
+    "average": 8.8
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
