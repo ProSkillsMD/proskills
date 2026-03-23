@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T12:46:27Z",
+  "last_updated": "2026-03-23T12:48:08Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -3825,7 +3825,196 @@
       "score": 8.8,
       "stars": 128,
       "verified_at": "2026-03-23T12:46:13Z"
+    },
+    {
+      "id": "ai-security-guard",
+      "name": "ai-security-guard",
+      "category": "security",
+      "slug": "ai-security-guard",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:46:40Z"
+    },
+    {
+      "id": "alpha-skills",
+      "name": "alpha-skills",
+      "category": "research",
+      "slug": "alpha-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:46:44Z"
+    },
+    {
+      "id": "code-assistant-skill-for-openclaw",
+      "name": "code-assistant-skill-for-openclaw",
+      "category": "developer-tools",
+      "slug": "code-assistant-skill-for-openclaw",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:46:50Z"
+    },
+    {
+      "id": "openclaw-phone-skills-v2",
+      "name": "openclaw-phone-skills-v2",
+      "category": "automation",
+      "slug": "openclaw-phone-skills-v2",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:46:54Z"
+    },
+    {
+      "id": "openclaw-agent-studio",
+      "name": "openclaw-agent-studio",
+      "category": "developer-tools",
+      "slug": "openclaw-agent-studio",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:46:58Z"
+    },
+    {
+      "id": "video-editing",
+      "name": "video-editing",
+      "category": "content",
+      "slug": "video-editing",
+      "score": 8.0,
+      "stars": 4,
+      "verified_at": "2026-03-23T12:47:02Z"
+    },
+    {
+      "id": "my-openclaw-skills",
+      "name": "my-openclaw-skills",
+      "category": "automation",
+      "slug": "my-openclaw-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:05Z"
+    },
+    {
+      "id": "lobster-skills",
+      "name": "lobster-skills",
+      "category": "automation",
+      "slug": "lobster-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:09Z"
+    },
+    {
+      "id": "my-skills",
+      "name": "my-skills",
+      "category": "automation",
+      "slug": "my-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:13Z"
+    },
+    {
+      "id": "agent-skills",
+      "name": "agent-skills",
+      "category": "automation",
+      "slug": "agent-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:17Z"
+    },
+    {
+      "id": "starchain",
+      "name": "starchain",
+      "category": "productivity",
+      "slug": "starchain",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:22Z"
+    },
+    {
+      "id": "shield-harness",
+      "name": "shield-harness",
+      "category": "security",
+      "slug": "shield-harness",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:26Z"
+    },
+    {
+      "id": "openclaw-skills-hub",
+      "name": "OpenClaw_Skills_Hub",
+      "category": "automation",
+      "slug": "openclaw-skills-hub",
+      "score": 3.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:30Z"
+    },
+    {
+      "id": "claude-mem",
+      "name": "claude-mem",
+      "category": "developer-tools",
+      "slug": "claude-mem",
+      "score": 7.5,
+      "stars": 39709,
+      "verified_at": "2026-03-23T12:47:34Z"
+    },
+    {
+      "id": "jimeng-image",
+      "name": "Jimeng-Image",
+      "category": "content",
+      "slug": "jimeng-image",
+      "score": 5.1,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:40Z"
+    },
+    {
+      "id": "blog-image-claw-skill",
+      "name": "blog-image-claw-skill",
+      "category": "content",
+      "slug": "blog-image-claw-skill",
+      "score": 4.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:45Z"
+    },
+    {
+      "id": "antigravity-awesome-skills",
+      "name": "antigravity-awesome-skills",
+      "category": "developer-tools",
+      "slug": "antigravity-awesome-skills",
+      "score": 10.0,
+      "stars": 26750,
+      "verified_at": "2026-03-23T12:47:48Z"
+    },
+    {
+      "id": "sensitive-info-protection",
+      "name": "sensitive-info-protection",
+      "category": "security",
+      "slug": "sensitive-info-protection",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:53Z"
+    },
+    {
+      "id": "ai-router-skill",
+      "name": "ai-router-skill",
+      "category": "automation",
+      "slug": "ai-router-skill",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:47:56Z"
+    },
+    {
+      "id": "auto-discovered-pangolin-spg-amazon-follow-seller-scraper-api-has-skill-md",
+      "name": "[Auto-discovered] Pangolin-spg/amazon-follow-seller-scraper-api \u2014 has SKILL.md",
+      "category": "automation",
+      "slug": "auto-discovered-pangolin-spg-amazon-follow-seller-scraper-api-has-skill-md",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:48:00Z"
+    },
+    {
+      "id": "submission-deborahikssv-antigravity-claw-auto-discovered",
+      "name": "Submission: deborahikssv/Antigravity-claw (auto-discovered)",
+      "category": "automation",
+      "slug": "submission-deborahikssv-antigravity-claw-auto-discovered",
+      "score": 8.0,
+      "stars": 171,
+      "verified_at": "2026-03-23T12:48:04Z"
     }
   ],
-  "total_skills": 414
+  "total_skills": 435
 }
