@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-price-sniper",
+  "name": "openclaw-price-sniper",
+  "slug": "openclaw-price-sniper",
+  "category": "automation",
+  "description": "GenPark agent skill built on the OpenClaw AI agent framework: openclaw-price-sniper",
+  "author": {
+    "github": "alphaparkinc",
+    "name": "alphaparkinc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/alphaparkinc/openclaw-price-sniper",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:35Z",
+  "scores": {
+    "average": 7.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
