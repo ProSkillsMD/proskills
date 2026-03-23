@@ -1,0 +1,32 @@
+{
+  "id": "codex-cli-task",
+  "name": "codex-cli-task",
+  "slug": "codex-cli-task",
+  "category": "automation",
+  "description": "Launch OpenAI Codex CLI async in background with automatic delivery to Telegram/WhatsApp. Use for coding, refactoring, codebase research, file generation, and complex multi-step automations. NOT for q",
+  "author": {
+    "github": "sbrin",
+    "name": "sbrin"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sbrin/openclaw-skill-codex-cli",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:46Z",
+  "scores": {
+    "average": 8.41
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
