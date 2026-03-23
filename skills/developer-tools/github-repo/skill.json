@@ -1,0 +1,32 @@
+{
+  "id": "github-repo",
+  "name": "github-repo",
+  "slug": "github-repo",
+  "category": "developer-tools",
+  "description": "Erstelle und pflege professionelle GitHub Repositories f\u00fcr technische Projekte (MCP-Server, Claude SKILLs, Raspberry Pi, Python, etc.). Verwende diesen Skill immer wenn der User (1) ein neues GitHub R",
+  "author": {
+    "github": "malkreide",
+    "name": "malkreide"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/malkreide/github-repo-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:59:53Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
