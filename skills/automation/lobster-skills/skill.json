@@ -1,0 +1,32 @@
+{
+  "id": "lobster-skills",
+  "name": "lobster-skills",
+  "slug": "lobster-skills",
+  "category": "automation",
+  "description": "\u9f8d\u8766\u7cfb\u7d71 OpenClaw Skill \u5eab",
+  "author": {
+    "github": "khpr",
+    "name": "khpr"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/khpr/lobster-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:47:09Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
