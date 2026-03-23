@@ -1,0 +1,32 @@
+{
+  "id": "nebius",
+  "name": "nebius",
+  "slug": "nebius",
+  "category": "automation",
+  "description": ">",
+  "author": {
+    "github": "colygon",
+    "name": "colygon"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/colygon/nebius-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:31:36Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
