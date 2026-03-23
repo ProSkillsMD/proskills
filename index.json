@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T12:31:43Z",
+  "last_updated": "2026-03-23T12:40:44Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -2943,7 +2943,862 @@
       "score": 7.5,
       "stars": 2,
       "verified_at": "2026-03-23T12:31:41Z"
+    },
+    {
+      "id": "litprog-skill",
+      "name": "litprog-skill",
+      "category": "developer-tools",
+      "slug": "litprog-skill",
+      "score": 9.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:23Z"
+    },
+    {
+      "id": "asoul-support",
+      "name": "asoul-support",
+      "category": "automation",
+      "slug": "asoul-support",
+      "score": 3.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T12:36:26Z"
+    },
+    {
+      "id": "x402-layer",
+      "name": "x402-layer",
+      "category": "automation",
+      "slug": "x402-layer",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:28Z"
+    },
+    {
+      "id": "openclaw-gateway-manager",
+      "name": "openclaw-gateway-manager",
+      "category": "planning",
+      "slug": "openclaw-gateway-manager",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:31Z"
+    },
+    {
+      "id": "voice-auto",
+      "name": "voice-auto",
+      "category": "automation",
+      "slug": "voice-auto",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:34Z"
+    },
+    {
+      "id": "amemo-skill",
+      "name": "amemo-skill",
+      "category": "automation",
+      "slug": "amemo-skill",
+      "score": 8.0,
+      "stars": 5,
+      "verified_at": "2026-03-23T12:36:37Z"
+    },
+    {
+      "id": "stock-analysis-cn",
+      "name": "stock-analysis-cn",
+      "category": "automation",
+      "slug": "stock-analysis-cn",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:40Z"
+    },
+    {
+      "id": "news-monitor",
+      "name": "news-monitor",
+      "category": "developer-tools",
+      "slug": "news-monitor",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:42Z"
+    },
+    {
+      "id": "claw-notebooklm",
+      "name": "claw-notebooklm",
+      "category": "security",
+      "slug": "claw-notebooklm",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:45Z"
+    },
+    {
+      "id": "rivian-ls",
+      "name": "rivian-ls",
+      "category": "developer-tools",
+      "slug": "rivian-ls",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:48Z"
+    },
+    {
+      "id": "soushen-hunter",
+      "name": "soushen-hunter",
+      "category": "automation",
+      "slug": "soushen-hunter",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:51Z"
+    },
+    {
+      "id": "sixtyfour",
+      "name": "sixtyfour",
+      "category": "research",
+      "slug": "sixtyfour",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:54Z"
+    },
+    {
+      "id": "veriglow-agent-map-skill",
+      "name": "veriglow-agent-map-skill",
+      "category": "developer-tools",
+      "slug": "veriglow-agent-map-skill",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:56Z"
+    },
+    {
+      "id": "best-skills",
+      "name": "best-skills",
+      "category": "automation",
+      "slug": "best-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:36:59Z"
+    },
+    {
+      "id": "upstream-alert",
+      "name": "upstream-alert",
+      "category": "developer-tools",
+      "slug": "upstream-alert",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:01Z"
+    },
+    {
+      "id": "openclaw-skill",
+      "name": "openClaw_Skill",
+      "category": "automation",
+      "slug": "openclaw-skill",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:04Z"
+    },
+    {
+      "id": "awesome-openclaw-skills-for-real-work",
+      "name": "awesome-openclaw-skills-for-real-work",
+      "category": "automation",
+      "slug": "awesome-openclaw-skills-for-real-work",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T12:37:06Z"
+    },
+    {
+      "id": "product-manager-skills",
+      "name": "product-manager-skills",
+      "category": "planning",
+      "slug": "product-manager-skills",
+      "score": 8.0,
+      "stars": 21,
+      "verified_at": "2026-03-23T12:37:09Z"
+    },
+    {
+      "id": "agent-bilibili-notion-pipeline",
+      "name": "agent-bilibili-notion-pipeline",
+      "category": "integration",
+      "slug": "agent-bilibili-notion-pipeline",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:12Z"
+    },
+    {
+      "id": "daily-ai-news",
+      "name": "daily-ai-news",
+      "category": "automation",
+      "slug": "daily-ai-news",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:15Z"
+    },
+    {
+      "id": "openclaw-vps-deploy-skill",
+      "name": "openclaw-vps-deploy-skill",
+      "category": "developer-tools",
+      "slug": "openclaw-vps-deploy-skill",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:18Z"
+    },
+    {
+      "id": "openclaw-skill-drawthings",
+      "name": "openclaw-skill-drawthings",
+      "category": "developer-tools",
+      "slug": "openclaw-skill-drawthings",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:21Z"
+    },
+    {
+      "id": "skillsync-mcp",
+      "name": "skillsync-mcp",
+      "category": "research",
+      "slug": "skillsync-mcp",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:24Z"
+    },
+    {
+      "id": "skills",
+      "name": "skills",
+      "category": "developer-tools",
+      "slug": "skills",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:37:26Z"
+    },
+    {
+      "id": "favorites-hub-feishu-table",
+      "name": "favorites-hub-feishu-table",
+      "category": "developer-tools",
+      "slug": "favorites-hub-feishu-table",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:29Z"
+    },
+    {
+      "id": "web3-daily-digest",
+      "name": "web3-daily-digest",
+      "category": "research",
+      "slug": "web3-daily-digest",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:32Z"
+    },
+    {
+      "id": "hotboard",
+      "name": "hotboard",
+      "category": "developer-tools",
+      "slug": "hotboard",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:34Z"
+    },
+    {
+      "id": "openclaw-model-router",
+      "name": "openclaw-model-router",
+      "category": "automation",
+      "slug": "openclaw-model-router",
+      "score": 7.5,
+      "stars": 3,
+      "verified_at": "2026-03-23T12:37:37Z"
+    },
+    {
+      "id": "ai-skills",
+      "name": "ai-skills",
+      "category": "developer-tools",
+      "slug": "ai-skills",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:37:39Z"
+    },
+    {
+      "id": "openclaw-security",
+      "name": "openclaw-security",
+      "category": "security",
+      "slug": "openclaw-security",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:42Z"
+    },
+    {
+      "id": "security-hardening",
+      "name": "security-hardening",
+      "category": "security",
+      "slug": "security-hardening",
+      "score": 8.0,
+      "stars": 18,
+      "verified_at": "2026-03-23T12:37:45Z"
+    },
+    {
+      "id": "swarmkit",
+      "name": "swarmkit",
+      "category": "automation",
+      "slug": "swarmkit",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:47Z"
+    },
+    {
+      "id": "cc-skills-golang",
+      "name": "cc-skills-golang",
+      "category": "automation",
+      "slug": "cc-skills-golang",
+      "score": 7.5,
+      "stars": 36,
+      "verified_at": "2026-03-23T12:37:50Z"
+    },
+    {
+      "id": "openclaw-dev",
+      "name": "openclaw-dev",
+      "category": "automation",
+      "slug": "openclaw-dev",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:37:52Z"
+    },
+    {
+      "id": "lockbook",
+      "name": "lockbook",
+      "category": "security",
+      "slug": "lockbook",
+      "score": 9.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:37:55Z"
+    },
+    {
+      "id": "ui-craft-pro",
+      "name": "ui-craft-pro",
+      "category": "developer-tools",
+      "slug": "ui-craft-pro",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:37:58Z"
+    },
+    {
+      "id": "sdd-orchestrator",
+      "name": "sdd-orchestrator",
+      "category": "automation",
+      "slug": "sdd-orchestrator",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:00Z"
+    },
+    {
+      "id": "mcphero-skills",
+      "name": "mcphero-skills",
+      "category": "developer-tools",
+      "slug": "mcphero-skills",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:03Z"
+    },
+    {
+      "id": "lightpanda",
+      "name": "Lightpanda",
+      "category": "developer-tools",
+      "slug": "lightpanda",
+      "score": 10.0,
+      "stars": 23,
+      "verified_at": "2026-03-23T12:38:06Z"
+    },
+    {
+      "id": "openclaw-ops",
+      "name": "openclaw-ops",
+      "category": "automation",
+      "slug": "openclaw-ops",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:09Z"
+    },
+    {
+      "id": "moodtrip-hotel-search",
+      "name": "moodtrip-hotel-search",
+      "category": "developer-tools",
+      "slug": "moodtrip-hotel-search",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:11Z"
+    },
+    {
+      "id": "analemma-gvm-openclaw",
+      "name": "analemma-gvm-openclaw",
+      "category": "automation",
+      "slug": "analemma-gvm-openclaw",
+      "score": 9.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:14Z"
+    },
+    {
+      "id": "skill-guard",
+      "name": "skill-guard",
+      "category": "security",
+      "slug": "skill-guard",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:17Z"
+    },
+    {
+      "id": "wecom-deep-op",
+      "name": "wecom-deep-op",
+      "category": "automation",
+      "slug": "wecom-deep-op",
+      "score": 9.8,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:20Z"
+    },
+    {
+      "id": "stitch-ui",
+      "name": "stitch-ui",
+      "category": "automation",
+      "slug": "stitch-ui",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:22Z"
+    },
+    {
+      "id": "lg-thinq-universal",
+      "name": "lg-thinq-universal",
+      "category": "automation",
+      "slug": "lg-thinq-universal",
+      "score": 10.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:25Z"
+    },
+    {
+      "id": "ocbs",
+      "name": "OCBS",
+      "category": "developer-tools",
+      "slug": "ocbs",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:27Z"
+    },
+    {
+      "id": "spx-tracking",
+      "name": "spx-tracking",
+      "category": "developer-tools",
+      "slug": "spx-tracking",
+      "score": 5.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:30Z"
+    },
+    {
+      "id": "cairns",
+      "name": "cairns",
+      "category": "automation",
+      "slug": "cairns",
+      "score": 6.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:33Z"
+    },
+    {
+      "id": "openclaw-price-sniper",
+      "name": "openclaw-price-sniper",
+      "category": "automation",
+      "slug": "openclaw-price-sniper",
+      "score": 7.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:35Z"
+    },
+    {
+      "id": "openclaw-darkpattern-buster",
+      "name": "openclaw-darkpattern-buster",
+      "category": "automation",
+      "slug": "openclaw-darkpattern-buster",
+      "score": 7.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:38Z"
+    },
+    {
+      "id": "moniro",
+      "name": "moniro",
+      "category": "automation",
+      "slug": "moniro",
+      "score": 9.0,
+      "stars": 3,
+      "verified_at": "2026-03-23T12:38:41Z"
+    },
+    {
+      "id": "re-engine",
+      "name": "RE-Engine",
+      "category": "automation",
+      "slug": "re-engine",
+      "score": 6.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:43Z"
+    },
+    {
+      "id": "google-play-store-lookup",
+      "name": "google-play-store-lookup",
+      "category": "developer-tools",
+      "slug": "google-play-store-lookup",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:46Z"
+    },
+    {
+      "id": "clawd-skill-manus",
+      "name": "clawd-skill-manus",
+      "category": "automation",
+      "slug": "clawd-skill-manus",
+      "score": 9.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:49Z"
+    },
+    {
+      "id": "seedance",
+      "name": "seedance",
+      "category": "content",
+      "slug": "seedance",
+      "score": 7.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:52Z"
+    },
+    {
+      "id": "smfworks-skills",
+      "name": "smfworks-skills",
+      "category": "automation",
+      "slug": "smfworks-skills",
+      "score": 6.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:38:54Z"
+    },
+    {
+      "id": "data-brief",
+      "name": "data-brief",
+      "category": "research",
+      "slug": "data-brief",
+      "score": 7.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:38:57Z"
+    },
+    {
+      "id": "daily-ai-trend-generator",
+      "name": "daily-ai-trend-generator",
+      "category": "automation",
+      "slug": "daily-ai-trend-generator",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:00Z"
+    },
+    {
+      "id": "social-neuron",
+      "name": "social-neuron",
+      "category": "content",
+      "slug": "social-neuron",
+      "score": 9.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:02Z"
+    },
+    {
+      "id": "loki-agent",
+      "name": "loki-agent",
+      "category": "developer-tools",
+      "slug": "loki-agent",
+      "score": 7.5,
+      "stars": 5,
+      "verified_at": "2026-03-23T12:39:06Z"
+    },
+    {
+      "id": "dev-portal",
+      "name": "dev-portal",
+      "category": "developer-tools",
+      "slug": "dev-portal",
+      "score": 7.5,
+      "stars": 8,
+      "verified_at": "2026-03-23T12:39:09Z"
+    },
+    {
+      "id": "aionui",
+      "name": "AionUi",
+      "category": "developer-tools",
+      "slug": "aionui",
+      "score": 7.5,
+      "stars": 19775,
+      "verified_at": "2026-03-23T12:39:11Z"
+    },
+    {
+      "id": "aklostack-skill",
+      "name": "aklostack-skill",
+      "category": "automation",
+      "slug": "aklostack-skill",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:14Z"
+    },
+    {
+      "id": "get-a-job",
+      "name": "get-a-job",
+      "category": "automation",
+      "slug": "get-a-job",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:17Z"
+    },
+    {
+      "id": "weread",
+      "name": "weread",
+      "category": "automation",
+      "slug": "weread",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:20Z"
+    },
+    {
+      "id": "chromecast",
+      "name": "chromecast",
+      "category": "automation",
+      "slug": "chromecast",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:22Z"
+    },
+    {
+      "id": "openclaw-operator",
+      "name": "openclaw-operator",
+      "category": "automation",
+      "slug": "openclaw-operator",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:25Z"
+    },
+    {
+      "id": "mail-alerts",
+      "name": "mail_alerts",
+      "category": "developer-tools",
+      "slug": "mail-alerts",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:28Z"
+    },
+    {
+      "id": "openclaw-skill-starter",
+      "name": "openclaw-skill-starter",
+      "category": "automation",
+      "slug": "openclaw-skill-starter",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:30Z"
+    },
+    {
+      "id": "moltx-webhook-bridge",
+      "name": "moltx-webhook-bridge",
+      "category": "research",
+      "slug": "moltx-webhook-bridge",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:33Z"
+    },
+    {
+      "id": "obsidian-claw",
+      "name": "obsidian-claw",
+      "category": "automation",
+      "slug": "obsidian-claw",
+      "score": 8.0,
+      "stars": 4,
+      "verified_at": "2026-03-23T12:39:36Z"
+    },
+    {
+      "id": "sherpamind",
+      "name": "sherpamind",
+      "category": "developer-tools",
+      "slug": "sherpamind",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:38Z"
+    },
+    {
+      "id": "glassclaw",
+      "name": "glassclaw",
+      "category": "integration",
+      "slug": "glassclaw",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:41Z"
+    },
+    {
+      "id": "moltbook-challenge-solver",
+      "name": "moltbook-challenge-solver",
+      "category": "security",
+      "slug": "moltbook-challenge-solver",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:44Z"
+    },
+    {
+      "id": "march7th",
+      "name": "march7th",
+      "category": "automation",
+      "slug": "march7th",
+      "score": 5.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:39:46Z"
+    },
+    {
+      "id": "linkedin",
+      "name": "linkedin",
+      "category": "automation",
+      "slug": "linkedin",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:49Z"
+    },
+    {
+      "id": "x-skill",
+      "name": "x-skill",
+      "category": "automation",
+      "slug": "x-skill",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:51Z"
+    },
+    {
+      "id": "purevocals-uvr-automator",
+      "name": "PureVocals-UVR-Automator",
+      "category": "automation",
+      "slug": "purevocals-uvr-automator",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:39:54Z"
+    },
+    {
+      "id": "deepcontentskill23223",
+      "name": "deepcontentskill23223",
+      "category": "content",
+      "slug": "deepcontentskill23223",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:39:57Z"
+    },
+    {
+      "id": "google-docs",
+      "name": "google-docs",
+      "category": "automation",
+      "slug": "google-docs",
+      "score": 8.0,
+      "stars": 2,
+      "verified_at": "2026-03-23T12:39:59Z"
+    },
+    {
+      "id": "glazyr-viz",
+      "name": "glazyr-viz",
+      "category": "research",
+      "slug": "glazyr-viz",
+      "score": 9.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:40:02Z"
+    },
+    {
+      "id": "naver-real-estate-search",
+      "name": "naver-real-estate-search",
+      "category": "automation",
+      "slug": "naver-real-estate-search",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:05Z"
+    },
+    {
+      "id": "gemini-deep-research",
+      "name": "gemini-deep-research",
+      "category": "research",
+      "slug": "gemini-deep-research",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:08Z"
+    },
+    {
+      "id": "wechat-mp-auto",
+      "name": "wechat-mp-auto",
+      "category": "automation",
+      "slug": "wechat-mp-auto",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:40:10Z"
+    },
+    {
+      "id": "send-video-message",
+      "name": "send-video-message",
+      "category": "developer-tools",
+      "slug": "send-video-message",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:14Z"
+    },
+    {
+      "id": "showmeai",
+      "name": "Showmeai",
+      "category": "developer-tools",
+      "slug": "showmeai",
+      "score": 6.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:40:17Z"
+    },
+    {
+      "id": "ham",
+      "name": "ham",
+      "category": "automation",
+      "slug": "ham",
+      "score": 7.5,
+      "stars": 29,
+      "verified_at": "2026-03-23T12:40:19Z"
+    },
+    {
+      "id": "gcc",
+      "name": "gcc",
+      "category": "planning",
+      "slug": "gcc",
+      "score": 8.5,
+      "stars": 35,
+      "verified_at": "2026-03-23T12:40:22Z"
+    },
+    {
+      "id": "project-memory",
+      "name": "project-memory",
+      "category": "automation",
+      "slug": "project-memory",
+      "score": 7.5,
+      "stars": 57,
+      "verified_at": "2026-03-23T12:40:25Z"
+    },
+    {
+      "id": "openclaw-setup",
+      "name": "openclaw-setup",
+      "category": "automation",
+      "slug": "openclaw-setup",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:29Z"
+    },
+    {
+      "id": "xingjiabiapi-setup",
+      "name": "xingjiabiapi-setup",
+      "category": "developer-tools",
+      "slug": "xingjiabiapi-setup",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:31Z"
+    },
+    {
+      "id": "openclaw-skills-excel",
+      "name": "openclaw-skills-excel",
+      "category": "developer-tools",
+      "slug": "openclaw-skills-excel",
+      "score": 7.0,
+      "stars": 3,
+      "verified_at": "2026-03-23T12:40:34Z"
+    },
+    {
+      "id": "zhaog100-openclaw-skills",
+      "name": "zhaog100/openclaw-skills",
+      "category": "automation",
+      "slug": "zhaog100-openclaw-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:37Z"
+    },
+    {
+      "id": "article-illustrator",
+      "name": "article-illustrator",
+      "category": "content",
+      "slug": "article-illustrator",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:40:42Z"
     }
   ],
-  "total_skills": 316
+  "total_skills": 411
 }
