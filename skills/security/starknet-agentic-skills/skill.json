@@ -1,0 +1,32 @@
+{
+  "id": "starknet-agentic-skills",
+  "name": "starknet-agentic-skills",
+  "slug": "starknet-agentic-skills",
+  "category": "security",
+  "description": "Routes Starknet skill invocations to focused modules for contract authoring, testing, optimization, deployment, and audit workflows.",
+  "author": {
+    "github": "keep-starknet-strange",
+    "name": "keep-starknet-strange"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/keep-starknet-strange/starknet-agentic",
+  "stars": 76,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:57:37Z",
+  "scores": {
+    "average": 9.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
