@@ -1,0 +1,32 @@
+{
+  "id": "jimeng-image",
+  "name": "Jimeng-Image",
+  "slug": "jimeng-image",
+  "category": "content",
+  "description": "Use Python to send an image prompt to the Jimeng API and retrieve the generated image from the response when user says \"generate image ...",
+  "author": {
+    "github": "gkhcsc",
+    "name": "gkhcsc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/gkhcsc/jimeng-image-skill_openclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:47:40Z",
+  "scores": {
+    "average": 5.1
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
