@@ -1,0 +1,32 @@
+{
+  "id": "ham",
+  "name": "ham",
+  "slug": "ham",
+  "category": "automation",
+  "description": "Set up Hierarchical Agent Memory (HAM) \u2014 scoped CLAUDE.md files per directory that reduce token spend. Trigger on \"go ham\", \"set up HAM\", \"ham commands\", \"ham help\", \"ham route\", \"ham remove\", \"ham up",
+  "author": {
+    "github": "kromahlusenii-ops",
+    "name": "kromahlusenii-ops"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/kromahlusenii-ops/ham",
+  "stars": 29,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:40:19Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
