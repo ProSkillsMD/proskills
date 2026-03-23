@@ -1,0 +1,32 @@
+{
+  "id": "gemini-deep-research",
+  "name": "gemini-deep-research",
+  "slug": "gemini-deep-research",
+  "category": "research",
+  "description": ">",
+  "author": {
+    "github": "OT1-roy",
+    "name": "OT1-roy"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/OT1-roy/gemini-deep-research-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:40:08Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
