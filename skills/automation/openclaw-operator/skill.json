@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-operator",
+  "name": "openclaw-operator",
+  "slug": "openclaw-operator",
+  "category": "automation",
+  "description": "Enable AI agents to set up, validate, and troubleshoot OpenClaw installations with automated skill and integration management.",
+  "author": {
+    "github": "Rhusaromaticablackbird168",
+    "name": "Rhusaromaticablackbird168"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Rhusaromaticablackbird168/openclaw-operator",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:25Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
