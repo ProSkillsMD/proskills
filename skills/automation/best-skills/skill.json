@@ -1,0 +1,32 @@
+{
+  "id": "best-skills",
+  "name": "best-skills",
+  "slug": "best-skills",
+  "category": "automation",
+  "description": "Provide high-quality, ready-to-use skills for AI agents that trigger automatically based on context without manual input.",
+  "author": {
+    "github": "Kartikpanel2008",
+    "name": "Kartikpanel2008"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Kartikpanel2008/best-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:36:59Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
