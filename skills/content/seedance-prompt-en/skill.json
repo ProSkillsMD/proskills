@@ -1,0 +1,32 @@
+{
+  "id": "seedance-prompt-en",
+  "name": "seedance-prompt-en",
+  "slug": "seedance-prompt-en",
+  "category": "content",
+  "description": "Write effective prompts for Jimeng Seedance 2.0 multimodal AI video generation. Use when users want to create video prompts using text, images, videos, and audio inputs with the @ reference system. Co",
+  "author": {
+    "github": "mightyhuman101",
+    "name": "mightyhuman101"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mightyhuman101/seedance2-skill",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:57:39Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
