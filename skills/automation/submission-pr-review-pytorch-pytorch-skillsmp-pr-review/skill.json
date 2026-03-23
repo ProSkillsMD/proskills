@@ -1,0 +1,32 @@
+{
+  "id": "submission-pr-review-pytorch-pytorch-skillsmp-pr-review",
+  "name": "[Submission] Pr Review (pytorch/pytorch) (skillsmp:pr-review)",
+  "slug": "submission-pr-review-pytorch-pytorch-skillsmp-pr-review",
+  "category": "automation",
+  "description": "Tensors and Dynamic neural networks in Python with strong GPU acceleration",
+  "author": {
+    "github": "pytorch",
+    "name": "pytorch"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/pytorch/pytorch",
+  "stars": 98498,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:54Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
