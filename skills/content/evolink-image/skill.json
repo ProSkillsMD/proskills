@@ -1,0 +1,32 @@
+{
+  "id": "evolink-image",
+  "name": "evolink-image",
+  "slug": "evolink-image",
+  "category": "content",
+  "description": "AI image generation & editing \u2014 GPT Image, GPT-4o, Seedream, Qwen, WAN, Gemini. Text-to-image, image-to-image, inpainting. 19 models, one API key.",
+  "author": {
+    "github": "EvoLinkAI",
+    "name": "EvoLinkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EvoLinkAI/image-generation-skill-for-openclaw",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:57:06Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
