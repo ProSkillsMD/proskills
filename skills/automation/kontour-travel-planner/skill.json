@@ -1,0 +1,32 @@
+{
+  "id": "kontour-travel-planner",
+  "name": "kontour-travel-planner",
+  "slug": "kontour-travel-planner",
+  "category": "automation",
+  "description": "Transform any AI agent into a world-class travel planner using Kontour AI's 9-dimension progressive planning model with structured conversation flow.",
+  "author": {
+    "github": "Bookingdesk-AI",
+    "name": "Bookingdesk-AI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Bookingdesk-AI/kontour-travel-planner",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:21Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
