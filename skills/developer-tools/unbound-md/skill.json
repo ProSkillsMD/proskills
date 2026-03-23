@@ -1,0 +1,32 @@
+{
+  "id": "unbound-md",
+  "name": "unbound.md",
+  "slug": "unbound-md",
+  "category": "developer-tools",
+  "description": "Human Services for Autonomous Agents - Bridging Digital Autonomy and Physical Reality",
+  "author": {
+    "github": "lfglabs-dev",
+    "name": "lfglabs-dev"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/lfglabs-dev/unbound.md",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:56:42Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
