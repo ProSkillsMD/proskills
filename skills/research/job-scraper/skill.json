@@ -1,0 +1,32 @@
+{
+  "id": "job-scraper",
+  "name": "job-scraper",
+  "slug": "job-scraper",
+  "category": "research",
+  "description": "\u591a\u6e90\u62db\u8058\u4fe1\u606f\u722c\u866b - OpenClaw Skill",
+  "author": {
+    "github": "Harig101",
+    "name": "Harig101"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Harig101/job-scraper",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:31:25Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
