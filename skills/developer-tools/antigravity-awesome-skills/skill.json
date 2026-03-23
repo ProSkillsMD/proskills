@@ -1,0 +1,32 @@
+{
+  "id": "antigravity-awesome-skills",
+  "name": "antigravity-awesome-skills",
+  "slug": "antigravity-awesome-skills",
+  "category": "developer-tools",
+  "description": "Installable GitHub library of 1,304+ agentic skills for Claude Code, Cursor, Codex CLI, Gemini CLI, Antigravity, and more. Includes installer CLI, bundles, workflows, and official/community skill coll",
+  "author": {
+    "github": "sickn33",
+    "name": "sickn33"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sickn33/antigravity-awesome-skills",
+  "stars": 26750,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:47:48Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
