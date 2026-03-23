@@ -1,0 +1,32 @@
+{
+  "id": "accli",
+  "name": "accli",
+  "slug": "accli",
+  "category": "productivity",
+  "description": "This skill should be used when interacting with Apple Calendar on macOS. Use it for listing calendars, viewing events, creating/updating/deleting calendar events, and checking availability/free-busy t",
+  "author": {
+    "github": "legoliath",
+    "name": "legoliath"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/legoliath/openclaw-skill-calendar",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:57:26Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
