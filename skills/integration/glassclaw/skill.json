@@ -1,0 +1,32 @@
+{
+  "id": "glassclaw",
+  "name": "glassclaw",
+  "slug": "glassclaw",
+  "category": "integration",
+  "description": "Send interactive cards to Telegram users via Glass Claw \u2014 forms, dashboards, maps, tables, and more.",
+  "author": {
+    "github": "glassclaw",
+    "name": "glassclaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/glassclaw/glassclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "integration"
+  ],
+  "verified_at": "2026-03-23T12:39:41Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
