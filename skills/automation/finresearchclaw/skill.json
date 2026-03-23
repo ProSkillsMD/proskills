@@ -1,0 +1,32 @@
+{
+  "id": "finresearchclaw",
+  "name": "finresearchclaw",
+  "slug": "finresearchclaw",
+  "category": "automation",
+  "description": "Finance, accounting, and investment research automation via the FinResearchClaw repo. Use when asked to run autonomous finance research workflows such as event studies, factor-model research, accounti",
+  "author": {
+    "github": "ChipmunkRPA",
+    "name": "ChipmunkRPA"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ChipmunkRPA/finresearchclaw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:17Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
