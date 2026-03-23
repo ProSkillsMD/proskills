@@ -1,0 +1,32 @@
+{
+  "id": "natural-language-planner",
+  "name": "natural-language-planner",
+  "slug": "natural-language-planner",
+  "category": "productivity",
+  "description": ">",
+  "author": {
+    "github": "bparticle",
+    "name": "bparticle"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/bparticle/natural-language-planner",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:57:41Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
