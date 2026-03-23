@@ -1,0 +1,32 @@
+{
+  "id": "moniro",
+  "name": "moniro",
+  "slug": "moniro",
+  "category": "automation",
+  "description": "OpenClaw skill: moniro",
+  "author": {
+    "github": "lidessen",
+    "name": "lidessen"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/lidessen/moniro",
+  "stars": 3,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:41Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
