@@ -1,0 +1,32 @@
+{
+  "id": "lg-thinq-universal",
+  "name": "lg-thinq-universal",
+  "slug": "lg-thinq-universal",
+  "category": "automation",
+  "description": "Universal LG ThinQ device manager. Discovers appliances (AC, Refrigerator, Washer, etc.) and generates secure, device-specific OpenClaw skills. Use when the user wants to: (1) Integrate LG ThinQ devic",
+  "author": {
+    "github": "UtkarshTheDev",
+    "name": "UtkarshTheDev"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/UtkarshTheDev/LG-ThinQ-Skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:25Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
