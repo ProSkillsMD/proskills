@@ -1,0 +1,32 @@
+{
+  "id": "skillsync-mcp",
+  "name": "skillsync-mcp",
+  "slug": "skillsync-mcp",
+  "category": "research",
+  "description": "Provide an MCP server that enables seamless integration and management of SkillsMP data with Node.js environments supporting Model Context Protocol.",
+  "author": {
+    "github": "Glowboth",
+    "name": "Glowboth"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Glowboth/skillsync-mcp",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:37:24Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
