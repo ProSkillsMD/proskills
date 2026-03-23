@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-darkpattern-buster",
+  "name": "openclaw-darkpattern-buster",
+  "slug": "openclaw-darkpattern-buster",
+  "category": "automation",
+  "description": "GenPark agent skill built on the OpenClaw AI agent framework: openclaw-darkpattern-buster",
+  "author": {
+    "github": "alphaparkinc",
+    "name": "alphaparkinc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/alphaparkinc/openclaw-darkpattern-buster",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:38Z",
+  "scores": {
+    "average": 7.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
