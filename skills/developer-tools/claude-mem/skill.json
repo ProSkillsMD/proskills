@@ -1,0 +1,32 @@
+{
+  "id": "claude-mem",
+  "name": "claude-mem",
+  "slug": "claude-mem",
+  "category": "developer-tools",
+  "description": "A Claude Code plugin that automatically captures everything Claude does during your coding sessions, compresses it with AI (using Claude's agent-sdk), and injects relevant context back into future ses",
+  "author": {
+    "github": "thedotmack",
+    "name": "thedotmack"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/thedotmack/claude-mem",
+  "stars": 39709,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:47:34Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
