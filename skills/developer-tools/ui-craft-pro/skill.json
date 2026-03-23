@@ -1,0 +1,32 @@
+{
+  "id": "ui-craft-pro",
+  "name": "ui-craft-pro",
+  "slug": "ui-craft-pro",
+  "category": "developer-tools",
+  "description": "Turn rough UI ideas into polished, intentional interfaces for landing pages, dashboards, apps, news sites, and product pages. Use when you want more than style suggestions: this skill helps agents cho",
+  "author": {
+    "github": "AiraEliteAgent",
+    "name": "AiraEliteAgent"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/AiraEliteAgent/ui-craft-pro",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:58Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
