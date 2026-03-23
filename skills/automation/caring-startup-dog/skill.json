@@ -1,0 +1,32 @@
+{
+  "id": "caring-startup-dog",
+  "name": "caring-startup-dog",
+  "slug": "caring-startup-dog",
+  "category": "automation",
+  "description": "\u5173\u7231\u521b\u4e1a\u72d7 - OpenClaw Skill + macOS \u684c\u9762\u5ba0\u7269\u3002\u81ea\u52a8\u68c0\u6d4b\u5de5\u4f5c\u72b6\u6001\uff0c\u50cf\u7d20\u72d7\u966a\u4f60\u521b\u4e1a\u3002",
+  "author": {
+    "github": "NoDeskAI",
+    "name": "NoDeskAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/NoDeskAI/caring-startup-dog",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:57:44Z",
+  "scores": {
+    "average": 7.4
+  },
+  "rocket_findings": {
+    "license": "Apache License 2.0",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
