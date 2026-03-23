@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:53:28Z",
+  "last_updated": "2026-03-23T04:57:47Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1521,7 +1521,394 @@
       "score": 10.0,
       "stars": 0,
       "verified_at": "2026-03-23T04:53:25Z"
+    },
+    {
+      "id": "build123d-cad",
+      "name": "build123d-cad",
+      "category": "developer-tools",
+      "slug": "build123d-cad",
+      "score": 9.25,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:56:29Z"
+    },
+    {
+      "id": "gstack",
+      "name": "gstack",
+      "category": "automation",
+      "slug": "gstack",
+      "score": 10.0,
+      "stars": 39036,
+      "verified_at": "2026-03-23T04:56:30Z"
+    },
+    {
+      "id": "daily-brief",
+      "name": "daily-brief",
+      "category": "productivity",
+      "slug": "daily-brief",
+      "score": 9.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:32Z"
+    },
+    {
+      "id": "telegram-send-file",
+      "name": "telegram-send-file",
+      "category": "automation",
+      "slug": "telegram-send-file",
+      "score": 8.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:56:34Z"
+    },
+    {
+      "id": "learning-tracker",
+      "name": "learning-tracker",
+      "category": "automation",
+      "slug": "learning-tracker",
+      "score": 9.8,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:37Z"
+    },
+    {
+      "id": "study-buddy",
+      "name": "study-buddy",
+      "category": "productivity",
+      "slug": "study-buddy",
+      "score": 8.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:39Z"
+    },
+    {
+      "id": "ms-forms-auto",
+      "name": "ms-forms-auto",
+      "category": "automation",
+      "slug": "ms-forms-auto",
+      "score": 8.8,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:40Z"
+    },
+    {
+      "id": "unbound-md",
+      "name": "unbound.md",
+      "category": "developer-tools",
+      "slug": "unbound-md",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:56:42Z"
+    },
+    {
+      "id": "audio-segmenter",
+      "name": "Audio-Segmenter",
+      "category": "content",
+      "slug": "audio-segmenter",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:44Z"
+    },
+    {
+      "id": "mp4-to-mp3-extractor",
+      "name": "mp4-to-mp3-extractor",
+      "category": "research",
+      "slug": "mp4-to-mp3-extractor",
+      "score": 7.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:46Z"
+    },
+    {
+      "id": "agent-meeting-skill",
+      "name": "agent-meeting-skill",
+      "category": "productivity",
+      "slug": "agent-meeting-skill",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:48Z"
+    },
+    {
+      "id": "x-ai-articles",
+      "name": "x-ai-articles",
+      "category": "content",
+      "slug": "x-ai-articles",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:49Z"
+    },
+    {
+      "id": "decision-orchestrator-skill",
+      "name": "decision-orchestrator-skill",
+      "category": "automation",
+      "slug": "decision-orchestrator-skill",
+      "score": 7.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:51Z"
+    },
+    {
+      "id": "api-gateway",
+      "name": "api-gateway",
+      "category": "developer-tools",
+      "slug": "api-gateway",
+      "score": 9.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:53Z"
+    },
+    {
+      "id": "opensearch-vector-search",
+      "name": "opensearch-vector-search",
+      "category": "data",
+      "slug": "opensearch-vector-search",
+      "score": 8.7,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:55Z"
+    },
+    {
+      "id": "openclaw-user-data-pack",
+      "name": "openclaw-user-data-pack",
+      "category": "research",
+      "slug": "openclaw-user-data-pack",
+      "score": 9.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:57Z"
+    },
+    {
+      "id": "alibabacloud-rds-inspection",
+      "name": "alibabacloud-rds-inspection",
+      "category": "integration",
+      "slug": "alibabacloud-rds-inspection",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:56:59Z"
+    },
+    {
+      "id": "stock-analysis-skill",
+      "name": "stock_analysis_skill",
+      "category": "finance",
+      "slug": "stock-analysis-skill",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:01Z"
+    },
+    {
+      "id": "stock-analysis",
+      "name": "stock-analysis",
+      "category": "finance",
+      "slug": "stock-analysis",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:02Z"
+    },
+    {
+      "id": "evolink-nano-banana-2",
+      "name": "evolink-nano-banana-2",
+      "category": "content",
+      "slug": "evolink-nano-banana-2",
+      "score": 7.5,
+      "stars": 4,
+      "verified_at": "2026-03-23T04:57:04Z"
+    },
+    {
+      "id": "evolink-image",
+      "name": "evolink-image",
+      "category": "content",
+      "slug": "evolink-image",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:06Z"
+    },
+    {
+      "id": "seedance-2-video-gen",
+      "name": "seedance-2-video-gen",
+      "category": "content",
+      "slug": "seedance-2-video-gen",
+      "score": 7.5,
+      "stars": 10,
+      "verified_at": "2026-03-23T04:57:08Z"
+    },
+    {
+      "id": "evolink-video",
+      "name": "evolink-video",
+      "category": "content",
+      "slug": "evolink-video",
+      "score": 8.1,
+      "stars": 9,
+      "verified_at": "2026-03-23T04:57:09Z"
+    },
+    {
+      "id": "openclaw-expert-brain",
+      "name": "openclaw-expert-brain",
+      "category": "productivity",
+      "slug": "openclaw-expert-brain",
+      "score": 9.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:11Z"
+    },
+    {
+      "id": "project-loop",
+      "name": "project-loop",
+      "category": "automation",
+      "slug": "project-loop",
+      "score": 10.0,
+      "stars": 10,
+      "verified_at": "2026-03-23T04:57:13Z"
+    },
+    {
+      "id": "chat-history-import",
+      "name": "chat-history-import",
+      "category": "data",
+      "slug": "chat-history-import",
+      "score": 10.0,
+      "stars": 79,
+      "verified_at": "2026-03-23T04:57:15Z"
+    },
+    {
+      "id": "finresearchclaw",
+      "name": "finresearchclaw",
+      "category": "automation",
+      "slug": "finresearchclaw",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:17Z"
+    },
+    {
+      "id": "clawguard",
+      "name": "clawguard",
+      "category": "security",
+      "slug": "clawguard",
+      "score": 9.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:19Z"
+    },
+    {
+      "id": "evolve",
+      "name": "evolve",
+      "category": "automation",
+      "slug": "evolve",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:21Z"
+    },
+    {
+      "id": "auto-skill-improver",
+      "name": "auto-skill-improver",
+      "category": "developer-tools",
+      "slug": "auto-skill-improver",
+      "score": 8.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:22Z"
+    },
+    {
+      "id": "personal-hooks",
+      "name": "personal-hooks",
+      "category": "security",
+      "slug": "personal-hooks",
+      "score": 10.0,
+      "stars": 2,
+      "verified_at": "2026-03-23T04:57:24Z"
+    },
+    {
+      "id": "accli",
+      "name": "accli",
+      "category": "productivity",
+      "slug": "accli",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:26Z"
+    },
+    {
+      "id": "minimax-tools",
+      "name": "minimax-tools",
+      "category": "content",
+      "slug": "minimax-tools",
+      "score": 8.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:28Z"
+    },
+    {
+      "id": "revenium",
+      "name": "revenium",
+      "category": "finance",
+      "slug": "revenium",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:30Z"
+    },
+    {
+      "id": "boot-resume",
+      "name": "boot-resume",
+      "category": "automation",
+      "slug": "boot-resume",
+      "score": 8.7,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:32Z"
+    },
+    {
+      "id": "openclaw-session-manager",
+      "name": "openclaw-session-manager",
+      "category": "integration",
+      "slug": "openclaw-session-manager",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:33Z"
+    },
+    {
+      "id": "kaomoji",
+      "name": "kaomoji",
+      "category": "automation",
+      "slug": "kaomoji",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:35Z"
+    },
+    {
+      "id": "starknet-agentic-skills",
+      "name": "starknet-agentic-skills",
+      "category": "security",
+      "slug": "starknet-agentic-skills",
+      "score": 9.5,
+      "stars": 76,
+      "verified_at": "2026-03-23T04:57:37Z"
+    },
+    {
+      "id": "seedance-prompt-en",
+      "name": "seedance-prompt-en",
+      "category": "content",
+      "slug": "seedance-prompt-en",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T04:57:39Z"
+    },
+    {
+      "id": "natural-language-planner",
+      "name": "natural-language-planner",
+      "category": "productivity",
+      "slug": "natural-language-planner",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:41Z"
+    },
+    {
+      "id": "skywork-skills",
+      "name": "Skywork-Skills",
+      "category": "developer-tools",
+      "slug": "skywork-skills",
+      "score": 7.5,
+      "stars": 44,
+      "verified_at": "2026-03-23T04:57:43Z"
+    },
+    {
+      "id": "caring-startup-dog",
+      "name": "caring-startup-dog",
+      "category": "automation",
+      "slug": "caring-startup-dog",
+      "score": 7.4,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:57:44Z"
+    },
+    {
+      "id": "openclaw-jobsearch",
+      "name": "openclaw-jobsearch",
+      "category": "research",
+      "slug": "openclaw-jobsearch",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:57:46Z"
     }
   ],
-  "total_skills": 158
+  "total_skills": 201
 }
