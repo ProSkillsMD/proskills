@@ -1,0 +1,32 @@
+{
+  "id": "stitch-ui",
+  "name": "stitch-ui",
+  "slug": "stitch-ui",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "rexnode",
+    "name": "rexnode"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/rexnode/stitch-ui-skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:22Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
