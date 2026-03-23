@@ -1,0 +1,32 @@
+{
+  "id": "learning-tracker",
+  "name": "learning-tracker",
+  "slug": "learning-tracker",
+  "category": "automation",
+  "description": "Track what you learn across sessions. Record entries, get AI summaries, earn $RIKA rewards. Works with any AI agent or framework.",
+  "author": {
+    "github": "Rui-h-balvit",
+    "name": "Rui-h-balvit"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Rui-h-balvit/learning-tracker-sdk",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:56:37Z",
+  "scores": {
+    "average": 9.8
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
