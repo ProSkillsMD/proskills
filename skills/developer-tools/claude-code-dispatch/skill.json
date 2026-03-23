@@ -1,0 +1,32 @@
+{
+  "id": "claude-code-dispatch",
+  "name": "claude-code-dispatch",
+  "slug": "claude-code-dispatch",
+  "category": "developer-tools",
+  "description": ">",
+  "author": {
+    "github": "win4r",
+    "name": "win4r"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/win4r/claude-code-dispatch",
+  "stars": 38,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:51:54Z",
+  "scores": {
+    "average": 8.7
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
