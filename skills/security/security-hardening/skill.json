@@ -1,0 +1,32 @@
+{
+  "id": "security-hardening",
+  "name": "security-hardening",
+  "slug": "security-hardening",
+  "category": "security",
+  "description": "Scan your OpenClaw configuration for security risks and harden it with guided fixes. Supports three hardening levels. Use when asked to \"security check\", \"\u5b89\u5168\u68c0\u67e5\", \"security audit\", \"harden my setup\", \"",
+  "author": {
+    "github": "shanggqm",
+    "name": "shanggqm"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/shanggqm/openclaw-security-hardening",
+  "stars": 18,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:37:45Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
