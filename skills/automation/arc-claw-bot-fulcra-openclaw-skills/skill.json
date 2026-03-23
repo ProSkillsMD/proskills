@@ -1,0 +1,32 @@
+{
+  "id": "arc-claw-bot-fulcra-openclaw-skills",
+  "name": "arc-claw-bot/fulcra-openclaw-skills",
+  "slug": "arc-claw-bot-fulcra-openclaw-skills",
+  "category": "automation",
+  "description": "Collection of OpenClaw skills for Fulcra health data integration. Morning briefings, proactive health alerts, biometric context dumps.",
+  "author": {
+    "github": "arc-claw-bot",
+    "name": "arc-claw-bot"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/arc-claw-bot/fulcra-openclaw-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:01:37Z",
+  "scores": {
+    "average": 7.91
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
