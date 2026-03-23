@@ -1,0 +1,32 @@
+{
+  "id": "trust-openclaw",
+  "name": "trust-openclaw",
+  "slug": "trust-openclaw",
+  "category": "automation",
+  "description": "OpenClaw's trust resource",
+  "author": {
+    "github": "openclaw",
+    "name": "openclaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/trust",
+  "stars": 33,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:32:49Z",
+  "scores": {
+    "average": 7.1
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
