@@ -1,0 +1,32 @@
+{
+  "id": "minimax-tools",
+  "name": "minimax-tools",
+  "slug": "minimax-tools",
+  "category": "content",
+  "description": "Direct MiniMax API integration for speech synthesis (TTS), voice cloning, image generation, video generation, and music generation using local Python scripts instead of MCP. Use when you want reliable",
+  "author": {
+    "github": "cytwyatt",
+    "name": "cytwyatt"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/cytwyatt/minimax-tools-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:57:28Z",
+  "scores": {
+    "average": 8.2
+  },
+  "rocket_findings": {
+    "license": "MIT No Attribution",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
