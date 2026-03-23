@@ -1,0 +1,32 @@
+{
+  "id": "claw-notebooklm",
+  "name": "claw-notebooklm",
+  "slug": "claw-notebooklm",
+  "category": "security",
+  "description": "Operates NotebookLM from OpenClaw via the `notebooklm` CLI, including install guidance, Browser Relay auth export, route presets, notebook/source management, source-grounded Q&A, and artifact generati",
+  "author": {
+    "github": "evgyur",
+    "name": "evgyur"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/evgyur/claw-notebook-llm",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:36:45Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
