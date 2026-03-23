@@ -1,0 +1,32 @@
+{
+  "id": "claw-research",
+  "name": "claw-research",
+  "slug": "claw-research",
+  "category": "research",
+  "description": "Bayesian-powered market demand research. Collect market signals, then use dynamic Bayesian inference to estimate success and payment probabilities with transparent reasoning. Use when you need data-dr",
+  "author": {
+    "github": "1695365384",
+    "name": "1695365384"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/1695365384/claw-research",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:31:41Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
