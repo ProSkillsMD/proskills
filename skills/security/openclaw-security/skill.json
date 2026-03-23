@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-security",
+  "name": "openclaw-security",
+  "slug": "openclaw-security",
+  "category": "security",
+  "description": "OpenClaw security hardening & monitoring. 9-layer defense, 15 checks, auto-harden, config versioning.",
+  "author": {
+    "github": "wisdomsword",
+    "name": "wisdomsword"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wisdomsword/openclaw-security",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:37:42Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
