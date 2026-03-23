@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-agent-studio",
+  "name": "openclaw-agent-studio",
+  "slug": "openclaw-agent-studio",
+  "category": "developer-tools",
+  "description": "Claude Code skill for creating OpenClaw Agents with SOUL.md-driven architecture",
+  "author": {
+    "github": "yangsjt",
+    "name": "yangsjt"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/yangsjt/openclaw-agent-studio",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:46:58Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
