@@ -1,0 +1,32 @@
+{
+  "id": "asoul-support",
+  "name": "asoul-support",
+  "slug": "asoul-support",
+  "category": "automation",
+  "description": "A-SOUL \u7c89\u4e1d\u5e94\u63f4\u5de5\u5177 \u2014 \u68c0\u6d4b\u5f00\u64ad\u81ea\u52a8\u70b9\u4eae\u7c89\u4e1d\u724c+\u5fc3\u8df3\u6302\u673a\u6da8\u4eb2\u5bc6\u5ea6\u3001\u89c6\u9891\u70b9\u8d5e/\u6295\u5e01/\u6536\u85cf\u3001\u52a8\u6001\u70b9\u8d5e\u3002\u89e6\u53d1\u8bcd\uff1aA-SOUL\u3001asoul\u3001\u7b7e\u5230\u3001\u70b9\u8d5e\u3001\u4e09\u8fde\u3001\u5e94\u63f4\u3001\u52a8\u6001\u3001\u70b9\u4eae\u3001\u7c89\u4e1d\u724c\u3001\u5fc3\u8df3\u3001\u6302\u673a\u3001\u76f4\u64ad\u3001\u5609\u7136\u3001\u8d1d\u62c9\u3001\u4e43\u7433\u3001\u5fc3\u5b9c\u3001\u601d\u8bfa\u3002",
+  "author": {
+    "github": "XiaoYiWeio",
+    "name": "XiaoYiWeio"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/XiaoYiWeio/asoul-support",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:36:26Z",
+  "scores": {
+    "average": 3.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
