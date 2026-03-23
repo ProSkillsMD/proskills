@@ -1,0 +1,32 @@
+{
+  "id": "spx-tracking",
+  "name": "spx-tracking",
+  "slug": "spx-tracking",
+  "category": "developer-tools",
+  "description": "Query SPX Express (spx.com.my) shipment tracking from the CLI. No login, no API key \u2014 just a tracking number. Supports JSON, text, and summary output formats. Includes an OpenClaw skill for AI agents.",
+  "author": {
+    "github": "WizisCool",
+    "name": "WizisCool"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/WizisCool/spx-tracking",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:38:30Z",
+  "scores": {
+    "average": 5.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
