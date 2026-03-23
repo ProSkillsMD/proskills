@@ -1,0 +1,32 @@
+{
+  "id": "allaymc-plugin-dev",
+  "name": "allaymc-plugin-dev",
+  "slug": "allaymc-plugin-dev",
+  "category": "automation",
+  "description": "Create, update and troubleshoot AllayMC plugins in Java or other JVM languages. Use when (1) creating a new AllayMC plugin. (2) migrating an existing plugin to AllayMC. (3) troubleshooting an AllayMC ",
+  "author": {
+    "github": "AllayMC",
+    "name": "AllayMC"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/AllayMC/AllaySkill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:54Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "GNU Lesser General Public License v2.1",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
