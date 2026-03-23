@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T05:33:43Z",
+  "last_updated": "2026-03-23T05:37:54Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -2817,7 +2817,70 @@
       "score": 7.6,
       "stars": 2,
       "verified_at": "2026-03-23T05:33:38Z"
+    },
+    {
+      "id": "proxy",
+      "name": "proxy",
+      "category": "developer-tools",
+      "slug": "proxy",
+      "score": 8.1,
+      "stars": 19,
+      "verified_at": "2026-03-23T05:34:06Z"
+    },
+    {
+      "id": "interactive-slides",
+      "name": "interactive-slides",
+      "category": "research",
+      "slug": "interactive-slides",
+      "score": 7.7,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:34:10Z"
+    },
+    {
+      "id": "openclaw-telegram-subagents",
+      "name": "openclaw-telegram-subagents",
+      "category": "automation",
+      "slug": "openclaw-telegram-subagents",
+      "score": 7.3,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:34:16Z"
+    },
+    {
+      "id": "openclaw-skill-openproject",
+      "name": "openclaw-skill-openproject",
+      "category": "productivity",
+      "slug": "openclaw-skill-openproject",
+      "score": 7.7,
+      "stars": 1,
+      "verified_at": "2026-03-23T05:34:25Z"
+    },
+    {
+      "id": "deeprecall",
+      "name": "deeprecall",
+      "category": "data",
+      "slug": "deeprecall",
+      "score": 8.1,
+      "stars": 1,
+      "verified_at": "2026-03-23T05:35:14Z"
+    },
+    {
+      "id": "openclaw-cost-tracker",
+      "name": "openclaw-cost-tracker",
+      "category": "automation",
+      "slug": "openclaw-cost-tracker",
+      "score": 6.9,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:35:34Z"
+    },
+    {
+      "id": "clawsec",
+      "name": "Clawsec",
+      "category": "security",
+      "slug": "clawsec",
+      "score": 8.1,
+      "stars": 17,
+      "verified_at": "2026-03-23T05:35:56Z"
     }
   ],
-  "total_skills": 302
+  "total_skills": 309
 }
