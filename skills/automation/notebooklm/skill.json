@@ -1,0 +1,32 @@
+{
+  "id": "notebooklm",
+  "name": "notebooklm",
+  "slug": "notebooklm",
+  "category": "automation",
+  "description": "Use this skill to query your Google NotebookLM notebooks directly from Claude Code for source-grounded, citation-backed answers from Gemini. Browser automation, library management, persistent auth. Dr",
+  "author": {
+    "github": "PleasePrompto",
+    "name": "PleasePrompto"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/PleasePrompto/notebooklm-skill",
+  "stars": 4863,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:41Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
