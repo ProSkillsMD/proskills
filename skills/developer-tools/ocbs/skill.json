@@ -1,0 +1,32 @@
+{
+  "id": "ocbs",
+  "name": "OCBS",
+  "slug": "ocbs",
+  "category": "developer-tools",
+  "description": "Incremental backup system for OpenClaw with skill and CLI interface - works via chat apps! ",
+  "author": {
+    "github": "KHAEntertainment",
+    "name": "KHAEntertainment"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/KHAEntertainment/OCBS",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:38:27Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
