@@ -1,0 +1,32 @@
+{
+  "id": "ikuai-router",
+  "name": "ikuai-router",
+  "slug": "ikuai-router",
+  "category": "automation",
+  "description": "This skill should be used when working with iKuai (\u7231\u5feb) routers. It provides comprehensive management capabilities for iKuai routers via the official OpenAPI, including user authentication management, ",
+  "author": {
+    "github": "xxtting",
+    "name": "xxtting"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/xxtting/ikuai-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:01:06Z",
+  "scores": {
+    "average": 6.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
