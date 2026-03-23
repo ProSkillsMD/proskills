@@ -1,0 +1,32 @@
+{
+  "id": "submission-frontend-code-review-langgenius-dify-skillsmp-frontend-code-review",
+  "name": "[Submission] Frontend Code Review (langgenius/dify) (skillsmp:frontend-code-review)",
+  "slug": "submission-frontend-code-review-langgenius-dify-skillsmp-frontend-code-review",
+  "category": "automation",
+  "description": "Production-ready platform for agentic workflow development.",
+  "author": {
+    "github": "langgenius",
+    "name": "langgenius"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/langgenius/dify",
+  "stars": 134009,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:04Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
