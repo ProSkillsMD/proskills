@@ -1,0 +1,32 @@
+{
+  "id": "network-ai",
+  "name": "Network-AI",
+  "slug": "network-ai",
+  "category": "automation",
+  "description": "Local Python orchestration skill: multi-agent workflows via shared blackboard file, permission gating, token budget scripts, and persistent project context. The bundled Python scripts make no network ",
+  "author": {
+    "github": "Jovancoding",
+    "name": "Jovancoding"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/jovanSAPFIONEER/Network-AI",
+  "stars": 28,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:51Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
