@@ -1,0 +1,32 @@
+{
+  "id": "csv-data-summarizer",
+  "name": "csv-data-summarizer",
+  "slug": "csv-data-summarizer",
+  "category": "data",
+  "description": "Analyzes CSV files, generates summary stats, and plots quick visualizations using Python and pandas.",
+  "author": {
+    "github": "coffeefuelbump",
+    "name": "coffeefuelbump"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill",
+  "stars": 304,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "data"
+  ],
+  "verified_at": "2026-03-23T04:59:45Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
