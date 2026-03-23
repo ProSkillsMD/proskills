@@ -1,0 +1,32 @@
+{
+  "id": "submission-reproduce-bug-n8n-io-n8n-skillsmp-reproduce-bug",
+  "name": "[Submission] Reproduce Bug (n8n-io/n8n) (skillsmp:reproduce-bug)",
+  "slug": "submission-reproduce-bug-n8n-io-n8n-skillsmp-reproduce-bug",
+  "category": "automation",
+  "description": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+  "author": {
+    "github": "n8n-io",
+    "name": "n8n-io"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/n8n-io/n8n",
+  "stars": 180570,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:06Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
