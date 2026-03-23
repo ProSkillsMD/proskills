@@ -1,0 +1,32 @@
+{
+  "id": "stock-analysis-skill",
+  "name": "stock_analysis_skill",
+  "slug": "stock-analysis-skill",
+  "category": "finance",
+  "description": "Intelligent stock analysis system for OpenClaw - Multi-market support with AI decision dashboard",
+  "author": {
+    "github": "leohuang8688",
+    "name": "leohuang8688"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/leohuang8688/stock_analysis_skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "finance"
+  ],
+  "verified_at": "2026-03-23T04:57:01Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
