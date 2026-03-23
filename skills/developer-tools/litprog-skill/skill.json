@@ -1,0 +1,32 @@
+{
+  "id": "litprog-skill",
+  "name": "litprog-skill",
+  "slug": "litprog-skill",
+  "category": "developer-tools",
+  "description": "Convert codebases into clear literate programs that combine readable documentation with runnable source code for better understanding.",
+  "author": {
+    "github": "ellynncensorious700",
+    "name": "ellynncensorious700"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ellynncensorious700/litprog-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:36:23Z",
+  "scores": {
+    "average": 9.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
