@@ -1,0 +1,32 @@
+{
+  "id": "yoap-communication",
+  "name": "yoap-communication",
+  "slug": "yoap-communication",
+  "category": "security",
+  "description": "YOAP (Yongnian Open Agent Protocol) \u2014 Open A2A protocol with Smart Matching + E2E Encryption + Negotiation Threads + Group Channels",
+  "author": {
+    "github": "huxinran2025-hash",
+    "name": "huxinran2025-hash"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/huxinran2025-hash/YOAP-A2A",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:58:19Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
