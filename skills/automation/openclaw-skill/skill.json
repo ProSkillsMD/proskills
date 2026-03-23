@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-skill",
+  "name": "openClaw_Skill",
+  "slug": "openclaw-skill",
+  "category": "automation",
+  "description": "OpenClaw Skills Collection - \u80a1\u606f\u80a1\u5206\u6790/ODPS \u67e5\u8be2/\u5e94\u7528\u8bc4\u8bba\u5206\u6790",
+  "author": {
+    "github": "hyz2023",
+    "name": "hyz2023"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hyz2023/openClaw_Skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:04Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
