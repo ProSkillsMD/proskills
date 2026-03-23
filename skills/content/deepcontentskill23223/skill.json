@@ -1,0 +1,32 @@
+{
+  "id": "deepcontentskill23223",
+  "name": "deepcontentskill23223",
+  "slug": "deepcontentskill23223",
+  "category": "content",
+  "description": "|",
+  "author": {
+    "github": "scaleintelligence",
+    "name": "scaleintelligence"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/scaleintelligence/content-claw",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:39:57Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT No Attribution",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
