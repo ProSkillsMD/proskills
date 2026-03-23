@@ -1,0 +1,32 @@
+{
+  "id": "bank-recon-skill",
+  "name": "bank-recon-skill",
+  "slug": "bank-recon-skill",
+  "category": "finance",
+  "description": "OpenClaw/ClawHub bank reconciliation skill with PDF bank statement extraction and GL matching.",
+  "author": {
+    "github": "ChipmunkRPA",
+    "name": "ChipmunkRPA"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ChipmunkRPA/bank-recon-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "finance"
+  ],
+  "verified_at": "2026-03-23T04:51:18Z",
+  "scores": {
+    "average": 8.3
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
