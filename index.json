@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:59:55Z",
+  "last_updated": "2026-03-23T05:01:47Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -2439,7 +2439,331 @@
       "score": 7.5,
       "stars": 1,
       "verified_at": "2026-03-23T04:59:54Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-accessibility-review",
+      "name": "anthropics/knowledge-work-plugins \u2014 accessibility-review",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-accessibility-review",
+      "score": 7.7,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:31Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-statistical-analysis",
+      "name": "anthropics/knowledge-work-plugins \u2014 statistical-analysis",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-statistical-analysis",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:33Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-sql-queries",
+      "name": "anthropics/knowledge-work-plugins \u2014 sql-queries",
+      "category": "data",
+      "slug": "anthropics-knowledge-work-plugins-sql-queries",
+      "score": 9.6,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:35Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-interactive-dashboard-builder",
+      "name": "anthropics/knowledge-work-plugins \u2014 interactive-dashboard-builder",
+      "category": "developer-tools",
+      "slug": "anthropics-knowledge-work-plugins-interactive-dashboard-builder",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:37Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-data-validation",
+      "name": "anthropics/knowledge-work-plugins \u2014 data-validation",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-data-validation",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:39Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-data-context-extractor",
+      "name": "anthropics/knowledge-work-plugins \u2014 data-context-extractor",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-data-context-extractor",
+      "score": 8.6,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:41Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-ticket-triage",
+      "name": "anthropics/knowledge-work-plugins \u2014 ticket-triage",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-ticket-triage",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:42Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-response-drafting",
+      "name": "anthropics/knowledge-work-plugins \u2014 response-drafting",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-response-drafting",
+      "score": 9.1,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:44Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-knowledge-management",
+      "name": "anthropics/knowledge-work-plugins \u2014 knowledge-management",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-knowledge-management",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:46Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-escalation",
+      "name": "anthropics/knowledge-work-plugins \u2014 escalation",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-escalation",
+      "score": 9.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:47Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-customer-research",
+      "name": "anthropics/knowledge-work-plugins \u2014 customer-research",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-customer-research",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:49Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-create-cowork-plugin",
+      "name": "anthropics/knowledge-work-plugins \u2014 create-cowork-plugin",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-create-cowork-plugin",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T05:00:51Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-cowork-plugin-customizer",
+      "name": "anthropics/knowledge-work-plugins \u2014 cowork-plugin-customizer",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-cowork-plugin-customizer",
+      "score": 7.5,
+      "stars": 10194,
+      "verified_at": "2026-03-23T05:00:53Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-single-cell-rna-qc",
+      "name": "anthropics/knowledge-work-plugins \u2014 single-cell-rna-qc",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-single-cell-rna-qc",
+      "score": 7.5,
+      "stars": 10194,
+      "verified_at": "2026-03-23T05:00:54Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-scvi-tools",
+      "name": "anthropics/knowledge-work-plugins \u2014 scvi-tools",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-scvi-tools",
+      "score": 7.5,
+      "stars": 10194,
+      "verified_at": "2026-03-23T05:00:56Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-scientific-problem-selection",
+      "name": "anthropics/knowledge-work-plugins \u2014 scientific-problem-selection",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-scientific-problem-selection",
+      "score": 7.5,
+      "stars": 10194,
+      "verified_at": "2026-03-23T05:00:58Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-nextflow-development",
+      "name": "anthropics/knowledge-work-plugins \u2014 nextflow-development",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-nextflow-development",
+      "score": 7.5,
+      "stars": 10194,
+      "verified_at": "2026-03-23T05:01:00Z"
+    },
+    {
+      "id": "family-history-planning",
+      "name": "family-history-planning",
+      "category": "research",
+      "slug": "family-history-planning",
+      "score": 7.5,
+      "stars": 44,
+      "verified_at": "2026-03-23T05:01:02Z"
+    },
+    {
+      "id": "skills-directory-skill-codex",
+      "name": "skills-directory/skill-codex",
+      "category": "developer-tools",
+      "slug": "skills-directory-skill-codex",
+      "score": 7.5,
+      "stars": 977,
+      "verified_at": "2026-03-23T05:01:04Z"
+    },
+    {
+      "id": "ikuai-router",
+      "name": "ikuai-router",
+      "category": "automation",
+      "slug": "ikuai-router",
+      "score": 6.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:01:06Z"
+    },
+    {
+      "id": "openclaw",
+      "name": "openclaw",
+      "category": "integration",
+      "slug": "openclaw",
+      "score": 9.0,
+      "stars": 252,
+      "verified_at": "2026-03-23T05:01:08Z"
+    },
+    {
+      "id": "agent-orchestration-20260309-lzw",
+      "name": "agent-orchestration-20260309-lzw",
+      "category": "automation",
+      "slug": "agent-orchestration-20260309-lzw",
+      "score": 7.6,
+      "stars": 2,
+      "verified_at": "2026-03-23T05:01:10Z"
+    },
+    {
+      "id": "sonwr-openclaw-codex-pm-skills",
+      "name": "sonwr/openclaw-codex-pm-skills",
+      "category": "developer-tools",
+      "slug": "sonwr-openclaw-codex-pm-skills",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T05:01:13Z"
+    },
+    {
+      "id": "submission-openclaw-notion-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Notion (skillsmp)",
+      "category": "automation",
+      "slug": "submission-openclaw-notion-skillsmp",
+      "score": 7.5,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:15Z"
+    },
+    {
+      "id": "submission-openclaw-blogwatcher-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Blogwatcher (skillsmp)",
+      "category": "automation",
+      "slug": "submission-openclaw-blogwatcher-skillsmp",
+      "score": 7.5,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:17Z"
+    },
+    {
+      "id": "submission-openclaw-blucli-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Blucli (skillsmp)",
+      "category": "developer-tools",
+      "slug": "submission-openclaw-blucli-skillsmp",
+      "score": 6.6,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:19Z"
+    },
+    {
+      "id": "submission-openclaw-diffs-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Diffs (skillsmp)",
+      "category": "automation",
+      "slug": "submission-openclaw-diffs-skillsmp",
+      "score": 7.5,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:21Z"
+    },
+    {
+      "id": "submission-openclaw-feishu-doc-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Feishu Doc (skillsmp)",
+      "category": "automation",
+      "slug": "submission-openclaw-feishu-doc-skillsmp",
+      "score": 7.5,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:23Z"
+    },
+    {
+      "id": "submission-openclaw-apple-notes-skillsmp",
+      "name": "[Submission] Openclaw \u2014 Apple Notes (skillsmp)",
+      "category": "automation",
+      "slug": "submission-openclaw-apple-notes-skillsmp",
+      "score": 7.5,
+      "stars": 330672,
+      "verified_at": "2026-03-23T05:01:26Z"
+    },
+    {
+      "id": "yazcaleb-skilo",
+      "name": "yazcaleb/skilo",
+      "category": "developer-tools",
+      "slug": "yazcaleb-skilo",
+      "score": 8.5,
+      "stars": 6,
+      "verified_at": "2026-03-23T05:01:32Z"
+    },
+    {
+      "id": "blessonism-openclaw-search-skills",
+      "name": "blessonism/openclaw-search-skills",
+      "category": "research",
+      "slug": "blessonism-openclaw-search-skills",
+      "score": 7.5,
+      "stars": 352,
+      "verified_at": "2026-03-23T05:01:34Z"
+    },
+    {
+      "id": "arc-claw-bot-fulcra-openclaw-skills",
+      "name": "arc-claw-bot/fulcra-openclaw-skills",
+      "category": "automation",
+      "slug": "arc-claw-bot-fulcra-openclaw-skills",
+      "score": 7.91,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:01:37Z"
+    },
+    {
+      "id": "myeolinmalchi-mcp2cli",
+      "name": "myeolinmalchi/mcp2cli",
+      "category": "developer-tools",
+      "slug": "myeolinmalchi-mcp2cli",
+      "score": 7.9,
+      "stars": 2,
+      "verified_at": "2026-03-23T05:01:39Z"
+    },
+    {
+      "id": "github-explorer",
+      "name": "github-explorer",
+      "category": "developer-tools",
+      "slug": "github-explorer",
+      "score": 8.0,
+      "stars": 65,
+      "verified_at": "2026-03-23T05:01:41Z"
+    },
+    {
+      "id": "decodo-scraper",
+      "name": "decodo-scraper",
+      "category": "research",
+      "slug": "decodo-scraper",
+      "score": 7.4,
+      "stars": 87,
+      "verified_at": "2026-03-23T05:01:43Z"
+    },
+    {
+      "id": "submission-open-source-monitor-openclaw-skill-github-webleon-open-source-monitor-openclaw-skill",
+      "name": "[Submission] open-source-monitor-openclaw-skill (github:webleon/open-source-monitor-openclaw-skill)",
+      "category": "developer-tools",
+      "slug": "submission-open-source-monitor-openclaw-skill-github-webleon-open-source-monitor-openclaw-skill",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T05:01:46Z"
     }
   ],
-  "total_skills": 260
+  "total_skills": 296
 }
