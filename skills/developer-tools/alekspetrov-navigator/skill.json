@@ -1,0 +1,32 @@
+{
+  "id": "alekspetrov-navigator",
+  "name": "alekspetrov/navigator",
+  "slug": "alekspetrov-navigator",
+  "category": "developer-tools",
+  "description": "Finish What You Start \u2014 Context engineering for Claude Code.         Sessions last 20+ exchanges instead of crashing at 7.",
+  "author": {
+    "github": "alekspetrov",
+    "name": "alekspetrov"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/alekspetrov/navigator",
+  "stars": 159,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:58:34Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
