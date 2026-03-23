@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-skill-drawthings",
+  "name": "openclaw-skill-drawthings",
+  "slug": "openclaw-skill-drawthings",
+  "category": "developer-tools",
+  "description": "A high-performance Node.js interface for AI Agents (including OpenClaw, Claude, Gemini CLI, and OpenCode) that enables local AI image generation by managing and connecting to the official Draw Things ",
+  "author": {
+    "github": "mijuu",
+    "name": "mijuu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mijuu/openclaw-skill-drawthings",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:21Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
