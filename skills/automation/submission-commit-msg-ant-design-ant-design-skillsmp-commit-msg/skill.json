@@ -1,0 +1,32 @@
+{
+  "id": "submission-commit-msg-ant-design-ant-design-skillsmp-commit-msg",
+  "name": "[Submission] Commit Msg (ant-design/ant-design) (skillsmp:commit-msg)",
+  "slug": "submission-commit-msg-ant-design-ant-design-skillsmp-commit-msg",
+  "category": "automation",
+  "description": "An enterprise-class UI design language and React UI library",
+  "author": {
+    "github": "ant-design",
+    "name": "ant-design"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ant-design/ant-design",
+  "stars": 97774,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:52Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
