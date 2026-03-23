@@ -1,0 +1,32 @@
+{
+  "id": "myeolinmalchi-mcp2cli",
+  "name": "myeolinmalchi/mcp2cli",
+  "slug": "myeolinmalchi-mcp2cli",
+  "category": "developer-tools",
+  "description": "A Claude Code plugin that converts MCP servers into token-efficient CLI tools with auto-generated SKILL.md files",
+  "author": {
+    "github": "myeolinmalchi",
+    "name": "myeolinmalchi"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/myeolinmalchi/mcp2cli",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:01:39Z",
+  "scores": {
+    "average": 7.9
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
