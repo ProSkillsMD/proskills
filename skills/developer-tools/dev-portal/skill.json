@@ -1,0 +1,32 @@
+{
+  "id": "dev-portal",
+  "name": "dev-portal",
+  "slug": "dev-portal",
+  "category": "developer-tools",
+  "description": "Chainstack Developer Portal",
+  "author": {
+    "github": "chainstack",
+    "name": "chainstack"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/chainstack/dev-portal",
+  "stars": 8,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:39:09Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
