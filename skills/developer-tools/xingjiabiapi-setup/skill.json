@@ -1,0 +1,32 @@
+{
+  "id": "xingjiabiapi-setup",
+  "name": "xingjiabiapi-setup",
+  "slug": "xingjiabiapi-setup",
+  "category": "developer-tools",
+  "description": ">",
+  "author": {
+    "github": "sxl7530-hashs",
+    "name": "sxl7530-hashs"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sxl7530-hashs/xingjiabiapi-openclaw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:40:31Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
