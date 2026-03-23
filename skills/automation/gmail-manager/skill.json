@@ -1,0 +1,32 @@
+{
+  "id": "gmail-manager",
+  "name": "gmail-manager",
+  "slug": "gmail-manager",
+  "category": "automation",
+  "description": "this tool provides AI Agents with a strongly-typed, high-performance, and token-efficient interface for automated mailbox maintenance",
+  "author": {
+    "github": "wildwing821",
+    "name": "wildwing821"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wildwing821/openclaw_skill_gws_gmail_manager",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:33:32Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
