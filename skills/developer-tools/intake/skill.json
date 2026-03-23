@@ -1,0 +1,32 @@
+{
+  "id": "intake",
+  "name": "intake",
+  "slug": "intake",
+  "category": "developer-tools",
+  "description": "GitHub intake service for The Sher Agency \u2014 webhook receiver, repo configurator, project registry",
+  "author": {
+    "github": "maxdevs97",
+    "name": "maxdevs97"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/maxdevs97/openclaw-github-intake",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:37:39Z",
+  "scores": {
+    "average": 6.9
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
