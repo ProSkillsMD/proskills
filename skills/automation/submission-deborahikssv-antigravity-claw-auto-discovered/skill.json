@@ -1,0 +1,32 @@
+{
+  "id": "submission-deborahikssv-antigravity-claw-auto-discovered",
+  "name": "Submission: deborahikssv/Antigravity-claw (auto-discovered)",
+  "slug": "submission-deborahikssv-antigravity-claw-auto-discovered",
+  "category": "automation",
+  "description": "",
+  "author": {
+    "github": "deborahikssv",
+    "name": "deborahikssv"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/deborahikssv/Antigravity-claw",
+  "stars": 171,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:48:04Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
