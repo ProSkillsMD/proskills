@@ -1,0 +1,32 @@
+{
+  "id": "auto-discovered-pangolin-spg-amazon-follow-seller-scraper-api-has-skill-md",
+  "name": "[Auto-discovered] Pangolin-spg/amazon-follow-seller-scraper-api \u2014 has SKILL.md",
+  "slug": "auto-discovered-pangolin-spg-amazon-follow-seller-scraper-api-has-skill-md",
+  "category": "automation",
+  "description": "Best Amazon Follow Seller Scraper API for OpenClaw. Bypass CAPTCHAs and anti-bot systems to scrape Amazon sellers data reliably. Powered by Pangolinfo.",
+  "author": {
+    "github": "Pangolin-spg",
+    "name": "Pangolin-spg"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Pangolin-spg/amazon-follow-seller-scraper-api",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:48:00Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
