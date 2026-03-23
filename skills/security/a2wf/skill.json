@@ -1,0 +1,32 @@
+{
+  "id": "a2wf",
+  "name": "a2wf",
+  "slug": "a2wf",
+  "category": "security",
+  "description": "Validate, generate, and audit A2WF siteai.json files \u2014 the open standard for AI agent governance on websites. Use when working with siteai.json policies, checking website A2WF compliance, generating a",
+  "author": {
+    "github": "a2wf",
+    "name": "a2wf"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/a2wf/openclaw-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:51:10Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
