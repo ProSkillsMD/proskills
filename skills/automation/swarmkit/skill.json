@@ -1,0 +1,32 @@
+{
+  "id": "swarmkit",
+  "name": "swarmkit",
+  "slug": "swarmkit",
+  "category": "automation",
+  "description": "AI\u534f\u4f5c\u7f51\u7edc - \u5b89\u88c5\u5373\u5165\u7f51\uff0cAI\u5373\u6210\u5458 | Agent2Agent communication skill for OpenClaw",
+  "author": {
+    "github": "dagangtj",
+    "name": "dagangtj"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/dagangtj/swarmkit",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:47Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
