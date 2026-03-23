@@ -1,0 +1,32 @@
+{
+  "id": "pdf-utils",
+  "name": "pdf-utils",
+  "slug": "pdf-utils",
+  "category": "automation",
+  "description": "PDF processing skill for PyMuPDF and Tesseract workflows: OCR image-based PDFs, extract arXiv IDs from PDF text/OCR output, and handle scriptable PDF utility tasks when the built-in `pdf` tool is not ",
+  "author": {
+    "github": "wangwllu",
+    "name": "wangwllu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/wangwllu/pdf-utils",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:51:15Z",
+  "scores": {
+    "average": 8.7
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
