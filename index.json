@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T05:37:54Z",
+  "last_updated": "2026-03-23T12:31:43Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -2880,7 +2880,70 @@
       "score": 8.1,
       "stars": 17,
       "verified_at": "2026-03-23T05:35:56Z"
+    },
+    {
+      "id": "job-scraper",
+      "name": "job-scraper",
+      "category": "research",
+      "slug": "job-scraper",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T12:31:25Z"
+    },
+    {
+      "id": "pocketbook",
+      "name": "pocketbook",
+      "category": "automation",
+      "slug": "pocketbook",
+      "score": 8.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:31:28Z"
+    },
+    {
+      "id": "skill-publisher",
+      "name": "skill-publisher",
+      "category": "developer-tools",
+      "slug": "skill-publisher",
+      "score": 9.2,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:31:30Z"
+    },
+    {
+      "id": "trade-show-skills",
+      "name": "trade-show-skills",
+      "category": "planning",
+      "slug": "trade-show-skills",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:31:33Z"
+    },
+    {
+      "id": "nebius",
+      "name": "nebius",
+      "category": "automation",
+      "slug": "nebius",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:31:36Z"
+    },
+    {
+      "id": "mindfeed",
+      "name": "mindfeed",
+      "category": "productivity",
+      "slug": "mindfeed",
+      "score": 8.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:31:39Z"
+    },
+    {
+      "id": "claw-research",
+      "name": "claw-research",
+      "category": "research",
+      "slug": "claw-research",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T12:31:41Z"
     }
   ],
-  "total_skills": 309
+  "total_skills": 316
 }
