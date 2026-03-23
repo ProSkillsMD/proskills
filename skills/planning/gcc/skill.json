@@ -1,0 +1,32 @@
+{
+  "id": "gcc",
+  "name": "gcc",
+  "slug": "gcc",
+  "category": "planning",
+  "description": "Git Context Controller (GCC) - Manages agent memory as a versioned file system under .GCC/. This skill should be used when working on multi-step projects that benefit from structured memory persistenc",
+  "author": {
+    "github": "faugustdev",
+    "name": "faugustdev"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/faugustdev/git-context-controller",
+  "stars": 35,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T12:40:22Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
