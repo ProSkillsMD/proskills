@@ -1,0 +1,32 @@
+{
+  "id": "aklostack-skill",
+  "name": "aklostack-skill",
+  "slug": "aklostack-skill",
+  "category": "automation",
+  "description": "AkloStack OpenClaw skill for publishing SOS and MCP insights",
+  "author": {
+    "github": "LiminalLogic",
+    "name": "LiminalLogic"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/LiminalLogic/aklostack-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:14Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
