@@ -1,0 +1,32 @@
+{
+  "id": "skywork-skills",
+  "name": "Skywork-Skills",
+  "slug": "skywork-skills",
+  "category": "developer-tools",
+  "description": "Skywork Agent Skills for AI office suites, including AI PPT, AI Document, AI Excel, AI Image, AI Search/DeepResearch and AI Music.  These skills can be used by any skills-compatible agent, including C",
+  "author": {
+    "github": "SkyworkAI",
+    "name": "SkyworkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/SkyworkAI/Skywork-Skills",
+  "stars": 44,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:57:43Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
