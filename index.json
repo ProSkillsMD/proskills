@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T12:40:44Z",
+  "last_updated": "2026-03-23T12:46:27Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -3798,7 +3798,34 @@
       "score": 7.5,
       "stars": 0,
       "verified_at": "2026-03-23T12:40:42Z"
+    },
+    {
+      "id": "skill",
+      "name": "skill",
+      "category": "automation",
+      "slug": "skill",
+      "score": 10.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:45:38Z"
+    },
+    {
+      "id": "awesome-tcadclaw",
+      "name": "awesome-tcadclaw",
+      "category": "automation",
+      "slug": "awesome-tcadclaw",
+      "score": 5.0,
+      "stars": 0,
+      "verified_at": "2026-03-23T12:45:49Z"
+    },
+    {
+      "id": "notebooklm-research",
+      "name": "notebooklm-research",
+      "category": "research",
+      "slug": "notebooklm-research",
+      "score": 8.8,
+      "stars": 128,
+      "verified_at": "2026-03-23T12:46:13Z"
     }
   ],
-  "total_skills": 411
+  "total_skills": 414
 }
