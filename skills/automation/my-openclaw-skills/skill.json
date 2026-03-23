@@ -1,0 +1,32 @@
+{
+  "id": "my-openclaw-skills",
+  "name": "my-openclaw-skills",
+  "slug": "my-openclaw-skills",
+  "category": "automation",
+  "description": "\u81ea\u5efaskills",
+  "author": {
+    "github": "liyuwei101401",
+    "name": "liyuwei101401"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/liyuwei101401/my-openclaw-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:47:05Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
