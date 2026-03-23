@@ -1,0 +1,32 @@
+{
+  "id": "maternal-infant-care",
+  "name": "maternal-infant-care",
+  "slug": "maternal-infant-care",
+  "category": "finance",
+  "description": "Bilingual maternal-infant lifecycle support skill (Chinese/English): preconception, pregnancy, postpartum, newborn and infant (0-3 years), with practical triage, 30-day planning, nutrition/menu genera",
+  "author": {
+    "github": "joanvan",
+    "name": "joanvan"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/joanvan/maternal-infant-care-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "finance"
+  ],
+  "verified_at": "2026-03-23T04:58:26Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
