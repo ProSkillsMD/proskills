@@ -1,0 +1,32 @@
+{
+  "id": "move-code-quality",
+  "name": "move-code-quality",
+  "slug": "move-code-quality",
+  "category": "developer-tools",
+  "description": "Analyzes Move language packages against the official Move Book Code Quality Checklist. Use this skill when reviewing Move code, checking Move 2024 Edition compliance, or analyzing Move packages for be",
+  "author": {
+    "github": "1NickPappas",
+    "name": "1NickPappas"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/1NickPappas/move-code-quality-skill",
+  "stars": 18,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:59:49Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
