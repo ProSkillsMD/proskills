@@ -1,0 +1,32 @@
+{
+  "id": "agent-s",
+  "name": "agent-s",
+  "slug": "agent-s",
+  "category": "automation",
+  "description": "OpenCLAW-2-Autonomous-Multi-Agent-Scientific-Research-Platform",
+  "author": {
+    "github": "Agnuxo1",
+    "name": "Agnuxo1"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Agnuxo1/OpenCLAW-2-Autonomous-Multi-Agent-Scientific-Research-Platform",
+  "stars": 16,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:36:12Z",
+  "scores": {
+    "average": 7.4
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
