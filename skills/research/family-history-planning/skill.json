@@ -1,0 +1,32 @@
+{
+  "id": "family-history-planning",
+  "name": "family-history-planning",
+  "slug": "family-history-planning",
+  "category": "research",
+  "description": "Provides assistance with planning family history and genealogy research projects.",
+  "author": {
+    "github": "emaynard",
+    "name": "emaynard"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/emaynard/claude-family-history-research-skill",
+  "stars": 44,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T05:01:02Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
