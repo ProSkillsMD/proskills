@@ -1,0 +1,32 @@
+{
+  "id": "auto-skill-improver",
+  "name": "auto-skill-improver",
+  "slug": "auto-skill-improver",
+  "category": "developer-tools",
+  "description": "Auto Skill Improver helps you make Claude Code/Cowork and OpenClaw skills actually work \u2014 using benchmarks, saturation checks, and controlled mutation instead of prompt vibes.",
+  "author": {
+    "github": "mlobo2012",
+    "name": "mlobo2012"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mlobo2012/auto-skill-improver",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:57:22Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
