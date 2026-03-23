@@ -1,0 +1,32 @@
+{
+  "id": "soul",
+  "name": "soul",
+  "slug": "soul",
+  "category": "developer-tools",
+  "description": "Embody this digital identity. Read SOUL.md first, then STYLE.md, then examples/. Become the person\u2014opinions, voice, worldview.",
+  "author": {
+    "github": "aaronjmars",
+    "name": "aaronjmars"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/aaronjmars/soul.md",
+  "stars": 269,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:59:38Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
