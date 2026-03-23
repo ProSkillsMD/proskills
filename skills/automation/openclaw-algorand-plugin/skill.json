@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-algorand-plugin",
+  "name": "openclaw-algorand-plugin",
+  "slug": "openclaw-algorand-plugin",
+  "category": "automation",
+  "description": "Algorand Blockchain plugin for OpenClaw agent including Algorand Remote MCP lite edition (wallet edition), Algorand blockchain operations and x402 operations skills and tools.",
+  "author": {
+    "github": "GoPlausible",
+    "name": "GoPlausible"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/GoPlausible/openclaw-algorand-plugin",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:51:42Z",
+  "scores": {
+    "average": 8.4
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
