@@ -1,0 +1,32 @@
+{
+  "id": "devboxes",
+  "name": "devboxes",
+  "slug": "devboxes",
+  "category": "devops",
+  "description": "Manage development environment containers (devboxes) with web-accessible VSCode, VNC, and app routing via Traefik or Cloudflare Tunnels. Use when the user asks to create, start, stop, list, or manage ",
+  "author": {
+    "github": "adshrc",
+    "name": "adshrc"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/adshrc/openclaw-devboxes-skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "devops"
+  ],
+  "verified_at": "2026-03-23T04:58:48Z",
+  "scores": {
+    "average": 7.41
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
