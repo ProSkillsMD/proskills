@@ -1,0 +1,32 @@
+{
+  "id": "proxy",
+  "name": "proxy",
+  "slug": "proxy",
+  "category": "developer-tools",
+  "description": "\u4e00\u4e2a OpenClaw \u63d2\u4ef6\uff0c\u7528\u4e8e\u66ff\u6362 Telegram API \u5730\u5740\u4e3a\u81ea\u5b9a\u4e49\u53cd\u5411\u4ee3\u7406\uff0c\u89e3\u51b3\u4e2d\u56fd\u5730\u533a\u65e0\u6cd5\u76f4\u63a5\u8bbf\u95ee `api.telegram.org` \u7684\u95ee\u9898\u3002",
+  "author": {
+    "github": "hillghost86",
+    "name": "hillghost86"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hillghost86/openclaw-telegram-proxy",
+  "stars": 19,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T05:34:06Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
