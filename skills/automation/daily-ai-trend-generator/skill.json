@@ -1,0 +1,32 @@
+{
+  "id": "daily-ai-trend-generator",
+  "name": "daily-ai-trend-generator",
+  "slug": "daily-ai-trend-generator",
+  "category": "automation",
+  "description": "|",
+  "author": {
+    "github": "qingyang-paul",
+    "name": "qingyang-paul"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/qingyang-paul/daily-report",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:00Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
