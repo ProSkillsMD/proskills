@@ -1,0 +1,32 @@
+{
+  "id": "google-play-store-lookup",
+  "name": "google-play-store-lookup",
+  "slug": "google-play-store-lookup",
+  "category": "developer-tools",
+  "description": "Look up public Google Play Store listings by app name and region, then extract the Play Store URL, title, developer, category, rating, description, and screenshot URLs. Use when the user gives an Andr",
+  "author": {
+    "github": "alizeeblack-code",
+    "name": "alizeeblack-code"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/alizeeblack-code/google-play-store-lookup",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:38:46Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
