@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-cost-tracker",
+  "name": "openclaw-cost-tracker",
+  "slug": "openclaw-cost-tracker",
+  "category": "automation",
+  "description": "OpenClaw skill: openclaw-cost-tracker",
+  "author": {
+    "github": "pfrederiksen",
+    "name": "pfrederiksen"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/pfrederiksen/openclaw-cost-tracker",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T05:35:34Z",
+  "scores": {
+    "average": 6.9
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
