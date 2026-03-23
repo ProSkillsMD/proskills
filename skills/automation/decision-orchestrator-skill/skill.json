@@ -1,0 +1,32 @@
+{
+  "id": "decision-orchestrator-skill",
+  "name": "decision-orchestrator-skill",
+  "slug": "decision-orchestrator-skill",
+  "category": "automation",
+  "description": "Use when the user wants to run a Router\u2192Advisors\u2192CEO decision workflow with minimal manual orchestration, generate structured run artifacts, or prepare OpenClaw-compatible payloads.",
+  "author": {
+    "github": "Klarinia",
+    "name": "Klarinia"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Klarinia/decision-orchestrator-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:56:51Z",
+  "scores": {
+    "average": 7.2
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
