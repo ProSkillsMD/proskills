@@ -1,0 +1,32 @@
+{
+  "id": "submission-author-contributions-microsoft-vscode-skillsmp-author-contributions",
+  "name": "[Submission] Author Contributions (microsoft/vscode) (skillsmp:author-contributions)",
+  "slug": "submission-author-contributions-microsoft-vscode-skillsmp-author-contributions",
+  "category": "security",
+  "description": "Visual Studio Code",
+  "author": {
+    "github": "microsoft",
+    "name": "microsoft"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/microsoft/vscode",
+  "stars": 182982,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:58:59Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
