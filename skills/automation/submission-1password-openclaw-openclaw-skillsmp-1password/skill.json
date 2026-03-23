@@ -1,0 +1,32 @@
+{
+  "id": "submission-1password-openclaw-openclaw-skillsmp-1password",
+  "name": "[Submission] 1Password (openclaw/openclaw) (skillsmp:1password)",
+  "slug": "submission-1password-openclaw-openclaw-skillsmp-1password",
+  "category": "automation",
+  "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. \ud83e\udd9e ",
+  "author": {
+    "github": "openclaw",
+    "name": "openclaw"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/openclaw",
+  "stars": 330667,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:59:19Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
