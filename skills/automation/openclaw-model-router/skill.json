@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-model-router",
+  "name": "openclaw-model-router",
+  "slug": "openclaw-model-router",
+  "category": "automation",
+  "description": "Skill for Manifest: OpenClaw LLM Router",
+  "author": {
+    "github": "mnfst",
+    "name": "mnfst"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mnfst/openclaw-model-router",
+  "stars": 3,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:37Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
