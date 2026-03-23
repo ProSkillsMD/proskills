@@ -1,0 +1,32 @@
+{
+  "id": "article-illustrator",
+  "name": "article-illustrator",
+  "slug": "article-illustrator",
+  "category": "content",
+  "description": "Insert scrapbook-style illustrations into articles using Z.AI GLM-image. Use when the user wants to add images to an article, create illustrated content, or requests \"illustrate this article\", \"add im",
+  "author": {
+    "github": "liaosvcaf",
+    "name": "liaosvcaf"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/liaosvcaf/openclaw-skill-article-illustrator",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:40:42Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
