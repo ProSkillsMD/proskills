@@ -1,0 +1,32 @@
+{
+  "id": "submission-verify-facebook-react-skillsmp-verify",
+  "name": "[Submission] Verify (facebook/react) (skillsmp:verify)",
+  "slug": "submission-verify-facebook-react-skillsmp-verify",
+  "category": "research",
+  "description": "The library for web and native user interfaces.",
+  "author": {
+    "github": "facebook",
+    "name": "facebook"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/facebook/react",
+  "stars": 244148,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T04:59:08Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
