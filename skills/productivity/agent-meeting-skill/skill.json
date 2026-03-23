@@ -1,0 +1,32 @@
+{
+  "id": "agent-meeting-skill",
+  "name": "agent-meeting-skill",
+  "slug": "agent-meeting-skill",
+  "category": "productivity",
+  "description": "OpenClaw skill for joining meetings and transcription",
+  "author": {
+    "github": "Diomede81",
+    "name": "Diomede81"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Diomede81/agent-meeting-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T04:56:48Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
