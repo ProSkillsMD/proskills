@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-gateway-manager",
+  "name": "openclaw-gateway-manager",
+  "slug": "openclaw-gateway-manager",
+  "category": "planning",
+  "description": "\ud83e\udd9e Manage OpenClaw gateway instances - query status, modify ports, restart, verify, create and delete safely",
+  "author": {
+    "github": "seastaradmin",
+    "name": "seastaradmin"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/seastaradmin/openclaw-gateway-manager",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "planning"
+  ],
+  "verified_at": "2026-03-23T12:36:31Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
