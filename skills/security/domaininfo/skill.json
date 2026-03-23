@@ -1,0 +1,32 @@
+{
+  "id": "domaininfo",
+  "name": "domaininfo",
+  "slug": "domaininfo",
+  "category": "security",
+  "description": "Look up domain WHOIS information, check email security (DMARC/SPF/DKIM), inspect TLS certificates, and capture website screenshots. Provides a comprehensive, domain-only report.",
+  "author": {
+    "github": "sxlderek",
+    "name": "sxlderek"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/sxlderek/domaininfo-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:51:39Z",
+  "scores": {
+    "average": 9.3
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
