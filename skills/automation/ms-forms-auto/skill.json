@@ -1,0 +1,32 @@
+{
+  "id": "ms-forms-auto",
+  "name": "ms-forms-auto",
+  "slug": "ms-forms-auto",
+  "category": "automation",
+  "description": "Automate Microsoft Forms submission with dual-calendar integration and M365 MFA support. Use when: automating daily productivity log submissions, submitting Microsoft Forms with calendar-based auto-fi",
+  "author": {
+    "github": "ClaireAICodes",
+    "name": "ClaireAICodes"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ClaireAICodes/ms-forms-auto",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:56:40Z",
+  "scores": {
+    "average": 8.8
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
