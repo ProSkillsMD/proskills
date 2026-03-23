@@ -1,0 +1,32 @@
+{
+  "id": "blessonism-openclaw-search-skills",
+  "name": "blessonism/openclaw-search-skills",
+  "slug": "blessonism-openclaw-search-skills",
+  "category": "research",
+  "description": "OpenClaw skills for deep search \u2014 multi-source search, content extraction, and structured research reports.",
+  "author": {
+    "github": "blessonism",
+    "name": "blessonism"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/blessonism/openclaw-search-skills",
+  "stars": 352,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T05:01:34Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
