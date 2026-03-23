@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-dev",
+  "name": "openclaw-dev",
+  "slug": "openclaw-dev",
+  "category": "automation",
+  "description": "Bilingual OpenClaw meta-workspace for skills, agents, local tooling, and community publishing workflows.",
+  "author": {
+    "github": "fzhlian",
+    "name": "fzhlian"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/fzhlian/openclaw-dev",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:52Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
