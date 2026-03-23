@@ -1,0 +1,32 @@
+{
+  "id": "ai-drama-review",
+  "name": "ai-drama-review",
+  "slug": "ai-drama-review",
+  "category": "automation",
+  "description": "AI\u77ed\u5267\u89c4\u8303\u8bc6\u522b\u6280\u80fd\u5305\u3002\u68c0\u6d4bAI\u77ed\u5267\u4e2d\u7684\u6587\u672c/\u5c0f\u8bf4\u7248\u6743\u4fb5\u6743\u3001\u5e74\u9f84\u5206\u7ea7\u5408\u89c4\u6027\uff0818+/12+\uff09\u3001\u5c0f\u8bf4\u9b54\u6539\u7a0b\u5ea6\uff0c\u5e76\u751f\u6210\u7ed3\u6784\u5316\u5408\u89c4\u62a5\u544a\u3002\u652f\u6301\u672c\u5730\u5173\u952e\u8bcd\u5feb\u901f\u626b\u63cf + AI\u6df1\u5ea6\u5206\u6790\u4e24\u5c42\u67b6\u6784\u3002Beta \u9636\u6bb5 - \u4ec5\u4f9b\u53c2\u8003\uff0c\u4e0d\u4f5c\u4e3a\u6cd5\u5f8b\u4f9d\u636e\u3002",
+  "author": {
+    "github": "AAAlenwow",
+    "name": "AAAlenwow"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/AAAlenwow/ai-drama-review",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:58:30Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
