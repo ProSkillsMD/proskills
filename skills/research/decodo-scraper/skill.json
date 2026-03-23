@@ -1,0 +1,32 @@
+{
+  "id": "decodo-scraper",
+  "name": "decodo-scraper",
+  "slug": "decodo-scraper",
+  "category": "research",
+  "description": "Search Google, scrape web pages, Amazon product pages, YouTube subtitles, or Reddit (post/subreddit) using the Decodo Scraper OpenClaw Skill.",
+  "author": {
+    "github": "Decodo",
+    "name": "Decodo"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Decodo/decodo-openclaw-skill",
+  "stars": 87,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T05:01:43Z",
+  "scores": {
+    "average": 7.4
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
