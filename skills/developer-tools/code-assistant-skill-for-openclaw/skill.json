@@ -1,0 +1,32 @@
+{
+  "id": "code-assistant-skill-for-openclaw",
+  "name": "code-assistant-skill-for-openclaw",
+  "slug": "code-assistant-skill-for-openclaw",
+  "category": "developer-tools",
+  "description": "Generate, review, debug, and refactor code in any language. Powered by Evolink.ai",
+  "author": {
+    "github": "EvoLinkAI",
+    "name": "EvoLinkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EvoLinkAI/code-assistant-skill-for-openclaw",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:46:50Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
