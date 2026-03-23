@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:51:19Z",
+  "last_updated": "2026-03-23T04:51:56Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1440,7 +1440,61 @@
       "score": 8.3,
       "stars": 0,
       "verified_at": "2026-03-23T04:51:18Z"
+    },
+    {
+      "id": "domaininfo",
+      "name": "domaininfo",
+      "category": "security",
+      "slug": "domaininfo",
+      "score": 9.3,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:51:39Z"
+    },
+    {
+      "id": "openclaw-algorand-plugin",
+      "name": "openclaw-algorand-plugin",
+      "category": "automation",
+      "slug": "openclaw-algorand-plugin",
+      "score": 8.4,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:51:42Z"
+    },
+    {
+      "id": "bring",
+      "name": "bring",
+      "category": "planning",
+      "slug": "bring",
+      "score": 8.3,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:51:44Z"
+    },
+    {
+      "id": "ultimate-ai-media-generator-skill",
+      "name": "ultimate-ai-media-generator-skill",
+      "category": "developer-tools",
+      "slug": "ultimate-ai-media-generator-skill",
+      "score": 8.3,
+      "stars": 23,
+      "verified_at": "2026-03-23T04:51:49Z"
+    },
+    {
+      "id": "iblai-router",
+      "name": "iblai-router",
+      "category": "developer-tools",
+      "slug": "iblai-router",
+      "score": 8.4,
+      "stars": 28,
+      "verified_at": "2026-03-23T04:51:52Z"
+    },
+    {
+      "id": "claude-code-dispatch",
+      "name": "claude-code-dispatch",
+      "category": "developer-tools",
+      "slug": "claude-code-dispatch",
+      "score": 8.7,
+      "stars": 38,
+      "verified_at": "2026-03-23T04:51:54Z"
     }
   ],
-  "total_skills": 149
+  "total_skills": 155
 }
