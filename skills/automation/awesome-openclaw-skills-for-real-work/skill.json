@@ -1,0 +1,32 @@
+{
+  "id": "awesome-openclaw-skills-for-real-work",
+  "name": "awesome-openclaw-skills-for-real-work",
+  "slug": "awesome-openclaw-skills-for-real-work",
+  "category": "automation",
+  "description": "Curated guide to OpenClaw skills that actually work in real workflows \u2014 58 skills with full documentation",
+  "author": {
+    "github": "EvoLinkAI",
+    "name": "EvoLinkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EvoLinkAI/awesome-openclaw-skills-for-real-work",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:06Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
