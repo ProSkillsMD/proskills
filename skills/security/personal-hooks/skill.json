@@ -1,0 +1,32 @@
+{
+  "id": "personal-hooks",
+  "name": "personal-hooks",
+  "slug": "personal-hooks",
+  "category": "security",
+  "description": "Structured continuity and follow-up skill for OpenClaw agents. Use when an agent needs to decide whether natural user dialogue should stay as casual chat, become staged memory, or become tracked follo",
+  "author": {
+    "github": "AdaBot666",
+    "name": "AdaBot666"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/AdaBot666/personal-hooks",
+  "stars": 2,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:57:24Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
