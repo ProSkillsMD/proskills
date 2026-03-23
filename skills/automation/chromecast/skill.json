@@ -1,0 +1,32 @@
+{
+  "id": "chromecast",
+  "name": "chromecast",
+  "slug": "chromecast",
+  "category": "automation",
+  "description": "Control Cast devices (Chromecast AND Samsung SmartTV) on the local network. Use when the user asks to play a YouTube video on TV, pause/resume, change volume, or list available screens. Discovers all ",
+  "author": {
+    "github": "claudiomolt",
+    "name": "claudiomolt"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/claudiomolt/chromecast-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:39:22Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
