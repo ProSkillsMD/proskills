@@ -1,0 +1,32 @@
+{
+  "id": "ai-skills",
+  "name": "ai-skills",
+  "slug": "ai-skills",
+  "category": "developer-tools",
+  "description": "AI Agent Skills for Claude Code, Manus, OpenClaw & more",
+  "author": {
+    "github": "bytesagain",
+    "name": "bytesagain"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/bytesagain/ai-skills",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:39Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
