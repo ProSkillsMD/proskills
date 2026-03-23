@@ -1,0 +1,32 @@
+{
+  "id": "moltbook-challenge-solver",
+  "name": "moltbook-challenge-solver",
+  "slug": "moltbook-challenge-solver",
+  "category": "security",
+  "description": "Solve Moltbook verification math challenges and complete verification flows safely. Use when posting/commenting returns `verification_code + challenge_text`, or when verification must be handled deter",
+  "author": {
+    "github": "Charpup",
+    "name": "Charpup"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Charpup/moltbook-challenge-solver-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:39:44Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
