@@ -1,0 +1,32 @@
+{
+  "id": "alpha-skills",
+  "name": "alpha-skills",
+  "slug": "alpha-skills",
+  "category": "research",
+  "description": "A collection of OpenClaw skills for investment research and financial workflows",
+  "author": {
+    "github": "zwaydot",
+    "name": "zwaydot"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/zwaydot/alpha-skills",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "research"
+  ],
+  "verified_at": "2026-03-23T12:46:44Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
