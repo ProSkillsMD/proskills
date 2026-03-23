@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T04:57:47Z",
+  "last_updated": "2026-03-23T04:59:55Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -1908,7 +1908,538 @@
       "score": 10.0,
       "stars": 0,
       "verified_at": "2026-03-23T04:57:46Z"
+    },
+    {
+      "id": "xiaohongshu-ops",
+      "name": "xiaohongshu-ops",
+      "category": "automation",
+      "slug": "xiaohongshu-ops",
+      "score": 9.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:58:07Z"
+    },
+    {
+      "id": "claude-code-skill",
+      "name": "claude-code-skill",
+      "category": "developer-tools",
+      "slug": "claude-code-skill",
+      "score": 7.5,
+      "stars": 53,
+      "verified_at": "2026-03-23T04:58:09Z"
+    },
+    {
+      "id": "cookiy",
+      "name": "cookiy",
+      "category": "automation",
+      "slug": "cookiy",
+      "score": 8.1,
+      "stars": 9,
+      "verified_at": "2026-03-23T04:58:11Z"
+    },
+    {
+      "id": "kiwi-receipts",
+      "name": "kiwi-receipts",
+      "category": "finance",
+      "slug": "kiwi-receipts",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:58:13Z"
+    },
+    {
+      "id": "clawiser",
+      "name": "clawiser",
+      "category": "automation",
+      "slug": "clawiser",
+      "score": 7.5,
+      "stars": 47,
+      "verified_at": "2026-03-23T04:58:15Z"
+    },
+    {
+      "id": "pr-issue-triage",
+      "name": "pr-issue-triage",
+      "category": "developer-tools",
+      "slug": "pr-issue-triage",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T04:58:17Z"
+    },
+    {
+      "id": "yoap-communication",
+      "name": "yoap-communication",
+      "category": "security",
+      "slug": "yoap-communication",
+      "score": 7.5,
+      "stars": 2,
+      "verified_at": "2026-03-23T04:58:19Z"
+    },
+    {
+      "id": "kontour-travel-planner",
+      "name": "kontour-travel-planner",
+      "category": "automation",
+      "slug": "kontour-travel-planner",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:58:21Z"
+    },
+    {
+      "id": "awwwards-stitch",
+      "name": "awwwards-stitch",
+      "category": "automation",
+      "slug": "awwwards-stitch",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:58:23Z"
+    },
+    {
+      "id": "nextlevelbuilder-ui-ux-pro-max-skill",
+      "name": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "category": "developer-tools",
+      "slug": "nextlevelbuilder-ui-ux-pro-max-skill",
+      "score": 7.5,
+      "stars": 48264,
+      "verified_at": "2026-03-23T04:58:25Z"
+    },
+    {
+      "id": "maternal-infant-care",
+      "name": "maternal-infant-care",
+      "category": "finance",
+      "slug": "maternal-infant-care",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:58:26Z"
+    },
+    {
+      "id": "low-altitude-guardian",
+      "name": "low-altitude-guardian",
+      "category": "security",
+      "slug": "low-altitude-guardian",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:58:28Z"
+    },
+    {
+      "id": "ai-drama-review",
+      "name": "ai-drama-review",
+      "category": "automation",
+      "slug": "ai-drama-review",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:58:30Z"
+    },
+    {
+      "id": "alirezarezvani-claude-skills",
+      "name": "alirezarezvani/claude-skills",
+      "category": "developer-tools",
+      "slug": "alirezarezvani-claude-skills",
+      "score": 8.1,
+      "stars": 6422,
+      "verified_at": "2026-03-23T04:58:32Z"
+    },
+    {
+      "id": "alekspetrov-navigator",
+      "name": "alekspetrov/navigator",
+      "category": "developer-tools",
+      "slug": "alekspetrov-navigator",
+      "score": 7.5,
+      "stars": 159,
+      "verified_at": "2026-03-23T04:58:34Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-marketing-brand-voice",
+      "name": "anthropics/knowledge-work-plugins \u2014 marketing/brand-voice",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-marketing-brand-voice",
+      "score": 8.35,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:36Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-human-resources-interview-prep",
+      "name": "anthropics/knowledge-work-plugins \u2014 human-resources/interview-prep",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-human-resources-interview-prep",
+      "score": 8.3,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:37Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-human-resources-employee-handbook",
+      "name": "anthropics/knowledge-work-plugins \u2014 human-resources/employee-handbook",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-human-resources-employee-handbook",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:39Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-human-resources-compensation-benchmarking",
+      "name": "anthropics/knowledge-work-plugins \u2014 human-resources/compensation-benchmarking",
+      "category": "automation",
+      "slug": "anthropics-knowledge-work-plugins-human-resources-compensation-benchmarking",
+      "score": 7.6,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:41Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-variance-analysis",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/variance-analysis",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-variance-analysis",
+      "score": 8.71,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:42Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-reconciliation",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/reconciliation",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-reconciliation",
+      "score": 8.0,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:58:44Z"
+    },
+    {
+      "id": "codex-cli-task",
+      "name": "codex-cli-task",
+      "category": "automation",
+      "slug": "codex-cli-task",
+      "score": 8.41,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:58:46Z"
+    },
+    {
+      "id": "devboxes",
+      "name": "devboxes",
+      "category": "devops",
+      "slug": "devboxes",
+      "score": 7.41,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:58:48Z"
+    },
+    {
+      "id": "tsubasakong-openclaw-oss-pr-skill",
+      "name": "tsubasakong/openclaw-oss-pr-skill",
+      "category": "developer-tools",
+      "slug": "tsubasakong-openclaw-oss-pr-skill",
+      "score": 8.0,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:58:50Z"
+    },
+    {
+      "id": "submission-commit-msg-ant-design-ant-design-skillsmp-commit-msg",
+      "name": "[Submission] Commit Msg (ant-design/ant-design) (skillsmp:commit-msg)",
+      "category": "automation",
+      "slug": "submission-commit-msg-ant-design-ant-design-skillsmp-commit-msg",
+      "score": 7.5,
+      "stars": 97774,
+      "verified_at": "2026-03-23T04:58:52Z"
+    },
+    {
+      "id": "submission-pr-review-pytorch-pytorch-skillsmp-pr-review",
+      "name": "[Submission] Pr Review (pytorch/pytorch) (skillsmp:pr-review)",
+      "category": "automation",
+      "slug": "submission-pr-review-pytorch-pytorch-skillsmp-pr-review",
+      "score": 7.5,
+      "stars": 98498,
+      "verified_at": "2026-03-23T04:58:54Z"
+    },
+    {
+      "id": "submission-create-pr-n8n-io-n8n-skillsmp-create-pr",
+      "name": "[Submission] Create Pr (n8n-io/n8n) (skillsmp:create-pr)",
+      "category": "automation",
+      "slug": "submission-create-pr-n8n-io-n8n-skillsmp-create-pr",
+      "score": 7.5,
+      "stars": 180570,
+      "verified_at": "2026-03-23T04:58:56Z"
+    },
+    {
+      "id": "submission-azure-pipelines-microsoft-vscode-skillsmp-azure-pipelines",
+      "name": "[Submission] Azure Pipelines (microsoft/vscode) (skillsmp:azure-pipelines)",
+      "category": "developer-tools",
+      "slug": "submission-azure-pipelines-microsoft-vscode-skillsmp-azure-pipelines",
+      "score": 7.5,
+      "stars": 182982,
+      "verified_at": "2026-03-23T04:58:58Z"
+    },
+    {
+      "id": "submission-author-contributions-microsoft-vscode-skillsmp-author-contributions",
+      "name": "[Submission] Author Contributions (microsoft/vscode) (skillsmp:author-contributions)",
+      "category": "security",
+      "slug": "submission-author-contributions-microsoft-vscode-skillsmp-author-contributions",
+      "score": 7.5,
+      "stars": 182982,
+      "verified_at": "2026-03-23T04:58:59Z"
+    },
+    {
+      "id": "submission-update-screenshots-microsoft-vscode-skillsmp-update-screenshots",
+      "name": "[Submission] Update Screenshots (microsoft/vscode) (skillsmp:update-screenshots)",
+      "category": "developer-tools",
+      "slug": "submission-update-screenshots-microsoft-vscode-skillsmp-update-screenshots",
+      "score": 7.5,
+      "stars": 182982,
+      "verified_at": "2026-03-23T04:59:01Z"
+    },
+    {
+      "id": "submission-bluebubbles-openclaw-openclaw-skillsmp-bluebubbles",
+      "name": "[Submission] Bluebubbles (openclaw/openclaw) (skillsmp:bluebubbles)",
+      "category": "automation",
+      "slug": "submission-bluebubbles-openclaw-openclaw-skillsmp-bluebubbles",
+      "score": 7.5,
+      "stars": 330667,
+      "verified_at": "2026-03-23T04:59:03Z"
+    },
+    {
+      "id": "submission-frontend-code-review-langgenius-dify-skillsmp-frontend-code-review",
+      "name": "[Submission] Frontend Code Review (langgenius/dify) (skillsmp:frontend-code-review)",
+      "category": "automation",
+      "slug": "submission-frontend-code-review-langgenius-dify-skillsmp-frontend-code-review",
+      "score": 7.5,
+      "stars": 134009,
+      "verified_at": "2026-03-23T04:59:04Z"
+    },
+    {
+      "id": "submission-reproduce-bug-n8n-io-n8n-skillsmp-reproduce-bug",
+      "name": "[Submission] Reproduce Bug (n8n-io/n8n) (skillsmp:reproduce-bug)",
+      "category": "automation",
+      "slug": "submission-reproduce-bug-n8n-io-n8n-skillsmp-reproduce-bug",
+      "score": 7.5,
+      "stars": 180570,
+      "verified_at": "2026-03-23T04:59:06Z"
+    },
+    {
+      "id": "submission-verify-facebook-react-skillsmp-verify",
+      "name": "[Submission] Verify (facebook/react) (skillsmp:verify)",
+      "category": "research",
+      "slug": "submission-verify-facebook-react-skillsmp-verify",
+      "score": 7.5,
+      "stars": 244148,
+      "verified_at": "2026-03-23T04:59:08Z"
+    },
+    {
+      "id": "submission-fix-facebook-react-skillsmp-fix",
+      "name": "[Submission] Fix (facebook/react) (skillsmp:fix)",
+      "category": "research",
+      "slug": "submission-fix-facebook-react-skillsmp-fix",
+      "score": 7.5,
+      "stars": 244148,
+      "verified_at": "2026-03-23T04:59:10Z"
+    },
+    {
+      "id": "submission-component-refactoring-langgenius-dify-skillsmp-component-refactoring",
+      "name": "[Submission] Component Refactoring (langgenius/dify) (skillsmp:component-refactoring)",
+      "category": "automation",
+      "slug": "submission-component-refactoring-langgenius-dify-skillsmp-component-refactoring",
+      "score": 7.5,
+      "stars": 134009,
+      "verified_at": "2026-03-23T04:59:12Z"
+    },
+    {
+      "id": "submission-feature-flags-facebook-react-skillsmp-feature-flags",
+      "name": "[Submission] Feature Flags (facebook/react) (skillsmp:feature-flags)",
+      "category": "research",
+      "slug": "submission-feature-flags-facebook-react-skillsmp-feature-flags",
+      "score": 7.5,
+      "stars": 244148,
+      "verified_at": "2026-03-23T04:59:14Z"
+    },
+    {
+      "id": "submission-hygiene-microsoft-vscode-skillsmp-hygiene",
+      "name": "[Submission] Hygiene (microsoft/vscode) (skillsmp:hygiene)",
+      "category": "developer-tools",
+      "slug": "submission-hygiene-microsoft-vscode-skillsmp-hygiene",
+      "score": 7.5,
+      "stars": 182982,
+      "verified_at": "2026-03-23T04:59:15Z"
+    },
+    {
+      "id": "submission-flow-facebook-react-skillsmp-flow",
+      "name": "[Submission] Flow (facebook/react) (skillsmp:flow)",
+      "category": "research",
+      "slug": "submission-flow-facebook-react-skillsmp-flow",
+      "score": 7.5,
+      "stars": 244148,
+      "verified_at": "2026-03-23T04:59:17Z"
+    },
+    {
+      "id": "submission-1password-openclaw-openclaw-skillsmp-1password",
+      "name": "[Submission] 1Password (openclaw/openclaw) (skillsmp:1password)",
+      "category": "automation",
+      "slug": "submission-1password-openclaw-openclaw-skillsmp-1password",
+      "score": 7.5,
+      "stars": 330667,
+      "verified_at": "2026-03-23T04:59:19Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-journal-entry-prep",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/journal-entry-prep",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-journal-entry-prep",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:21Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-financial-statements",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/financial-statements",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-financial-statements",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:22Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-close-management",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/close-management",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-close-management",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:24Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-finance-audit-support",
+      "name": "anthropics/knowledge-work-plugins \u2014 finance/audit-support",
+      "category": "finance",
+      "slug": "anthropics-knowledge-work-plugins-finance-audit-support",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:26Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-enterprise-search-source-management",
+      "name": "anthropics/knowledge-work-plugins \u2014 enterprise-search/source-management",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-enterprise-search-source-management",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:27Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-enterprise-search-search-strategy",
+      "name": "anthropics/knowledge-work-plugins \u2014 enterprise-search/search-strategy",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-enterprise-search-search-strategy",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:29Z"
+    },
+    {
+      "id": "anthropics-knowledge-work-plugins-enterprise-search-knowledge-synthesis",
+      "name": "anthropics/knowledge-work-plugins \u2014 enterprise-search/knowledge-synthesis",
+      "category": "research",
+      "slug": "anthropics-knowledge-work-plugins-enterprise-search-knowledge-synthesis",
+      "score": 7.5,
+      "stars": 10193,
+      "verified_at": "2026-03-23T04:59:31Z"
+    },
+    {
+      "id": "gcc",
+      "name": "gcc",
+      "category": "developer-tools",
+      "slug": "gcc",
+      "score": 7.5,
+      "stars": 35,
+      "verified_at": "2026-03-23T04:59:33Z"
+    },
+    {
+      "id": "documentation-specialist",
+      "name": "documentation-specialist",
+      "category": "automation",
+      "slug": "documentation-specialist",
+      "score": 7.5,
+      "stars": 15,
+      "verified_at": "2026-03-23T04:59:35Z"
+    },
+    {
+      "id": "mastering-langgraph",
+      "name": "mastering-langgraph",
+      "category": "automation",
+      "slug": "mastering-langgraph",
+      "score": 7.5,
+      "stars": 26,
+      "verified_at": "2026-03-23T04:59:37Z"
+    },
+    {
+      "id": "soul",
+      "name": "soul",
+      "category": "developer-tools",
+      "slug": "soul",
+      "score": 7.5,
+      "stars": 269,
+      "verified_at": "2026-03-23T04:59:38Z"
+    },
+    {
+      "id": "notebooklm",
+      "name": "notebooklm",
+      "category": "automation",
+      "slug": "notebooklm",
+      "score": 7.5,
+      "stars": 4863,
+      "verified_at": "2026-03-23T04:59:41Z"
+    },
+    {
+      "id": "pict-test-designer",
+      "name": "pict-test-designer",
+      "category": "content",
+      "slug": "pict-test-designer",
+      "score": 7.5,
+      "stars": 56,
+      "verified_at": "2026-03-23T04:59:43Z"
+    },
+    {
+      "id": "csv-data-summarizer",
+      "name": "csv-data-summarizer",
+      "category": "data",
+      "slug": "csv-data-summarizer",
+      "score": 7.5,
+      "stars": 304,
+      "verified_at": "2026-03-23T04:59:45Z"
+    },
+    {
+      "id": "d3-viz",
+      "name": "d3-viz",
+      "category": "research",
+      "slug": "d3-viz",
+      "score": 7.5,
+      "stars": 135,
+      "verified_at": "2026-03-23T04:59:47Z"
+    },
+    {
+      "id": "move-code-quality",
+      "name": "move-code-quality",
+      "category": "developer-tools",
+      "slug": "move-code-quality",
+      "score": 7.5,
+      "stars": 18,
+      "verified_at": "2026-03-23T04:59:49Z"
+    },
+    {
+      "id": "network-ai",
+      "name": "Network-AI",
+      "category": "automation",
+      "slug": "network-ai",
+      "score": 7.5,
+      "stars": 28,
+      "verified_at": "2026-03-23T04:59:51Z"
+    },
+    {
+      "id": "github-repo",
+      "name": "github-repo",
+      "category": "developer-tools",
+      "slug": "github-repo",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-03-23T04:59:53Z"
+    },
+    {
+      "id": "allaymc-plugin-dev",
+      "name": "allaymc-plugin-dev",
+      "category": "automation",
+      "slug": "allaymc-plugin-dev",
+      "score": 7.5,
+      "stars": 1,
+      "verified_at": "2026-03-23T04:59:54Z"
     }
   ],
-  "total_skills": 201
+  "total_skills": 260
 }
