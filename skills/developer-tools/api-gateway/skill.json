@@ -1,0 +1,32 @@
+{
+  "id": "api-gateway",
+  "name": "api-gateway",
+  "slug": "api-gateway",
+  "category": "developer-tools",
+  "description": "|",
+  "author": {
+    "github": "up2datedatabase476",
+    "name": "up2datedatabase476"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/up2datedatabase476/api-gateway-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:56:53Z",
+  "scores": {
+    "average": 9.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
