@@ -1,0 +1,32 @@
+{
+  "id": "seedance",
+  "name": "seedance",
+  "slug": "seedance",
+  "category": "content",
+  "description": "This skill should be used when the user asks to \"generate video prompts\", \"create Seedance prompts\", \"write video descriptions\", mentions \"Seedance\", \"seedance\", \"\u5373\u68a6\", \"\u5373\u68a6\u5e73\u53f0\", \"\u89c6\u9891\u63d0\u793a\u8bcd\", \"\u89c6\u9891\u751f\u6210\", \"AI\u89c6\u9891\",",
+  "author": {
+    "github": "smsgazer-hud",
+    "name": "smsgazer-hud"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/smsgazer-hud/seedance-2-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:38:52Z",
+  "scores": {
+    "average": 7.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
