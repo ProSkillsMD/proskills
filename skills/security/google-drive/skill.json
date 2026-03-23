@@ -1,0 +1,32 @@
+{
+  "id": "google-drive",
+  "name": "Google Drive",
+  "slug": "google-drive",
+  "category": "security",
+  "description": "A lightweight FastAPI bridge that lets an OpenClaw agent securely read and write notes/scripts to your personal Google Drive using OAuth 2.0 (drive.file scope). Designed for self\u2011hosted AI assistants ",
+  "author": {
+    "github": "mutkus",
+    "name": "mutkus"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mutkus/OpenClaw-GoogleDrive-Bridge",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T05:36:42Z",
+  "scores": {
+    "average": 7.2
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
