@@ -1,0 +1,32 @@
+{
+  "id": "railway-deploy",
+  "name": "railway-deploy",
+  "slug": "railway-deploy",
+  "category": "devops",
+  "description": "OpenClaw skill: railway-deploy",
+  "author": {
+    "github": "iptechie",
+    "name": "iptechie"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/iptechie/openclaw-railway-deployment",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "devops"
+  ],
+  "verified_at": "2026-03-23T05:33:15Z",
+  "scores": {
+    "average": 7.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
