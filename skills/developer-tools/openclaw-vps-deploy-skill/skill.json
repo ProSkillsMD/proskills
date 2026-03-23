@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-vps-deploy-skill",
+  "name": "openclaw-vps-deploy-skill",
+  "slug": "openclaw-vps-deploy-skill",
+  "category": "developer-tools",
+  "description": "AgentSkill for deploying OpenClaw on remote Linux/VPS hosts with Telegram, SOCKS5 proxy, Control UI, and Codex OAuth troubleshooting.",
+  "author": {
+    "github": "coldeyesce",
+    "name": "coldeyesce"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/coldeyesce/openclaw-vps-deploy-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:18Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
