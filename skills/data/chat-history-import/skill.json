@@ -1,0 +1,32 @@
+{
+  "id": "chat-history-import",
+  "name": "chat-history-import",
+  "slug": "chat-history-import",
+  "category": "data",
+  "description": "Use when the user wants to import external chat exports into OpenClaw. This skill normalizes raw chat history into conversation-archive-compatible JSONL, then guides the model to distill daily memory ",
+  "author": {
+    "github": "dashhuang",
+    "name": "dashhuang"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/dashhuang/openclaw-chat-history-import",
+  "stars": 79,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "data"
+  ],
+  "verified_at": "2026-03-23T04:57:15Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
