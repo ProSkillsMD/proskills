@@ -1,0 +1,32 @@
+{
+  "id": "social-neuron",
+  "name": "social-neuron",
+  "slug": "social-neuron",
+  "category": "content",
+  "description": "AI-powered social media management with 52 MCP tools. Create content, distribute to multiple platforms, track analytics, and optimize with closed-loop learning.",
+  "author": {
+    "github": "socialneuron",
+    "name": "socialneuron"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/socialneuron/social-neuron-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T12:39:02Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
