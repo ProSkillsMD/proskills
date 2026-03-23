@@ -1,0 +1,32 @@
+{
+  "id": "shield-harness",
+  "name": "shield-harness",
+  "slug": "shield-harness",
+  "category": "security",
+  "description": "A security-first AI agent harness built with Claude Code. Solves OpenClaw's core vulnerabilities by design \u2014 loopback-only gateway, origin-validated WebSocket, context-isolated channels, and automated",
+  "author": {
+    "github": "Sora-bluesky",
+    "name": "Sora-bluesky"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Sora-bluesky/shield-harness",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T12:47:26Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
