@@ -1,0 +1,32 @@
+{
+  "id": "showmeai",
+  "name": "Showmeai",
+  "slug": "showmeai",
+  "category": "developer-tools",
+  "description": "Generate images, videos, and 3D models via Showmeai API. Image gen uses OpenAI-compatible Images API (nano-banana and gpt-image models). Video gen uses Seedance API (doubao-seedance-1-5-pro). 3D conve",
+  "author": {
+    "github": "hulebaji",
+    "name": "hulebaji"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hulebaji/showmeai-skill",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:40:17Z",
+  "scores": {
+    "average": 6.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
