@@ -1,0 +1,32 @@
+{
+  "id": "mail-alerts",
+  "name": "mail_alerts",
+  "slug": "mail-alerts",
+  "category": "developer-tools",
+  "description": "A simple program, inspired by the openclaw skill imsg for imessage. This is the prototype for utilizing Apple Mail through the CLI.",
+  "author": {
+    "github": "JSP7A",
+    "name": "JSP7A"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/JSP7A/mail_alerts",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:39:28Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
