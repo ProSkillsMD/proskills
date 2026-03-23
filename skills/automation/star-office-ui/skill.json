@@ -1,0 +1,32 @@
+{
+  "id": "star-office-ui",
+  "name": "star-office-ui",
+  "slug": "star-office-ui",
+  "category": "automation",
+  "description": "Star Office UI \u4e00\u952e\u5316 Skill\uff1a\u5e2e\u4e3b\u4eba\u5feb\u901f\u90e8\u7f72\u50cf\u7d20\u529e\u516c\u5ba4\u770b\u677f\uff0c\u652f\u6301\u591a Agent \u52a0\u5165\u3001\u72b6\u6001\u53ef\u89c6\u5316\u3001\u79fb\u52a8\u7aef\u67e5\u770b\u4e0e\u516c\u7f51\u8bbf\u95ee\u3002",
+  "author": {
+    "github": "ringhyacinth",
+    "name": "ringhyacinth"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ringhyacinth/Star-Office-UI",
+  "stars": 5834,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T04:52:25Z",
+  "scores": {
+    "average": 8.2
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
