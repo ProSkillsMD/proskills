@@ -1,0 +1,32 @@
+{
+  "id": "alibabacloud-rds-inspection",
+  "name": "alibabacloud-rds-inspection",
+  "slug": "alibabacloud-rds-inspection",
+  "category": "integration",
+  "description": ">-",
+  "author": {
+    "github": "huanjizhou",
+    "name": "huanjizhou"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/huanjizhou/alibabacloud-rds-inspection-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "integration"
+  ],
+  "verified_at": "2026-03-23T04:56:59Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
