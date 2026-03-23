@@ -1,0 +1,32 @@
+{
+  "id": "send-video-message",
+  "name": "send-video-message",
+  "slug": "send-video-message",
+  "category": "developer-tools",
+  "description": "Send the user a video message with an AI avatar that speaks any text, using Runway Character API. For async updates, explanations, or anything better said than typed.",
+  "author": {
+    "github": "runwayml",
+    "name": "runwayml"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/runwayml/openclaw-skill-send-video-message",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:40:14Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
