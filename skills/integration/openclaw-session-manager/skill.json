@@ -1,0 +1,32 @@
+{
+  "id": "openclaw-session-manager",
+  "name": "openclaw-session-manager",
+  "slug": "openclaw-session-manager",
+  "category": "integration",
+  "description": "Manage OpenClaw AI agent sessions - list, find, and compact sessions to reduce token usage. Use when the user asks to: (1) compress/compact a session, (2) list or find sessions, (3) check session toke",
+  "author": {
+    "github": "BrantonLiu",
+    "name": "BrantonLiu"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/BrantonLiu/openclaw-session-manager",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "integration"
+  ],
+  "verified_at": "2026-03-23T04:57:33Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
