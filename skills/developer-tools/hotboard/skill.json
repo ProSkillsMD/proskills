@@ -1,0 +1,32 @@
+{
+  "id": "hotboard",
+  "name": "hotboard",
+  "slug": "hotboard",
+  "category": "developer-tools",
+  "description": "\u591a\u5e73\u53f0\u70ed\u699c\u6570\u636e\u83b7\u53d6\u5de5\u5177\uff0c\u805a\u5408\u56fd\u5185\u5916\u4e3b\u6d41\u8d44\u8baf\u3001\u793e\u533a\u3001\u89c6\u9891\u7b49\u5e73\u53f0\u70ed\u95e8\u5185\u5bb9\u3002\u63d0\u4f9b CLI \u547d\u4ee4\u548c OpenClaw Skill \u96c6\u6210\u3002",
+  "author": {
+    "github": "hotboard",
+    "name": "hotboard"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/hotboard/hotboard",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:37:34Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Other",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
