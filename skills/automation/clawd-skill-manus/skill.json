@@ -1,0 +1,32 @@
+{
+  "id": "clawd-skill-manus",
+  "name": "clawd-skill-manus",
+  "slug": "clawd-skill-manus",
+  "category": "automation",
+  "description": "OpenClaw skill that enables Manus-like extreme autonomy",
+  "author": {
+    "github": "Alpha-Park",
+    "name": "Alpha-Park"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/Alpha-Park/clawd-skill-manus",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:38:49Z",
+  "scores": {
+    "average": 9.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
