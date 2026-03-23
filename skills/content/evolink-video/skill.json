@@ -1,0 +1,32 @@
+{
+  "id": "evolink-video",
+  "name": "evolink-video",
+  "slug": "evolink-video",
+  "category": "content",
+  "description": "AI video generation \u2014 Sora, Kling, Veo 3, Seedance, Hailuo, WAN, Grok. Text-to-video, image-to-video, video editing. 37 models, one API key.",
+  "author": {
+    "github": "EvoLinkAI",
+    "name": "EvoLinkAI"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/EvoLinkAI/video-generation-skill-for-openclaw",
+  "stars": 9,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:57:09Z",
+  "scores": {
+    "average": 8.1
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
