@@ -1,0 +1,32 @@
+{
+  "id": "x-ai-articles",
+  "name": "x-ai-articles",
+  "slug": "x-ai-articles",
+  "category": "content",
+  "description": "Scrape high-quality AI long-form articles and threads from X (Twitter) using OpenClaw browser. Generates a daily digest of the most popular AI-related deep dives, threads (\ud83e\uddf5), articles, breakdowns, an",
+  "author": {
+    "github": "clovericbot",
+    "name": "clovericbot"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/clovericbot/x-ai-articles",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "content"
+  ],
+  "verified_at": "2026-03-23T04:56:49Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
