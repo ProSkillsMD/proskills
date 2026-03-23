@@ -1,0 +1,30 @@
+{
+  "id": "app-store-screenshot-generation",
+  "name": "app-store-screenshot-generation",
+  "slug": "app-store-screenshot-generation",
+  "category": "developer-tools",
+  "description": "Generate App Store and Google Play screenshot assets using each::sense AI. Create device-framed screenshots, feature highlights, localized versions, and promotional visuals optimized for iOS App Store",
+  "author": {
+    "github": "eftalyurtseven",
+    "name": "eftalyurtseven"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/openclaw/skills/tree/main/skills/eftalyurtseven/app-store-screenshot-generation",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T04:53:22Z",
+  "scores": {
+    "average": 8.5
+  },
+  "rocket_findings": {
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed"
+  }
+}
