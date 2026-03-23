@@ -1,0 +1,32 @@
+{
+  "id": "clawguard",
+  "name": "clawguard",
+  "slug": "clawguard",
+  "category": "security",
+  "description": "Security shield for OpenClaw - skill scanner, SOUL.md guard, and prompt injection detector",
+  "author": {
+    "github": "kaiclawius",
+    "name": "kaiclawius"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/kaiclawius/clawguard",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "security"
+  ],
+  "verified_at": "2026-03-23T04:57:19Z",
+  "scores": {
+    "average": 9.2
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
