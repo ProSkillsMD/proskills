@@ -1,0 +1,32 @@
+{
+  "id": "ai-router-skill",
+  "name": "ai-router-skill",
+  "slug": "ai-router-skill",
+  "category": "automation",
+  "description": "Automatically routes AI tasks to optimal models based on complexity and cost constraints. Use when: select best ai model, optimize model costs, which model should I use, route task to cheapest model, ",
+  "author": {
+    "github": "NeoSkillFactory",
+    "name": "NeoSkillFactory"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/NeoSkillFactory/ai-router-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:47:56Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
