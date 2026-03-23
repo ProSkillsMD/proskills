@@ -1,0 +1,32 @@
+{
+  "id": "moodtrip-hotel-search",
+  "name": "moodtrip-hotel-search",
+  "slug": "moodtrip-hotel-search",
+  "category": "developer-tools",
+  "description": "Search, compare, evaluate, and hand off hotel bookings using the MoodTrip.ai MCP server (api.moodtrip.ai). Use this skill whenever the user mentions hotels, accommodation, lodging, stays, travel booki",
+  "author": {
+    "github": "adiny",
+    "name": "adiny"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/adiny/moodtrip-hotel-search",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "developer-tools"
+  ],
+  "verified_at": "2026-03-23T12:38:11Z",
+  "scores": {
+    "average": 10.0
+  },
+  "rocket_findings": {
+    "license": "MIT No Attribution",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
