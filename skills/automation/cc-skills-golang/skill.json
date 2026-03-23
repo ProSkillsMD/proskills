@@ -1,0 +1,32 @@
+{
+  "id": "cc-skills-golang",
+  "name": "cc-skills-golang",
+  "slug": "cc-skills-golang",
+  "category": "automation",
+  "description": "\ud83e\uddd1\u200d\ud83c\udfa8 A collection of Golang agentic skills that works",
+  "author": {
+    "github": "samber",
+    "name": "samber"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/samber/cc-skills-golang",
+  "stars": 36,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "automation"
+  ],
+  "verified_at": "2026-03-23T12:37:50Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "MIT License",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
