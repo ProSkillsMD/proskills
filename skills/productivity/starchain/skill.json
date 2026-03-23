@@ -1,0 +1,32 @@
+{
+  "id": "starchain",
+  "name": "starchain",
+  "slug": "starchain",
+  "category": "productivity",
+  "description": "\u661f\u94fe\uff08StarChain\uff09\u591a agent \u5f00\u53d1\u6d41\u6c34\u7ebf v2.8\u3002\u9002\u7528\u4e8e\u201c\u7528\u661f\u94fe\u5b9e\u73b0 XXX\u201d\u8fd9\u7c7b\u4e2d\u9ad8\u590d\u6742\u5ea6\u5f00\u53d1/\u4fee\u590d\u4efb\u52a1\uff1a\u7531 main \u5728\u4e3b\u4f1a\u8bdd\u9010\u6b65\u7f16\u6392 gemini \u2192 notebooklm \u2192 openai \u2192 claude \u2192 brainstorming \u2192 coding \u2192 test \u2192 docs\uff0c\u6267\u884c Constitution-First \u6253\u78e8\u5c42\u3001Spec-Kit \u843d\u5730\u3001\u5f00\u53d1/\u5ba1\u67e5/\u6d4b\u8bd5",
+  "author": {
+    "github": "mouseroser",
+    "name": "mouseroser"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/mouseroser/starchain-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "productivity"
+  ],
+  "verified_at": "2026-03-23T12:47:22Z",
+  "scores": {
+    "average": 8.0
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
