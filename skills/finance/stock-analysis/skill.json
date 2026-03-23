@@ -1,0 +1,32 @@
+{
+  "id": "stock-analysis",
+  "name": "stock-analysis",
+  "slug": "stock-analysis",
+  "category": "finance",
+  "description": "|",
+  "author": {
+    "github": "ShirleyDong77",
+    "name": "ShirleyDong77"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/ShirleyDong77/stock-analysis",
+  "stars": 1,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "finance"
+  ],
+  "verified_at": "2026-03-23T04:57:02Z",
+  "scores": {
+    "average": 7.5
+  },
+  "rocket_findings": {
+    "license": "Unknown",
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "smoke_test": "passed"
+  }
+}
