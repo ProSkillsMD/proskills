@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 144,
+  "total": 436,
   "categories": [
     "api",
     "automation",
@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-23T12:48:08Z",
+  "last_updated": "2026-03-24T21:31:13Z",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -4014,6 +4014,15 @@
       "score": 8.0,
       "stars": 171,
       "verified_at": "2026-03-23T12:48:04Z"
+    },
+    {
+      "id": "openclaw-autoresearch",
+      "name": "OpenClaw Autoresearch",
+      "category": "developer-tools",
+      "slug": "openclaw-autoresearch",
+      "score": 8.8,
+      "stars": 0,
+      "verified_at": "2026-03-24T21:31:13Z"
     }
   ],
   "total_skills": 435

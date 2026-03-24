@@ -1,0 +1,46 @@
+{
+  "id": "openclaw-autoresearch",
+  "name": "OpenClaw Autoresearch",
+  "slug": "openclaw-autoresearch",
+  "category": "developer-tools",
+  "description": "Autonomous skill prompt optimizer based on Karpathy's autoresearch methodology. Works with OpenClaw, Claude Code, Cursor, and any AI coding agent.",
+  "author": {
+    "github": "zning1994",
+    "name": "zning1994"
+  },
+  "version": "0.1.0",
+  "repo_url": "https://github.com/zning1994/openclaw-autoresearch",
+  "stars": 0,
+  "works_with": [
+    "openclaw",
+    "claude-code"
+  ],
+  "tags": [
+    "skill-development",
+    "prompt-optimization",
+    "evaluation",
+    "automation"
+  ],
+  "verified_at": "2026-03-24T21:31:13Z",
+  "scores": {
+    "functionality": 8,
+    "documentation": 9,
+    "security": 9,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.8
+  },
+  "review": "Well-executed meta-tool implementing Karpathy's autoresearch methodology for prompt optimization. Zero dependencies, security-clean, bilingual documentation (English + Chinese). Production-ready with excellent SKILL.md. Fills unique gap in catalog \u2014 no competing autoresearch skill. Approved by Gamora.",
+  "rocket_findings": {
+    "license": "MIT",
+    "author_repos": 155,
+    "security_scan": "passed"
+  },
+  "drax_results": {
+    "install": "passed",
+    "tests": "passed",
+    "smoke_test": "passed"
+  }
+}
