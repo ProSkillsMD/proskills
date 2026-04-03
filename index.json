@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 436,
+  "total": 437,
   "categories": [
     "api",
     "automation",
@@ -15,7 +15,7 @@
     "security",
     "utilities"
   ],
-  "last_updated": "2026-03-24T21:31:13Z",
+  "last_updated": "2026-04-03T19:07:35.443530+00:00",
   "skills": [
     {
       "id": "invoice-organizer",
@@ -4023,6 +4023,15 @@
       "score": 8.8,
       "stars": 0,
       "verified_at": "2026-03-24T21:31:13Z"
+    },
+    {
+      "id": "bumblebee",
+      "name": "Bumblebee",
+      "slug": "bumblebee",
+      "category": "utilities",
+      "score": 7.5,
+      "stars": 0,
+      "verified_at": "2026-04-03T19:07:35.443510+00:00"
     }
   ],
   "total_skills": 435
