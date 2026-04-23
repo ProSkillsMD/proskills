@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "total": 437,
+  "total": 438,
   "categories": [
     "api",
     "automation",
@@ -4032,6 +4032,23 @@
       "score": 7.5,
       "stars": 0,
       "verified_at": "2026-04-03T19:07:35.443510+00:00"
+    },
+    {
+      "id": "jingchang0623-crypto-openclaw-skills-analyzer",
+      "name": "OpenClaw Skills Analyzer",
+      "description": "Analyze OpenClaw Skills ecosystem distribution \u2014 trending categories, coverage gaps, quality scores.",
+      "category": "analysis",
+      "works_with": [
+        "openclaw"
+      ],
+      "author": "jingchang0623-crypto",
+      "github": "https://github.com/jingchang0623-crypto/openclaw-skills-analyzer",
+      "scores": {
+        "average": 0.0,
+        "reviewed": true
+      },
+      "reviewed": true,
+      "published_at": "2026-04-23T07:40:47.791531Z"
     }
   ],
   "total_skills": 435
