@@ -1,0 +1,41 @@
+# Disposable CI sandbox: runs the operator unit suite only.
+# Does NOT execute untrusted submission / skill code from PRs.
+name: sandbox
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unittest:
+    name: operator-unittest
+    runs-on: ubuntu-latest
+    env:
+      PROSKILLS_ENV: test
+      # Refuse printing secrets in logs (suite asserts redaction; keep CI quiet)
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run operator unit tests
+        # Only the checked-in tests/ suite — never invoke submitted skill entrypoints,
+        # sandbox_test against PR payloads, or any untrusted submission code.
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Confirm no secret-looking env echoed
+        # Guard: do not dump env or print token-like variables.
+        run: |
+          if printenv | grep -Eiq '(SECRET|TOKEN|PASSWORD|API_KEY|PRIVATE_KEY)='; then
+            echo "Refusing to echo secret-like environment variables"
+            exit 1
+          fi
+          echo "env check ok (no secret values printed)"
