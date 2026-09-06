@@ -1,0 +1,53 @@
+# ProSkills Operator — example pipeline config (NO real secrets)
+# Copy to a local path outside git or a gitignored file before use.
+
+project: proskills-md
+org: ProSkillsMD
+
+repos:
+  - proskills
+  - skill-claude-code-cli
+  - avenger-initiative
+
+batch_size: 25
+
+discovery_caps:
+  max_per_run: 50
+  max_per_day: 200
+
+# Schedules (stubs — disabled until Oracle bridge)
+# every 30m  → intake
+# hourly     → reconcile
+# every 6h   → discovery
+# daily      → maintenance + report
+# weekly     → audit
+schedules:
+  intake:
+    every: 30m
+    enabled: false
+  reconcile:
+    every: 1h
+    enabled: false
+  discovery:
+    every: 6h
+    enabled: false
+  maintenance:
+    every: 24h
+    enabled: false
+  report:
+    every: 24h
+    enabled: false
+  audit:
+    every: 7d
+    enabled: false
+
+oracle_report:
+  endpoint: "https://oracle.example.invalid/v1/events"  # placeholder
+  # auth via env / secret store — never inline tokens here
+
+dry_run: true
+
+pause_thresholds:
+  error_rate_pct: 25
+  consecutive_failures: 5
+  queue_backlog: 100
