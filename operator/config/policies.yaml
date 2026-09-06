@@ -1,0 +1,116 @@
+# ProSkills Operator — approval gates & python-first rules
+# Aligns with migration guide Phase 9 (gates) and Phase 10 (python-first).
+
+version: 1
+
+python_first:
+  # Deterministic stages must run as Python CLIs; AI only for judgment.
+  python_stages:
+    - discover
+    - intake
+    - validate
+    - static_scan
+    - sandbox_test
+    - catalog_update
+    - create_pr
+    - reconcile
+    - report
+  ai_judgment_only:
+    - ambiguous_rule_resolution   # Rocket fallback
+    - quality_score               # Gamora
+    - risk_score                  # Gamora
+    - community_reply_draft       # Mantis — draft only
+  never_ai_for:
+    - merge
+    - publish
+    - delete
+    - credential_handling
+    - permission_changes
+
+approval_gates:
+  # Phase 9 — human / Oracle approval required
+  merge:
+    required: true
+    pilot: true
+  publish:
+    required: true
+    pilot: true
+  delete:
+    required: true
+  external_messages:
+    required: true
+    note: "Mantis drafts may be prepared; send needs approval"
+  permission_changes:
+    required: true
+  new_connectors:
+    required: true
+  routines_after_pilot:
+    required: true
+    note: "Automated routines need re-approval when leaving pilot"
+
+create_pr:
+  dry_run_default: true
+  never_merges: true
+  pilot_no_auto_merge: true
+
+catalog_update:
+  dry_run_default: true
+
+sandbox:
+  network: restricted
+  no_credentials_in_sandbox: true
+
+logging:
+  redact_secrets: true
+  no_tokens_in_logs: true
+  no_credentials_in_chat: true
+
+idempotency:
+  intake_requires_event_id: true
+  duplicate_events: skip_or_ack
+
+limits:
+  batch_size: 10
+  max_retries: 3
+  max_files_per_candidate: 200
+  max_total_bytes_per_candidate: 5242880  # 5 MiB
+  model_review_threshold: 0.7
+
+oracle_contract_fields:
+  - project
+  - event_id
+  - stage
+  - status
+  - item
+  - summary
+  - evidence_urls
+  - action_required
+  - timestamp
+
+artifact_retention:
+  structured_evidence_days: 30
+  retain_candidate_secrets: false
+  note: "Artifacts must be redacted; purge structured evidence older than retention window"
+
+ai_escalation:
+  escalate_when:
+    - ambiguous_medium_findings
+    - ambiguous_high_findings
+    - quality_judgment
+  never_override:
+    - deterministic_critical_findings
+  model_review_threshold: 0.7
+
+oracle:
+  project: proskills-md
+  delivery:
+    allowed_hostnames:
+      - localhost
+      - 127.0.0.1
+    connect_timeout_sec: 3
+    read_timeout_sec: 5
+    max_retries: 5
+    backoff_base_sec: 1
+    backoff_max_sec: 60
+    require_https: true
+    allow_redirects: false

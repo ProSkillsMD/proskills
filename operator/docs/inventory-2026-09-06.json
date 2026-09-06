@@ -1,0 +1,148 @@
+{
+  "generated_at": "2026-09-06T12:42:30Z",
+  "generator": "scripts/inventory_github.py",
+  "org": {
+    "login": "ProSkillsMD",
+    "notes": "Operator inventory; no secrets; PAT is personal Asif2BD not service account"
+  },
+  "summary": {
+    "repos_known": 3,
+    "proskills_open_issues_approx": 3184,
+    "proskills_releases": 0,
+    "actions_workflows_found": false,
+    "github_app_inventory": "pending API",
+    "auth_note": "GitHub MCP works as Asif2BD for org ProSkillsMD",
+    "local_clone_scan": true
+  },
+  "labels_curio": [
+    "curio:routed-to-rocket",
+    "curio:routed-to-drax",
+    "curio:routed-to-gamora",
+    "rocket-pass",
+    "drax-pass",
+    "gamora-conditional",
+    "submission",
+    "auto-discovered"
+  ],
+  "repos": [
+    {
+      "name": "proskills",
+      "full_name": "ProSkillsMD/proskills",
+      "role": "catalog",
+      "open_issues_approx": 3184,
+      "releases": 0,
+      "structure_expected": [
+        "listings/",
+        "skills/",
+        "reviews/",
+        "pending/",
+        "hosted/",
+        "index.json",
+        "_stats.json",
+        ".github/"
+      ],
+      "branches_note": "many branches including groot/publish/*",
+      "notes": "Primary catalog; ~3184 open submission issues",
+      "has_workflows_dir": false,
+      "issue_templates": [
+        "feature-request.yml",
+        "report-skill.yml",
+        "submit-skill.yml"
+      ],
+      "has_github_dir": true
+    },
+    {
+      "name": "avenger-initiative",
+      "full_name": "ProSkillsMD/avenger-initiative",
+      "role": "backup-skill",
+      "notes": "Backup skill repo",
+      "has_workflows_dir": false,
+      "issue_templates": [],
+      "has_github_dir": false
+    },
+    {
+      "name": "skill-claude-code-cli",
+      "full_name": "ProSkillsMD/skill-claude-code-cli",
+      "role": "skill",
+      "notes": "Claude Code CLI skill",
+      "has_workflows_dir": false,
+      "issue_templates": [],
+      "has_github_dir": false
+    }
+  ],
+  "network": {
+    "use_gh_requested": false,
+    "gh_used": false,
+    "gh_status": "skipped (pass --use-gh to attempt)",
+    "skipped_reason": "use_gh false; static + local clone only"
+  },
+  "local_clones": {
+    "proskills": {
+      "local_path": "/workspace/proskills/repos/proskills",
+      "exists": true,
+      "has_github_dir": true,
+      "has_workflows_dir": false,
+      "workflow_files": [],
+      "issue_templates": [
+        "feature-request.yml",
+        "report-skill.yml",
+        "submit-skill.yml"
+      ],
+      "top_level_dirs": [
+        ".github",
+        "hosted",
+        "listings",
+        "pending",
+        "reviews",
+        "skills"
+      ],
+      "top_level_files": [
+        "CONTRIBUTING.md",
+        "LICENSE",
+        "README.md",
+        "_stats.json",
+        "index.json"
+      ]
+    },
+    "avenger-initiative": {
+      "local_path": "/workspace/proskills/repos/avenger-initiative",
+      "exists": true,
+      "has_github_dir": false,
+      "has_workflows_dir": false,
+      "workflow_files": [],
+      "issue_templates": [],
+      "top_level_dirs": [
+        "references",
+        "scripts"
+      ],
+      "top_level_files": [
+        ".clawhubsafe",
+        "LICENSE",
+        "README.md",
+        "SECURITY.md",
+        "SKILL.md"
+      ]
+    },
+    "skill-claude-code-cli": {
+      "local_path": "/workspace/proskills/repos/skill-claude-code-cli",
+      "exists": true,
+      "has_github_dir": false,
+      "has_workflows_dir": false,
+      "workflow_files": [],
+      "issue_templates": [],
+      "top_level_dirs": [
+        "scripts",
+        "templates"
+      ],
+      "top_level_files": [
+        ".clawhubsafe",
+        ".gitignore",
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md",
+        "SECURITY.md",
+        "SKILL.md"
+      ]
+    }
+  }
+}

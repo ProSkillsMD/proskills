@@ -1,0 +1,3 @@
+# Moved: the live CI workflow is at repo-root
+# `.github/workflows/proskills-operator-tests.yml`
+# This file is a pointer only — not executed by Actions.

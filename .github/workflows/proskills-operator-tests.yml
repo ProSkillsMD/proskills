@@ -1,0 +1,56 @@
+# Operator unit suite only. Never executes untrusted submission/skill code.
+# No production secrets. Bounded timeout. contents:read only.
+name: ProSkills Operator tests
+
+on:
+  pull_request:
+    paths:
+      - "operator/**"
+      - ".github/workflows/proskills-operator-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: operator-tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unittest:
+    name: operator-unittest
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PROSKILLS_ENV: test
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run operator unit tests
+        run: cd operator && python3 -m unittest discover -s tests -v
+
+      - name: Assert no production Oracle env configured
+        run: |
+          # Names only — never print values.
+          failed=0
+          for name in ORACLE_URL ORACLE_ENDPOINT ORACLE_TOKEN ORACLE_API_KEY ORACLE_HMAC_SECRET PROSKILLS_ORACLE_URL PROSKILLS_ORACLE_TOKEN; do
+            eval "is_set=\${$name+yes}"
+            if [ "$is_set" = "yes" ]; then
+              eval "len=\${#$name}"
+              if [ "$len" -gt 0 ]; then
+                echo "Unexpected production Oracle variable is configured: $name"
+                failed=1
+              fi
+            fi
+          done
+          if [ "$failed" -ne 0 ]; then
+            exit 1
+          fi
+          echo "No production Oracle variables configured (names checked only)"
