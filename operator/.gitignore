@@ -1,0 +1,84 @@
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+**/secrets/
+**/credentials/
+**/*credentials*
+**/*secret*
+**/*token*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+id_*
+*.keystore
+
+# Runtime database / state (must not be committed)
+*.sqlite3
+*.sqlite
+*.db
+state/**
+!state/.gitkeep
+!state/artifacts/
+state/artifacts/**
+!state/artifacts/.gitkeep
+!state/locks/
+state/locks/**
+!state/locks/.gitkeep
+
+# Logs (keep directory via .gitkeep)
+logs/**
+!logs/.gitkeep
+
+# Cloned repos under repos/ (keep placeholder)
+repos/**
+!repos/.gitkeep
+
+# Browser profiles / session data
+**/browser-profile/
+**/browser_profiles/
+**/.chrome/
+**/.chromium/
+**/playwright/
+**/puppeteer/
+**/cookies/
+**/session/
+
+# Python caches / bytecode / packaging
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.eggs/
+*.egg-info/
+dist/
+build/
+.coverage
+htmlcov/
+coverage.xml
+.cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Ephemeral fixture temp dirs
+fixtures/_tmp/
+state/_tmp*
