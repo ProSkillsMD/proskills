@@ -10,10 +10,32 @@ GITHUB_HOSTS = {"github.com", "www.github.com"}
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
 _GH_SSH = re.compile(r"^git@github\.com:([^/]+)/([^/]+?)(?:\.git)?$")
 _GH_SHORT = re.compile(r"^([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)(?:\.git)?$")
+_TREE_BLOB = {"tree", "blob"}
 
 
-def normalize_repo_url(raw: str | None) -> str | None:
-    """Return canonical https://github.com/owner/repo or https URL, or None if empty/invalid."""
+def _clean_subpath(parts: list[str]) -> str | None:
+    """Normalize explicit subpath segments; empty -> None (root)."""
+    if not parts:
+        return None
+    cleaned = "/".join(p for p in parts if p).strip("/")
+    if not cleaned:
+        return None
+    # Deterministic compare: lowercase path segments
+    return cleaned.lower()
+
+
+def normalize_source_identity(raw: str | None) -> dict | None:
+    """Parse a source URL into repository + optional explicit subpath identity.
+
+    Returns dict with:
+      repo: canonical https://github.com/owner/repo (or non-GH https URL)
+      subpath: explicit tree/blob path after ref, or None for root-repo identity
+      identity_key: stable dedupe key "repo::subpath" (subpath empty for root)
+      display: human-readable source string (repo or repo/tree/.../subpath)
+
+    Competing identities differ by identity_key. Root and an explicit subpath in
+    the same monorepo are distinct identities.
+    """
     if raw is None:
         return None
     u = str(raw).strip()
@@ -22,18 +44,28 @@ def normalize_repo_url(raw: str | None) -> str | None:
 
     m = _GH_SSH.match(u)
     if m:
-        owner, repo = m.group(1), m.group(2)
-        return f"https://github.com/{owner.lower()}/{repo.removesuffix('.git').lower()}"
+        owner, repo = m.group(1).lower(), m.group(2).removesuffix(".git").lower()
+        repo_url = f"https://github.com/{owner}/{repo}"
+        return {
+            "repo": repo_url,
+            "subpath": None,
+            "identity_key": f"{repo_url}::",
+            "display": repo_url,
+        }
 
-    # owner/repo shorthand
     if "://" not in u and _GH_SHORT.match(u):
         owner, repo = _GH_SHORT.match(u).groups()
-        return f"https://github.com/{owner.lower()}/{repo.removesuffix('.git').lower()}"
+        repo_url = f"https://github.com/{owner.lower()}/{repo.removesuffix('.git').lower()}"
+        return {
+            "repo": repo_url,
+            "subpath": None,
+            "identity_key": f"{repo_url}::",
+            "display": repo_url,
+        }
 
     if u.startswith("git+"):
         u = u[4:]
 
-    # ensure scheme for parsing
     trial = u if re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", u) else "https://" + u
     try:
         p = urlparse(trial)
@@ -45,7 +77,6 @@ def normalize_repo_url(raw: str | None) -> str | None:
         return None
 
     path = (p.path or "").rstrip("/")
-    # drop .git
     if path.endswith(".git"):
         path = path[:-4]
 
@@ -54,20 +85,50 @@ def normalize_repo_url(raw: str | None) -> str | None:
         if len(parts) < 2:
             return None
         owner, repo = parts[0].lower(), parts[1].lower()
-        # strip github tree/blob extras — keep only owner/repo
-        return f"https://github.com/{owner}/{repo}"
+        repo_url = f"https://github.com/{owner}/{repo}"
+        subpath = None
+        if len(parts) >= 4 and parts[2].lower() in _TREE_BLOB:
+            # owner/repo/tree|blob/<ref>/<subpath...>
+            subpath = _clean_subpath(parts[4:])
+        elif len(parts) > 2 and parts[2].lower() not in _TREE_BLOB:
+            # Non tree/blob extras (issues, pulls, etc.) → repository root only
+            subpath = None
+        display = repo_url if not subpath else f"{repo_url}/tree/<ref>/{subpath}"
+        return {
+            "repo": repo_url,
+            "subpath": subpath,
+            "identity_key": f"{repo_url}::{subpath or ''}",
+            "display": display,
+        }
 
-    # non-github: scheme + host + path, no query/fragment, lower host
-    clean = urlunparse(("https" if p.scheme in {"http", "https"} else p.scheme, host, path, "", "", ""))
+    clean = urlunparse(
+        ("https" if p.scheme in {"http", "https"} else p.scheme, host, path, "", "", "")
+    )
     if not path or path == "/":
         return None
-    return clean.rstrip("/")
+    clean = clean.rstrip("/")
+    return {
+        "repo": clean,
+        "subpath": None,
+        "identity_key": f"{clean}::",
+        "display": clean,
+    }
+
+
+def normalize_repo_url(raw: str | None) -> str | None:
+    """Return canonical repository URL only (owner/repo), or None if empty/invalid.
+
+    Explicit tree/blob subpaths are stripped here; use normalize_source_identity
+    when secondary skill identity (subpath) must be preserved.
+    """
+    ident = normalize_source_identity(raw)
+    return ident["repo"] if ident else None
 
 
 def is_malformed_url(raw: str | None) -> bool:
     if raw is None or not str(raw).strip():
         return False
-    return normalize_repo_url(raw) is None
+    return normalize_source_identity(raw) is None
 
 
 def slugify(text: str, fallback: str = "skill") -> str:
@@ -80,7 +141,6 @@ def slugify(text: str, fallback: str = "skill") -> str:
 
 
 def stable_id_from_repo(norm_repo: str) -> str:
-    # github.com/owner/repo -> owner-repo
     if "github.com/" in norm_repo:
         rest = norm_repo.split("github.com/", 1)[1]
         return slugify(rest.replace("/", "-"))
