@@ -94,6 +94,16 @@ def build(issues_path: Path, catalog_path: Path, out_dir: Path) -> dict:
             "dedupe_key": "normalized_repo_url from issue body/title",
         },
     }, indent=2) + "\n")
+    by_disp: dict[str, list[int]] = {}
+    for d in dispositions:
+        by_disp.setdefault(d["disposition"], []).append(d["number"])
+    for k in by_disp:
+        by_disp[k] = sorted(by_disp[k])
+    (out_dir / "backlog-execution-manifest.json").write_text(json.dumps({
+        "generated_at": generated_at,
+        "note": "dry-run plan — issue numbers only; no GitHub mutations",
+        "issue_numbers_by_disposition": by_disp,
+    }, indent=2) + "\n")
     (out_dir / "backlog-rollback-manifest.json").write_text(json.dumps({
         "generated_at": generated_at,
         "note": "dry-run only — no GitHub mutations performed",
