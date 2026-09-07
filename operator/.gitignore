@@ -82,3 +82,7 @@ Thumbs.db
 # Ephemeral fixture temp dirs
 fixtures/_tmp/
 state/_tmp*
+
+# backlog dry-run outputs
+scripts/backlog/out/
+
