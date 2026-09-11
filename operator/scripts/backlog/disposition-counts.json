@@ -1,0 +1,23 @@
+{
+  "instruction": 19,
+  "catalog_skill_count": 595,
+  "issue_count": 3159,
+  "disposition_counts": {
+    "canonical_actionable": 2036,
+    "normalized_source_duplicate": 770,
+    "already_published": 331,
+    "missing_source": 10,
+    "invalid_source": 0,
+    "ambiguous_manual_review": 12
+  },
+  "transition_matrix_from_i18": {
+    "canonical_actionable -> canonical_actionable": 2034,
+    "normalized_source_duplicate -> normalized_source_duplicate": 770,
+    "already_published -> already_published": 331,
+    "missing_source -> missing_source": 10,
+    "canonical_actionable -> ambiguous_manual_review": 7,
+    "already_published -> ambiguous_manual_review": 5,
+    "already_published -> canonical_actionable": 2
+  },
+  "note": "Anonymized aggregates only; full manifests stay local/gitignored."
+}
