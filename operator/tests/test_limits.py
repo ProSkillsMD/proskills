@@ -41,6 +41,16 @@ class TestLimits(unittest.TestCase):
             self.assertFalse(result["ok"])
             self.assertTrue(any("total bytes" in e for e in result["errors"]), result["errors"])
 
+    def test_hidden_ancestor_does_not_disable_limits(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            d = Path(tmp) / ".host" / "candidate"
+            d.mkdir(parents=True)
+            (d / "SKILL.md").write_text("# safe\n")
+            (d / "large.txt").write_text("x" * 100)
+            result = validate_candidate(d, {"max_files_per_candidate": 10, "max_total_bytes_per_candidate": 50})
+            self.assertFalse(result["ok"])
+            self.assertGreater(result["total_bytes"], 50)
+
     def test_within_limits_ok(self) -> None:
         safe = ROOT / "fixtures" / "safe-skill"
         limits = {
