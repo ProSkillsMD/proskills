@@ -14,13 +14,16 @@ import urllib.request
 
 def rank(items, metadata, limit=100):
     if not 1 <= limit <= 100: raise ValueError('Daily shortlist cap is 100')
-    out=[]
+    out=[]; seen=set()
     for row in items:
         if row.get('disposition')!='canonical_actionable':continue
         source=row.get('source','')
         m=metadata.get(source)
         if not m or m.get('isArchived'):continue
-        out.append({'issue':row['number'],'source':source,'subpath':row.get('subpath'),
+        identity=(m.get('url') or source,row.get('subpath'))
+        if identity in seen:continue
+        seen.add(identity)
+        out.append({'issue':row['number'],'source':source,'canonicalRepository':m.get('url') or source,'subpath':row.get('subpath'),
                     'stars':m['stargazerCount'],'forks':m['forkCount'],'pushedAt':m.get('pushedAt'),
                     'license':(m.get('licenseInfo') or {}).get('spdxId'),
                     'reviewRequired':True,'popularityIsNotSafety':True})
@@ -38,7 +41,7 @@ def collect(sources):
     result={}
     for start in range(0,len(valid),40):
         batch=valid[start:start+40]
-        fields=' '.join('r%d:repository(owner:%s,name:%s){stargazerCount forkCount isArchived pushedAt licenseInfo{spdxId}}'%(i,json.dumps(owner),json.dumps(repo)) for i,(_,owner,repo) in enumerate(batch))
+        fields=' '.join('r%d:repository(owner:%s,name:%s){url stargazerCount forkCount isArchived pushedAt licenseInfo{spdxId}}'%(i,json.dumps(owner),json.dumps(repo)) for i,(_,owner,repo) in enumerate(batch))
         req=urllib.request.Request('https://api.github.com/graphql',data=json.dumps({'query':'query{'+fields+'}'}).encode(),headers={'Authorization':'Bearer '+token,'User-Agent':'ProSkills-Popularity','Content-Type':'application/json'})
         with urllib.request.urlopen(req,timeout=45) as response:d=json.load(response)
         if not isinstance(d.get('data'),dict):raise ValueError('Metadata query failed')
