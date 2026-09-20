@@ -80,3 +80,10 @@ space invocations to respect GitHub hourly write limits. HTTP errors stop the ru
 
 This is not fuzzy deduplication, approval or publication. Source-identity matches alone
 are not sufficient to close an issue. Review-bearing issues remain for manual reconciliation.
+
+
+## Related: publish canary
+
+Operator publish path (discover → catalog_update → create_pr) lives in
+`operator/scripts/{discover,catalog_update,create_pr,reconcile,publish_canary}.py`.
+See `operator/docs/publish-canary.md`. Dry-run by default; never merges; no AI.

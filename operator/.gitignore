@@ -86,3 +86,8 @@ state/_tmp*
 # backlog dry-run outputs
 scripts/backlog/out/
 
+
+# Discovery cache (local only)
+state/discovery-cache/**
+!state/discovery-cache/
+!state/discovery-cache/.gitkeep
