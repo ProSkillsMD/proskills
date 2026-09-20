@@ -44,7 +44,7 @@ def _count_files_and_bytes(root: Path, max_files: int, max_bytes: int) -> tuple[
             continue
         if not path.is_file():
             continue
-        if any(part.startswith(".") or part == "__pycache__" for part in path.parts):
+        if any(part.startswith(".") or part == "__pycache__" for part in path.relative_to(root).parts):
             continue
         count += 1
         try:

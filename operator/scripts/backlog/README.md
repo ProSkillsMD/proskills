@@ -66,3 +66,17 @@ Implemented in `normalize.py` + `build_backlog_dry_run.py`:
 - `backlog-rollback-manifest.json` — dry-run: empty `issue_numbers_touched`
 
 Do not commit full issue dumps, bodies, emails, credentials, or PII.
+
+## Exact-duplicate cleanup
+
+`close_exact_duplicates.py` builds a frozen plan from a REST issue snapshot, then optionally
+closes only identical title/body auto-discovered submissions with no comments, assignees,
+milestone or stage labels. The oldest open identical submission is retained. Existing manual
+holds are protected. Every candidate and keeper is re-read immediately before mutation.
+A mandatory append-only journal captures original state/labels for recovery; no comments
+are posted. The command accepts GH_TOKEN from the environment only and does not fetch
+or execute candidate code. Run at most 100 writes per invocation with two-second spacing;
+space invocations to respect GitHub hourly write limits. HTTP errors stop the run.
+
+This is not fuzzy deduplication, approval or publication. Source-identity matches alone
+are not sufficient to close an issue. Review-bearing issues remain for manual reconciliation.
