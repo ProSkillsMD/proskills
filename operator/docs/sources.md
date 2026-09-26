@@ -13,6 +13,7 @@ one issue per candidate for the issue-based review flow) is a separate, later st
 | `new_repos` | `github_new_repos.py` | repos `created:>=now-60d` matching README/topic/name queries. The git tree must confirm a SKILL.md |
 | `awesome` | `awesome_lists.py` | raw README of VoltAgent/awesome-agent-skills, ComposioHQ/awesome-claude-skills, travisvn/awesome-claude-skills. `tree/`/`blob/` links keep the subfolder |
 | `clawhub` | `clawhub.py` | ClawHub feed `https://clawhub.ai/v1/feeds/skills` + public skill pages `https://clawhub.ai/<owner>/skills/<slug>` (see below) |
+| `skillsmp` | `skillsmp.py` | SkillsMP official MCP endpoint `POST https://skillsmp.com/mcp`, tool `search_skills` (config queries, `recent`/`stars`). Never the REST `/api/` (robots). See below |
 | `known_orgs` | `known_orgs.py` | explicit repos plus `org:<org> skill in:name,description,readme` for anthropics, vercel-labs, openai, supabase, microsoft, obra, kepano, … |
 
 Config: `operator/config/sources.json` (topics, queries, lists, orgs, limits, ranking).
@@ -32,6 +33,7 @@ Config: `operator/config/sources.json` (topics, queries, lists, orgs, limits, ra
    critical_static (#2396 #4869), publisher-skip (#2833), and identities held in the candidate queue.
 5. Mandatory `static_scan` for every pass/review skill (critical → `hold: critical_static`,
    scan error → hold). Budget `max_scan`. Anything over budget is `scan_deferred`, never pass.
+   Records are then merged per identity (a renamed repo listed under its old and new name gives one record with both sources).
 6. Ranking lanes:
    - `evergreen`: stars ≥ 100 and pushed within 365 days. Score = log10(stars+1) + recency bonus
      + 0.3 × (number of sources − 1).
@@ -80,6 +82,40 @@ submission issue.
 - Catalog dedupe: existing ClawHub listings (`repo_url`/`external_ratings.clawhub_url` on clawhub.ai) are matched by
   owner/slug or slug. Pages are not fetched for listed skills.
 
+## SkillsMP (`skillsmp.py`)
+
+SkillsMP (skillsmp.com) indexes GitHub-hosted SKILL.md skills. Findings (checked 2026-09-26):
+
+- **robots.txt** (`User-agent: *`): `Disallow: /api/`, `/api/github-contents`, `/auth/`; `Crawl-delay: 1`. The REST
+  search `GET /api/v1/skills/search` (anonymous 50/day + 10/min per IP, or 500/day with a free key) is therefore
+  **not used**. The adapter refuses any `/api/` path and checks robots at runtime (cached 24 h); if robots ever
+  disallows `/mcp` it stops (`error: mcp_disallowed_by_robots`).
+- **Official MCP server** `POST https://skillsmp.com/mcp` (Streamable HTTP, JSON-RPC 2.0, protocol `2025-06-18`,
+  read-only tools `search_skills`, `get_skill`, `list_categories`). SkillsMP recommends it for agents. No API key
+  or account, no daily quota; limits 50 POSTs/10 s and 30 `tools/call`/60 s per client IP; 429 carries `Retry-After`.
+  `search_skills`: `query` (required), `page` ≤ 50, `limit` ≤ 50, `sortBy` `recent|stars`. Each listing exposes
+  `id`, `name`, `author`, `description`, `contentLanguage`, `githubUrl` (`…/tree/<ref>/<path>`), `skillUrl`,
+  `stars` (repo stars), `updatedAt`. No license, no SKILL.md text, no catalog-wide change feed.
+- **Terms of Service** (https://skillsmp.com/terms, Nov 2025): search/browse allowed; "You may not scrape or
+  systematically download large portions of the website"; every skill is subject to its GitHub repo's license.
+- **Bounded per run**: one `initialize`, then at most `skillsmp_max_calls` (12) uncached `search_skills` calls,
+  ≥ 2.5 s apart, `max_pages` (2) × `per_page` (50) per query. Pages are cached 6 h (`feed` TTL). The query plan
+  rotates by UTC hour so no query starves under the cap. Uncached pages over the cap are `pages_deferred`.
+- **Errors**: 429 / 5xx / network → one retry (honouring `Retry-After` ≤ 30 s), then the run stops calling SkillsMP
+  (`error: transient:…`); nothing is cached, so the next run retries. 4xx / JSON-RPC errors skip that query only.
+- **Identity**: a listing whose `githubUrl` parses (`base.parse_github_link`; `tree/`/`blob/` keep the folder)
+  becomes a GitHub observation (`source: skillsmp`, metrics `skillsmp_id`, `skillsmp_stars`, `skillsmp_query`,
+  `mapping: githubUrl`). It then gets the normal GitHub checks and the identity `github:owner/repo[::subpath]`, so it
+  dedups against GitHub/ClawHub-sourced candidates, filed issues and catalog rows; SkillsMP is only provenance in
+  `sources[]`. A root `githubUrl` (`…/tree/<ref>`) is a repo-level hint (all SKILL.md, capped by `max_skills_per_repo`).
+- **SkillsMP-only listings** (no usable GitHub source): `source_type: skillsmp`, identity `skillsmp:<listing-id>`,
+  `status: missing_license`, `hold: skillsmp_only_no_github_source`. The ClawHub-only rules apply (license must pass,
+  static scan mandatory), and SkillsMP supplies neither a license nor SKILL.md text, so these never pass.
+  `scout_file.py` also refuses any identity other than `github:`/`clawhub:`, so they are never filed.
+- **Summary**: `summary.source_breakdown.skillsmp` = listings seen, GitHub-backed vs SkillsMP-only listings,
+  identities, `known_in_catalog`, `known_issue` (existing issue or `state/scout/issue-index.json`), `new`,
+  `new_fileable`, `also_seen_via_other_sources`, calls / cached / deferred pages.
+
 ## Limits
 
 - Search API: ≥ 2.1 s between search calls (30/min). At most 1000 results per query (paging stops at 10×100).
@@ -95,7 +131,9 @@ submission issue.
 cd /workspace/proskills-ops
 python3 operator/scripts/source_candidates.py                  # dry run -> state/artifacts/sources-dryrun-<stamp>-{candidates,summary}.json
 python3 operator/scripts/source_candidates.py --sources awesome,known_orgs --max-tree-fetches 100
+python3 operator/scripts/source_candidates.py --sources skillsmp --skillsmp-max-calls 6   # SkillsMP only, 6 searches
 python3 operator/scripts/source_candidates.py --write          # source-candidates-YYYY-MM-DD.json (still no queue/issue writes)
 ```
 
-Tests: `operator/tests/test_sources.py` (mocked HTTP; any real network call fails the test).
+Tests: `operator/tests/test_sources.py`, `test_sources_clawhub.py`, `test_sources_skillsmp.py` (mocked HTTP; any real
+network call fails the test).
