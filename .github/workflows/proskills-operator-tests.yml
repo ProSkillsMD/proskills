@@ -7,6 +7,9 @@ on:
     paths:
       - "operator/**"
       - ".github/workflows/proskills-operator-tests.yml"
+      - ".github/workflows/proskills-intake.yml"
+      - ".github/workflows/proskills-publish.yml"
+      - ".github/workflows/proskills-health.yml"
   workflow_dispatch:
 
 permissions:
@@ -54,3 +57,21 @@ jobs:
             exit 1
           fi
           echo "No production Oracle variables configured (names checked only)"
+
+  workflow-lint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: actionlint (pinned release, checksum verified)
+        env:
+          AL_VERSION: "1.7.12"
+          AL_SHA256: "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8"
+        run: |
+          curl -sSfL -o /tmp/al.tgz "https://github.com/rhysd/actionlint/releases/download/v${AL_VERSION}/actionlint_${AL_VERSION}_linux_amd64.tar.gz"
+          echo "${AL_SHA256}  /tmp/al.tgz" | sha256sum -c -
+          tar -xzf /tmp/al.tgz -C /tmp actionlint
+          /tmp/actionlint -color .github/workflows/*.yml

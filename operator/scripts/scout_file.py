@@ -514,14 +514,10 @@ class ScoutFiler:
         body = f"{MARKER_COMMENT_INTRO}\n\n{block}"
         cid = ie.get("comment_id")
         if not cid:
-            for cm in self.api.list_comments(n):
+            for cm in self.api.list_comments(n):  # the LAST marker comment wins
                 if F.parse_block(cm.get("body")):
                     cid = cm["id"]
-                    break
-        if cid:
-            self.api.edit_comment(cid, body)
-        else:
-            cid = (self.api.create_comment(n, body) or {}).get("id")
+        cid = self.api.edit_or_create_comment(n, cid, body)
         self.index.put(fields["psk-id"], issue=n, via="comment", comment_id=cid, block=fields)
         return "comment"
 

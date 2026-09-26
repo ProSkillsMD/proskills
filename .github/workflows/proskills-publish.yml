@@ -1,0 +1,116 @@
+# ProSkills publisher: review:pass candidate issues -> ProSkillsMD/website catalog PR -> merge when green
+# -> verify live -> label status:listed + groot:published and close. Cap 100 skills per Asia/Dhaka day.
+# Runs as the ProSkills GitHub App. Harmless until enabled (same guard as proskills-intake.yml).
+name: ProSkills publish
+
+on:
+  schedule:
+    - cron: "44 * * * *"   # hourly at :44 UTC == :44 Asia/Dhaka (UTC+6)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proskills-operator-pipeline   # shared with proskills-intake.yml: runs never overlap
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+    outputs:
+      run: ${{ steps.guard.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: operator/scripts/actions_guard.py
+          sparse-checkout-cone-mode: false
+      - id: guard
+        env:
+          PROSKILLS_ACTIONS_ENABLED: ${{ vars.PROSKILLS_ACTIONS_ENABLED }}
+          HAS_APP_ID: ${{ secrets.PROSKILLS_APP_ID != '' }}
+          HAS_APP_KEY: ${{ secrets.PROSKILLS_APP_PRIVATE_KEY != '' }}
+          GH_TOKEN: ${{ github.token }}
+        run: python3 operator/scripts/actions_guard.py
+
+  publish:
+    name: publish review:pass issues
+    needs: guard
+    if: needs.guard.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    permissions:
+      contents: read
+    env:
+      PYTHONUNBUFFERED: "1"
+      PROSKILLS_ISSUES_WRITE: "true"
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.PROSKILLS_APP_ID }}
+          private-key: ${{ secrets.PROSKILLS_APP_PRIVATE_KEY }}
+          owner: ProSkillsMD
+          repositories: proskills,website
+          permission-contents: write        # website publish branch + squash-merge
+          permission-pull-requests: write   # open/merge website catalog PR
+          permission-issues: write          # publish:staged, status:listed, close issues
+          permission-checks: read           # PR check status
+          permission-statuses: read
+          permission-metadata: read
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Checkout website
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ProSkillsMD/website
+          token: ${{ steps.app-token.outputs.token }}
+          path: website
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Git identity (app bot)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          uid="$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id)"
+          for d in . website; do
+            git -C "$d" config user.name "${APP_SLUG}[bot]"
+            git -C "$d" config user.email "${uid}+${APP_SLUG}[bot]@users.noreply.github.com"
+          done
+
+      - name: Install website dependencies
+        working-directory: website
+        run: npm ci --no-audit --no-fund
+
+      - name: Restore state (operator-state branch, read-only here)
+        run: python3 operator/scripts/actions_state.py restore
+
+      - name: Publish (cap 100 / Asia/Dhaka day)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          python3 operator/scripts/publish_run.py --apply --website website \
+            --author "app/${APP_SLUG}" --cap 100 --per-run 40 --out "$RUNNER_TEMP/publish.json"
+
+      - name: Job summary
+        if: always()
+        run: python3 operator/scripts/actions_health.py summarize --publish "$RUNNER_TEMP/publish.json" >> "$GITHUB_STEP_SUMMARY"

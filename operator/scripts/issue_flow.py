@@ -18,6 +18,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -72,6 +73,7 @@ LABELS: dict[str, tuple[str, str]] = {
     "reject:duplicate": ("f9d0c4", "Already listed in the ProSkills catalog (same identity)"),
     LABEL_AI_REVIEWED: ("5319e7", "Reviewed by the budgeted AI step (ai_review.py)"),
     LABEL_STAGED: ("0052cc", "Staged into a website catalog publish PR"),
+    "operator-lock": ("000000", "Open issue with this label pauses the ProSkills GitHub Actions workflows"),
 }
 for _n in ("source:github", "source:clawhub"):
     LABELS.setdefault(_n, ("ededed", f"Candidate source: {_n.split(':', 1)[1]}"))
@@ -416,6 +418,10 @@ class IssueRepo:
         return out
 
     def can_edit_bodies(self) -> bool:
+        # GitHub App installation tokens get no `permissions` block on GET /repos; the Actions workflows
+        # declare the app's issues:write grant explicitly.
+        if os.environ.get("PROSKILLS_ISSUES_WRITE", "").lower() == "true":
+            return True
         try:
             perms = (self.client.request(f"{scout.API}/repos/{self.slug}").json() or {}).get("permissions") or {}
         except scout.GitHubError:
@@ -454,6 +460,21 @@ class IssueRepo:
 
     def edit_comment(self, comment_id: int, body: str) -> dict[str, Any]:
         return self._write("PATCH", f"issues/comments/{int(comment_id)}", {"body": body})
+
+    def edit_or_create_comment(self, number: int, comment_id: int | None, body: str) -> int | None:
+        """Edit our marker comment in place; if it is gone (404) or not editable by this identity (403, e.g.
+        a comment written by the box account before the GitHub Actions cutover) post a fresh one, which then
+        becomes the LAST marker comment and is the one found next time."""
+        if comment_id:
+            try:
+                self.edit_comment(int(comment_id), body)
+                return int(comment_id)
+            except scout.NotFound:
+                pass
+            except scout.Transient as e:
+                if getattr(e, "status", None) != 403:
+                    raise
+        return (self.create_comment(number, body) or {}).get("id")
 
     def close_not_planned(self, number: int) -> dict[str, Any]:
         return self._write("PATCH", f"issues/{int(number)}", {"state": "closed", "state_reason": "not_planned"})

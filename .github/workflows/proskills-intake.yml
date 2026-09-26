@@ -1,0 +1,129 @@
+# ProSkills intake: scout -> file candidate issues -> deterministic review (no AI, no model keys).
+# Runs as the ProSkills GitHub App. Harmless until enabled: every job exits early (success) unless the
+# repository variable PROSKILLS_ACTIONS_ENABLED == 'true' AND secrets PROSKILLS_APP_ID /
+# PROSKILLS_APP_PRIVATE_KEY exist AND no open issue carries the `operator-lock` label.
+# AI review (review:needs-ai) stays with the box agent (operator/scripts/ai_review.py).
+name: ProSkills intake
+
+on:
+  schedule:
+    - cron: "14 * * * *"   # hourly at :14 UTC == :14 Asia/Dhaka (UTC+6, whole-hour offset)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: proskills-operator-pipeline   # shared with proskills-publish.yml: runs never overlap
+  cancel-in-progress: false
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
+    outputs:
+      run: ${{ steps.guard.outputs.run }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: operator/scripts/actions_guard.py
+          sparse-checkout-cone-mode: false
+      - id: guard
+        env:
+          PROSKILLS_ACTIONS_ENABLED: ${{ vars.PROSKILLS_ACTIONS_ENABLED }}
+          HAS_APP_ID: ${{ secrets.PROSKILLS_APP_ID != '' }}
+          HAS_APP_KEY: ${{ secrets.PROSKILLS_APP_PRIVATE_KEY != '' }}
+          GH_TOKEN: ${{ github.token }}
+        run: python3 operator/scripts/actions_guard.py
+
+  intake:
+    name: scout + file + review
+    needs: guard
+    if: needs.guard.outputs.run == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    permissions:
+      contents: read
+    env:
+      PYTHONUNBUFFERED: "1"
+      PROSKILLS_ISSUES_WRITE: "true"
+    steps:
+      - id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ secrets.PROSKILLS_APP_ID }}
+          private-key: ${{ secrets.PROSKILLS_APP_PRIVATE_KEY }}
+          owner: ProSkillsMD
+          repositories: proskills,website
+          permission-contents: write      # operator-state branch only (never main)
+          permission-issues: write        # candidate issues, review comments, labels
+          permission-metadata: read
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Git identity (app bot)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          uid="$(gh api "/users/${APP_SLUG}%5Bbot%5D" --jq .id)"
+          git config user.name "${APP_SLUG}[bot]"
+          git config user.email "${uid}+${APP_SLUG}[bot]@users.noreply.github.com"
+
+      - name: Restore caches (pure caches; safe to lose)
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            operator/state/scout/repo-cache.json
+            operator/state/scout/scan-cache.json
+            operator/state/scout/skill-cache.json
+            operator/state/scout/review-clawhub-cache.json
+            operator/state/sources/http-cache.json
+            operator/state/sources/repo-cache.json
+            operator/state/sources/scan-cache.json
+            operator/state/sources/skill-cache.json
+          key: proskills-intake-caches-${{ github.run_id }}
+          restore-keys: proskills-intake-caches-
+
+      - name: Restore state (operator-state branch)
+        run: python3 operator/scripts/actions_state.py restore
+
+      - name: Scout (scout.py --write)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: python3 operator/scripts/scout.py --write
+
+      - name: Source adapters (GitHub + ClawHub)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: python3 operator/scripts/source_candidates.py --write --ignore-routine-windows
+
+      - name: File candidate issues (caps 25/run, 150/day, 3/repo/day; backpressure 200 unreviewed)
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: python3 operator/scripts/scout_file.py --apply --ignore-routine-windows --out "$RUNNER_TEMP/scout_file.json"
+
+      - name: Deterministic review (<= 50 issues)
+        if: always() && steps.app-token.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: python3 operator/scripts/review.py --apply --ignore-routine-windows --limit 50 --out "$RUNNER_TEMP/review.json"
+
+      - name: Save state (operator-state branch)
+        if: always() && steps.app-token.outcome == 'success'
+        run: python3 operator/scripts/actions_state.py save --message "intake run ${{ github.run_id }}"
+
+      - name: Job summary
+        if: always()
+        run: python3 operator/scripts/actions_health.py summarize --scout-file "$RUNNER_TEMP/scout_file.json" --review "$RUNNER_TEMP/review.json" >> "$GITHUB_STEP_SUMMARY"
