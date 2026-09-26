@@ -88,9 +88,10 @@ class TestParsing(unittest.TestCase):
 
 class TestSearchLimits(unittest.TestCase):
     def setUp(self):
-        p = mock.patch.object(scout, "urllib_transport", _no_network)
-        p.start()
-        self.addCleanup(p.stop)
+        for target in (mock.patch.object(scout, "urllib_transport", _no_network),
+                       mock.patch("urllib.request.urlopen", _no_network)):
+            target.start()
+            self.addCleanup(target.stop)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
 
@@ -172,9 +173,10 @@ CATALOG = {"skills": [{"repo_url": "https://github.com/mono/skills", "skill_path
 
 class TestEndToEnd(unittest.TestCase):
     def setUp(self):
-        p = mock.patch.object(scout, "urllib_transport", _no_network)
-        p.start()
-        self.addCleanup(p.stop)
+        for target in (mock.patch.object(scout, "urllib_transport", _no_network),
+                       mock.patch("urllib.request.urlopen", _no_network)):
+            target.start()
+            self.addCleanup(target.stop)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
@@ -188,7 +190,7 @@ class TestEndToEnd(unittest.TestCase):
         self.art.mkdir()
 
     def args(self, **kw):
-        base = dict(sources=None, config=self.cfg_path, max_tree_fetches=None, max_scan=None, no_scan=False,
+        base = dict(sources="github_topics,new_repos,awesome,known_orgs", config=self.cfg_path, max_tree_fetches=None, max_scan=None, no_scan=False,
                     no_persist_state=False, no_scout_cache=True, catalog=None)
         base.update(kw)
         return argparse.Namespace(**base)

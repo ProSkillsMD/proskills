@@ -12,6 +12,7 @@ one issue per candidate for the issue-based review flow) is a separate, later st
 | `github_topics` | `github_topics.py` | `search/repositories?q=topic:<t>` sorted by stars (topics from config) |
 | `new_repos` | `github_new_repos.py` | repos `created:>=now-60d` matching README/topic/name queries. The git tree must confirm a SKILL.md |
 | `awesome` | `awesome_lists.py` | raw README of VoltAgent/awesome-agent-skills, ComposioHQ/awesome-claude-skills, travisvn/awesome-claude-skills. `tree/`/`blob/` links keep the subfolder |
+| `clawhub` | `clawhub.py` | ClawHub feed `https://clawhub.ai/v1/feeds/skills` + public skill pages `https://clawhub.ai/<owner>/skills/<slug>` (see below) |
 | `known_orgs` | `known_orgs.py` | explicit repos plus `org:<org> skill in:name,description,readme` for anthropics, vercel-labs, openai, supabase, microsoft, obra, kepano, … |
 
 Config: `operator/config/sources.json` (topics, queries, lists, orgs, limits, ranking).
@@ -57,6 +58,27 @@ Config: `operator/config/sources.json` (topics, queries, lists, orgs, limits, ra
 
 `existing_issue` / `repo_has_open_issue` let an issue-filing step skip skills that already have a
 submission issue.
+
+## ClawHub (`clawhub.py`)
+
+- `robots.txt` (checked at runtime, cached 24 h) has `Disallow: /api/` and `Allow: /v1/feeds/skills`. The adapter reads only
+  the feed and the public skill pages. It refuses any `/api/…` URL even when robots is unavailable.
+  Requests are spaced at least 2 s apart. The feed is cached for 6 h and page extracts for 7 days per skill version.
+  At most `clawhub_max_pages` (150) uncached pages are fetched per run; the rest are `pages_deferred`.
+- **GitHub-backed skills** (page `githubSourceRepo` + `githubPath`, or a `repository:` GitHub URL in the
+  SKILL.md frontmatter) become GitHub observations (`source: clawhub`, metrics `clawhub_downloads/installs/stars`,
+  `mapping`). They then go through the normal GitHub checks (the repo license decides, not MIT-0).
+- **ClawHub-only skills**: `source_type: clawhub`, identity `clawhub:@owner/slug`, `repo_url` = `source_url` =
+  the ClawHub page, `license_spdx: MIT-0`. The license is platform-level; evidence is
+  `https://github.com/openclaw/clawhub/blob/HEAD/docs/skill-format.md` ("All skills published on ClawHub are
+  licensed under MIT-0"). A page showing a different license gives `license_review`. `stars`/`forks` are `null`.
+  Lane `clawhub`, with a score from ClawHub downloads/installs/stars. Dated download readings are stored for a future rising lane.
+- **static_scan is mandatory**: the published SKILL.md text comes from the public page (rendered markdown → text)
+  and is scanned with `static_scan.scan_candidate`. Holds: `critical_static` (our scan), `unscanned_bundle_scripts`
+  (the bundle lists script files, which are reachable only through the disallowed `/api/`, so they cannot be scanned),
+  `clawhub_static_critical` (ClawHub's own scanner reported critical findings), `scan_error:skill_md_missing`.
+- Catalog dedupe: existing ClawHub listings (`repo_url`/`external_ratings.clawhub_url` on clawhub.ai) are matched by
+  owner/slug or slug. Pages are not fetched for listed skills.
 
 ## Limits
 

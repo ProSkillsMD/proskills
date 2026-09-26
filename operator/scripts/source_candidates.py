@@ -6,6 +6,7 @@ Sources (operator/scripts/sources/, config in operator/config/sources.json):
   new_repos      repositories created in the last 60 days that look like SKILL.md skills
   awesome        awesome-list README parsers
   known_orgs     known publisher orgs + explicit repos
+  clawhub        ClawHub public feed (/v1/feeds/skills) + public skill pages (never /api/, per robots.txt)
 
 Every observation goes through the scout's checks (git-tree SKILL.md discovery, subpath-level
 dedupe vs the live catalog, license tiers, mandatory static_scan, protected/critical/publisher-skip
@@ -37,13 +38,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import scout  # noqa: E402
 from scout import AdaptiveThrottle, GitHubClient, ScoutState, get_gh_token  # noqa: E402
-from sources import awesome_lists, github_new_repos, github_topics, known_orgs  # noqa: E402
+from sources import awesome_lists, clawhub, github_new_repos, github_topics, known_orgs  # noqa: E402
 from sources.base import STATE, DiskCache, RepoSearch, SearchLimiter, iso, load_config, utc_now  # noqa: E402
 from sources.evaluate import (SourceEvaluator, existing_issue_index, fetch_meta, load_hold_rules,  # noqa: E402
                               merge_observations, public_record)
 from sources.rank import assign_lane, record_reading  # noqa: E402
 
-ALL_SOURCES = ("github_topics", "new_repos", "awesome", "known_orgs")
+ALL_SOURCES = ("github_topics", "new_repos", "awesome", "known_orgs", "clawhub")
 STATUS_KEYS = ("pass", "license_review", "hold", "already_in_catalog", "missing_license", "missing_skill",
                "large_collection", "transient", "scan_deferred")
 ROUTINE_WINDOWS = ((10, 26), (40, 58))  # Dhaka minutes around intake (:14) and publisher (:44)
@@ -158,7 +159,8 @@ def make_raw_text(client: GitHubClient, cache: DiskCache, ttl_s: float):
 
 def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog: dict | None = None,
         state_dir: Path = STATE, art: Path = scout.ART, now: datetime | None = None,
-        extra_observations: list[dict] | None = None, sleep=time.sleep) -> dict[str, Any]:
+        extra_observations: list[dict] | None = None, sleep=time.sleep,
+        clawhub_fetch=None) -> dict[str, Any]:
     cfg = load_config(Path(args.config)) if getattr(args, "config", None) else load_config()
     lim = {**cfg.get("limits", {})}
     for k in ("max_tree_fetches", "max_scan"):
@@ -174,6 +176,17 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     selected = [s for s in (args.sources.split(",") if args.sources else ALL_SOURCES) if s in ALL_SOURCES]
     obs, info = collect_observations(selected, cfg, search, make_raw_text(client, cache, ttl.get("raw_list", 12 * 3600)))
     obs += list(extra_observations or [])
+    clawhub_records: list[dict] = []
+    if "clawhub" in selected:
+        ch = clawhub.ClawHubClient(cache, fetch=clawhub_fetch or clawhub.default_fetch,
+                                   min_interval=float(lim.get("clawhub_min_interval_s", 2.0)), sleep=sleep,
+                                   feed_ttl_s=ttl.get("feed", 6 * 3600))
+        max_pages = getattr(args, "clawhub_max_pages", None)
+        ch_obs, clawhub_records, ch_info = clawhub.collect(
+            ch, catalog, max_pages=int(max_pages if max_pages is not None else lim.get("clawhub_max_pages", 150)),
+            scan=not getattr(args, "no_scan", False), now_iso=iso(now))
+        info["clawhub"] = {"observations": len(ch_obs), **ch_info}
+        obs += ch_obs
     repos = merge_observations(obs)
     obs_by_source: dict[str, set[str]] = defaultdict(set)
     for o in obs:
@@ -195,6 +208,11 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     for r in records:
         rk = r["repo_url"].split("github.com/", 1)[-1].lower()
         assign_lane(r, readings.get(rk), rank_cfg, now)
+    for r in clawhub_records:  # ClawHub-only: lane "clawhub" (score from ClawHub stats); keep dated download readings
+        d = ((r.get("sources") or [{}])[0].get("metrics") or {}).get("clawhub_downloads")
+        if d is not None:
+            record_reading(readings, r["identity"], int(d), now, int(rank_cfg.get("readings_kept", 14)))
+    records += clawhub_records
     records.sort(key=lambda r: ({"pass": 0, "license_review": 1}.get(r.get("status"), 2),
                                 {"rising": 0, "evergreen": 1}.get(r.get("lane"), 2), -float(r.get("score") or 0),
                                 r.get("identity") or ""))
@@ -230,6 +248,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-scan", action="store_true", help="skip static_scan (records stay scan_deferred)")
     ap.add_argument("--no-persist-state", action="store_true")
     ap.add_argument("--no-scout-cache", action="store_true", help="do not reuse the scout's repo verdict cache")
+    ap.add_argument("--clawhub-max-pages", type=int, default=None,
+                    help="max uncached ClawHub skill pages fetched this run (default config, 150)")
     ap.add_argument("--ignore-routine-windows", action="store_true")
     args = ap.parse_args(argv)
     dhaka_now = datetime.now(scout.DHAKA)
