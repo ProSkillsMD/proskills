@@ -97,9 +97,11 @@ def github_links(text: str) -> Iterable[str]:
 class DiskCache:
     """Tiny JSON cache: key -> {at, value}. TTL checked on read. Not thread-safe across processes."""
 
-    def __init__(self, path: Path, clock: Callable[[], float] = time.time):
+    def __init__(self, path: Path, clock: Callable[[], float] = time.time, autosave_every: int = 0):
         self.path = path
         self.clock = clock
+        self.autosave_every = int(autosave_every or 0)  # >0: save after every N puts (survives a killed run)
+        self._puts = 0
         self._lock = threading.Lock()
         try:
             self.data: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
@@ -120,6 +122,10 @@ class DiskCache:
     def put(self, key: str, value: Any) -> None:
         with self._lock:
             self.data[key] = {"at": self.clock(), "value": value}
+            self._puts += 1
+            due = self.autosave_every > 0 and self._puts % self.autosave_every == 0
+        if due:
+            self.save()
 
     def save(self) -> None:
         self.path.parent.mkdir(parents=True, exist_ok=True)

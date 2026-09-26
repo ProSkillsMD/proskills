@@ -258,5 +258,21 @@ class TestEndToEnd(unittest.TestCase):
         self.assertFalse(source_candidates.in_routine_window(datetime(2026, 9, 26, 12, 30)))
 
 
+class DiskCacheAutosaveTest(unittest.TestCase):
+    def test_autosave_every_n_puts(self):
+        import tempfile
+        from pathlib import Path as _P
+        from sources.base import DiskCache
+        with tempfile.TemporaryDirectory() as d:
+            p = _P(d) / "c.json"
+            c = DiskCache(p, autosave_every=2)
+            c.put("a", 1)
+            self.assertFalse(p.exists())
+            c.put("b", 2)
+            self.assertTrue(p.exists())
+            self.assertEqual(DiskCache(p).get("b", 60), 2)
+
+
+
 if __name__ == "__main__":
     unittest.main()

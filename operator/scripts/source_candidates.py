@@ -170,11 +170,18 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     now = now or utc_now()
     client = client or GitHubClient(get_gh_token(), throttle=AdaptiveThrottle(6))
     catalog = catalog if catalog is not None else scout.load_catalog_live(getattr(args, "catalog", None))
-    cache = DiskCache(state_dir / "http-cache.json")
+    persist = not getattr(args, "no_persist_state", False)
+    cache = DiskCache(state_dir / "http-cache.json", autosave_every=int(lim.get("cache_autosave_every", 25)) if persist else 0)
+    t0 = time.monotonic()
+
+    def stage(name: str, **kw) -> None:
+        print(f"[sources] {time.monotonic() - t0:6.1f}s {name} " + " ".join(f"{k}={v}" for k, v in kw.items()), flush=True)
+
     search = RepoSearch(client, cache, SearchLimiter(float(lim.get("search_min_interval_s", 2.1)), sleep=sleep),
                         ttl_s=ttl.get("search", 6 * 3600))
     selected = [s for s in (args.sources.split(",") if args.sources else ALL_SOURCES) if s in ALL_SOURCES]
     obs, info = collect_observations(selected, cfg, search, make_raw_text(client, cache, ttl.get("raw_list", 12 * 3600)))
+    stage("github_sources_done", observations=len(obs), search_calls=search.limiter.calls)
     obs += list(extra_observations or [])
     clawhub_records: list[dict] = []
     if "clawhub" in selected:
@@ -187,19 +194,23 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
             scan=not getattr(args, "no_scan", False), now_iso=iso(now))
         info["clawhub"] = {"observations": len(ch_obs), **ch_info}
         obs += ch_obs
+        stage("clawhub_done", observations=len(ch_obs), clawhub_only=len(clawhub_records))
     repos = merge_observations(obs)
     obs_by_source: dict[str, set[str]] = defaultdict(set)
     for o in obs:
         obs_by_source[o["source"]].add(f"{o['owner']}/{o['repo']}".lower())
     metas = fetch_meta(client, sorted(repos))
+    stage("meta_done", repos=len(repos))
     state = ScoutState(state_dir)
     fallback = scout._load_json(scout.SCOUT_STATE / "repo-cache.json", {}) if not getattr(args, "no_scout_cache", False) else {}
     ev = SourceEvaluator(client, state, catalog, hold_rules=load_hold_rules(client, cache, art, ttl.get("issues", 86400)),
                          limits=lim, issue_index=existing_issue_index(art), fallback_repo_cache=fallback,
                          scan=not getattr(args, "no_scan", False), log=print)
     verdicts = ev.verdicts(metas)
+    stage("verdicts_done", verdicts=len(verdicts))
     records = ev.evaluate(repos, metas, verdicts)
     ev.scan_all(records)
+    stage("scan_done", records=len(records))
     readings = scout._load_json(state_dir / "star-readings.json", {})
     rank_cfg = cfg.get("ranking") or {}
     for k, m in metas.items():
@@ -216,7 +227,7 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     records.sort(key=lambda r: ({"pass": 0, "license_review": 1}.get(r.get("status"), 2),
                                 {"rising": 0, "evergreen": 1}.get(r.get("lane"), 2), -float(r.get("score") or 0),
                                 r.get("identity") or ""))
-    if not getattr(args, "no_persist_state", False):
+    if persist:
         state.save()
         cache.save()
         scout._atomic_write(state_dir / "star-readings.json", readings)
