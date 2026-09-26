@@ -96,8 +96,16 @@ def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: d
     skills = scout.discover_skills(entries)
     lic_files = scout.license_files(entries)
     dup_idx_total = len(skills)
+    def root_tree_sha() -> str | None:
+        # git/trees/<ref> echoes the COMMIT sha; the root tree sha (what scout_file records) is commit.tree.sha
+        try:
+            com = client.rest(f"repos/{owner}/{repo}/commits/{quote(branch, safe='')}") or {}
+        except scout.GitHubError:
+            return None
+        return ((com.get("commit") or {}).get("tree") or {}).get("sha")
+
     if blk.get("kind") == "large-collection":
-        rv.sha = tree.get("sha")
+        rv.sha = root_tree_sha()
         rv.check("SKILL.md at path", "pass" if skills else "fail", f"{len(skills)} SKILL.md files in the repository")
         rv.check("Skill sha", "pass", f"`{(rv.sha or '')[:12]}` (repository root tree)")
         if catalog_idx is not None and any((catalog_idx.get(k) or {}).get("whole_repo") for k in {rk, full.lower()}):
@@ -122,7 +130,7 @@ def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: d
         path = hit["skill_path"]
     rv.check("SKILL.md at path", "pass", f"`{F.safe_text(path, 120)}` ({len(text):,} chars)")
     dir_sha = {e["path"]: e.get("sha") for e in entries if e.get("type") == "tree"}
-    rv.sha = dir_sha.get(folder) if folder else tree.get("sha")
+    rv.sha = dir_sha.get(folder) if folder else root_tree_sha()
     old = F.block_sha(blk)
     rv.check("Skill sha", "pass" if rv.sha == old else "warn",
              f"`{(rv.sha or 'unknown')[:12]}`" + ("" if rv.sha == old else f" (block had `{(old or 'none')[:12]}`)"))

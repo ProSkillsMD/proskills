@@ -567,6 +567,18 @@ class TestPublishCandidates(Base):
         q = PC.queue_payload(sel)
         self.assertEqual(scout.merge_passed_with_eligible(q)[0]["identity"], "github:a/one::s")
 
+    def test_root_level_skill_sha_is_root_tree_and_publishable(self):
+        # regression: git/trees/<branch> echoes the commit sha; review must record the root TREE sha
+        self.gh.add_repo("R/root", {"SKILL.md": SKILL}, stars=5)
+        out, _ = self.file([src_rec("R", "root", "")])
+        n = out["actions"][0]["issue"]
+        self.reviewer().run(list(self.gh.issues.values()))
+        mk = F.parse_review_marker(self.gh.issue_comments(n)[0]["body"])
+        self.assertEqual(mk["sha"], self.gh.tree_sha("R/root"))
+        self.assertNotIn("block had", self.gh.issue_comments(n)[0]["body"])
+        sel = PC.select(self.api, self.state, catalog={"skills": []}, issues=list(self.gh.issues.values()))
+        self.assertEqual([p["issue"] for p in sel["passed"]], [n])
+
     def test_repo_in_catalog_and_protected_skipped(self):
         a = self.passed_issue("A/one")
         self.reviewer().run(list(self.gh.issues.values()))
