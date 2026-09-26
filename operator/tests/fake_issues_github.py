@@ -33,6 +33,7 @@ class FakeGH:
         self.next_comment = 1
         self.can_push = can_push
         self.core_remaining = 4000
+        self.forbidden_comments: set[int] = set()  # PATCH -> 403 (comment written by another account)
 
     # -- setup
     def add_repo(self, key: str, files: dict[str, str], *, spdx: str | None = "MIT", stars: int = 50,
@@ -168,6 +169,8 @@ class FakeGH:
             if cid not in self.comments:
                 return self._r(404)
             if method == "PATCH":
+                if cid in self.forbidden_comments:
+                    return self._r(403, {"message": "Resource not accessible by integration"})
                 self.comments[cid]["body"] = payload["body"]
             return self._r(200, self.comments[cid])
         if sub == "/labels":

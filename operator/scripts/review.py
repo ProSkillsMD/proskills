@@ -431,11 +431,10 @@ class Reviewer:
         old_body = None
         if self.apply or not cid:
             comments = self.api.list_comments(n) if not cid else []
-            for cm in comments:
+            for cm in comments:  # the LAST marker comment wins (see IssueRepo.edit_or_create_comment)
                 mk = F.parse_review_marker(cm.get("body"))
                 if mk:
                     cid, old_body = cm["id"], cm.get("body")
-                    break
         old_marker = F.parse_review_marker(old_body) if old_body else (
             {"sha": st.get("sha") or "none", "verdict": st.get("verdict")} if cid else None)
         unchanged = (old_marker is not None and old_marker.get("verdict") == rv.verdict
@@ -457,13 +456,7 @@ class Reviewer:
         res["close"] = close
         self.counts[rv.verdict] += 1
         if self.apply:
-            if cid:
-                try:
-                    self.api.edit_comment(cid, body)
-                except scout.NotFound:
-                    cid = (self.api.create_comment(n, body) or {}).get("id")
-            else:
-                cid = (self.api.create_comment(n, body) or {}).get("id")
+            cid = self.api.edit_or_create_comment(n, cid, body)
             F.set_labels(self.api, issue, want_labels, ("review:", "reject:"))
             if close:
                 self.api.close_not_planned(n)
