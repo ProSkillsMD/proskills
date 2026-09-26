@@ -214,7 +214,9 @@ class FakeGH:
             dirs = self._dirs(r)
             entries = [{"path": d, "type": "tree", "sha": s} for d, s in dirs.items() if d]
             entries += [{"path": p, "type": "blob", "sha": _sha("blob", t), "size": len(t)} for p, t in r["files"].items()]
-            return self._r(200, {"sha": dirs[""], "tree": entries, "truncated": False})
+            # like GitHub: the response "sha" echoes the resolved COMMIT when called with a branch/commit ref,
+            # not the root tree sha (the root tree sha is only in commits/<ref> -> commit.tree.sha)
+            return self._r(200, {"sha": self.commit_sha(key), "tree": entries, "truncated": False})
         return self._r(404)
 
 
