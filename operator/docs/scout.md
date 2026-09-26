@@ -66,9 +66,34 @@ and a section in `operator/logs/intake-YYYY-MM-DD.md`. Queue keys are unchanged
 (`eligible`, `passed`, `batch_seed`, `publisher_skip_batch_seed`, `holds_critical_static`,
 `stats`, …) plus additive keys `license_review`, `skill_stats`, `tiers`, `coverage`,
 `top_repos_by_new_skills`, `passed_total_before_trim`. `passed` entries carry full
-candidate fields (`identity`, `subpath`, `skill_path`, `default_branch`, …) so the
-publisher's merge-by-issue keeps subfolder skills distinct. `passed` is trimmed to 40
-with at most 5 per repo (`--queue-max-passed`, `--queue-max-per-repo`).
+candidate fields (`identity`, `subpath`, `skill_path`, `default_branch`, `repo_in_catalog`,
+`queue_rank`, …).
+
+### Passed-queue order (`order_passed`)
+
+`passed` is capped at 40 (`--queue-max-passed`) with **at most 5 skills per repo**
+(`--queue-max-per-repo`) and is already in publish order:
+
+1. group by issue (issue-less candidates from future sources: one group per repo), inside a
+   group by stars desc;
+2. groups ordered by their best star count; **round-robin**: round r takes the r-th skill of
+   every group, so one issue / monorepo cannot take all top slots (no pure star sort);
+3. candidates whose repo already has a catalog listing (`repo_in_catalog: true`) come after all
+   others, because the publisher and the website validator (`duplicate normalized repos`)
+   currently allow one listing per GitHub repo;
+4. duplicate identities are dropped.
+
+### Identity-keyed queue helpers (for the publisher)
+
+Queue entries are keyed by skill identity `github:owner/repo[::subpath]`, never by issue number,
+so sibling skills of one issue survive when one of them is published.
+
+- `merge_passed_with_eligible(queue)` → full records for `passed`, merged with `eligible` by identity.
+- `remove_identities_from_queue(queue, identities)` → pure function.
+- `remove_published_from_queue(identities, queue_path=None, run_id=None)` → atomic rewrite of the
+  queue file (default today's `candidate-queue-YYYY-MM-DD.json`).
+- CLI: `python3 operator/scripts/scout.py --remove-identity github:o/r::skills/x [--remove-identity …] [--run-id hourly-…]`
+  (queue maintenance only, no scouting).
 
 `stats` keeps the old issue-level keys; `repo_fail` now equals `not_found` only, and
 `license_review`, `not_found`, `transient`, `deferred` are added.
@@ -81,16 +106,38 @@ Intake routine — replace "write /tmp/intake_enrich_HHMM.py and run it" with:
 cd /workspace/proskills-ops && python3 operator/scripts/scout.py --write --run-id intake-$(TZ=Asia/Dhaka date +%F-%H%M)
 ```
 
-Hourly publisher (it imports the intake module for `classify_batch`, `run_scan`,
-`rematerialize_warm`, `public_cand`, `get_gh_token`, `fetch_issues_pass`,
-`load_known_holds`) — point the importlib path at the committed file:
+Hourly publisher: load the committed module instead of `/tmp/intake_enrich_*.py`. Preferred:
 
 ```python
-_spec = importlib.util.spec_from_file_location("intake_enrich", "/workspace/proskills-ops/operator/scripts/scout.py")
+sys.path.insert(0, "/workspace/proskills-ops/operator/scripts")
+import scout as _intake
 ```
 
-Not included on purpose: the old script's stuck-website-PR auto-merge check. That is a
-publisher concern and stays wherever the routine keeps it.
+`spec_from_file_location(...)` + `exec_module` also works now (the module registers a
+`sys.modules` shim; previously `@dataclass` crashed with `'NoneType' object has no attribute '__dict__'`).
+The compat names (`classify_batch`, `run_scan`, `rematerialize_warm`, `public_cand`, `get_gh_token`,
+`fetch_issues_pass`, `load_known_holds`) are unchanged.
+
+### Stuck publish PR check (`operator/scripts/merge_stuck_publish_pr.py`)
+
+The old intake's "merge a website catalog publish PR stuck > 90 min" check, now a standalone
+committed script for the publisher. Dry run by default; `--apply` merges. Merges only open,
+non-draft PRs to `main` from `operator/catalog-publish-*` by Asif2BD, never #29 or #1-15,
+created > 90 min ago, diff exactly `public/skills-catalog.json`, `MERGEABLE` + `CLEAN`, and no
+failing/pending check in `gh pr checks` (this token gets 403 on checks for the website repo, so
+GitHub's `CLEAN` state is the recorded evidence: `checks_source: merge_state_clean`). Squash with
+`--match-head-commit`. `--out FILE` also writes the JSON summary.
+
+### catalog_update.py and subfolder skills
+
+- id/slug: `owner-repo-sub-path` (suffix `-2`, … on collision); existing ids/slugs never change.
+- `repo_url` stays the bare repo (the website builds raw/download URLs from it and dedupes one
+  listing per repo); new `source_url` = subfolder tree URL `https://github.com/o/r/tree/<branch>/<folder>`;
+  `skill_path` keeps the original-case folder.
+- raw fetches try the candidate's `default_branch` first, then main/master; a subfolder skill's
+  own README is preferred over the repo README.
+- delta JSON gains `added_map` (`identity`, `issue`, `id`, `slug`, `category`, `source_url`) so the
+  publisher maps published skills to issues by identity instead of guessing by owner/repo.
 
 ## Tests
 

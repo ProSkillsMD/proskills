@@ -81,36 +81,63 @@ def _load_candidates(path: Path) -> list[dict[str, Any]]:
     return list(data.get("candidates") or [])
 
 
+def _refs(cand: dict[str, Any]) -> tuple[str, ...]:
+    """Refs to try for raw fetches: the candidate's default branch first, then main/master."""
+    out: list[str] = []
+    for r in (cand.get("default_branch"), "main", "master"):
+        if isinstance(r, str) and r.strip() and r.strip() not in out:
+            out.append(r.strip())
+    return tuple(out)
+
+
+def _skill_folder(cand: dict[str, Any]) -> str | None:
+    """Original-case skill folder: from skill_path (scout keeps case) else the (lower-cased) subpath."""
+    sp = str(cand.get("skill_path") or "").strip().strip("/")
+    if sp and "/" in sp and sp.rsplit("/", 1)[1].lower() == "skill.md":
+        return sp.rsplit("/", 1)[0]
+    if sp and sp.lower() != "skill.md" and not sp.lower().endswith(".md"):
+        return sp  # catalog-style skill_path (a folder)
+    sub = cand.get("subpath")
+    return str(sub).strip("/") if sub else None
+
+
+def source_tree_url(owner: str, repo: str, folder: str | None, branch: str | None) -> str:
+    """GitHub URL of the skill source: the repo, or the subfolder tree URL for a subfolder skill."""
+    base = f"https://github.com/{owner}/{repo}"
+    if not folder:
+        return base
+    return f"{base}/tree/{branch or 'main'}/{folder}"
+
+
 def _fetch_docs(cand: dict[str, Any], *, offline: bool, fixture_md: Path | None, fixture_readme: Path | None) -> tuple[str | None, str | None]:
+    owner = cand.get("owner")
+    repo = cand.get("repo")
+    if not owner or not repo:
+        parsed = parse_github_source(cand.get("repo_url"))
+        if parsed:
+            owner, repo = parsed["owner"], parsed["repo"]
+    folder = _skill_folder(cand)
+    refs = _refs(cand)
     if fixture_md is not None:
         skill_md = fixture_md.read_text(encoding="utf-8")
     elif offline:
         skill_md = None
     else:
-        owner = cand.get("owner")
-        repo = cand.get("repo")
-        if not owner or not repo:
-            parsed = parse_github_source(cand.get("repo_url"))
-            if parsed:
-                owner, repo = parsed["owner"], parsed["repo"]
-        sub = cand.get("subpath")
-        skill_path = f"{sub}/SKILL.md" if sub else "SKILL.md"
-        skill_md = fetch_raw_text(owner, repo, skill_path) if owner and repo else None
+        skill_path = f"{folder}/SKILL.md" if folder else "SKILL.md"
+        skill_md = fetch_raw_text(owner, repo, skill_path, refs) if owner and repo else None
 
     if fixture_readme is not None:
         readme = fixture_readme.read_text(encoding="utf-8")
     elif offline:
         readme = None
     else:
-        owner = cand.get("owner")
-        repo = cand.get("repo")
-        if not owner or not repo:
-            parsed = parse_github_source(cand.get("repo_url"))
-            if parsed:
-                owner, repo = parsed["owner"], parsed["repo"]
-        readme = fetch_raw_text(owner, repo, "README.md") if owner and repo else None
-        if readme is None and cand.get("subpath") and owner and repo:
-            readme = fetch_raw_text(owner, repo, f"{cand['subpath']}/README.md")
+        readme = None
+        if owner and repo:
+            # subfolder skill: its own README first, then the repo README
+            if folder:
+                readme = fetch_raw_text(owner, repo, f"{folder}/README.md", refs)
+            if readme is None:
+                readme = fetch_raw_text(owner, repo, "README.md", refs)
 
     return skill_md, readme
 
@@ -132,6 +159,7 @@ def plan_update(
 
     new_skills: list[dict[str, Any]] = []
     skip_log: list[dict[str, Any]] = []
+    added_map: list[dict[str, Any]] = []
 
     for cand in candidates:
         identity = cand.get("identity")
@@ -170,11 +198,12 @@ def plan_update(
             fixture_md=fixture_md,
             fixture_readme=fixture_readme,
         )
+        folder = _skill_folder({**cand, "subpath": parsed.get("subpath") or cand.get("subpath")})
         record = build_skill_record(
             owner=parsed["owner"],
             repo=parsed["repo"],
             repo_url=parsed["repo_url"],
-            subpath=parsed.get("subpath") or cand.get("subpath"),
+            subpath=folder,
             skill_md=skill_md,
             readme=readme,
             stars=cand.get("stars"),
@@ -186,7 +215,15 @@ def plan_update(
             skip_log.append({"identity": identity, "reason": "id_collision", "id": record["id"]})
             continue
 
+        if folder:
+            # repo_url stays the bare repo (website derives raw/download URLs from it and dedupes one listing
+            # per repo); source_url is the subfolder tree URL of this specific skill.
+            record["source_url"] = source_tree_url(parsed["owner"], parsed["repo"], folder,
+                                                   (_refs(cand) or ("main",))[0])
         new_skills.append(record)
+        added_map.append({"identity": identity.lower(), "issue": cand.get("issue"), "id": record["id"],
+                          "slug": record["slug"], "category": record.get("category"),
+                          "repo_url": record["repo_url"], "source_url": record.get("source_url") or record["repo_url"]})
         used_ids.add(record["id"])
         used_slugs.add(record["slug"])
         identities.add(identity)
@@ -205,7 +242,13 @@ def plan_update(
         if staged["skills"][i].get("repo_url") != old.get("repo_url"):
             raise RuntimeError("invariant violated: existing skill repo_url changed")
 
+    plan_update.last_added_map = added_map  # type: ignore[attr-defined]
     return staged, new_skills, skip_log
+
+
+def added_identity_map(new_skills: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """identity -> id/slug mapping of the last plan_update call (publisher: map published skills to issues)."""
+    return list(getattr(plan_update, "last_added_map", []))
 
 
 def main() -> None:
@@ -261,6 +304,8 @@ def main() -> None:
         "generated_at": iso_now(),
         "source_catalog": str(args.catalog),
         "added": new_skills,
+        # identity/issue -> id/slug for each added skill (map by identity, not by owner/repo guessing)
+        "added_map": added_identity_map(new_skills),
         "skipped": skip_log,
     }
     args.delta_out.write_text(json.dumps(delta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")

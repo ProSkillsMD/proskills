@@ -78,6 +78,16 @@ from publish_lib import (  # noqa: E402
 )
 from static_scan import scan_candidate  # noqa: E402
 
+if __name__ not in sys.modules:
+    # Loaded via importlib.util.spec_from_file_location(...).loader.exec_module() without registering
+    # the module first: @dataclass (with postponed annotations) looks the module up in sys.modules and
+    # crashes on None. Register a namespace shim so that loading style keeps working. Preferred loading
+    # from a routine is simply `sys.path.insert(0, ".../operator/scripts"); import scout`.
+    import types as _types
+    _shim = _types.ModuleType(__name__)
+    _shim.__dict__.update(globals())
+    sys.modules[__name__] = _shim
+
 REPO_SLUG = "ProSkillsMD/proskills"
 API = "https://api.github.com"
 RAW = "https://raw.githubusercontent.com"
@@ -1117,6 +1127,8 @@ class Scout:
                     "default_branch": branch,
                     "repo_skills_total": total,
                     "archived": bool(meta.get("archived")),
+                    # any listing of this repo already exists (publisher/website allow one listing per repo)
+                    "repo_in_catalog": key.lower() in self.catalog_idx,
                     "_skill": s,
                 }
                 res.per_repo_new_skills[key] += 1
@@ -1215,18 +1227,154 @@ def sort_key(c: dict) -> tuple:
     return (-(int(c.get("stars") or 0)), -(int(c.get("issue") or 0)), c.get("identity") or "")
 
 
-def trim_passed(passed: list[dict], max_total: int, max_per_repo: int) -> list[dict]:
+def candidate_identity(c: dict[str, Any]) -> str:
+    """Skill identity (`github:owner/repo[::subpath]`, or another source prefix), lower-cased.
+
+    Derived from owner/repo/subpath when a (legacy) entry has no explicit identity.
+    """
+    ident = str(c.get("identity") or "").strip()
+    if ident:
+        return ident.lower()
+    owner, repo = c.get("owner"), c.get("repo")
+    if owner and repo:
+        return identity_for(str(owner), str(repo), c.get("subpath"))
+    return ""
+
+
+def candidate_repo_key(c: dict[str, Any]) -> str:
+    owner, repo = (c.get("owner") or "").strip().lower(), (c.get("repo") or "").strip().lower()
+    if owner and repo:
+        return f"{owner}/{repo}"
+    ident = candidate_identity(c)
+    if ident.startswith("github:"):
+        return ident[len("github:"):].split("::", 1)[0]
+    return ident.split("::", 1)[0]
+
+
+def _group_key(c: dict[str, Any]) -> str:
+    issue = c.get("issue")
+    try:
+        n = int(issue) if issue is not None else 0
+    except (TypeError, ValueError):
+        n = 0
+    # issue-less candidates (future non-issue sources): one rotation group per repo
+    return f"issue:{n}" if n else f"repo:{candidate_repo_key(c)}"
+
+
+def order_passed(passed: list[dict], max_total: int = DEFAULTS["queue_max_passed"],
+                 max_per_repo: int = DEFAULTS["queue_max_per_repo"]) -> list[dict]:
+    """Queue order for `passed`: round-robin across issues (then stars), at most `max_per_repo` per repo.
+
+    * Candidates are grouped by issue (issue-less candidates by repo); inside a group by stars desc.
+    * Groups are ordered by their best star count (ties: newer issue, then key).
+    * Round r takes the r-th skill of every group, so one issue/monorepo cannot take all top slots.
+    * Candidates whose repo already has a catalog listing (`repo_in_catalog`) come after all others:
+      the publisher and the website validator currently allow one listing per GitHub repo.
+    * Duplicate identities are dropped (first wins).
+    """
+    out: list[dict] = []
     per_repo: Counter = Counter()
-    out = []
-    for p in sorted(passed, key=sort_key):
-        rk = f"{p.get('owner')}/{p.get('repo')}"
-        if per_repo[rk] >= max_per_repo:
-            continue
-        per_repo[rk] += 1
-        out.append(p)
-        if len(out) >= max_total:
-            break
+    seen: set[str] = set()
+    for tier in (False, True):
+        groups: dict[str, list[dict]] = {}
+        for p in passed:
+            if bool(p.get("repo_in_catalog")) is tier:
+                groups.setdefault(_group_key(p), []).append(p)
+        for g in groups.values():
+            g.sort(key=sort_key)
+        order = sorted(groups, key=lambda k: (sort_key(groups[k][0]), k))
+        depth = max((len(g) for g in groups.values()), default=0)
+        for r in range(depth):
+            for k in order:
+                g = groups[k]
+                if r >= len(g):
+                    continue
+                p = g[r]
+                ident = candidate_identity(p)
+                rk = candidate_repo_key(p)
+                if ident in seen or per_repo[rk] >= max_per_repo:
+                    continue
+                seen.add(ident)
+                per_repo[rk] += 1
+                out.append(p)
+                if len(out) >= max_total:
+                    return out
     return out
+
+
+def trim_passed(passed: list[dict], max_total: int, max_per_repo: int) -> list[dict]:
+    """Compat name: the ordered, capped passed queue (see order_passed)."""
+    return order_passed(passed, max_total, max_per_repo)
+
+
+# --------------------------------------------------------------------------- queue helpers (publisher)
+
+QUEUE_LIST_KEYS = ("passed", "eligible", "license_review")
+
+
+def queue_path_for(day: Any = None, art: Path = ART) -> Path:
+    """candidate-queue-YYYY-MM-DD.json for a Dhaka date (default today)."""
+    d = day or now_dhaka().date()
+    return art / f"candidate-queue-{d.isoformat() if hasattr(d, 'isoformat') else d}.json"
+
+
+def merge_passed_with_eligible(queue: dict[str, Any]) -> list[dict]:
+    """Full candidate records for `passed`, merged with `eligible` BY IDENTITY (never by issue number).
+
+    Merging by issue collapses sibling skills of one issue into the same record; merging by identity keeps
+    every skill distinct. Fields in `passed` win. Queue order is preserved.
+    """
+    elig = {candidate_identity(e): e for e in queue.get("eligible") or [] if isinstance(e, dict)}
+    out = []
+    for p in queue.get("passed") or []:
+        if not isinstance(p, dict):
+            continue
+        ident = candidate_identity(p)
+        out.append({**elig.get(ident, {}), **p, "identity": ident or p.get("identity")})
+    return out
+
+
+def remove_identities_from_queue(queue: dict[str, Any], identities: Iterable[str]) -> tuple[dict[str, Any], int]:
+    """Return (new queue, removed count) without the given skill identities in passed/eligible/license_review.
+
+    Sibling skills of the same issue survive; the issue number is never used as the key.
+    """
+    drop = {str(i).strip().lower() for i in identities if i and str(i).strip()}
+    q = dict(queue)
+    removed = 0
+    for key in QUEUE_LIST_KEYS:
+        items = queue.get(key)
+        if not isinstance(items, list):
+            continue
+        kept = [x for x in items if not (isinstance(x, dict) and candidate_identity(x) in drop)]
+        removed += len(items) - len(kept)
+        q[key] = kept
+    if "passed" in q:
+        q["passed_count"] = len(q["passed"])
+    if "eligible" in q:
+        q["eligible_count"] = len(q["eligible"])
+    return q, removed
+
+
+def remove_published_from_queue(identities: Iterable[str], queue_path: Path | None = None, *,
+                                run_id: str | None = None) -> dict[str, Any]:
+    """Publisher helper: drop published/staged identities from the candidate queue file (atomic write).
+
+    Returns a small summary. Missing queue file -> no-op.
+    """
+    path = queue_path or queue_path_for()
+    ids = sorted({str(i).strip().lower() for i in identities if i and str(i).strip()})
+    queue = _load_json(path, None)
+    if not isinstance(queue, dict):
+        return {"queue": str(path), "removed": 0, "identities": ids, "note": "queue missing"}
+    newq, removed = remove_identities_from_queue(queue, ids)
+    newq["last_removed_identities"] = ids
+    if run_id:
+        newq["last_publisher_run_id"] = run_id
+    newq["last_removed_at"] = iso_now_utc()
+    _atomic_write(path, newq)
+    return {"queue": str(path), "removed": removed, "identities": ids,
+            "passed_count": len(newq.get("passed") or [])}
 
 
 COMPAT_STAT_KEYS = ("seen", "already_in_catalog", "missing_license", "missing_skill", "skip_known_hold",
@@ -1273,7 +1421,8 @@ def assemble(res: ScoutResult, scanned: list[tuple[dict, dict]], prev_queue: dic
                  "license_tier": c.get("license_tier")}
             (holds_critical if sr.get("hold") == "critical_static" else holds_other).append(h)
     passed_all = sorted(passed, key=sort_key)
-    passed_q = trim_passed(passed_all, queue_max_passed, queue_max_per_repo)
+    passed_q = [{**p, "queue_rank": i} for i, p in
+                enumerate(order_passed(passed_all, queue_max_passed, queue_max_per_repo), 1)]
     held_ids = {h["identity"] for h in holds_critical + holds_other}
     eligible_pub = sorted([public_cand(c) for c in res.pass_tier if c["identity"] not in held_ids], key=sort_key)
     prev_ids = {x.get("identity") for key in ("eligible", "passed", "license_review")
@@ -1309,9 +1458,11 @@ def assemble(res: ScoutResult, scanned: list[tuple[dict, dict]], prev_queue: dic
         "warm_queue_eligible_retained": len(eligible_pub) - len(eligible_new),
         "warm_queue_passed_retained": len(curr_pass_ids & prev_pass_ids),
         "eligible": eligible_pub,
-        # `passed` carries full candidate fields: the publisher merges eligible-by-issue with these,
-        # and fields here win, so multiple skills from one issue stay distinct.
+        # `passed` carries full candidate fields and is already in publish order (round-robin by issue,
+        # then stars; <= queue_max_per_repo per repo). Key entries by `identity`, never by issue number:
+        # use merge_passed_with_eligible() / remove_published_from_queue().
         "passed": passed_q,
+        "passed_order": "round_robin_by_issue_then_stars; repo_in_catalog last; max_per_repo=%d" % queue_max_per_repo,
         "passed_total_before_trim": len(passed_all),
         "license_review": sorted(review, key=sort_key),
         "license_review_note": "NOT publishable by default; the publisher reads only `passed` (pass tier).",
@@ -1346,7 +1497,8 @@ def assemble(res: ScoutResult, scanned: list[tuple[dict, dict]], prev_queue: dic
                    "top_repos_by_new_skills": top_repos}
     return {"queue": queue, "eligible": eligible_art, "batch": batch, "scout": scout_block,
             "material_change": material, "scan_results": [sr for _, sr in scanned],
-            "passed_issues": sorted({p["issue"] for p in passed_q}), "warm_dropped": warm_dropped}
+            "passed_issues": sorted({p["issue"] for p in passed_q if p.get("issue")}),
+            "passed_identities": [p["identity"] for p in passed_q], "warm_dropped": warm_dropped}
 
 
 # --------------------------------------------------------------------------- CLI
@@ -1418,7 +1570,14 @@ def main(argv: list[str] | None = None) -> int:
                     help="repos with more SKILL.md files go to large_collection review (0 = off)")
     ap.add_argument("--queue-max-passed", type=int, default=DEFAULTS["queue_max_passed"])
     ap.add_argument("--queue-max-per-repo", type=int, default=DEFAULTS["queue_max_per_repo"])
+    ap.add_argument("--remove-identity", action="append", default=None, metavar="IDENTITY",
+                    help="queue maintenance only (no scouting): remove this skill identity from the candidate "
+                         "queue's passed/eligible/license_review lists. Repeatable.")
+    ap.add_argument("--queue", type=Path, default=None, help="queue file for --remove-identity (default: today's)")
     args = ap.parse_args(argv)
+    if args.remove_identity:
+        print(json.dumps(remove_published_from_queue(args.remove_identity, args.queue, run_id=args.run_id)), flush=True)
+        return 0
     write = bool(args.write)
     stamp = now_dhaka().strftime("%Y-%m-%d-%H%M")
     run_id = args.run_id or (f"intake-{stamp}" if write else f"scout-dryrun-{stamp}")
@@ -1554,7 +1713,7 @@ def run_scan(cand: dict, token: str | None) -> dict:
 
 def rematerialize_warm(c: dict, token: str | None, catalog_ids: set[str] | dict) -> dict | None:
     """Re-verify one queued candidate (pass tier only). Returns refreshed cand or None."""
-    num = int(c["issue"])
+    num = int(c.get("issue") or 0)
     if num in PROTECTED_ISSUES or num in STATIC_HOLDS:
         return None
     client = _compat_client(token)
