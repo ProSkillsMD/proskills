@@ -17,7 +17,8 @@ All scripts use stdlib only. Default is a dry run; `--apply` writes. GitHub acce
 ## Identity and machine block
 
 The identity is `github:owner/repo` for a root SKILL.md, `github:owner/repo::subpath` for a skill in a subfolder,
-and `clawhub:@owner/slug` for a skill that exists only on ClawHub. Each candidate issue carries exactly one
+and `clawhub:@owner/slug` for a skill that exists only on ClawHub. SkillsMP listings are normalised to the `github:` identity
+(SkillsMP is recorded only in `sources[]`); a SkillsMP-only listing (`skillsmp:<id>`) has no license evidence and is never filed. Each candidate issue carries exactly one
 HTML-comment block (not visible when rendered):
 
 ```

@@ -7,6 +7,8 @@ Sources (operator/scripts/sources/, config in operator/config/sources.json):
   awesome        awesome-list README parsers
   known_orgs     known publisher orgs + explicit repos
   clawhub        ClawHub public feed (/v1/feeds/skills) + public skill pages (never /api/, per robots.txt)
+  skillsmp       SkillsMP official MCP endpoint (POST /mcp, search_skills; never /api/, per robots.txt).
+                 GitHub-backed listings -> github:owner/repo::subpath observations (SkillsMP = provenance only)
 
 Every observation goes through the scout's checks (git-tree SKILL.md discovery, subpath-level
 dedupe vs the live catalog, license tiers, mandatory static_scan, protected/critical/publisher-skip
@@ -38,13 +40,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import scout  # noqa: E402
 from scout import AdaptiveThrottle, GitHubClient, ScoutState, get_gh_token  # noqa: E402
-from sources import awesome_lists, clawhub, github_new_repos, github_topics, known_orgs  # noqa: E402
+from sources import awesome_lists, clawhub, github_new_repos, github_topics, known_orgs, skillsmp  # noqa: E402
 from sources.base import STATE, DiskCache, RepoSearch, SearchLimiter, iso, load_config, utc_now  # noqa: E402
 from sources.evaluate import (SourceEvaluator, existing_issue_index, fetch_meta, load_hold_rules,  # noqa: E402
                               merge_observations, public_record)
 from sources.rank import assign_lane, record_reading  # noqa: E402
 
-ALL_SOURCES = ("github_topics", "new_repos", "awesome", "known_orgs", "clawhub")
+ALL_SOURCES = ("github_topics", "new_repos", "awesome", "known_orgs", "clawhub", "skillsmp")
 STATUS_KEYS = ("pass", "license_review", "hold", "already_in_catalog", "missing_license", "missing_skill",
                "large_collection", "transient", "scan_deferred")
 ROUTINE_WINDOWS = ((10, 26), (40, 58))  # Dhaka minutes around intake (:14) and publisher (:44)
@@ -76,6 +78,59 @@ def summarize(records: list[dict[str, Any]], repo_outcome_by_key: dict[str, str]
             if o and o != "ok":
                 per[name][f"repos_{o}"] += 1
     return {k: dict(v) for k, v in sorted(per.items())}
+
+
+FILEABLE = ("pass", "license_review", "large_collection")
+
+
+def source_breakdown(records: list[dict[str, Any]], family: str, known_identities: set[str]) -> dict[str, int]:
+    """Identity-level counts for records that carry a `family` source: GitHub-backed vs source-only, and
+    new vs already known (catalog, existing issue, or scout_file's issue index)."""
+    c: Counter = Counter()
+    for r in records:
+        fams = {source_family(s.get("source") or "") for s in r.get("sources") or []}
+        if family not in fams:
+            continue
+        c["identities"] += 1
+        c["github_backed" if r.get("source_type") == "github" else f"{family}_only"] += 1
+        if fams - {family}:
+            c["also_seen_via_other_sources"] += 1
+        ident = str(r.get("identity") or "").lower()
+        if r.get("status") == "already_in_catalog":
+            c["known_in_catalog"] += 1
+        elif r.get("existing_issue") or ident in known_identities:
+            c["known_issue"] += 1
+        else:
+            c["new"] += 1
+            if r.get("status") in FILEABLE:
+                c["new_fileable"] += 1
+    return dict(c)
+
+
+def merge_duplicate_identities(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """One record per identity. Two repo keys can resolve to the same repo (a renamed/transferred repo still
+    listed under its old name, e.g. SkillsMP `prisma/prisma` -> `prisma/orm`): keep the first record and merge
+    the other records' sources into it."""
+    out: list[dict[str, Any]] = []
+    by: dict[str, dict[str, Any]] = {}
+    for r in records:
+        ident = str(r.get("identity") or "")
+        first = by.get(ident)
+        if first is None:
+            by[ident] = r
+            out.append(r)
+            continue
+        have = {(x.get("source"), x.get("source_url")) for x in first.get("sources") or []}
+        for x in r.get("sources") or []:
+            if (x.get("source"), x.get("source_url")) not in have:
+                first.setdefault("sources", []).append(x)
+                have.add((x.get("source"), x.get("source_url")))
+    return out
+
+
+def load_known_identities(path: Path) -> set[str]:
+    data = scout._load_json(path, {}) if path else {}
+    return {str(k).lower() for k in (data.get("identities") or {})} if isinstance(data, dict) else set()
 
 
 def in_routine_window(now: datetime) -> bool:
@@ -179,7 +234,8 @@ def cached_meta(client: GitHubClient, cache: DiskCache, keys: list[str], ttl_s: 
 def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog: dict | None = None,
         state_dir: Path = STATE, art: Path = scout.ART, now: datetime | None = None,
         extra_observations: list[dict] | None = None, sleep=time.sleep,
-        clawhub_fetch=None) -> dict[str, Any]:
+        clawhub_fetch=None, skillsmp_post=None, skillsmp_get=None,
+        issue_index_path: Path | None = None) -> dict[str, Any]:
     cfg = load_config(Path(args.config)) if getattr(args, "config", None) else load_config()
     lim = {**cfg.get("limits", {})}
     for k in ("max_tree_fetches", "max_scan"):
@@ -214,6 +270,23 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
         info["clawhub"] = {"observations": len(ch_obs), **ch_info}
         obs += ch_obs
         stage("clawhub_done", observations=len(ch_obs), clawhub_only=len(clawhub_records))
+    skillsmp_records: list[dict] = []
+    if "skillsmp" in selected:
+        sm_cfg = cfg.get("skillsmp") or {}
+        sm = skillsmp.SkillsMPClient(cache, post=skillsmp_post or skillsmp.default_post,
+                                     get=skillsmp_get or skillsmp.default_get,
+                                     min_interval=max(2.5, float(lim.get("skillsmp_min_interval_s", 2.5))),
+                                     sleep=sleep, search_ttl_s=ttl.get("feed", 6 * 3600))
+        max_calls = getattr(args, "skillsmp_max_calls", None)
+        sm_obs, skillsmp_records, sm_info = skillsmp.collect(
+            sm, catalog, sm_cfg.get("queries") or [],
+            max_calls=int(max_calls if max_calls is not None else lim.get("skillsmp_max_calls", 12)),
+            max_pages=int(sm_cfg.get("max_pages", 2)), per_page=int(sm_cfg.get("per_page", skillsmp.MAX_LIMIT)),
+            min_stars=int(sm_cfg.get("min_stars", 0)), rotation=int(now.timestamp() // 3600), now_iso=iso(now))
+        info["skillsmp"] = {"observations": len(sm_obs), **sm_info}
+        obs += sm_obs
+        stage("skillsmp_done", observations=len(sm_obs), skillsmp_only=len(skillsmp_records),
+              calls=sm_info.get("calls"))
     repos = merge_observations(obs)
     obs_by_source: dict[str, set[str]] = defaultdict(set)
     for o in obs:
@@ -229,6 +302,7 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     stage("verdicts_done", verdicts=len(verdicts))
     records = ev.evaluate(repos, metas, verdicts)
     ev.scan_all(records)
+    records = merge_duplicate_identities(records)
     stage("scan_done", records=len(records))
     readings = scout._load_json(state_dir / "star-readings.json", {})
     rank_cfg = cfg.get("ranking") or {}
@@ -242,7 +316,7 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
         d = ((r.get("sources") or [{}])[0].get("metrics") or {}).get("clawhub_downloads")
         if d is not None:
             record_reading(readings, r["identity"], int(d), now, int(rank_cfg.get("readings_kept", 14)))
-    records += clawhub_records
+    records += clawhub_records + skillsmp_records
     records.sort(key=lambda r: ({"pass": 0, "license_review": 1}.get(r.get("status"), 2),
                                 {"rising": 0, "evergreen": 1}.get(r.get("lane"), 2), -float(r.get("score") or 0),
                                 r.get("identity") or ""))
@@ -251,6 +325,13 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
         cache.save()
         scout._atomic_write(state_dir / "star-readings.json", readings)
     pub = [public_record(r) for r in records]
+    breakdown = {}
+    if "skillsmp" in selected:
+        known = load_known_identities(issue_index_path or scout.SCOUT_STATE / "issue-index.json")
+        breakdown["skillsmp"] = {**{k: (info.get("skillsmp") or {}).get(k, 0) for k in
+                                    ("listings_seen", "github_backed_listings", "skillsmp_only_listings", "calls",
+                                     "pages_cached", "pages_deferred")},
+                                 **source_breakdown(records, "skillsmp", known)}
     summary = {
         "generated_at": iso(now), "sources_selected": selected, "observations": len(obs),
         "repos_observed": len(repos), "records": len(pub),
@@ -262,6 +343,7 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
         "cache": {"hits": cache.hits, "misses": cache.misses},
         "api_calls": dict(client.calls), "core_remaining": client.core_remaining,
         "catalog_count": len(catalog.get("skills") or []),
+        "source_breakdown": breakdown,
         "note": "records only; no queue writes, no issues, no staging/publishing",
     }
     return {"summary": summary, "candidates": pub}
@@ -280,6 +362,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-scout-cache", action="store_true", help="do not reuse the scout's repo verdict cache")
     ap.add_argument("--clawhub-max-pages", type=int, default=None,
                     help="max uncached ClawHub skill pages fetched this run (default config, 150)")
+    ap.add_argument("--skillsmp-max-calls", type=int, default=None,
+                    help="max uncached SkillsMP search_skills calls this run (default config, 12)")
     ap.add_argument("--ignore-routine-windows", action="store_true")
     args = ap.parse_args(argv)
     dhaka_now = datetime.now(scout.DHAKA)
@@ -303,7 +387,8 @@ def main(argv: list[str] | None = None) -> int:
     scout._atomic_write(cpath, {"summary": out["summary"], "candidates": out["candidates"]})
     scout._atomic_write(spath, out["summary"])
     print(json.dumps({k: out["summary"][k] for k in ("observations", "repos_observed", "records", "status_counts",
-                                                     "lanes", "repo_outcomes", "search_calls")}, indent=2))
+                                                     "lanes", "repo_outcomes", "search_calls",
+                                                     "source_breakdown")}, indent=2))
     print(f"wrote {cpath}", flush=True)
     return 0
 

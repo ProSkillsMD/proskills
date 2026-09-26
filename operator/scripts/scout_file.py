@@ -90,6 +90,10 @@ def load_source_records(path: Path | None) -> list[dict[str, Any]]:
             continue
         if r.get("status") not in ("pass", "license_review", "large_collection"):
             continue
+        # only identities review.py/publish can verify: github:... and clawhub:... (a skillsmp:... record has no
+        # license or SKILL.md evidence and is never filed; GitHub-backed SkillsMP listings arrive as github:...)
+        if not str(r.get("identity") or "").lower().startswith(("github:", "clawhub:")):
+            continue
         c = F.normalize(r, "sources")
         if c:
             out.append(c)

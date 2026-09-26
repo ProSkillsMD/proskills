@@ -84,7 +84,9 @@
     "max_scan": 800,
     "min_core_remaining": 1500,
     "clawhub_min_interval_s": 2.0,
-    "clawhub_max_pages": 150
+    "clawhub_max_pages": 150,
+    "skillsmp_min_interval_s": 2.5,
+    "skillsmp_max_calls": 12
   },
   "ranking": {
     "evergreen_min_stars": 100,
@@ -101,5 +103,47 @@
     "license": "MIT-0",
     "license_evidence_url": "https://github.com/openclaw/clawhub/blob/HEAD/docs/skill-format.md",
     "note": "robots.txt disallows /api/; feed + public skill pages only"
+  },
+  "skillsmp": {
+    "mcp_url": "https://skillsmp.com/mcp",
+    "note": "robots.txt disallows /api/ (REST search) -> official MCP endpoint /mcp only (no key, no daily quota, 30 tool calls/min/IP). ToS: no systematic bulk download -> <= skillsmp_max_calls searches/run, cached 6 h. SkillsMP is provenance only; GitHub-backed listings use github:owner/repo::subpath.",
+    "terms_url": "https://skillsmp.com/terms",
+    "max_pages": 2,
+    "per_page": 50,
+    "min_stars": 0,
+    "queries": [
+      {
+        "q": "skill",
+        "sortBy": "recent"
+      },
+      {
+        "q": "claude code",
+        "sortBy": "recent"
+      },
+      {
+        "q": "agent",
+        "sortBy": "recent"
+      },
+      {
+        "q": "codex",
+        "sortBy": "recent"
+      },
+      {
+        "q": "skill",
+        "sortBy": "stars"
+      },
+      {
+        "q": "agent",
+        "sortBy": "stars"
+      },
+      {
+        "q": "workflow",
+        "sortBy": "stars"
+      },
+      {
+        "q": "automation",
+        "sortBy": "stars"
+      }
+    ]
   }
 }
