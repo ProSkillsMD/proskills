@@ -88,9 +88,10 @@ class TestParsing(unittest.TestCase):
 
 class TestSearchLimits(unittest.TestCase):
     def setUp(self):
-        p = mock.patch.object(scout, "urllib_transport", _no_network)
-        p.start()
-        self.addCleanup(p.stop)
+        for target in (mock.patch.object(scout, "urllib_transport", _no_network),
+                       mock.patch("urllib.request.urlopen", _no_network)):
+            target.start()
+            self.addCleanup(target.stop)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
 
@@ -172,9 +173,10 @@ CATALOG = {"skills": [{"repo_url": "https://github.com/mono/skills", "skill_path
 
 class TestEndToEnd(unittest.TestCase):
     def setUp(self):
-        p = mock.patch.object(scout, "urllib_transport", _no_network)
-        p.start()
-        self.addCleanup(p.stop)
+        for target in (mock.patch.object(scout, "urllib_transport", _no_network),
+                       mock.patch("urllib.request.urlopen", _no_network)):
+            target.start()
+            self.addCleanup(target.stop)
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
@@ -188,7 +190,7 @@ class TestEndToEnd(unittest.TestCase):
         self.art.mkdir()
 
     def args(self, **kw):
-        base = dict(sources=None, config=self.cfg_path, max_tree_fetches=None, max_scan=None, no_scan=False,
+        base = dict(sources="github_topics,new_repos,awesome,known_orgs", config=self.cfg_path, max_tree_fetches=None, max_scan=None, no_scan=False,
                     no_persist_state=False, no_scout_cache=True, catalog=None)
         base.update(kw)
         return argparse.Namespace(**base)
@@ -254,6 +256,45 @@ class TestEndToEnd(unittest.TestCase):
         self.assertTrue(source_candidates.in_routine_window(datetime(2026, 9, 26, 12, 14)))
         self.assertTrue(source_candidates.in_routine_window(datetime(2026, 9, 26, 12, 44)))
         self.assertFalse(source_candidates.in_routine_window(datetime(2026, 9, 26, 12, 30)))
+
+
+class DiskCacheAutosaveTest(unittest.TestCase):
+    def test_autosave_every_n_puts(self):
+        import tempfile
+        from pathlib import Path as _P
+        from sources.base import DiskCache
+        with tempfile.TemporaryDirectory() as d:
+            p = _P(d) / "c.json"
+            c = DiskCache(p, autosave_every=2)
+            c.put("a", 1)
+            self.assertFalse(p.exists())
+            c.put("b", 2)
+            self.assertTrue(p.exists())
+            self.assertEqual(DiskCache(p).get("b", 60), 2)
+
+
+class CachedMetaTest(unittest.TestCase):
+    def test_second_call_uses_cache(self):
+        import tempfile
+        from pathlib import Path as _P
+        from sources.base import DiskCache
+        import source_candidates as sc
+
+        class Stub:
+            calls = 0
+
+            def graphql(self, q):
+                Stub.calls += 1
+                return {"data": {"r0": {"nameWithOwner": "a/b", "stargazerCount": 5}}}
+
+        with tempfile.TemporaryDirectory() as d:
+            c = DiskCache(_P(d) / "c.json")
+            m1 = sc.cached_meta(Stub(), c, ["a/b"], 3600)
+            m2 = sc.cached_meta(Stub(), c, ["a/b"], 3600)
+            self.assertEqual(Stub.calls, 1)
+            self.assertEqual(m1["a/b"]["stars"], 5)
+            self.assertEqual(m2, m1)
+
 
 
 if __name__ == "__main__":
