@@ -127,7 +127,19 @@ def parse_page(text: str) -> dict[str, Any]:
     out["stats"] = stats
     out["files"] = sorted(set(re.findall(r'\$R\[\d+\]=\{contentType:"[^"]*",path:"([^"]+)"', text)))[:500]
     out["clawhub_critical_findings"] = len(re.findall(r'severity:"critical"', text))
+    out["parsed_description"] = _js_str("description", text)
+    out["moderation"] = moderation_flags(text)
     return out
+
+
+def moderation_flags(text: str) -> dict[str, Any]:
+    """ClawHub platform moderation / scanner signals from the serialized page payload."""
+    verdicts = sorted(set(re.findall(r'verdict:"([a-z_]+)"', text)) | set(re.findall(r'status:"(suspicious|malicious)"', text)))
+    flags = {"is_suspicious": "isSuspicious:!0" in text, "malware_blocked": "isMalwareBlocked:!0" in text,
+             "hidden_by_mod": "isHiddenByMod:!0" in text, "scanner_verdicts": verdicts}
+    flags["flagged"] = bool(flags["is_suspicious"] or flags["malware_blocked"] or flags["hidden_by_mod"]
+                            or any(v in ("suspicious", "malicious") for v in verdicts))
+    return flags
 
 
 # --------------------------------------------------------------------------- client
@@ -357,6 +369,8 @@ def collect(client: ClawHubClient, catalog: dict[str, Any], *, max_pages: int = 
             rec.update({"status": "hold", "hold": "unscanned_bundle_scripts"})
         elif page.get("clawhub_critical_findings"):
             rec.update({"status": "hold", "hold": "clawhub_static_critical"})
+        elif (page.get("moderation") or {}).get("flagged"):
+            rec.update({"status": "hold", "hold": "clawhub_moderation_flag"})
         else:
             rec["status"] = "pass" if rec["license_tier"] == "pass" else "license_review"
         records.append(rec)

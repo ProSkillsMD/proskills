@@ -385,3 +385,60 @@ def issue_is_blocked(issue: dict[str, Any]) -> tuple[bool, str | None]:
     if blocked:
         return True, f"blocked_label:{sorted(blocked)[0]}"
     return False, None
+
+
+def build_clawhub_skill_record(
+    cand: dict[str, Any],
+    *,
+    existing_ids: set[str] | None = None,
+    existing_slugs: set[str] | None = None,
+) -> dict[str, Any]:
+    """Website-schema record for a ClawHub-only skill (no GitHub repo).
+
+    repo_url/source_url = the public ClawHub page; license MIT-0 (ClawHub platform license);
+    no GitHub stars; ClawHub metrics in external_ratings (the shape existing ClawHub listings use).
+    """
+    owner = str(cand.get("owner") or "").lower()
+    slug = str(cand.get("slug") or "").lower()
+    page = cand.get("repo_url") or cand.get("source_url") or f"https://clawhub.ai/{owner}/skills/{slug}"
+    skill_md = cand.get("skill_md") or ""
+    fm = parse_skill_frontmatter(skill_md)
+    name = fm.get("name") or cand.get("skill_name") or slug
+    description = fm.get("description") or cand.get("skill_description") or ""
+    if not description and skill_md:
+        for line in _FRONTMATTER_RE.sub("", skill_md, count=1).splitlines():
+            t = line.strip()
+            if t and not t.startswith("#"):
+                description = t[:500]
+                break
+    used_ids = existing_ids or set()
+    used_slugs = existing_slugs or set()
+    sid = None
+    for pref in (slugify(slug), slugify(f"{owner}-{slug}"), slugify(f"clawhub-{owner}-{slug}")):
+        if pref not in used_ids and pref not in used_slugs:
+            sid = pref
+            break
+    if sid is None:
+        base, n = slugify(f"clawhub-{owner}-{slug}"), 2
+        while f"{base}-{n}" in used_ids or f"{base}-{n}" in used_slugs:
+            n += 1
+        sid = f"{base}-{n}"
+    record: dict[str, Any] = {
+        "id": sid, "slug": sid, "name": str(name)[:120],
+        "category": (fm.get("category") or "other").lower().replace(" ", "-"),
+        "description": str(description)[:500], "author": owner, "author_url": page,
+        "version": str(cand.get("version") or fm.get("version") or "0.0.0"),
+        "repo_url": page, "source_url": page, "source_type": "clawhub",
+        "works_with": ["openclaw"], "paid": False, "price": 0, "verified_at": "", "featured": False,
+        "reviewed": False, "is_collection": False,
+        "scores": {"functionality": 0, "documentation": 0, "security": 0, "maintenance": 0, "usefulness": 0,
+                   "uniqueness": 0, "code_quality": 0, "average": 0},
+        "readme": skill_md[:8000], "files_found": ["SKILL.md"] if skill_md else [], "github_stars": 0,
+        "license": "MIT-0",
+        "external_ratings": {"clawhub_downloads": int(cand.get("clawhub_downloads") or 0),
+                             "clawhub_installs": int(cand.get("clawhub_installs") or 0),
+                             "clawhub_rating": int(cand.get("clawhub_stars") or 0), "clawhub_url": page},
+    }
+    if skill_md:
+        record["skill_md"] = skill_md[:8000]
+    return record

@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _common import PROJECT_ROOT, add_dry_run_apply_flags, emit, exit_fail, exit_ok, resolve_dry_run
 from publish_lib import (
     build_catalog_identity_set,
+    build_clawhub_skill_record,
     build_skill_record,
     fetch_raw_text,
     iso_now,
@@ -161,8 +162,27 @@ def plan_update(
     skip_log: list[dict[str, Any]] = []
     added_map: list[dict[str, Any]] = []
 
+    claw_full, claw_slugs = _clawhub_index(catalog)
     for cand in candidates:
         identity = cand.get("identity")
+        if cand.get("source_type") == "clawhub" or str(identity or "").startswith("clawhub:"):
+            owner, slug = str(cand.get("owner") or "").lower(), str(cand.get("slug") or "").lower()
+            if not owner or not slug or not cand.get("skill_md"):
+                skip_log.append({"identity": identity, "reason": "clawhub_incomplete"})
+                continue
+            if f"{owner}/{slug}" in claw_full or slug in claw_slugs or str(identity).lower() in identities:
+                skip_log.append({"identity": identity, "reason": "already_in_catalog"})
+                continue
+            record = build_clawhub_skill_record(cand, existing_ids=used_ids, existing_slugs=used_slugs)
+            new_skills.append(record)
+            added_map.append({"identity": str(identity), "issue": cand.get("issue"), "id": record["id"],
+                              "slug": record["slug"], "category": record.get("category"),
+                              "repo_url": record["repo_url"], "source_url": record["source_url"]})
+            used_ids.add(record["id"])
+            used_slugs.add(record["slug"])
+            claw_full.add(f"{owner}/{slug}")
+            claw_slugs.add(slug)
+            continue
         if not identity:
             parsed = parse_github_source(cand.get("repo_url"))
             if parsed and cand.get("subpath"):
@@ -244,6 +264,15 @@ def plan_update(
 
     plan_update.last_added_map = added_map  # type: ignore[attr-defined]
     return staged, new_skills, skip_log
+
+
+def _clawhub_index(catalog: dict[str, Any]) -> tuple[set[str], set[str]]:
+    try:
+        from sources.clawhub import clawhub_catalog_index
+    except Exception:  # pragma: no cover - adapter missing
+        return set(), set()
+    full, slugs = clawhub_catalog_index(catalog)
+    return set(full), set(slugs)
 
 
 def added_identity_map(new_skills: list[dict[str, Any]]) -> list[dict[str, Any]]:

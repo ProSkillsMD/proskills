@@ -32,6 +32,17 @@ proskills/
 | **Groot** | `scripts/catalog_update.py` + `create_pr.py` — branch/catalog/PR (Python); never merges in pilot |
 | **Mantis** | Grok drafts community replies; **send needs approval** |
 
+## Issue-based flow (scout -> review -> publish)
+
+Candidates are tracked as GitHub issues, each with one machine block. The flow uses deterministic Python and a
+small budgeted AI step. Details: `docs/issue-flow.md`.
+
+- `scripts/issue_labels.py` creates the label set.
+- `scripts/scout_file.py` files and refreshes candidate issues.
+- `scripts/review.py` runs the deterministic review: one comment and one verdict label per issue.
+- `scripts/ai_review.py` handles `review:needs-ai` only: it writes a request file and applies a JSON result.
+- `scripts/publish_candidates.py` selects `review:pass` issues at the reviewed sha for the publisher.
+
 ## Safety
 
 Approval required for: merge, publish, delete, external messages, permission changes, new connectors, and routines after pilot.
