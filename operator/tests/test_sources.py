@@ -273,6 +273,29 @@ class DiskCacheAutosaveTest(unittest.TestCase):
             self.assertEqual(DiskCache(p).get("b", 60), 2)
 
 
+class CachedMetaTest(unittest.TestCase):
+    def test_second_call_uses_cache(self):
+        import tempfile
+        from pathlib import Path as _P
+        from sources.base import DiskCache
+        import source_candidates as sc
+
+        class Stub:
+            calls = 0
+
+            def graphql(self, q):
+                Stub.calls += 1
+                return {"data": {"r0": {"nameWithOwner": "a/b", "stargazerCount": 5}}}
+
+        with tempfile.TemporaryDirectory() as d:
+            c = DiskCache(_P(d) / "c.json")
+            m1 = sc.cached_meta(Stub(), c, ["a/b"], 3600)
+            m2 = sc.cached_meta(Stub(), c, ["a/b"], 3600)
+            self.assertEqual(Stub.calls, 1)
+            self.assertEqual(m1["a/b"]["stars"], 5)
+            self.assertEqual(m2, m1)
+
+
 
 if __name__ == "__main__":
     unittest.main()

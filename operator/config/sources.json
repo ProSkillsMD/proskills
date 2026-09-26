@@ -75,7 +75,8 @@
       "search": 6,
       "raw_list": 12,
       "issues": 24,
-      "feed": 6
+      "feed": 6,
+      "meta": 6
     },
     "max_tree_fetches": 250,
     "max_skills_per_repo": 10,

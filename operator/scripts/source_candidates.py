@@ -157,6 +157,25 @@ def make_raw_text(client: GitHubClient, cache: DiskCache, ttl_s: float):
     return fetch
 
 
+def cached_meta(client: GitHubClient, cache: DiskCache, keys: list[str], ttl_s: float) -> dict[str, Any]:
+    """fetch_meta with a per-repo disk cache (only dict/not_found results are cached; transient is retried)."""
+    out: dict[str, Any] = {}
+    missing = []
+    for k in keys:
+        v = cache.get(f"meta:{k}", ttl_s)
+        if v is None:
+            missing.append(k)
+        else:
+            out[k] = v
+    for i in range(0, len(missing), 500):  # chunked so autosave keeps progress on a long first run
+        got = fetch_meta(client, missing[i:i + 500])
+        for k, v in got.items():
+            if v != "transient":
+                cache.put(f"meta:{k}", v)
+        out.update(got)
+    return out
+
+
 def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog: dict | None = None,
         state_dir: Path = STATE, art: Path = scout.ART, now: datetime | None = None,
         extra_observations: list[dict] | None = None, sleep=time.sleep,
@@ -199,7 +218,7 @@ def run(args: argparse.Namespace, *, client: GitHubClient | None = None, catalog
     obs_by_source: dict[str, set[str]] = defaultdict(set)
     for o in obs:
         obs_by_source[o["source"]].add(f"{o['owner']}/{o['repo']}".lower())
-    metas = fetch_meta(client, sorted(repos))
+    metas = cached_meta(client, cache, sorted(repos), ttl.get("meta", 6 * 3600))
     stage("meta_done", repos=len(repos))
     state = ScoutState(state_dir)
     fallback = scout._load_json(scout.SCOUT_STATE / "repo-cache.json", {}) if not getattr(args, "no_scout_cache", False) else {}
