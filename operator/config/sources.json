@@ -1,0 +1,50 @@
+{
+  "_comment": "Source adapters config (operator/scripts/sources). Deterministic; no AI. Edit lists here, not in code.",
+  "github_topics": ["agent-skills", "claude-skills", "claude-code-skills", "skill-md", "openclaw-skills"],
+  "topic_max_pages": 3,
+  "new_repos": {
+    "created_within_days": 60,
+    "queries": [
+      "\"SKILL.md\" in:readme",
+      "topic:agent-skills",
+      "topic:claude-skills",
+      "skill in:name \"SKILL.md\""
+    ],
+    "max_pages": 2
+  },
+  "awesome_lists": [
+    {"repo": "VoltAgent/awesome-agent-skills", "path": "README.md"},
+    {"repo": "ComposioHQ/awesome-claude-skills", "path": "README.md"},
+    {"repo": "travisvn/awesome-claude-skills", "path": "README.md"}
+  ],
+  "known_orgs": {
+    "orgs": ["anthropics", "vercel-labs", "openai", "supabase", "microsoft", "obra", "kepano",
+             "huggingface", "cloudflare", "getsentry", "trailofbits", "expo", "google-gemini", "stripe"],
+    "org_query": "skill in:name,description,readme",
+    "org_max_results": 50,
+    "repos": ["anthropics/skills", "vercel-labs/agent-skills", "vercel-labs/skills", "openai/skills",
+              "supabase/agent-skills", "microsoft/skills", "obra/superpowers", "kepano/obsidian-skills",
+              "huggingface/skills", "cloudflare/skills", "getsentry/skills", "trailofbits/skills",
+              "expo/skills", "google-gemini/gemini-skills"]
+  },
+  "limits": {
+    "search_min_interval_s": 2.1,
+    "search_max_results_per_query": 1000,
+    "cache_ttl_hours": {"search": 6, "raw_list": 12, "issues": 24, "feed": 6},
+    "max_tree_fetches": 250,
+    "max_skills_per_repo": 10,
+    "large_repo_threshold": 50,
+    "max_scan": 800,
+    "min_core_remaining": 1500
+  },
+  "ranking": {
+    "evergreen_min_stars": 100,
+    "evergreen_max_idle_days": 365,
+    "rising_min_hours_between_readings": 20,
+    "rising_min_stars_per_day": 5,
+    "rising_min_growth_pct_per_day": 3,
+    "rising_min_stars": 20,
+    "multi_source_bonus": 0.3,
+    "readings_kept": 14
+  }
+}
