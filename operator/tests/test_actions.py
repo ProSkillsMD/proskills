@@ -293,6 +293,24 @@ class TestPublishRun(Base):
         self.assertIn("network down", res["steps"]["clawhub_stats"]["error"])
         self.assertTrue(w.merged)
 
+    def test_publish_strips_undated_clawhub_counts_even_without_stats_hook(self):
+        cat_path = self.website / "public" / "skills-catalog.json"
+        cat_path.write_text(json.dumps({"skills": [
+            {"id": "old", "external_ratings": {"clawhub_downloads": 3864, "clawhub_stars": 3, "clawhub_stats_status": "not_found"}},
+            {"id": "dated", "external_ratings": {"clawhub_downloads": 120, "clawhub_stats_status": "ok",
+                                                "clawhub_last_success_at": "2026-09-27T14:10:48Z"}}], "total": 2}))
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", "dated", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=None).publish()
+        self.assertTrue(w.merged)
+        written = {x["id"]: x.get("external_ratings", {}) for x in json.loads(cat_path.read_text())["skills"]}
+        self.assertNotIn("clawhub_downloads", written["old"])
+        self.assertNotIn("clawhub_stars", written["old"])
+        self.assertEqual(written["dated"]["clawhub_downloads"], 120)
+        self.assertEqual(res["steps"]["clawhub_sanitize"], {"rows": 1, "fields": 2})
+
     def test_clawhub_stats_real_refresh_failure_keeps_last_good_and_publishes(self):
         import clawhub_stats as CS
         cat_path = self.website / "public" / "skills-catalog.json"

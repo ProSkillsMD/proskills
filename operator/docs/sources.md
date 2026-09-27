@@ -147,7 +147,8 @@ staged catalog before building the publish PR (disable with `--no-clawhub-stats`
 
 - `https://clawhub.ai/robots.txt` (rechecked 2026-09-27): `User-agent: *`, `Disallow: /api/`, `Disallow: /admin/`,
   `Allow: /v1/feeds/plugins`, `Allow: /v1/feeds/skills`.
-- ClawHub's own docs (`openclaw/clawhub` `docs/api.md` / `docs/http-api.md`, "Public catalog reuse") say third-party
+- ClawHub's own docs (<https://github.com/openclaw/clawhub/blob/main/docs/api.md>,
+  <https://github.com/openclaw/clawhub/blob/main/docs/http-api.md>, section "Public catalog reuse") say third-party
   directories may use the public read endpoints `GET /api/v1/skills`, `/api/v1/search`, `/api/v1/skills/{slug}`,
   provided they cache, honour 429 / `Retry-After` / rate-limit headers, link to the canonical listing and do not imply
   endorsement. Documented read limit: 3000/min per IP; OpenAPI at `/api/v1/openapi.json`.
@@ -159,10 +160,16 @@ staged catalog before building the publish PR (disable with `--no-clawhub-stats`
 
 ### Request policy
 
-- ≥1 s between requests; at most `--clawhub-stats-max-requests` (default 60) per run and a 180 s wall-clock deadline;
-  remaining skills are `deferred` (not touched) and picked up next run, stalest first.
-- Up to 3 attempts on timeouts / network errors / 429 / 5xx with exponential backoff and equal jitter (base 2 s,
-  cap 30 s); `Retry-After` is honoured (capped at 60 s). 404 is definitive and never retried.
+- **Every HTTP attempt counts and is paced**, retries included: at most `--clawhub-stats-max-requests` (default 60)
+  attempts per run, each ≥1 s after the previous attempt, and a 180 s wall-clock deadline. When the cap or the
+  deadline is reached (also mid-retry), no further request is made. A skill whose attempts all failed is recorded
+  as `fetch_failed`; skills not yet attempted are `deferred` (untouched) and go first next run, stalest first.
+- Up to 3 attempts on timeouts / network errors / 429 / 5xx / incomplete payload, exponential backoff with equal
+  jitter (base 2 s, cap 30 s). 404 is definitive and never retried.
+- `Retry-After` is honoured in both forms, delta-seconds (`7`) and HTTP-date (`Sun, 27 Sep 2026 14:40:09 GMT`),
+  and never undercut. If it asks for more than 60 s, or more than the time left in the run, the client does not
+  sleep past its budget and does not retry early: it stops calling ClawHub for the rest of the run (`halted:
+  retry_after_<n>s` in the step summary), records the current skill as `fetch_failed` and defers the rest.
 - 409 `AMBIGUOUS_SKILL_SLUG` or an owner mismatch → `/api/v1/search` to pick the listing whose owner matches the owner
   in our ClawHub URL. The owner is only trusted from a ClawHub URL, never guessed from the author field.
 - Disk cache (`<state-dir>/clawhub-stats-api-cache.json`, 1 h) stores only definitive answers (200 / 404), never failures.
@@ -176,6 +183,20 @@ staged catalog before building the publish PR (disable with `--no-clawhub-stats`
 | `clawhub_fetched_at` | UTC time of the last attempt (any outcome) |
 | `clawhub_last_success_at` | UTC time the counts below were retrieved; only set on `ok` |
 | `clawhub_downloads/installs/stars/comments` | counts from the last successful read |
+
+### Undated counts are not published
+
+`public/skills-catalog.json` is served as-is at `https://proskills.md/skills-catalog.json`, so it must not carry
+numbers we cannot date. `sanitize_public()` runs in every publish (as its own `clawhub_sanitize` step, also with
+`--no-clawhub-stats`, never blocking) and at the end of every `refresh()`. It deletes `clawhub_downloads`,
+`clawhub_installs`, `clawhub_stars`, `clawhub_rating` and `clawhub_comments` from any row without a valid
+`clawhub_last_success_at` (including `0` / `null` placeholders). New ClawHub-only rows (`publish_lib.clawhub_row`)
+are written without counts; the stats step adds dated counts in the same run when it can.
+
+Decision: legacy undated values are **dropped, not archived**. Their source and retrieval date are unknown, so
+there is nothing trustworthy to keep. A private copy would only preserve numbers we would never show. They remain
+visible only in git history of the public repo, as they always were. Dated values from a successful API read (the
+"last good" values) are never removed.
 
 Rules: a failed or not-found refresh only updates status/reason/fetched_at. It never writes zero and never overwrites
 the counts, `clawhub_last_success_at` or `clawhub_url`. `ok` rows refresh after 24 h, `fetch_failed` after 1 h,

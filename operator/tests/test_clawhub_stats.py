@@ -119,12 +119,42 @@ class ClientTests(unittest.TestCase):
                 exp = min(c.backoff_cap, c.backoff_base * 2 ** (n - 1))
                 self.assertTrue(exp / 2 <= c.backoff(n, None) <= exp)
 
-    def test_retry_after_honoured_and_capped(self):
-        c, http, _ = client({"/api/v1/skills/x": [(429, {"retry-after": "7"}, ""), (429, {"retry-after": "999"}, ""),
+    def test_retry_after_delta_seconds(self):
+        c, http, _ = client({"/api/v1/skills/x": [(429, {"retry-after": "7"}, ""), (503, {"retry-after": "12"}, ""),
                                                    (200, {}, skill_body("o"))]}, retry_after_cap=60)
+        self.assertEqual(c.skill("x", None).status, "ok")
+        self.assertEqual(c.sleeps, [7.0, 12.0])
+        self.assertEqual(c.attempt_times[1] - c.attempt_times[0], 7.0)
+
+    def test_retry_after_http_date(self):
+        wall = datetime(2026, 9, 27, 14, 40, 0, tzinfo=timezone.utc)
+        c, http, _ = client({"/api/v1/skills/x": [(429, {"retry-after": "Sun, 27 Sep 2026 14:40:09 GMT"}, ""),
+                                                   (200, {}, skill_body("o"))]}, wallclock=lambda: wall)
+        self.assertEqual(c.retry_after_seconds("Sun, 27 Sep 2026 14:40:09 GMT"), 9.0)
+        self.assertEqual(c.retry_after_seconds("Sun, 27 Sep 2026 14:39:00 GMT"), 0.0)  # past date -> no wait
+        self.assertIsNone(c.retry_after_seconds("soon"))
+        self.assertEqual(c.skill("x", None).status, "ok")
+        self.assertEqual(c.sleeps, [9.0])
+
+    def test_retry_after_beyond_cap_halts_run_without_sleeping(self):
+        routes = {"/api/v1/skills/x": [(429, {"retry-after": "120"}, "")], "/api/v1/skills/y": [(200, {}, skill_body("o"))]}
+        c, http, _ = client(routes, retry_after_cap=60)
         r = c.skill("x", None)
-        self.assertEqual(r.status, "ok")
-        self.assertEqual(c.sleeps, [7.0, 60.0])
+        self.assertEqual((r.status, r.reason), ("fetch_failed", "http_429"))
+        self.assertEqual(c.sleeps, [])          # did not sleep 120 s, did not retry early
+        self.assertEqual(len(http.calls), 1)
+        self.assertEqual(c.halted, "retry_after_120s")
+        self.assertEqual(c.skill("y", None).status, "deferred")
+        self.assertEqual(len(http.calls), 1)
+
+    def test_retry_after_http_date_beyond_remaining_time_halts(self):
+        wall = datetime(2026, 9, 27, 14, 40, 0, tzinfo=timezone.utc)
+        c, http, clock = client({"/api/v1/skills/x": [(503, {"retry-after": "Sun, 27 Sep 2026 14:40:50 GMT"}, "")]},
+                                deadline_s=100, retry_after_cap=60, wallclock=lambda: wall)
+        clock.t = 70  # 30 s left in the run, server asks for 50 s
+        self.assertEqual(c.skill("x", None).status, "fetch_failed")
+        self.assertEqual(c.sleeps, [])
+        self.assertTrue(c.halted)
 
     def test_timeout_then_success(self):
         c, _, _ = client({"/api/v1/skills/x": [(0, {}, ""), (200, {}, skill_body("Asif2BD", downloads=5))]})
@@ -173,10 +203,41 @@ class ClientTests(unittest.TestCase):
             self.assertEqual(http.calls.count("/api/v1/skills/x"), 1)  # served from cache
             self.assertEqual(http.calls.count("/api/v1/skills/y"), 2)  # failures are not cached
 
-    def test_request_budget(self):
-        c, http, _ = client({"/api/v1/skills/x": [(503, {}, "")]}, max_requests=2, max_attempts=3)
-        self.assertEqual(c.skill("x", None).status, "deferred")
+    def test_retries_count_against_request_cap(self):
+        c, http, _ = client({"/api/v1/skills/x": [(503, {}, "")], "/api/v1/skills/y": [(200, {}, skill_body("o"))]},
+                            max_requests=2, max_attempts=3)
+        r = c.skill("x", None)
+        self.assertEqual((r.status, r.reason), ("fetch_failed", "http_503"))  # 2 real failed attempts, not 3
         self.assertEqual(len(http.calls), 2)
+        self.assertEqual(c.requests, 2)
+        self.assertEqual(c.budget_left(), 0)
+        self.assertEqual(c.skill("y", None).status, "deferred")  # cap reached by retries: no further request
+        self.assertEqual(len(http.calls), 2)
+
+    def test_cap_counts_every_attempt_across_skills(self):
+        routes = {f"/api/v1/skills/s{i}": [(500, {}, "")] for i in range(10)}
+        c, http, _ = client(routes, max_requests=7, max_attempts=3)
+        for i in range(10):
+            c.skill(f"s{i}", None)
+        self.assertEqual(len(http.calls), 7)
+        self.assertEqual(c.requests, 7)
+
+    def test_pacing_applies_to_retries(self):
+        # Retry-After: 0 and a zero backoff would allow immediate retries; the 1 s pacing must still hold.
+        c, http, clock = client({"/api/v1/skills/x": [(429, {"retry-after": "0"}, ""), (503, {"retry-after": "0"}, ""),
+                                                      (200, {}, skill_body("o"))],
+                                 "/api/v1/skills/y": [(200, {}, skill_body("o"))]}, min_interval=1.0)
+        self.assertEqual(c.skill("x", None).status, "ok")
+        self.assertEqual(c.skill("y", None).status, "ok")
+        gaps = [b - a for a, b in zip(c.attempt_times, c.attempt_times[1:])]
+        self.assertEqual(len(c.attempt_times), 4)
+        self.assertTrue(all(g >= 1.0 for g in gaps), gaps)
+
+    def test_pacing_with_backoff_is_not_double_counted(self):
+        c, _, _ = client({"/api/v1/skills/x": [(503, {}, ""), (200, {}, skill_body("o"))]}, min_interval=1.0)
+        c.skill("x", None)
+        self.assertEqual(c.sleeps, [1.5])  # backoff (1.5 s) already exceeds the 1 s pacing
+        self.assertGreaterEqual(c.attempt_times[1] - c.attempt_times[0], 1.0)
 
 
 class RefreshTests(unittest.TestCase):
@@ -194,10 +255,12 @@ class RefreshTests(unittest.TestCase):
         self.assertEqual(er["clawhub_last_success_at"], "2026-09-27T12:00:00Z")
         self.assertEqual(er["clawhub_fetched_at"], "2026-09-27T12:00:00Z")
         self.assertEqual(er["clawhub_url"], "https://clawhub.ai/asif2bd/skills/ai-coding-token-optimizer")
-        # brex: not found; legacy count retained, no success time invented, url untouched
+        # brex: not found; its legacy undated count (57) is dropped from the public catalog, no success time
+        # invented, url untouched
         eb = b["external_ratings"]
         self.assertEqual((eb["clawhub_stats_status"], eb["clawhub_stats_reason"]), ("not_found", "http_404"))
-        self.assertEqual(eb["clawhub_downloads"], 57)
+        self.assertNotIn("clawhub_downloads", eb)
+        self.assertEqual(s["sanitized"], {"rows": 1, "fields": 1})
         self.assertNotIn("clawhub_last_success_at", eb)
         self.assertEqual(eb["clawhub_url"], "https://clawhub.ai/skills/brex")
         # gog: transient
@@ -262,6 +325,58 @@ class RefreshTests(unittest.TestCase):
         self.assertNotIn("clawhub_stats_at", er)
         self.assertEqual(er["clawhub_last_success_at"], T0)
         self.assertNotIn("clawhub_stats_status", eb)
+
+
+
+class PublicSanitizeTests(unittest.TestCase):
+    def test_undated_counts_removed_dated_kept(self):
+        c = {"skills": [
+            {"id": "legacy", "external_ratings": {"clawhub_downloads": 3864, "clawhub_stars": 3}},
+            {"id": "placeholders", "external_ratings": {"clawhub_downloads": 0, "clawhub_installs": 0, "clawhub_rating": None,
+                                                       "github_stars": 5}},
+            {"id": "nf-undated", "external_ratings": {"clawhub_downloads": 12, "clawhub_stats_status": "not_found",
+                                                     "clawhub_fetched_at": T0}},
+            {"id": "ff-undated", "external_ratings": {"clawhub_installs": 4, "clawhub_stats_status": "fetch_failed",
+                                                     "clawhub_fetched_at": T0}},
+            {"id": "nf-dated", "external_ratings": {"clawhub_downloads": 119, "clawhub_stats_status": "not_found",
+                                                   "clawhub_last_success_at": T0}},
+            {"id": "ff-dated", "external_ratings": {"clawhub_downloads": 119, "clawhub_stats_status": "fetch_failed",
+                                                   "clawhub_last_success_at": T0}},
+            {"id": "bad-date", "external_ratings": {"clawhub_downloads": 9, "clawhub_stats_status": "ok",
+                                                   "clawhub_last_success_at": "%Y-%m-%dT%H:%M:%fZ"}},
+            {"id": "no-er"},
+        ]}
+        self.assertEqual(S.sanitize_public(c), {"rows": 5, "fields": 8})
+        er = {x["id"]: x.get("external_ratings", {}) for x in c["skills"]}
+        for k in ("legacy", "placeholders", "nf-undated", "ff-undated", "bad-date"):
+            self.assertFalse(any(f in er[k] for f in S.COUNT_FIELDS), k)
+        self.assertEqual(er["placeholders"]["github_stars"], 5)  # only ClawHub counts are touched
+        self.assertEqual(er["nf-dated"]["clawhub_downloads"], 119)
+        self.assertEqual(er["ff-dated"]["clawhub_downloads"], 119)
+        self.assertEqual(S.sanitize_public(c), {"rows": 0, "fields": 0})  # idempotent
+
+    def test_refresh_sanitizes_even_with_zero_budget(self):
+        c = cat()
+        cl, http, _ = client({}, max_requests=0)
+        s = S.refresh(c, cl, now=NOW)
+        self.assertEqual(http.calls, [])
+        self.assertNotIn("clawhub_downloads", c["skills"][1]["external_ratings"])
+        self.assertEqual(s["sanitized"]["rows"], 1)
+
+    def test_refresh_halts_on_long_retry_after_and_defers_rest(self):
+        c = cat()
+        cl, http, _ = client({"/api/v1/skills/ai-coding-token-optimizer": [(429, {"retry-after": "3600"}, "")]})
+        last_good(c["skills"][0]["external_ratings"])
+        c["skills"][0]["external_ratings"]["clawhub_fetched_at"] = "2026-01-01T00:00:00Z"  # stalest: first in queue
+        for x in c["skills"][1:3]:
+            x["external_ratings"]["clawhub_fetched_at"] = "2026-09-26T00:00:00Z"
+        s = S.refresh(c, cl, now=NOW, only=["ai-coding-token-optimizer", "brex", "gog-listing"])
+        self.assertEqual(len(http.calls), 1)
+        self.assertEqual(s["halted"], "retry_after_3600s")
+        self.assertEqual(s["deferred"], 2)
+        er = c["skills"][0]["external_ratings"]
+        self.assertEqual((er["clawhub_stats_status"], er["clawhub_downloads"], er["clawhub_last_success_at"]),
+                         ("fetch_failed", 119, T0))
 
 
 if __name__ == "__main__":

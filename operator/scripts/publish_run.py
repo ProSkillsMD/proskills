@@ -329,6 +329,11 @@ class Publisher:
                 stats_summary = self.step("clawhub_stats", self.clawhub_stats(new_cat)) or {}
             except Exception as e:  # noqa: BLE001
                 self.step("clawhub_stats", {"error": f"{type(e).__name__}: {str(e)[:200]}"})
+        try:  # always: undated ClawHub counts never reach the public catalog, even with --no-clawhub-stats
+            import clawhub_stats as _CS
+            self.step("clawhub_sanitize", _CS.sanitize_public(new_cat))
+        except Exception as e:  # noqa: BLE001
+            self.step("clawhub_sanitize", {"error": f"{type(e).__name__}: {str(e)[:200]}"})
         branch = f"{HEAD_PREFIX}{stamp}"
         g = lambda *a: self.run(["git", *a], self.website)  # noqa: E731
         if g("status", "--porcelain").stdout.strip():

@@ -396,7 +396,7 @@ def build_clawhub_skill_record(
     """Website-schema record for a ClawHub-only skill (no GitHub repo).
 
     repo_url/source_url = the public ClawHub page; license MIT-0 (ClawHub platform license);
-    no GitHub stars; ClawHub metrics in external_ratings (the shape existing ClawHub listings use).
+    no GitHub stars; external_ratings.clawhub_url only (dated counts come from clawhub_stats.py).
     """
     owner = str(cand.get("owner") or "").lower()
     slug = str(cand.get("slug") or "").lower()
@@ -435,9 +435,10 @@ def build_clawhub_skill_record(
                    "uniqueness": 0, "code_quality": 0, "average": 0},
         "readme": skill_md[:8000], "files_found": ["SKILL.md"] if skill_md else [], "github_stars": 0,
         "license": "MIT-0",
-        "external_ratings": {"clawhub_downloads": int(cand.get("clawhub_downloads") or 0),
-                             "clawhub_installs": int(cand.get("clawhub_installs") or 0),
-                             "clawhub_rating": int(cand.get("clawhub_stars") or 0), "clawhub_url": page},
+        # No counts here: the candidate's numbers carry no retrieval date. clawhub_stats.py adds dated counts
+        # (clawhub_last_success_at) from the ClawHub API in the same publish run; until then the site shows
+        # "Unavailable".
+        "external_ratings": {"clawhub_url": page},
     }
     if skill_md:
         record["skill_md"] = skill_md[:8000]

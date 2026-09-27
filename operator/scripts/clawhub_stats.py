@@ -13,6 +13,13 @@ limit), >= 1 s apart, cached, with bounded retries. So it uses the documented AP
   * GET /api/v1/skills/{slug}      stats + owner for a unique slug (200), 404 = not on ClawHub, 409 = ambiguous slug
   * GET /api/v1/search?q={slug}    only to pick the right owner when the slug is ambiguous or the owner differs
 No HTML pages are scraped here, and no other /api/ path is called (enforced in `ApiClient._get`).
+Docs: https://github.com/openclaw/clawhub/blob/main/docs/api.md
+      https://github.com/openclaw/clawhub/blob/main/docs/http-api.md  (section "Public catalog reuse")
+
+Request accounting: every HTTP attempt, including retries, counts against `--max-requests` and is paced >= 1 s
+after the previous attempt. `Retry-After` (delta-seconds or HTTP-date) is honoured exactly: if it asks us to wait
+longer than the cap (60 s) or than the time left in the run, we do not sleep past it and do not retry early; the run
+stops making requests (remaining skills are deferred untouched) and the current skill is recorded as fetch_failed.
 
 Catalog fields (append-only, inside `external_ratings`)
 -------------------------------------------------------
@@ -23,7 +30,8 @@ Catalog fields (append-only, inside `external_ratings`)
   clawhub_downloads / clawhub_installs / clawhub_stars / clawhub_comments   written ONLY on "ok"
   clawhub_url              canonical listing URL returned by ClawHub, written only on "ok"
 A failed or not-found refresh never writes counts and never touches clawhub_last_success_at, so the last good
-values and their retrieval time survive. Consumers show them as "last known <date>", or as unavailable when there
+values and their retrieval time survive. Counts WITHOUT a dated successful read (legacy rows, 0/null placeholders)
+are removed by `sanitize_public()` on every run, because the catalog is served publicly as-is. Consumers show them as "last known <date>", or as unavailable when there
 is no clawhub_last_success_at. id, slug, category, repo_url and every other top-level field are never modified.
 
 Scheduling: the catalog is the cache. "ok" and "not_found" are refreshed after --ttl-hours (24). "fetch_failed" is
@@ -47,6 +55,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass, field
+from email.utils import parsedate_to_datetime
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable
@@ -58,8 +67,12 @@ from sources.base import STATE, DiskCache, iso, parse_iso  # noqa: E402
 BASE = "https://clawhub.ai"
 UA = "proskills-operator-clawhub-stats/1.0 (+https://proskills.md)"
 STAT_KEYS = ("downloads", "installs", "stars", "comments")
+# Every ClawHub count field a catalog row may carry (clawhub_rating = legacy name for stars).
+COUNT_FIELDS = ("clawhub_downloads", "clawhub_installs", "clawhub_stars", "clawhub_rating", "clawhub_comments")
 NAME_RE = re.compile(r"^[A-Za-z0-9_.-]{1,100}$")
 RESERVED_OWNERS = frozenset({"skills", "plugins", "official", "docs", "api", "admin", "search", "u", "clawhub"})
+# Documented public read endpoints, see https://github.com/openclaw/clawhub/blob/main/docs/http-api.md
+# ("Public catalog reuse") and https://github.com/openclaw/clawhub/blob/main/docs/api.md
 ALLOWED_PATHS = (re.compile(r"^/api/v1/skills/[A-Za-z0-9_.-]+$"), re.compile(r"^/api/v1/search$"))
 FAILED_RETRY = timedelta(hours=1)
 TRANSIENT = "fetch_failed"
@@ -98,45 +111,70 @@ class Result:
 
 
 class ApiClient:
-    """Documented ClawHub public read API only. Polite: min interval, bounded retries, backoff + jitter,
-    Retry-After honoured (capped), per-run request budget, responses cached on disk."""
+    """Documented ClawHub public read API only (openclaw/clawhub docs/api.md + docs/http-api.md, "Public catalog
+    reuse"). Polite: every attempt (retries included) is paced and counted against the per-run budget, bounded
+    retries with exponential backoff + jitter, Retry-After honoured (seconds or HTTP-date) and never undercut,
+    wall-clock deadline, definitive responses cached on disk."""
 
     def __init__(self, cache: DiskCache | None, *, fetch: Fetch = default_fetch, min_interval: float = 1.0,
                  max_attempts: int = 3, backoff_base: float = 2.0, backoff_cap: float = 30.0,
                  retry_after_cap: float = 60.0, max_requests: int = 60, cache_ttl_s: float = 3600,
                  deadline_s: float = 180.0,
                  sleep: Callable[[float], None] = time.sleep, clock: Callable[[], float] = time.monotonic,
-                 rand: Callable[[], float] = random.random):
+                 rand: Callable[[], float] = random.random,
+                 wallclock: Callable[[], datetime] = lambda: datetime.now(timezone.utc)):
         self.cache, self.fetch = cache, fetch
         self.min_interval, self.max_attempts = min_interval, max_attempts
         self.backoff_base, self.backoff_cap, self.retry_after_cap = backoff_base, backoff_cap, retry_after_cap
         self.max_requests, self.cache_ttl_s = max_requests, cache_ttl_s
-        self.sleep, self.clock, self.rand = sleep, clock, rand
+        self.sleep, self.clock, self.rand, self.wallclock = sleep, clock, rand, wallclock
         self.deadline_s = deadline_s  # wall-clock budget per run, so a slow ClawHub can never stall a publish
-        self.requests = 0
+        self.requests = 0            # HTTP attempts made, retries included
+        self.attempt_times: list[float] = []
         self.sleeps: list[float] = []
+        self.halted: str | None = None  # set when ClawHub asks us to back off beyond what this run can wait
         self._last: float | None = None
         self._started = clock()
 
+    def time_left(self) -> float:
+        return self.deadline_s - (self.clock() - self._started)
+
     def budget_left(self) -> int:
-        if self.clock() - self._started >= self.deadline_s:
+        if self.halted or self.time_left() <= 0:
             return 0
-        return self.max_requests - self.requests
+        return max(0, self.max_requests - self.requests)
 
     def _wait(self, seconds: float) -> None:
         if seconds > 0:
             self.sleeps.append(round(seconds, 3))
             self.sleep(seconds)
 
-    def backoff(self, attempt: int, retry_after: str | None) -> float:
-        """Delay before retry `attempt` (1-based): Retry-After if given (capped), else exponential + full jitter."""
-        if retry_after:
-            try:
-                return min(self.retry_after_cap, max(0.0, float(retry_after)))
-            except ValueError:
-                pass
+    def retry_after_seconds(self, value: str | None) -> float | None:
+        """Retry-After as seconds from now. Accepts delta-seconds ("7") and HTTP-date
+        ("Sun, 27 Sep 2026 14:40:00 GMT"). None when absent or unparseable."""
+        if not value:
+            return None
+        v = value.strip()
+        if re.fullmatch(r"\d+(\.\d+)?", v):
+            return float(v)
+        try:
+            when = parsedate_to_datetime(v)
+        except (TypeError, ValueError, IndexError):
+            return None
+        if when is None:
+            return None
+        if when.tzinfo is None:
+            when = when.replace(tzinfo=timezone.utc)
+        return max(0.0, (when - self.wallclock()).total_seconds())
+
+    def backoff(self, attempt: int, retry_after: str | None = None) -> float:
+        """Delay before retry `attempt` (1-based): Retry-After if given (uncapped; the caller decides whether it
+        can wait that long), else exponential backoff with equal jitter in [exp/2, exp]."""
+        ra = self.retry_after_seconds(retry_after)
+        if ra is not None:
+            return ra
         exp = min(self.backoff_cap, self.backoff_base * (2 ** (attempt - 1)))
-        return exp / 2 + self.rand() * exp / 2  # "equal jitter": [exp/2, exp]
+        return exp / 2 + self.rand() * exp / 2
 
     def _get(self, path: str, query: dict[str, str] | None = None) -> tuple[int, str]:
         if not any(p.match(path) for p in ALLOWED_PATHS):
@@ -147,23 +185,34 @@ class ApiClient:
             hit = self.cache.get(key, self.cache_ttl_s)
             if hit is not None:
                 return int(hit["status"]), str(hit["body"])
-        status, body = 0, ""
+        status, body = -1, ""
         for attempt in range(1, self.max_attempts + 1):
             if self.budget_left() <= 0:
-                return -1, ""  # request or time budget exhausted: caller defers, nothing is written
+                break  # request/time budget used up (retries count too); a prior failed attempt stays failed
             if self._last is not None:
-                self._wait(self.min_interval - (self.clock() - self._last))
+                pace = self.min_interval - (self.clock() - self._last)
+                if pace >= self.time_left():
+                    break
+                self._wait(pace)  # 1 req/s applies to every attempt, retries included
             self._last = self.clock()
+            self.attempt_times.append(self._last)
             self.requests += 1
             status, headers, body = self.fetch(url)
             if not is_transient(status):
                 break
-            if attempt < self.max_attempts:
-                delay = self.backoff(attempt, headers.get("retry-after"))
-                if self.clock() - self._started + delay >= self.deadline_s:
-                    break  # no time left for another attempt: record the transient failure
-                self._wait(delay)
-        if self.cache is not None and not is_transient(status):
+            if attempt >= self.max_attempts:
+                break
+            ra = self.retry_after_seconds(headers.get("retry-after"))
+            delay = self.backoff(attempt, headers.get("retry-after"))
+            if ra is not None and (ra > self.retry_after_cap or ra >= self.time_left()):
+                # ClawHub asked for a longer pause than this run can honour: stop calling ClawHub for this run
+                # instead of sleeping past our budget or retrying early.
+                self.halted = f"retry_after_{int(ra)}s"
+                break
+            if delay >= self.time_left() or self.max_requests - self.requests <= 0:
+                break  # no time or no request budget left for another attempt
+            self._wait(delay)
+        if self.cache is not None and status > 0 and not is_transient(status):
             self.cache.put(key, {"status": status, "body": body})  # only definitive answers are cached
         return status, body
 
@@ -277,6 +326,30 @@ def _legacy_migrate(er: dict[str, Any]) -> None:
         er.setdefault("clawhub_fetched_at", at)
 
 
+def has_dated_success(er: dict[str, Any]) -> bool:
+    return er.get("clawhub_stats_status") in ("ok", "not_found", TRANSIENT) and \
+        parse_iso(er.get("clawhub_last_success_at")) is not None
+
+
+def sanitize_public(catalog: dict[str, Any]) -> dict[str, int]:
+    """Drop ClawHub counts that have no dated, verified source (no clawhub_last_success_at from a successful API
+    read). The catalog is published as-is at proskills.md/skills-catalog.json, so undated legacy numbers (and the
+    0 / null placeholders older rows carry) must not be in it. They are dropped, not archived: their provenance and
+    retrieval date are unknown, so there is nothing trustworthy to keep. Dated counts (last good values) are
+    never touched. Returns {"rows": n, "fields": m}."""
+    rows = fields = 0
+    for s in catalog.get("skills") or []:
+        er = s.get("external_ratings")
+        if not isinstance(er, dict) or has_dated_success(er):
+            continue
+        hit = [k for k in COUNT_FIELDS if k in er]
+        for k in hit:
+            del er[k]
+        if hit:
+            rows, fields = rows + 1, fields + len(hit)
+    return {"rows": rows, "fields": fields}
+
+
 def _due(er: dict[str, Any], now: datetime, ttl: timedelta) -> tuple[bool, float]:
     at = parse_iso(er.get("clawhub_fetched_at"))
     if at is None:
@@ -331,12 +404,16 @@ def refresh(catalog: dict[str, Any], client: ApiClient, *, ttl_hours: float = 24
         for k in STAT_KEYS:
             if k in res.stats:
                 er[f"clawhub_{k}"] = res.stats[k]
+        if "stars" in res.stats:
+            er.pop("clawhub_rating", None)  # legacy undated name for stars, superseded by the dated value
         er["clawhub_last_success_at"] = stamp
         if res.url and er.get("clawhub_url") != res.url:
             er["clawhub_url"] = res.url
             summary["url_fixed"] += 1
         summary["ok"].append(sslug)
-    summary["requests"] = client.requests
+    summary["sanitized"] = sanitize_public(catalog)
+    summary["requests"] = client.requests  # HTTP attempts, retries included
+    summary["halted"] = client.halted
     return summary
 
 
