@@ -380,15 +380,17 @@ class Publisher:
         return s
 
 
-def clawhub_stats_hook(state_dir: Path, max_fetches: int) -> Callable[[dict[str, Any]], dict[str, Any]]:
-    """Refresh ClawHub counts in the staged catalog (clawhub_stats.py): polite, capped, 24 h TTL in the catalog."""
+def clawhub_stats_hook(state_dir: Path, max_requests: int) -> Callable[[dict[str, Any]], dict[str, Any]]:
+    """Refresh ClawHub counts in the staged catalog (clawhub_stats.py: documented public read API, capped,
+    cached, retries with backoff). Failures are recorded per skill; last good counts are never overwritten."""
     def run(catalog: dict[str, Any]) -> dict[str, Any]:
         import clawhub_stats as CS
-        state_dir.mkdir(parents=True, exist_ok=True)
-        fetcher, cache = CS.make_fetcher(state_dir)
-        res = CS.refresh(catalog, fetcher, max_fetches=max_fetches)
+        client, cache = CS.make_client(state_dir, max_requests=max_requests)
+        res = CS.refresh(catalog, client)
         cache.save()
-        return {k: (len(v) if isinstance(v, list) else v) for k, v in res.items()}
+        out = {k: (len(v) if isinstance(v, list) else v) for k, v in res.items()}
+        out["updated"] = out.get("ok", 0)
+        return out
     return run
 
 
@@ -404,7 +406,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--verify-timeout-min", type=float, default=20)
     ap.add_argument("--out", type=Path, default=None)
     ap.add_argument("--no-clawhub-stats", action="store_true", help="skip the ClawHub count refresh")
-    ap.add_argument("--clawhub-stats-max-fetches", type=int, default=25)
+    ap.add_argument("--clawhub-stats-max-requests", type=int, default=60)
     args = ap.parse_args(argv)
     if args.cap > DAILY_CAP:
         ap.error(f"--cap may not exceed {DAILY_CAP}")
@@ -412,7 +414,7 @@ def main(argv: list[str] | None = None) -> int:
     pub = Publisher(api=F.IssueRepo(client), website=args.website.resolve(), author=args.author, apply=args.apply,
                     cap=args.cap, per_run=args.per_run, build=not args.no_build,
                     checks_timeout_s=int(args.checks_timeout_min * 60), verify_timeout_s=int(args.verify_timeout_min * 60),
-                    clawhub_stats=None if args.no_clawhub_stats else clawhub_stats_hook(F.STATE_DIR, args.clawhub_stats_max_fetches))
+                    clawhub_stats=None if args.no_clawhub_stats else clawhub_stats_hook(F.STATE_DIR, args.clawhub_stats_max_requests))
     try:
         res = pub.publish()
     except Exception as e:  # noqa: BLE001 - summarised, then non-zero exit

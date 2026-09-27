@@ -141,12 +141,50 @@ network call fails the test).
 ## ClawHub counts on existing listings (`clawhub_stats.py`)
 
 `publish_run.py` refreshes ClawHub download/install/star/comment counts for ClawHub-linked catalog skills in the
-staged catalog before building the publish PR (disable with `--no-clawhub-stats`). It only reads public skill pages
-(`/<owner>/skills/<slug>`, never `/api/`, robots checked, 2 s spacing), at most 25 page fetches per run
-(`--clawhub-stats-max-fetches`), stalest first. The catalog is the cache: `external_ratings.clawhub_stats_at`
-(24 h TTL; `clawhub_stats_status: "unresolved"` retried after 7 days). Append-only fields inside
-`external_ratings` (`clawhub_downloads`, `clawhub_installs`, `clawhub_stars`, `clawhub_comments`,
-`clawhub_stats_at`, `clawhub_stats_status`); `clawhub_url` is rewritten to the canonical
-`/<owner>/skills/<slug>` form once resolved. id/slug/category/repo_url are never touched, so the publish PR stays
-catalog-only and existing validation is unchanged. Standalone: `python3 operator/scripts/clawhub_stats.py --catalog
-<website>/public/skills-catalog.json [--apply]`.
+staged catalog before building the publish PR (disable with `--no-clawhub-stats`).
+
+### Why the API and not page scraping
+
+- `https://clawhub.ai/robots.txt` (rechecked 2026-09-27): `User-agent: *`, `Disallow: /api/`, `Disallow: /admin/`,
+  `Allow: /v1/feeds/plugins`, `Allow: /v1/feeds/skills`.
+- ClawHub's own docs (`openclaw/clawhub` `docs/api.md` / `docs/http-api.md`, "Public catalog reuse") say third-party
+  directories may use the public read endpoints `GET /api/v1/skills`, `/api/v1/search`, `/api/v1/skills/{slug}`,
+  provided they cache, honour 429 / `Retry-After` / rate-limit headers, link to the canonical listing and do not imply
+  endorsement. Documented read limit: 3000/min per IP; OpenAPI at `/api/v1/openapi.json`.
+- Reading: robots.txt addresses crawlers discovering pages; the documented v1 API is explicitly offered for this kind
+  of programmatic, low-volume, cached lookup of known slugs. We are not crawling `/api/` (no link following, no
+  enumeration), we call two documented endpoints for listings already in our catalog. So the documented API is the
+  compliant path, and it is more accurate than scraping (page scraping could not resolve 40 of 56 listings).
+- Only `/api/v1/skills/{slug}` and `/api/v1/search` are allowlisted in `ApiClient`; any other URL raises.
+
+### Request policy
+
+- ≥1 s between requests; at most `--clawhub-stats-max-requests` (default 60) per run and a 180 s wall-clock deadline;
+  remaining skills are `deferred` (not touched) and picked up next run, stalest first.
+- Up to 3 attempts on timeouts / network errors / 429 / 5xx with exponential backoff and equal jitter (base 2 s,
+  cap 30 s); `Retry-After` is honoured (capped at 60 s). 404 is definitive and never retried.
+- 409 `AMBIGUOUS_SKILL_SLUG` or an owner mismatch → `/api/v1/search` to pick the listing whose owner matches the owner
+  in our ClawHub URL. The owner is only trusted from a ClawHub URL, never guessed from the author field.
+- Disk cache (`<state-dir>/clawhub-stats-api-cache.json`, 1 h) stores only definitive answers (200 / 404), never failures.
+
+### Data written (inside `external_ratings`)
+
+| field | meaning |
+|---|---|
+| `clawhub_stats_status` | `ok` \| `not_found` (ClawHub 404 / no matching listing) \| `fetch_failed` (timeout, 5xx, 429, bad payload) |
+| `clawhub_stats_reason` | short machine reason, e.g. `http_503`, `timeout`, `http_404`, `owner_mismatch` |
+| `clawhub_fetched_at` | UTC time of the last attempt (any outcome) |
+| `clawhub_last_success_at` | UTC time the counts below were retrieved; only set on `ok` |
+| `clawhub_downloads/installs/stars/comments` | counts from the last successful read |
+
+Rules: a failed or not-found refresh only updates status/reason/fetched_at. It never writes zero and never overwrites
+the counts, `clawhub_last_success_at` or `clawhub_url`. `ok` rows refresh after 24 h, `fetch_failed` after 1 h,
+`not_found` after 24 h. Legacy `clawhub_stats_at` / `"unresolved"` are dropped (their provenance was a page scrape,
+so the site shows "Unavailable" until the API confirms). The hook runs inside try/except in `publish_run.py`, so
+any error in it is reported in the step summary and never blocks publishing. id/slug/category/repo_url are never
+touched. Standalone: `python3 operator/scripts/clawhub_stats.py --catalog <website>/public/skills-catalog.json
+[--apply] [--max-requests N] [--state-dir DIR]`.
+
+Tests: `operator/tests/test_clawhub_stats.py` (allowlist, backoff/jitter, Retry-After, 404 no-retry, ambiguity,
+cache, budget/deadline, never-overwrite for 0/404/429/500/503) and
+`test_actions.py::test_clawhub_stats_real_refresh_failure_keeps_last_good_and_publishes`.
