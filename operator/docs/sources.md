@@ -137,3 +137,16 @@ python3 operator/scripts/source_candidates.py --write          # source-candidat
 
 Tests: `operator/tests/test_sources.py`, `test_sources_clawhub.py`, `test_sources_skillsmp.py` (mocked HTTP; any real
 network call fails the test).
+
+## ClawHub counts on existing listings (`clawhub_stats.py`)
+
+`publish_run.py` refreshes ClawHub download/install/star/comment counts for ClawHub-linked catalog skills in the
+staged catalog before building the publish PR (disable with `--no-clawhub-stats`). It only reads public skill pages
+(`/<owner>/skills/<slug>`, never `/api/`, robots checked, 2 s spacing), at most 25 page fetches per run
+(`--clawhub-stats-max-fetches`), stalest first. The catalog is the cache: `external_ratings.clawhub_stats_at`
+(24 h TTL; `clawhub_stats_status: "unresolved"` retried after 7 days). Append-only fields inside
+`external_ratings` (`clawhub_downloads`, `clawhub_installs`, `clawhub_stars`, `clawhub_comments`,
+`clawhub_stats_at`, `clawhub_stats_status`); `clawhub_url` is rewritten to the canonical
+`/<owner>/skills/<slug>` form once resolved. id/slug/category/repo_url are never touched, so the publish PR stays
+catalog-only and existing validation is unchanged. Standalone: `python3 operator/scripts/clawhub_stats.py --catalog
+<website>/public/skills-catalog.json [--apply]`.

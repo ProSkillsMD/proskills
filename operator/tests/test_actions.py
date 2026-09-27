@@ -261,6 +261,38 @@ class TestPublishRun(Base):
         self.assertIn('"added_count": 2', body)
         self.assertTrue(any(c[:3] == ["npm", "run", "build"] for c in w.calls))
 
+    def test_clawhub_stats_hook_runs_on_staged_catalog_and_never_blocks(self):
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+        seen = []
+
+        def hook(cat):
+            seen.append(len(cat["skills"]))
+            cat["skills"][0].setdefault("external_ratings", {})["clawhub_downloads"] = 5
+            return {"updated": 1, "fetches": 1}
+
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=hook).publish()
+        self.assertEqual(seen, [2])
+        self.assertEqual(res["steps"]["clawhub_stats"], {"updated": 1, "fetches": 1})
+        self.assertTrue(w.merged)
+        create = next(c for c in w.calls if c[:3] == ["gh", "pr", "create"])
+        self.assertIn("ClawHub counts refreshed for 1 existing skills", create[create.index("--body") + 1])
+
+    def test_clawhub_stats_hook_error_is_logged_not_fatal(self):
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+
+        def boom(cat):
+            raise RuntimeError("network down")
+
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=boom).publish()
+        self.assertIn("network down", res["steps"]["clawhub_stats"]["error"])
+        self.assertTrue(w.merged)
+
     def test_dry_run_writes_nothing(self):
         self.passed("A/one")
         self.reviewer().run(list(self.gh.issues.values()))
