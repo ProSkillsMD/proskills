@@ -261,6 +261,84 @@ class TestPublishRun(Base):
         self.assertIn('"added_count": 2', body)
         self.assertTrue(any(c[:3] == ["npm", "run", "build"] for c in w.calls))
 
+    def test_clawhub_stats_hook_runs_on_staged_catalog_and_never_blocks(self):
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+        seen = []
+
+        def hook(cat):
+            seen.append(len(cat["skills"]))
+            cat["skills"][0].setdefault("external_ratings", {})["clawhub_downloads"] = 5
+            return {"updated": 1, "fetches": 1}
+
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=hook).publish()
+        self.assertEqual(seen, [2])
+        self.assertEqual(res["steps"]["clawhub_stats"], {"updated": 1, "fetches": 1})
+        self.assertTrue(w.merged)
+        create = next(c for c in w.calls if c[:3] == ["gh", "pr", "create"])
+        self.assertIn("ClawHub counts refreshed for 1 existing skills", create[create.index("--body") + 1])
+
+    def test_clawhub_stats_hook_error_is_logged_not_fatal(self):
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+
+        def boom(cat):
+            raise RuntimeError("network down")
+
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=boom).publish()
+        self.assertIn("network down", res["steps"]["clawhub_stats"]["error"])
+        self.assertTrue(w.merged)
+
+    def test_publish_strips_undated_clawhub_counts_even_without_stats_hook(self):
+        cat_path = self.website / "public" / "skills-catalog.json"
+        cat_path.write_text(json.dumps({"skills": [
+            {"id": "old", "external_ratings": {"clawhub_downloads": 3864, "clawhub_stars": 3, "clawhub_stats_status": "not_found"}},
+            {"id": "dated", "external_ratings": {"clawhub_downloads": 120, "clawhub_stats_status": "ok",
+                                                "clawhub_last_success_at": "2026-09-27T14:10:48Z"}}], "total": 2}))
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", "dated", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=None).publish()
+        self.assertTrue(w.merged)
+        written = {x["id"]: x.get("external_ratings", {}) for x in json.loads(cat_path.read_text())["skills"]}
+        self.assertNotIn("clawhub_downloads", written["old"])
+        self.assertNotIn("clawhub_stars", written["old"])
+        self.assertEqual(written["dated"]["clawhub_downloads"], 120)
+        self.assertEqual(res["steps"]["clawhub_sanitize"], {"rows": 1, "fields": 2})
+
+    def test_clawhub_stats_real_refresh_failure_keeps_last_good_and_publishes(self):
+        import clawhub_stats as CS
+        cat_path = self.website / "public" / "skills-catalog.json"
+        good = {"clawhub_url": "https://clawhub.ai/o/skills/old", "clawhub_downloads": 119, "clawhub_installs": 2,
+                "clawhub_stats_status": "ok", "clawhub_last_success_at": "2026-09-20T10:00:00Z",
+                "clawhub_fetched_at": "2026-09-20T10:00:00Z"}
+        cat_path.write_text(json.dumps({"skills": [{"id": "old", "external_ratings": dict(good)}], "total": 1}))
+        a = self.passed("A/one", 300)
+        self.reviewer().run(list(self.gh.issues.values()))
+        calls = []
+
+        def hook(cat):
+            client = CS.ApiClient(None, fetch=lambda u: (calls.append(u), (503, {}, ""))[1], sleep=lambda s: None,
+                                  max_attempts=3)
+            return CS.refresh(cat, client)
+
+        w = FakeWorld(self.website, prs=[self.merged_pr(70, 30)], view=self.green_view())
+        w.live_ids = {"old", f"id-{a}"}
+        res = self.pub(w, clawhub_stats=hook).publish()
+        self.assertTrue(w.merged)
+        self.assertEqual(len(calls), 3)  # bounded retries
+        written = json.loads(cat_path.read_text())
+        er = next(x for x in written["skills"] if x["id"] == "old")["external_ratings"]
+        for k in ("clawhub_downloads", "clawhub_installs", "clawhub_last_success_at", "clawhub_url"):
+            self.assertEqual(er[k], good[k])
+        self.assertEqual(er["clawhub_stats_status"], "fetch_failed")
+        self.assertEqual(res["steps"]["clawhub_stats"]["fetch_failed"], ["old"])
+
     def test_dry_run_writes_nothing(self):
         self.passed("A/one")
         self.reviewer().run(list(self.gh.issues.values()))

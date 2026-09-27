@@ -122,8 +122,10 @@ class Publisher:
                  build: bool = True, checks_timeout_s: int = 1500, verify_timeout_s: int = 1200,
                  poll_s: int = 30, state_dir: Path = F.STATE_DIR, website_repo: str = WEBSITE_REPO,
                  scripts: Path = Path(__file__).resolve().parent, art: Path = scout.ART,
-                 log: Callable[[str], None] | None = None):
+                 log: Callable[[str], None] | None = None,
+                 clawhub_stats: Callable[[dict[str, Any]], dict[str, Any]] | None = None):
         self.api, self.website, self.author, self.apply = api, website, author, apply
+        self.clawhub_stats = clawhub_stats  # optional in-place refresh of ClawHub counts on the staged catalog
         self.run, self.http_get, self.sleep, self.now = run, http_get, sleep, now
         self.cap, self.per_run, self.build = cap, per_run, build
         self.checks_timeout_s, self.verify_timeout_s, self.poll_s = checks_timeout_s, verify_timeout_s, poll_s
@@ -321,6 +323,17 @@ class Publisher:
         new_cat["skills"] = [x for x in new_cat.get("skills") or [] if x.get("id") in old_ids or x.get("id") in keep]
         if "total" in new_cat:
             new_cat["total"] = len(new_cat["skills"])
+        stats_summary: dict[str, Any] = {}
+        if self.clawhub_stats is not None:
+            try:  # append-only external_ratings.clawhub_* refresh; never blocks a publish
+                stats_summary = self.step("clawhub_stats", self.clawhub_stats(new_cat)) or {}
+            except Exception as e:  # noqa: BLE001
+                self.step("clawhub_stats", {"error": f"{type(e).__name__}: {str(e)[:200]}"})
+        try:  # always: undated ClawHub counts never reach the public catalog, even with --no-clawhub-stats
+            import clawhub_stats as _CS
+            self.step("clawhub_sanitize", _CS.sanitize_public(new_cat))
+        except Exception as e:  # noqa: BLE001
+            self.step("clawhub_sanitize", {"error": f"{type(e).__name__}: {str(e)[:200]}"})
         branch = f"{HEAD_PREFIX}{stamp}"
         g = lambda *a: self.run(["git", *a], self.website)  # noqa: E731
         if g("status", "--porcelain").stdout.strip():
@@ -341,7 +354,9 @@ class Publisher:
         title = f"operator: catalog publish actions-{self.now().strftime('%Y-%m-%d-%H%M')} (+{new_total - old_total} skills → {new_total})"
         body = ("## Summary\n- Operator staged catalog append from review:pass candidate issues "
                 "(no existing skill id/slug/repo overwritten).\n"
-                f"- Diff stats: {json.dumps(stats)}\n\n## Notes\n- Opened by publish_run.py (GitHub Actions); merged "
+                + (f"- ClawHub counts refreshed for {stats_summary.get('updated', 0)} existing skills "
+                   "(external_ratings.clawhub_* only).\n" if stats_summary.get("updated") else "")
+                + f"- Diff stats: {json.dumps(stats)}\n\n## Notes\n- Opened by publish_run.py (GitHub Actions); merged "
                 "automatically only when catalog-only, MERGEABLE/CLEAN and all checks are green.\n\n"
                 + publish_marker(items) + "\n")
         assert F.no_handles(body)
@@ -370,6 +385,20 @@ class Publisher:
         return s
 
 
+def clawhub_stats_hook(state_dir: Path, max_requests: int) -> Callable[[dict[str, Any]], dict[str, Any]]:
+    """Refresh ClawHub counts in the staged catalog (clawhub_stats.py: documented public read API, capped,
+    cached, retries with backoff). Failures are recorded per skill; last good counts are never overwritten."""
+    def run(catalog: dict[str, Any]) -> dict[str, Any]:
+        import clawhub_stats as CS
+        client, cache = CS.make_client(state_dir, max_requests=max_requests)
+        res = CS.refresh(catalog, client)
+        cache.save()
+        out = {k: (len(v) if isinstance(v, list) else v) for k, v in res.items()}
+        out["updated"] = out.get("ok", 0)
+        return out
+    return run
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Issue-based publisher (review:pass issues -> website catalog PR)")
     ap.add_argument("--apply", action="store_true")
@@ -381,13 +410,16 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--checks-timeout-min", type=float, default=25)
     ap.add_argument("--verify-timeout-min", type=float, default=20)
     ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--no-clawhub-stats", action="store_true", help="skip the ClawHub count refresh")
+    ap.add_argument("--clawhub-stats-max-requests", type=int, default=60)
     args = ap.parse_args(argv)
     if args.cap > DAILY_CAP:
         ap.error(f"--cap may not exceed {DAILY_CAP}")
     client = scout.GitHubClient(scout.get_gh_token(), throttle=scout.AdaptiveThrottle(4))
     pub = Publisher(api=F.IssueRepo(client), website=args.website.resolve(), author=args.author, apply=args.apply,
                     cap=args.cap, per_run=args.per_run, build=not args.no_build,
-                    checks_timeout_s=int(args.checks_timeout_min * 60), verify_timeout_s=int(args.verify_timeout_min * 60))
+                    checks_timeout_s=int(args.checks_timeout_min * 60), verify_timeout_s=int(args.verify_timeout_min * 60),
+                    clawhub_stats=None if args.no_clawhub_stats else clawhub_stats_hook(F.STATE_DIR, args.clawhub_stats_max_requests))
     try:
         res = pub.publish()
     except Exception as e:  # noqa: BLE001 - summarised, then non-zero exit
