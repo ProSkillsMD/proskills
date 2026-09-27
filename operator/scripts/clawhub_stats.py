@@ -134,6 +134,8 @@ class ApiClient:
         self.sleeps: list[float] = []
         self.halted: str | None = None  # set when ClawHub asks us to back off beyond what this run can wait
         self._last: float | None = None
+        self._cooldown_until: float | None = None
+        self._cooldown_seconds: float | None = None
         self._started = clock()
 
     def time_left(self) -> float:
@@ -185,6 +187,15 @@ class ApiClient:
             hit = self.cache.get(key, self.cache_ttl_s)
             if hit is not None:
                 return int(hit["status"]), str(hit["body"])
+        if self._cooldown_until is not None:
+            cooldown = self._cooldown_until - self.clock()
+            if cooldown > 0:
+                if cooldown >= self.time_left():
+                    self.halted = f"retry_after_{int(self._cooldown_seconds or cooldown)}s"
+                    return -1, ""
+                self._wait(cooldown)
+            self._cooldown_until = None
+            self._cooldown_seconds = None
         status, body = -1, ""
         for attempt in range(1, self.max_attempts + 1):
             if self.budget_left() <= 0:
@@ -200,15 +211,20 @@ class ApiClient:
             status, headers, body = self.fetch(url)
             if not is_transient(status):
                 break
-            if attempt >= self.max_attempts:
-                break
             ra = self.retry_after_seconds(headers.get("retry-after"))
-            delay = self.backoff(attempt, headers.get("retry-after"))
             if ra is not None and (ra > self.retry_after_cap or ra >= self.time_left()):
                 # ClawHub asked for a longer pause than this run can honour: stop calling ClawHub for this run
-                # instead of sleeping past our budget or retrying early.
+                # instead of sleeping past our budget or retrying early. This also applies to the final attempt.
                 self.halted = f"retry_after_{int(ra)}s"
                 break
+            if attempt >= self.max_attempts:
+                # Retry-After still governs the next request even when there is no retry left for this skill.
+                # Carry the cooldown into the next skill lookup instead of making it 1 s later.
+                if ra is not None and ra > 0:
+                    self._cooldown_until = self.clock() + ra
+                    self._cooldown_seconds = ra
+                break
+            delay = self.backoff(attempt, headers.get("retry-after"))
             if delay >= self.time_left() or self.max_requests - self.requests <= 0:
                 break  # no time or no request budget left for another attempt
             self._wait(delay)
@@ -243,14 +259,14 @@ class ApiClient:
             if owner is None:
                 return Result("not_found", "ambiguous_slug_no_owner")
             return self._search(slug, owner, fallback_reason="ambiguous_no_owner_match")
-        return Result("not_found" if 400 <= status < 500 else TRANSIENT, f"http_{status}")
+        return Result("not_found" if status == 404 else TRANSIENT, f"http_{status}")
 
     def _search(self, slug: str, owner: str, *, fallback_reason: str) -> Result:
         status, body = self._get("/api/v1/search", {"q": slug})
         if status == -1:
             return Result("deferred", "budget")
         if status != 200:
-            return Result(TRANSIENT if is_transient(status) else "not_found", f"search_http_{status}")
+            return Result("not_found" if status == 404 else TRANSIENT, f"search_http_{status}")
         try:
             results = json.loads(body).get("results") or []
         except (ValueError, AttributeError):

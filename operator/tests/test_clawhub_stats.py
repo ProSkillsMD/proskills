@@ -147,6 +147,26 @@ class ClientTests(unittest.TestCase):
         self.assertEqual(c.skill("y", None).status, "deferred")
         self.assertEqual(len(http.calls), 1)
 
+    def test_final_attempt_retry_after_halts_run_without_next_skill_request(self):
+        routes = {"/api/v1/skills/x": [(429, {"retry-after": "120"}, "")],
+                  "/api/v1/skills/y": [(200, {}, skill_body("o"))]}
+        c, http, _ = client(routes, max_attempts=1, retry_after_cap=60)
+        r = c.skill("x", None)
+        self.assertEqual((r.status, r.reason), ("fetch_failed", "http_429"))
+        self.assertEqual(c.halted, "retry_after_120s")
+        self.assertEqual(c.sleeps, [])
+        self.assertEqual(c.skill("y", None).status, "deferred")
+        self.assertEqual(http.calls, ["/api/v1/skills/x"])
+
+    def test_final_attempt_retry_after_cooldown_applies_to_next_skill(self):
+        routes = {"/api/v1/skills/x": [(429, {"retry-after": "5"}, "")],
+                  "/api/v1/skills/y": [(200, {}, skill_body("o"))]}
+        c, http, _ = client(routes, max_attempts=1)
+        self.assertEqual(c.skill("x", None).status, "fetch_failed")
+        self.assertEqual(c.skill("y", None).status, "ok")
+        self.assertEqual(http.calls, ["/api/v1/skills/x", "/api/v1/skills/y"])
+        self.assertEqual(c.attempt_times[1] - c.attempt_times[0], 5.0)
+
     def test_retry_after_http_date_beyond_remaining_time_halts(self):
         wall = datetime(2026, 9, 27, 14, 40, 0, tzinfo=timezone.utc)
         c, http, clock = client({"/api/v1/skills/x": [(503, {"retry-after": "Sun, 27 Sep 2026 14:40:50 GMT"}, "")]},
@@ -166,6 +186,13 @@ class ClientTests(unittest.TestCase):
         c, http, _ = client({"/api/v1/skills/x": [(404, {}, "Skill not found")]})
         self.assertEqual(c.skill("x", None).status, "not_found")
         self.assertEqual(len(http.calls), 1)
+
+    def test_401_and_403_are_fetch_failed(self):
+        for status in (401, 403):
+            c, http, _ = client({"/api/v1/skills/x": [(status, {}, "Unauthorized")]})
+            r = c.skill("x", None)
+            self.assertEqual((r.status, r.reason), ("fetch_failed", f"http_{status}"))
+            self.assertEqual(len(http.calls), 1)
 
     def test_ambiguous_slug_uses_search_to_pick_owner(self):
         search = json.dumps({"results": [
