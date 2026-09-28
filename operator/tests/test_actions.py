@@ -386,6 +386,17 @@ class TestPublishRun(Base):
         v3["statusCheckRollup"] = [{"status": "IN_PROGRESS", "conclusion": None}]
         self.assertIn("checks_timeout", self.pub(FakeWorld(self.website, view=v3)).wait_and_merge(5)["reason"])
 
+    def test_clean_fallback_when_status_checks_are_unreadable(self):
+        class UnreadableChecks(FakeWorld):
+            def run(self, cmd, cwd=None):
+                if cmd[0] == "gh" and cmd[1:3] == ["pr", "view"] and "statusCheckRollup" in cmd[-1]:
+                    return Proc(1, "", "HTTP 403: Resource not accessible by integration")
+                return super().run(cmd, cwd)
+
+        w = UnreadableChecks(self.website, view=self.green_view())
+        self.assertTrue(self.pub(w).wait_and_merge(5)["merged"])
+        self.assertTrue(w.merged)
+
     def test_reconcile_closes_staged_items_once_live(self):
         a = self.passed("A/one")
         self.reviewer().run(list(self.gh.issues.values()))

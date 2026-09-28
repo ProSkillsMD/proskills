@@ -224,20 +224,31 @@ class Publisher:
         deadline = time.monotonic() + self.checks_timeout_s
         last: dict[str, Any] = {}
         while True:
-            v = self.gh_json(["pr", "view", str(number), "-R", self.website_repo, "--json",
-                              "state,mergeable,mergeStateStatus,headRefOid,files,statusCheckRollup,headRefName"])
+            view_base = ["pr", "view", str(number), "-R", self.website_repo, "--json"]
+            try:
+                v = self.gh_json(view_base + ["state,mergeable,mergeStateStatus,headRefOid,files,statusCheckRollup,headRefName"])
+                checks = v.get("statusCheckRollup")
+                checks_readable = isinstance(checks, list)
+            except RuntimeError as exc:
+                # Some tokens can read PR metadata but get 403 for statusCheckRollup.
+                self.log(f"[publish] status checks unreadable; using CLEAN fallback: {exc}")
+                v = self.gh_json(view_base + ["state,mergeable,mergeStateStatus,headRefOid,files,headRefName"])
+                checks = []
+                checks_readable = False
             files = sorted(f.get("path") for f in v.get("files") or [])
-            checks = v.get("statusCheckRollup") or []
-            bad = [c for c in checks if (c.get("conclusion") or c.get("state") or "").upper() in
-                   {"FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"}]
-            pending = [c for c in checks if (c.get("status") or "COMPLETED").upper() != "COMPLETED"
-                       or (c.get("state") or "").upper() in {"PENDING", "EXPECTED"}]
+            if checks_readable:
+                bad = [c for c in checks if (c.get("conclusion") or c.get("state") or "").upper() in
+                       {"FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"}]
+                pending = [c for c in checks if (c.get("status") or "COMPLETED").upper() != "COMPLETED"
+                           or (c.get("state") or "").upper() in {"PENDING", "EXPECTED"}]
+            else:
+                bad, pending = [], []
             last = {"state": v.get("state"), "mergeable": v.get("mergeable"), "merge_state": v.get("mergeStateStatus"),
                     "files": files, "failing": len(bad), "pending": len(pending)}
-            if v.get("state") != "OPEN" or files != [CATALOG_REL] or bad \
+            if v.get("state") != "OPEN" or files != [CATALOG_REL] \
                     or not str(v.get("headRefName") or "").startswith(HEAD_PREFIX):
                 return {"merged": False, "reason": "not_mergeable_by_rule", **last}
-            if v.get("mergeable") == "MERGEABLE" and v.get("mergeStateStatus") == "CLEAN" and not pending:
+            if v.get("mergeable") == "MERGEABLE" and v.get("mergeStateStatus") == "CLEAN" and not bad and not pending:
                 p = self.run(["gh", "pr", "merge", str(number), "-R", self.website_repo, "--squash",
                               "--match-head-commit", str(v.get("headRefOid"))], None)
                 if p.returncode != 0:
