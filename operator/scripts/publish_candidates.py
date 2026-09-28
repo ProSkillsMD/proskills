@@ -209,7 +209,8 @@ def queue_payload(sel: dict[str, Any]) -> dict[str, Any]:
     return {
         "generated_at": F.iso(), "source": "issue_flow", "selector": "operator/scripts/publish_candidates.py",
         "soft_cap": scout.SOFT_CAP, "passed": passed, "passed_count": len(passed), "eligible": passed,
-        "eligible_count": len(passed), "license_review": [], "holds_critical_static": [], "holds_other_scan": [],
+        "eligible_count": len(passed), "candidates": passed,
+        "license_review": [], "holds_critical_static": [], "holds_other_scan": [],
         "publisher_skip_batch_seed": sorted(F.PUBLISHER_SKIP_ISSUES), "skipped": sel["skipped"],
         "passed_order": "stars desc (ClawHub: downloads); one per repo; repos already in catalog skipped",
         "note": "issue-based selection: open review:pass issues whose live sha equals the reviewed sha",
