@@ -13,13 +13,14 @@ import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 from urllib.parse import urlparse, urlunparse
 
 GITHUB_HOSTS = {"github.com", "www.github.com"}
 LIVE_CATALOG_URL = "https://proskills.md/skills-catalog.json"
 PROTECTED_ISSUES = frozenset({714, 3644, 4353, 5214, 5226, 5403, 2028, 2029, 2030, 2850})
 BLOCKED_LABELS = frozenset({"blocked:no-github-repo", "curio:duplicate", "groot:published"})
+BUILD_BREAK_SKIP_CONFIG = Path(__file__).resolve().parents[1] / "config" / "publisher-build-skips.json"
 
 _SLUG_RE = re.compile(r"[^a-z0-9]+")
 _GH_SSH = re.compile(r"^git@github\.com:([^/]+)/([^/]+?)(?:\.git)?$")
@@ -27,6 +28,7 @@ _GH_SHORT = re.compile(r"^([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+)(?:\.git)?$")
 _TREE_BLOB = {"tree", "blob"}
 _URL_RE = re.compile(r"https?://[^\s\)\]\>\"']+", re.I)
 _FRONTMATTER_RE = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)
+_HEX4_RE = re.compile(r"^[0-9a-fA-F]{4}$")
 
 
 def iso_now() -> str:
@@ -40,6 +42,89 @@ def slugify(text: str, fallback: str = "skill") -> str:
     if not s or s == "undefined":
         s = fallback
     return s[:80].rstrip("-") or fallback
+
+
+def sanitize_text(text: str) -> str:
+    """Make text safe for UTF-8 JSON and JavaScript JSON.parse embeds."""
+    if not isinstance(text, str):
+        text = str(text)
+    out: list[str] = []
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        code = ord(ch)
+        if 0xD800 <= code <= 0xDFFF:
+            out.append(chr(0xFFFD))
+            i += 1
+            continue
+        if ch == "\\" and i + 1 < len(text) and text[i + 1] == "u":
+            digits = text[i + 2:i + 6]
+            if len(digits) == 4 and _HEX4_RE.fullmatch(digits):
+                value = int(digits, 16)
+                if 0xD800 <= value <= 0xDBFF:
+                    if i + 12 <= len(text) and text[i + 6:i + 8] == "\\u":
+                        low_digits = text[i + 8:i + 12]
+                        if _HEX4_RE.fullmatch(low_digits):
+                            low = int(low_digits, 16)
+                            if 0xDC00 <= low <= 0xDFFF:
+                                out.append(chr(0x10000 + ((value - 0xD800) << 10) + low - 0xDC00))
+                                i += 12
+                                continue
+                    out.append(chr(0xFFFD))
+                elif 0xDC00 <= value <= 0xDFFF:
+                    out.append(chr(0xFFFD))
+                else:
+                    out.append(chr(value))
+                i += 6
+                continue
+            out.append(chr(0xFFFD))
+            i += 2
+            continue
+        out.append(ch)
+        i += 1
+    return "".join(out)
+
+
+def sanitize_json_value(value: Any) -> Any:
+    """Recursively sanitize every string in a JSON-compatible value."""
+    if isinstance(value, str):
+        return sanitize_text(value)
+    if isinstance(value, list):
+        return [sanitize_json_value(item) for item in value]
+    if isinstance(value, tuple):
+        return [sanitize_json_value(item) for item in value]
+    if isinstance(value, dict):
+        return {sanitize_text(str(key)): sanitize_json_value(item) for key, item in value.items()}
+    return value
+
+
+def catalog_json_dumps(value: Any, *, indent: int = 2) -> str:
+    """Serialize a catalog after sanitization, refusing non-UTF-8 JSON."""
+    text = json.dumps(sanitize_json_value(value), indent=indent, ensure_ascii=False, allow_nan=False)
+    text.encode("utf-8")
+    return text
+
+
+def load_build_break_skips(path: Path | str | None = None) -> dict[str, Any]:
+    """Load tracked, operator-reviewed temporary publisher build skips."""
+    config_path = Path(path) if path is not None else BUILD_BREAK_SKIP_CONFIG
+    try:
+        data = json.loads(config_path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, OSError, json.JSONDecodeError):
+        data = {}
+
+    def values(name: str, cast: Callable[[str], Any]) -> set[Any]:
+        raw = (data.get(name) or []) if isinstance(data, dict) else []
+        if isinstance(raw, dict):
+            raw = raw.keys()
+        try:
+            return {cast(str(item)) for item in raw}
+        except (TypeError, ValueError):
+            return set()
+
+    issues = values("issues", int)
+    slugs = values("slugs", str)
+    return {"issues": issues, "slugs": {s.lower() for s in slugs}}
 
 
 def _clean_subpath(parts: list[str]) -> str | None:

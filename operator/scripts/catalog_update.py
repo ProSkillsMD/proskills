@@ -20,6 +20,7 @@ from _common import PROJECT_ROOT, add_dry_run_apply_flags, emit, exit_fail, exit
 from publish_lib import (
     build_catalog_identity_set,
     build_clawhub_skill_record,
+    catalog_json_dumps,
     build_skill_record,
     fetch_raw_text,
     iso_now,
@@ -328,7 +329,7 @@ def main() -> None:
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.delta_out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(staged, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    args.out.write_text(catalog_json_dumps(staged) + "\n", encoding="utf-8")
     delta = {
         "generated_at": iso_now(),
         "source_catalog": str(args.catalog),
@@ -337,7 +338,7 @@ def main() -> None:
         "added_map": added_identity_map(new_skills),
         "skipped": skip_log,
     }
-    args.delta_out.write_text(json.dumps(delta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    args.delta_out.write_text(catalog_json_dumps(delta) + "\n", encoding="utf-8")
     emit(
         stage="catalog_update",
         status="ok",
