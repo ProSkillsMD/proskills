@@ -27,8 +27,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import scout  # noqa: E402
 import issue_flow as F  # noqa: E402
 from scout_file import resolve_shas  # noqa: E402
+from publish_lib import load_build_break_skips  # noqa: E402
 
 HELD_PREFIXES = ("blocked:", "review:hold", "flag:")
+
+
+def build_break_skip_reason(issue_number: int, identity: str | None, config: dict[str, Any]) -> str | None:
+    """Return a tracked skip reason for an issue or identity, if configured."""
+    if issue_number in config.get("issues", set()):
+        return "build_break_skip"
+    if not identity:
+        return None
+    ident = identity.lower()
+    candidates = {ident, ident.split("::", 1)[0], ident.rsplit("/", 1)[-1]}
+    if candidates & set(config.get("slugs", set())):
+        return "build_break_skip"
+    return None
 
 
 def excluded(issue: dict[str, Any]) -> str | None:
@@ -118,6 +132,7 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
     out: list[dict[str, Any]] = []
     skipped: list[dict[str, Any]] = []
     repos_in_batch: set[str] = set()
+    build_break_skips = load_build_break_skips()
 
     def prio(i: dict[str, Any]) -> tuple:
         b = F.parse_block(i.get("body")) or {}
@@ -129,7 +144,11 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
             break
         n = int(issue["number"])
         why = excluded(issue)
+        if not why:
+            why = build_break_skip_reason(n, None, build_break_skips)
         blk = F.parse_block(issue.get("body"))
+        if not why and blk:
+            why = build_break_skip_reason(n, blk.get("psk-id"), build_break_skips)
         if not why and not blk:
             why = "no_block"
         if not why and blk.get("kind") != "skill":

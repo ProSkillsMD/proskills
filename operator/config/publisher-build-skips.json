@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "issues": {},
+  "slugs": {},
+  "comment": "Use only for confirmed production build breakers that sanitization cannot fix; include a reason."
+}
