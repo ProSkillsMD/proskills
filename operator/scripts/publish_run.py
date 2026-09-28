@@ -43,6 +43,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import scout  # noqa: E402
 import issue_flow as F  # noqa: E402
 import publish_candidates as PC  # noqa: E402
+from publish_lib import catalog_json_dumps  # noqa: E402
 
 WEBSITE_REPO = "ProSkillsMD/website"
 HEAD_PREFIX = "operator/catalog-publish-"
@@ -351,7 +352,7 @@ class Publisher:
             s["stopped"], s["error"] = "website checkout is dirty", True
             return s
         g("checkout", "-q", "-b", branch)
-        catalog_path.write_text(json.dumps(new_cat, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        catalog_path.write_text(catalog_json_dumps(new_cat) + "\n", encoding="utf-8")
         if self.build:
             b = self.run(["npm", "run", "build"], self.website)
             self.step("build", {"rc": b.returncode})
