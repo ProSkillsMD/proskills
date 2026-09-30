@@ -33,6 +33,14 @@ DEFAULT_STAGED = DEFAULT_OUT_DIR / "skills-catalog.staged.json"
 DEFAULT_DELTA = DEFAULT_OUT_DIR / "delta.json"
 
 
+
+def flatten_category(value: Any) -> str:
+    """Website category is a single URL path segment: keep the first part of any a/b category, else 'other'."""
+    text = str(value or "").replace("\\", "/").strip()
+    parts = [p.strip() for p in text.split("/") if p.strip()]
+    return parts[0].lower() if parts else "other"
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Stage catalog append from candidates.")
     add_dry_run_apply_flags(parser)
@@ -175,6 +183,7 @@ def plan_update(
                 skip_log.append({"identity": identity, "reason": "already_in_catalog"})
                 continue
             record = build_clawhub_skill_record(cand, existing_ids=used_ids, existing_slugs=used_slugs)
+            record["category"] = flatten_category(record.get("category"))
             new_skills.append(record)
             added_map.append({"identity": str(identity), "issue": cand.get("issue"), "id": record["id"],
                               "slug": record["slug"], "category": record.get("category"),
@@ -241,6 +250,7 @@ def plan_update(
             # per repo); source_url is the subfolder tree URL of this specific skill.
             record["source_url"] = source_tree_url(parsed["owner"], parsed["repo"], folder,
                                                    (_refs(cand) or ("main",))[0])
+        record["category"] = flatten_category(record.get("category"))
         new_skills.append(record)
         added_map.append({"identity": identity.lower(), "issue": cand.get("issue"), "id": record["id"],
                           "slug": record["slug"], "category": record.get("category"),
