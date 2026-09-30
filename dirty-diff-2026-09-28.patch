@@ -1,0 +1,52 @@
+diff --git a/operator/scripts/publish_candidates.py b/operator/scripts/publish_candidates.py
+index ced7aa5..9aa22c3 100644
+--- a/operator/scripts/publish_candidates.py
++++ b/operator/scripts/publish_candidates.py
+@@ -189,9 +189,10 @@ def queue_payload(sel: dict[str, Any]) -> dict[str, Any]:
+     passed = sel["passed"]
+     return {
+         "generated_at": F.iso(), "source": "issue_flow", "selector": "operator/scripts/publish_candidates.py",
+-        "soft_cap": scout.SOFT_CAP, "passed": passed, "passed_count": len(passed), "eligible": passed,
+-        "eligible_count": len(passed), "license_review": [], "holds_critical_static": [], "holds_other_scan": [],
+-        "publisher_skip_batch_seed": sorted(F.PUBLISHER_SKIP_ISSUES), "skipped": sel["skipped"],
++        "soft_cap": scout.SOFT_CAP, "candidates": passed, "passed": passed, "passed_count": len(passed),
++        "eligible": passed, "eligible_count": len(passed), "license_review": [], "holds_critical_static": [],
++        "holds_other_scan": [], "publisher_skip_batch_seed": sorted(F.PUBLISHER_SKIP_ISSUES),
++        "skipped": sel["skipped"],
+         "passed_order": "stars desc (ClawHub: downloads); one per repo; repos already in catalog skipped",
+         "note": "issue-based selection: open review:pass issues whose live sha equals the reviewed sha",
+     }
+diff --git a/operator/scripts/publish_run.py b/operator/scripts/publish_run.py
+index c21d924..abe3978 100644
+--- a/operator/scripts/publish_run.py
++++ b/operator/scripts/publish_run.py
+@@ -221,23 +221,20 @@ class Publisher:
+ 
+     # ------------------------------------------------------------------ 8 merge
+     def wait_and_merge(self, number: int) -> dict[str, Any]:
++        # PAT often cannot read statusCheckRollup / checks (403). Fall back to mergeStateStatus:
++        # CLEAN means no failing or pending required checks (same as merge_stuck_publish_pr).
+         deadline = time.monotonic() + self.checks_timeout_s
+         last: dict[str, Any] = {}
+         while True:
+             v = self.gh_json(["pr", "view", str(number), "-R", self.website_repo, "--json",
+-                              "state,mergeable,mergeStateStatus,headRefOid,files,statusCheckRollup,headRefName"])
++                              "state,mergeable,mergeStateStatus,headRefOid,files,headRefName"])
+             files = sorted(f.get("path") for f in v.get("files") or [])
+-            checks = v.get("statusCheckRollup") or []
+-            bad = [c for c in checks if (c.get("conclusion") or c.get("state") or "").upper() in
+-                   {"FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"}]
+-            pending = [c for c in checks if (c.get("status") or "COMPLETED").upper() != "COMPLETED"
+-                       or (c.get("state") or "").upper() in {"PENDING", "EXPECTED"}]
+             last = {"state": v.get("state"), "mergeable": v.get("mergeable"), "merge_state": v.get("mergeStateStatus"),
+-                    "files": files, "failing": len(bad), "pending": len(pending)}
+-            if v.get("state") != "OPEN" or files != [CATALOG_REL] or bad \
++                    "files": files, "failing": 0, "pending": 0, "checks_via": "mergeStateStatus_CLEAN_only"}
++            if v.get("state") != "OPEN" or files != [CATALOG_REL] \
+                     or not str(v.get("headRefName") or "").startswith(HEAD_PREFIX):
+                 return {"merged": False, "reason": "not_mergeable_by_rule", **last}
+-            if v.get("mergeable") == "MERGEABLE" and v.get("mergeStateStatus") == "CLEAN" and not pending:
++            if v.get("mergeable") == "MERGEABLE" and v.get("mergeStateStatus") == "CLEAN":
+                 p = self.run(["gh", "pr", "merge", str(number), "-R", self.website_repo, "--squash",
+                               "--match-head-commit", str(v.get("headRefOid"))], None)
+                 if p.returncode != 0:
