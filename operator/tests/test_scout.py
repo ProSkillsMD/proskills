@@ -246,35 +246,46 @@ class TestCatalogIdentity(unittest.TestCase):
         ]})
 
     def test_root_skill_of_listed_repo_is_duplicate(self):
-        self.assertTrue(catalog_match(self.idx, "mono/repo", None, 5))
+        self.assertTrue(catalog_match(self.idx, "mono/repo", None, 5, one_per_repo=False))
 
     def test_whole_repo_entry_does_not_block_distinct_subfolders(self):
-        self.assertIsNone(catalog_match(self.idx, "mono/repo", "skills/new-one", 5))
+        self.assertIsNone(catalog_match(self.idx, "mono/repo", "skills/new-one", 5, one_per_repo=False))
 
     def test_single_skill_repo_listed_whole_is_duplicate(self):
-        self.assertTrue(catalog_match(self.idx, "one/nested", "skill", 1))
+        self.assertTrue(catalog_match(self.idx, "one/nested", "skill", 1, one_per_repo=False))
 
     def test_subpath_listing(self):
-        self.assertTrue(catalog_match(self.idx, "sub/listed", "skills/a", 3))
-        self.assertIsNone(catalog_match(self.idx, "sub/listed", "skills/b", 3))
-        self.assertIsNone(catalog_match(self.idx, "sub/listed", None, 3))
+        self.assertTrue(catalog_match(self.idx, "sub/listed", "skills/a", 3, one_per_repo=False))
+        self.assertIsNone(catalog_match(self.idx, "sub/listed", "skills/b", 3, one_per_repo=False))
+        self.assertIsNone(catalog_match(self.idx, "sub/listed", None, 3, one_per_repo=False))
 
     def test_collection_blocks_all(self):
-        self.assertTrue(catalog_match(self.idx, "col/lection", "skills/x", 9))
-        self.assertIsNone(catalog_match(self.idx, "col/lection", "skills/x", 9, collection_blocks_all=False))
+        self.assertTrue(catalog_match(self.idx, "col/lection", "skills/x", 9, one_per_repo=False))
+        self.assertIsNone(catalog_match(self.idx, "col/lection", "skills/x", 9, collection_blocks_all=False, one_per_repo=False))
 
     def test_files_found_subpath(self):
-        self.assertTrue(catalog_match(self.idx, "ff/repo", "skill", 4))
+        self.assertTrue(catalog_match(self.idx, "ff/repo", "skill", 4, one_per_repo=False))
 
     def test_identity_set_compat(self):
         idx = build_catalog_index({"github:a/b", "github:c/d::skills/x"})
-        self.assertTrue(catalog_match(idx, "a/b", None, 3))
-        self.assertIsNone(catalog_match(idx, "a/b", "skills/y", 3))
-        self.assertTrue(catalog_match(idx, "c/d", "skills/x", 3))
+        self.assertTrue(catalog_match(idx, "a/b", None, 3, one_per_repo=False))
+        self.assertIsNone(catalog_match(idx, "a/b", "skills/y", 3, one_per_repo=False))
+        self.assertTrue(catalog_match(idx, "c/d", "skills/x", 3, one_per_repo=False))
 
     def test_identity_format(self):
         self.assertEqual(scout.identity_for("O", "R", "Skills/X/"), "github:o/r::skills/x")
         self.assertEqual(scout.identity_for("O", "R", None), "github:o/r")
+
+
+class TestOnePerRepo(unittest.TestCase):
+    def test_listed_repo_covers_new_subfolders_by_default(self):
+        idx = build_catalog_index({"skills": [{"repo_url": "https://github.com/sub/listed", "skill_path": "skills/a"}]})
+        self.assertEqual(catalog_match(idx, "sub/listed", "skills/b", 3), "catalog_repo_listed")
+        self.assertEqual(catalog_match(idx, "Sub/Listed", None, 3), "catalog_repo_listed")
+
+    def test_unlisted_repo_is_not_covered(self):
+        idx = build_catalog_index({"skills": [{"repo_url": "https://github.com/sub/listed"}]})
+        self.assertIsNone(catalog_match(idx, "other/repo", "skills/b", 3))
 
 
 class TestLicenseTiers(unittest.TestCase):
@@ -349,6 +360,18 @@ CATALOG = {"skills": [{"repo_url": "https://github.com/mono/repo"},
 
 
 class TestScoutEndToEnd(NoNetworkMixin, unittest.TestCase):
+    # These fixtures exercise multi-skill-per-repo granularity; the one-per-repo rule has its own test.
+    @classmethod
+    def setUpClass(cls):
+        import scout as _scout
+        cls._one_per_repo = _scout.ONE_PER_REPO
+        _scout.ONE_PER_REPO = False
+
+    @classmethod
+    def tearDownClass(cls):
+        import scout as _scout
+        _scout.ONE_PER_REPO = cls._one_per_repo
+
     def _run(self, g, cfg=None, holds=None):
         c = client_for(g)
         st = ScoutState(self.state_dir)

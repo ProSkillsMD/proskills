@@ -172,6 +172,18 @@ CATALOG = {"skills": [{"repo_url": "https://github.com/mono/skills", "skill_path
 
 
 class TestEndToEnd(unittest.TestCase):
+    # These fixtures exercise multi-skill-per-repo granularity; the one-per-repo rule has its own test.
+    @classmethod
+    def setUpClass(cls):
+        import scout as _scout
+        cls._one_per_repo = _scout.ONE_PER_REPO
+        _scout.ONE_PER_REPO = False
+
+    @classmethod
+    def tearDownClass(cls):
+        import scout as _scout
+        _scout.ONE_PER_REPO = cls._one_per_repo
+
     def setUp(self):
         for target in (mock.patch.object(scout, "urllib_transport", _no_network),
                        mock.patch("urllib.request.urlopen", _no_network)):
