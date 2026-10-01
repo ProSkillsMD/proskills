@@ -454,9 +454,18 @@ def build_catalog_index(catalog: dict[str, Any] | Iterable[str]) -> dict[str, di
     return idx
 
 
+# Publisher rule: one catalog listing per GitHub repo. Intake treats any listed repo as covered.
+ONE_PER_REPO = True
+
+
 def catalog_match(idx: dict[str, dict[str, Any]], repo_key: str, subpath: str | None,
-                  repo_skill_total: int, *, collection_blocks_all: bool = True) -> str | None:
-    """Return a reason string if the skill is already listed, else None."""
+                  repo_skill_total: int, *, collection_blocks_all: bool = True,
+                  one_per_repo: bool | None = None) -> str | None:
+    """Return a reason string if the skill is already listed, else None.
+
+    one_per_repo mirrors the publisher rule (one catalog listing per GitHub repo): any repo
+    that already has a listing is treated as covered so intake doesn't file unpublishable skills.
+    """
     e = idx.get(repo_key.lower())
     if not e:
         return None
@@ -470,6 +479,8 @@ def catalog_match(idx: dict[str, dict[str, Any]], repo_key: str, subpath: str | 
             return "catalog_whole_repo_single_skill"
         if e["collection"] and collection_blocks_all:
             return "catalog_collection"
+    if ONE_PER_REPO if one_per_repo is None else one_per_repo:
+        return "catalog_repo_listed"
     return None
 
 
