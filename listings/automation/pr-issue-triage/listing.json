@@ -1,0 +1,38 @@
+{
+  "id": "pr-issue-triage",
+  "slug": "pr-issue-triage",
+  "category": "automation",
+  "name": "PR & Issue Triage",
+  "description": "Triage GitHub pull requests and issues \u2014 classify, prioritize, detect staleness, estimate complexity, and generate structured reports. Designed for high-volume repos with thousands of open PRs.",
+  "author": {
+    "github": "dinakars777",
+    "name": "dinakars777"
+  },
+  "version": "1.0.0",
+  "repo_url": "https://github.com/dinakars777/openclaw-triage-skill",
+  "homepage": "https://github.com/dinakars777/openclaw-triage-skill",
+  "stars": 0,
+  "works_with": [
+    "openclaw"
+  ],
+  "tags": [
+    "github",
+    "triage",
+    "automation",
+    "pr-management",
+    "issue-tracking"
+  ],
+  "verified_at": "2026-03-15T04:58:00Z",
+  "reviewed": true,
+  "scores": {
+    "functionality": 8,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 7,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.14
+  },
+  "status": "listed"
+}
