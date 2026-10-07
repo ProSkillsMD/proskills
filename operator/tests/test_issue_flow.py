@@ -5,7 +5,7 @@ import json
 import sys
 import tempfile
 import unittest
-from datetime import timedelta
+from datetime import datetime, timedelta
 from pathlib import Path
 from unittest import mock
 
@@ -255,6 +255,43 @@ class TestScoutFile(Base):
         out, _ = self.file([src_rec("Solo", "one")])
         self.assertEqual(out["summary"]["counts"], {})
         self.assertIn("day_cap", out["summary"]["skips"])
+
+
+    def test_effective_max_new_spreads_day_budget(self):
+        # hour 0 Dhaka, full budget: ceil(150/24)=7
+        t0 = datetime(2026, 10, 8, 0, 14, tzinfo=scout.DHAKA)
+        self.assertEqual(SF.effective_max_new(7, 150, t0), 7)
+        self.assertEqual(SF.remaining_intake_runs(t0), 24)
+        # hour 20, 20 left: ceil(20/4)=5 -> min(7,5)=5
+        t20 = datetime(2026, 10, 8, 20, 14, tzinfo=scout.DHAKA)
+        self.assertEqual(SF.remaining_intake_runs(t20), 4)
+        self.assertEqual(SF.effective_max_new(7, 20, t20), 5)
+        # hour 23, 10 left: ceil(10/1)=10 -> min(7,10)=7
+        t23 = datetime(2026, 10, 8, 23, 14, tzinfo=scout.DHAKA)
+        self.assertEqual(SF.remaining_intake_runs(t23), 1)
+        self.assertEqual(SF.effective_max_new(7, 10, t23), 7)
+        # budget exhausted / zero configured
+        self.assertEqual(SF.effective_max_new(7, 0, t0), 0)
+        self.assertEqual(SF.effective_max_new(0, 150, t0), 0)
+        # floor at 1 when any budget remains
+        self.assertEqual(SF.effective_max_new(7, 1, t0), 1)
+
+    def test_adaptive_run_cap_shrinks_when_day_budget_low(self):
+        # Pretend it is late in the Dhaka day with only a few slots left and a small remaining budget.
+        late = datetime(2026, 10, 8, 21, 14, tzinfo=scout.DHAKA)  # 3 runs left (21,22,23)
+        idx = SF.IssueIndex(self.state / SF.INDEX_NAME)
+        for i in range(147):  # 150 - 147 = 3 remaining; ceil(3/3)=1
+            idx.record_filed(10_000 + i, f"github:x/y{i}", f"x/y{i}", F.dhaka_day(late))
+        idx.save()
+        for i in range(5):
+            self.gh.add_repo(f"Late/r{i}", {"SKILL.md": SKILL}, stars=10 + i)
+        recs = [src_rec(f"Late", f"r{i}", stars=10 + i) for i in range(5)]
+        with mock.patch.object(scout, "now_dhaka", return_value=late):
+            with mock.patch.object(F, "utc_now", return_value=late.astimezone(F.timezone.utc)):
+                out, f = self.file(recs, max_new=7)
+        self.assertEqual(out["summary"]["counts"], {"create": 1})
+        self.assertEqual(out["summary"]["max_new_effective"], 1)
+        self.assertIn("run_cap", out["summary"]["skips"])
 
     def test_backpressure_stops_new_issues(self):
         for i in range(3):

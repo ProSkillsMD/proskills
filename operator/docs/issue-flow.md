@@ -73,7 +73,7 @@ catalog duplicates, transient and deferred records are never filed. Protected (#
 are never touched. A candidate that matches one of them is skipped.
 
 Caps, all configurable:
-* `--max-new 25` per run, 150 per Dhaka day, 3 new per repo per day.
+* `--max-new 7` per run by default (`ceil(150/24)`), further capped adaptively to `ceil(remaining_day_budget / remaining_:14_Dhaka_hours)` so the 150/day budget is not front-loaded; 150 per Dhaka day, 3 new per repo per day.
 * No new issues while more than 200 open candidate issues have no `review:*` label.
 * `--max-legacy 25` legacy blocks and `--max-refresh 25` block refreshes per run.
 * At least 3 s between issue creates (hard minimum), 1 s between other writes.
