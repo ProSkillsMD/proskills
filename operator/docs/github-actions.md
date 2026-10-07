@@ -11,7 +11,7 @@ Otherwise the guard logs `SKIP: <reason>` and the run ends green.
 
 | Workflow | Schedule (UTC = Asia/Dhaka minute) | Does |
 |---|---|---|
-| `proskills-intake.yml` | `14 * * * *` (hourly :14 Dhaka) | restore state, `scout.py --write`, `source_candidates.py --write`, `scout_file.py --apply` (25/run, 150/day, 3/repo/day, stop at 200 unreviewed), `review.py --apply --limit 50`, save state |
+| `proskills-intake.yml` | `14 * * * *` (hourly :14 Dhaka) | restore state, `scout.py --write`, `source_candidates.py --write`, `scout_file.py --apply` (~6-7/run adaptive, 150/day, 3/repo/day, stop at 200 unreviewed), `review.py --apply --limit 50`, save state |
 | `proskills-publish.yml` | `44 * * * *` (hourly :44 Dhaka) | `publish_run.py --apply --cap 100`: reconcile, merge_stuck_publish_pr, select review:pass issues, catalog_update, production build, website PR, squash-merge only when catalog-only + MERGEABLE/CLEAN + checks green, verify live, label `status:listed` + `groot:published`, close |
 | `proskills-health.yml` | `1 3 * * *` (09:01 Dhaka) | read-only job summary (label counts, published today, open publish PRs, live catalog total, recent runs) |
 

@@ -17,8 +17,10 @@ candidate + legacy:v0 + scout:filed. A closed legacy match is never re-filed. An
 `[Candidate] owner/repo[/subpath] - <name>` labelled candidate + source:<type> + scout:filed.
 On a new skill sha the block is edited in place and review:* / reject:* / ai:* labels are removed.
 
-Caps: <= --max-new (25) new issues/run, <= 150/day, <= 3 new per repo/day, no new issues while more than
-200 open candidate issues lack a review:* label, >= 3 s between creates, stop when REST core < reserve.
+Caps: <= --max-new (7) new issues/run by default (ceil(150/24)), further limited adaptively to
+ceil(remaining_day_budget / remaining_:14_Dhaka_hours) so the 150/day budget spreads across the day;
+<= 150/day, <= 3 new per repo/day, no new issues while more than 200 open candidate issues lack a
+review:* label, >= 3 s between creates, stop when REST core < reserve.
 Never touches protected/critical/publisher-skip issues or issues labelled blocked:* / published.
 Never @-mentions anyone (all third-party text goes through issue_flow.safe_text).
 """
@@ -26,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 import time
@@ -42,8 +45,8 @@ import issue_flow as F  # noqa: E402
 
 ART = scout.ART
 INDEX_NAME = "issue-index.json"
-DEFAULT_CAPS = {"max_new": 25, "max_new_day": 150, "max_new_repo_day": 3, "max_unreviewed": 200,
-                "max_legacy": 25, "max_refresh": 25}
+DEFAULT_CAPS = {"max_new": 7, "max_new_day": 150, "max_new_repo_day": 3, "max_unreviewed": 200,
+                "max_legacy": 25, "max_refresh": 25}  # max_new=ceil(150/24); see effective_max_new
 FILE_STATUSES = {"pass", "license_review", "large_collection", None}
 CLAWHUB_URL_RE = re.compile(r"clawhub\.ai/(?:(@?[A-Za-z0-9_.-]+)/skills/([A-Za-z0-9_.-]+)|skills/([A-Za-z0-9_.-]+)|@([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+))", re.I)
 
@@ -306,6 +309,28 @@ def issue_body(c: dict[str, Any], block: str) -> str:
     return "\n".join(parts)
 
 
+def remaining_intake_runs(now=None) -> int:
+    """Hourly :14 Asia/Dhaka intake slots left today, including the current hour."""
+    dt = (now or scout.now_dhaka())
+    if getattr(dt, "tzinfo", None) is None:
+        dt = dt.replace(tzinfo=scout.DHAKA)
+    else:
+        dt = dt.astimezone(scout.DHAKA)
+    return max(1, 24 - dt.hour)
+
+
+def effective_max_new(configured_max: int, remaining_day_budget: int, now=None) -> int:
+    """Spread remaining day budget across remaining hourly intake runs.
+
+    per_run = min(configured_max, ceil(remaining_budget / remaining_runs)), floored at 1 when
+    budget remains. Returns 0 when configured_max or remaining_day_budget is <= 0.
+    """
+    if configured_max <= 0 or remaining_day_budget <= 0:
+        return 0
+    runs = remaining_intake_runs(now)
+    return min(int(configured_max), max(1, math.ceil(remaining_day_budget / runs)))
+
+
 MARKER_COMMENT_INTRO = "Machine-readable candidate block for the ProSkills issue flow (no action needed)."
 
 
@@ -326,6 +351,7 @@ class ScoutFiler:
         self.skip_examples: dict[str, list[str]] = {}
         self.stopped: str | None = None
         self.can_edit = False
+        self.run_limit: int | None = None
 
     def _skip(self, c: dict[str, Any], reason: str) -> None:
         key = reason.split(":", 1)[0]
@@ -399,6 +425,7 @@ class ScoutFiler:
                    "skips": dict(self.skips), "skip_examples": self.skip_examples,
                    "stopped": self.stopped, "unreviewed_candidates": view.unreviewed_candidates,
                    "filed_today": len(self.index.filed_today(day)),
+                   "max_new_effective": self.run_limit,
                    "core_remaining": self.client.core_remaining, "writes": len(self.api.writes)}
         return {"summary": summary, "actions": self.actions}
 
@@ -576,17 +603,20 @@ class ScoutFiler:
         per_repo = Counter(f.get("repo_key") for f in filed_today)
         total_today = len(filed_today)
         unreviewed = view.unreviewed_candidates
+        remaining_budget = max(0, self.caps["max_new_day"] - total_today)
+        run_limit = effective_max_new(self.caps["max_new"], remaining_budget)
+        self.run_limit = run_limit
         for c in items:
             rk = F.repo_key_of(c["identity"])
             if unreviewed > self.caps["max_unreviewed"]:
                 self.stopped = self.stopped or f"backpressure: {unreviewed} open candidate issues lack review:*"
                 self._skip(c, "backpressure")
                 continue
-            if created >= self.caps["max_new"]:
-                self._skip(c, "run_cap")
-                continue
             if total_today >= self.caps["max_new_day"]:
                 self._skip(c, "day_cap")
+                continue
+            if created >= run_limit:
+                self._skip(c, "run_cap")
                 continue
             if per_repo[rk] >= self.caps["max_new_repo_day"]:
                 self._skip(c, "repo_day_cap")
