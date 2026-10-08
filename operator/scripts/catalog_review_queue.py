@@ -150,15 +150,25 @@ def build_queue(
     limit: int | None = None,
     use_gh: bool = False,
 ) -> dict[str, Any]:
+    # Rank on catalog-local signals first; only enrich the truncated head via gh.
     cache: dict[str, Any] = {}
-    rows = [enrich_row(s, use_gh=use_gh, cache=cache) for s in unreviewed_rows(catalog)]
-    rows_sorted = rank_by_priority(rows)
+    base_rows = [enrich_row(s, use_gh=False, cache=cache) for s in unreviewed_rows(catalog)]
+    rows_sorted = rank_by_priority(base_rows)
+    unreviewed_total = len(base_rows)
     if limit is not None and limit >= 0:
         rows_sorted = rows_sorted[:limit]
+    if use_gh:
+        # Re-enrich selected rows with gh (mutates via fresh enrich from original fields)
+        by_id = {str(s.get("id") or s.get("slug")): s for s in unreviewed_rows(catalog)}
+        enriched = []
+        for r in rows_sorted:
+            src = by_id.get(str(r.get("id") or "")) or by_id.get(str(r.get("slug") or "")) or r
+            enriched.append(enrich_row(src if "repo_url" in src else r, use_gh=True, cache=cache))
+        rows_sorted = rank_by_priority(enriched)
     return {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "catalog_total": int(catalog.get("total") or len(catalog.get("skills") or [])),
-        "unreviewed_total": len(rows),
+        "unreviewed_total": unreviewed_total,
         "limit": limit,
         "enriched_gh": use_gh,
         "items": rows_sorted,
