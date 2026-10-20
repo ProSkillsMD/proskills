@@ -29,6 +29,19 @@ class TestMatcher(unittest.TestCase):
                   "authorized adult presenter image", "explicit approval only", "node 18+"):
             self.assertFalse(CP.violates(t), t)
 
+    def test_piracy_and_illegal_hits(self):
+        for t in ("warez downloader", "keygen for Photoshop", "torrent search skill", "DRM removal for ebooks",
+                  "bypass paywalls on news sites", "rip Netflix streams", "carding tutorials", "create ransomware",
+                  "password stealer", "buy drugs online", "doxxing helper", "account takeover tool"):
+            self.assertTrue(CP.violates(t), t)
+
+    def test_security_and_legit_kept(self):
+        for t in ("CTF malware analysis techniques", "detect fraud in payments", "protects against credential theft",
+                  "refuses to bypass logins, paywalls or CAPTCHAs", "Kerberoast and crack the ticket in a pentest",
+                  "ransomware incident response playbook", "zenquote inspirational quotes", "fraud detection model",
+                  "sexual-health education"):
+            self.assertFalse(CP.violates(t), t)
+
     def test_label_registered(self):
         self.assertIn(CP.LABEL, F.LABELS)
 
