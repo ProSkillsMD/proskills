@@ -26,6 +26,7 @@ from pathlib import Path
 from typing import Any, Callable, Iterable
 from urllib.parse import quote
 
+import content_policy as CP
 import scout
 from publish_lib import BLOCKED_LABELS, PROTECTED_ISSUES, label_names
 
@@ -73,6 +74,7 @@ LABELS: dict[str, tuple[str, str]] = {
     "reject:duplicate": ("f9d0c4", "Already listed in the ProSkills catalog (same identity)"),
     LABEL_AI_REVIEWED: ("5319e7", "Reviewed by the budgeted AI step (ai_review.py)"),
     LABEL_STAGED: ("0052cc", "Staged into a website catalog publish PR"),
+    CP.LABEL: (CP.LABEL_COLOR, CP.LABEL_DESC),
     "operator-lock": ("000000", "Open issue with this label pauses the ProSkills GitHub Actions workflows"),
 }
 for _n in ("source:github", "source:clawhub"):
