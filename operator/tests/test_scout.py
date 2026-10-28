@@ -1,6 +1,7 @@
 """Unit tests for operator/scripts/scout.py. GitHub is fully mocked; no network."""
 from __future__ import annotations
 
+import http.client
 import json
 import re
 import sys
@@ -9,6 +10,7 @@ import unittest
 from collections import Counter
 from pathlib import Path
 from unittest import mock
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
@@ -65,19 +67,50 @@ class FakeGitHub:
                             "labels": [{"name": l} for l in labels], "created_at": "2026-09-01T00:00:00Z",
                             "updated_at": "2026-09-02T00:00:00Z"})
 
-    def _tree(self, r):
-        dirs = set()
-        entries = []
-        for path, text in r["files"].items():
+    def _dir_shas(self, r) -> dict[str, str]:
+        files = r["files"]
+        dirs = {""}
+        for path in files:
             parts = path.split("/")
             for i in range(1, len(parts)):
                 dirs.add("/".join(parts[:i]))
-            entries.append({"path": path, "type": "blob", "sha": f"b-{hash((path, text)) & 0xffff}",
+        shas: dict[str, str] = {}
+        for d in dirs:
+            pref = d + "/" if d else ""
+            content = "".join(sorted(f"{p}{t}" for p, t in files.items() if p.startswith(pref)))
+            shas[d] = f"t-{hash((d, content)) & 0xffffffff:08x}"
+        return shas
+
+    def _tree(self, r, ref: str = "", recursive: bool = True):
+        """GitHub-shaped tree. A branch name (or anything that is not a tree sha) is the root.
+
+        Non-recursive listings are one directory; recursive listings are descendants with
+        paths relative to that directory. ``truncated`` is only set on a non-recursive root,
+        matching a cut-off of the old single recursive call's flag for tests that set it.
+        """
+        shas = self._dir_shas(r)
+        by_sha = {sha: path for path, sha in shas.items()}
+        dir_path = by_sha[ref] if ref in by_sha else ""
+        prefix = f"{dir_path}/" if dir_path else ""
+        entries = []
+        for d, sha in sorted(shas.items()):
+            if not d.startswith(prefix) or d == dir_path:
+                continue
+            rel = d[len(prefix):]
+            if not recursive and "/" in rel:
+                continue
+            entries.append({"path": rel, "type": "tree", "sha": sha})
+        for path, text in sorted(r["files"].items()):
+            if prefix and not path.startswith(prefix):
+                continue
+            rel = path[len(prefix):] if prefix else path
+            if not rel or (not recursive and "/" in rel):
+                continue
+            entries.append({"path": rel, "type": "blob", "sha": f"b-{hash((path, text)) & 0xffff}",
                             "size": len(text)})
-        for d in sorted(dirs):
-            content = "".join(sorted(f"{p}{t}" for p, t in r["files"].items() if p.startswith(d + "/")))
-            entries.append({"path": d, "type": "tree", "sha": f"t-{hash(content) & 0xffffff}"})
-        return {"tree": entries, "truncated": r["truncated"]}
+        truncated = bool(r["truncated"]) and dir_path == "" and not recursive
+        resp_sha = ref if ref in by_sha else f"c-{hash(r['key']) & 0xffffff}"
+        return {"sha": resp_sha, "tree": entries, "truncated": truncated}
 
     def __call__(self, method, url, headers, body, timeout):
         self.log.append(url)
@@ -85,8 +118,11 @@ class FakeGitHub:
             if sub in url and queue:
                 return queue.pop(0)
         if url.startswith(f"{API}/repos/ProSkillsMD/proskills/issues"):
-            page = int(re.search(r"page=(\d+)", url).group(1))
-            return resp(200, self.issues[(page - 1) * 100: page * 100], {"x-ratelimit-remaining": "4000"})
+            # "per_page=" contains "page="; anchor both query keys.
+            page = int(re.search(r"[?&]page=(\d+)", url).group(1))
+            per_m = re.search(r"[?&]per_page=(\d+)", url)
+            per = int(per_m.group(1)) if per_m else 100
+            return resp(200, self.issues[(page - 1) * per: page * per], {"x-ratelimit-remaining": "4000"})
         if url == f"{API}/graphql":
             q = json.loads(body)["query"]
             data, errors = {}, []
@@ -102,12 +138,14 @@ class FakeGitHub:
                                "defaultBranchRef": {"name": r["branch"]} if r["files"] else None,
                                "licenseInfo": lic}
             return resp(200, {"data": data, "errors": errors} if errors else {"data": data})
-        m = re.match(rf"{re.escape(API)}/repos/([^/]+)/([^/]+)/git/trees/", url)
+        m = re.match(rf"{re.escape(API)}/repos/([^/]+)/([^/]+)/git/trees/([^?]+)", url)
         if m:
             r = self.repos.get(f"{m.group(1)}/{m.group(2)}".lower())
             if not r:
                 return resp(404, {"message": "Not Found"})
-            return resp(200, self._tree(r), {"x-ratelimit-remaining": "4000"})
+            ref = unquote(m.group(3))
+            recursive = "recursive=1" in url or "recursive=true" in url
+            return resp(200, self._tree(r, ref, recursive), {"x-ratelimit-remaining": "4000"})
         m = re.match(rf"{re.escape(RAW)}/([^/]+)/([^/]+)/([^/]+)/(.+)$", url)
         if m:
             r = self.repos.get(f"{m.group(1)}/{m.group(2)}".lower())
@@ -212,8 +250,170 @@ class TestClientClassification(NoNetworkMixin, unittest.TestCase):
         c, _ = self._client([resp(404, text="nope")])
         self.assertIsNone(c.raw("a", "b", "main", "SKILL.md"))
 
+    def test_incomplete_read_retries_with_backoff(self):
+        err = http.client.IncompleteRead(b"", 8)
+        c, sleeps = self._client([err, err, resp(200, {"ok": 1})], max_retries=4, backoff_base=1.0)
+        self.assertEqual(c.rest("repos/a/b"), {"ok": 1})
+        self.assertEqual(len(sleeps), 2)
+        self.assertGreaterEqual(sleeps[0], 1.0)
+        self.assertGreaterEqual(sleeps[1], 2.0)
+
+    def test_incomplete_read_exhausts_as_transient_without_body(self):
+        secret = b"ghp_supersecretvalue"
+        err = http.client.IncompleteRead(secret, 10)
+        c, sleeps = self._client([err] * 5, max_retries=4)
+        with self.assertRaises(Transient) as cm:
+            c.rest("x")
+        self.assertIn("truncated:IncompleteRead", str(cm.exception))
+        self.assertNotIn("supersecretvalue", str(cm.exception))
+        self.assertNotIn("ghp_", repr(cm.exception))
+        self.assertIsNone(cm.exception.__cause__)
+        self.assertEqual(len(sleeps), 4)
+
+    def test_incomplete_read_not_retried_when_retries_disabled(self):
+        c, sleeps = self._client([http.client.IncompleteRead(b"", 4)], max_retries=0)
+        with self.assertRaises(Transient):
+            c.rest("x")
+        self.assertEqual(sleeps, [])
+
+    def test_bad_status_line_and_remote_disconnected_retry(self):
+        for err in (http.client.BadStatusLine("closed"), http.client.RemoteDisconnected("closed")):
+            c, sleeps = self._client([err, resp(200, {"ok": 1})])
+            self.assertEqual(c.rest("x"), {"ok": 1})
+            self.assertEqual(len(sleeps), 1)
+
+    def test_truncated_json_retries(self):
+        c, sleeps = self._client([resp(200, text="{"), resp(200, {"ok": 1})])
+        self.assertEqual(c.rest("x"), {"ok": 1})
+        self.assertEqual(len(sleeps), 1)
+
+    def test_truncated_json_exhausts_without_quoting_body(self):
+        c, _ = self._client([resp(200, text='{"token":"ghp_supersecretvalue"')] * 3, max_retries=2)
+        with self.assertRaises(Transient) as cm:
+            c.rest("x")
+        self.assertEqual(str(cm.exception), "truncated:JSONDecodeError")
+        self.assertNotIn("supersecretvalue", str(cm.exception))
+        self.assertIsNone(cm.exception.__cause__)
+
+    def test_paginate_uses_small_pages(self):
+        seen: list[str] = []
+
+        def transport(method, url, headers, body, timeout):
+            seen.append(url)
+            # "per_page=" also contains the substring "page=", so anchor the query keys.
+            page = int(re.search(r"[?&]page=(\d+)", url).group(1))
+            per = int(re.search(r"[?&]per_page=(\d+)", url).group(1))
+            self.assertEqual(per, scout.REST_PAGE_SIZE)
+            start = (page - 1) * per
+            return resp(200, [{"n": i} for i in range(start, min(start + per, 120))])
+
+        c = GitHubClient("t", transport=transport, sleep=lambda s: None, throttle=AdaptiveThrottle(2))
+        out = c.paginate("repos/o/r/issues?state=open", max_items=1000)
+        self.assertEqual([row["n"] for row in out], list(range(120)))
+        self.assertEqual(len(seen), 3)
+        self.assertTrue(all(f"per_page={scout.REST_PAGE_SIZE}" in u for u in seen))
+        self.assertNotIn("supersecret", " ".join(seen))
+
+    def test_list_open_issues_keeps_legacy_ceiling(self):
+        def transport(method, url, headers, body, timeout):
+            page = int(re.search(r"[?&]page=(\d+)", url).group(1))
+            per = int(re.search(r"[?&]per_page=(\d+)", url).group(1))
+            start = (page - 1) * per
+            # Plenty of issues; the ceiling is max_pages * 100, not max_pages * REST_PAGE_SIZE.
+            return resp(200, [{"number": i} for i in range(start, start + per)])
+
+        c = GitHubClient("t", transport=transport, sleep=lambda s: None, throttle=AdaptiveThrottle(2))
+        issues = scout.list_open_issues(c, max_pages=1)
+        self.assertEqual([i["number"] for i in issues], list(range(scout.LEGACY_PAGE_SIZE)))
+
+    def test_fetch_git_tree_not_found(self):
+        c, _ = self._client([resp(404, {"message": "Not Found"})])
+        with self.assertRaises(NotFound):
+            scout.fetch_git_tree(c, "a", "b", "main")
+
+
+class TestUrllibTransport(unittest.TestCase):
+    def test_incomplete_read_propagates(self):
+        class FakeResp:
+            status = 200
+            headers: dict = {}
+
+            def read(self):
+                raise http.client.IncompleteRead(b"", 4)
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *a):
+                return False
+
+        with mock.patch("urllib.request.urlopen", return_value=FakeResp()):
+            with self.assertRaises(http.client.IncompleteRead):
+                scout.urllib_transport("GET", "https://api.github.com/rate_limit", {}, None, 1.0)
+
 
 # ----------------------------------------------------------------------------- discovery / catalog / license
+
+class TestChunkedTree(NoNetworkMixin, unittest.TestCase):
+    def test_top_level_dirs_are_separate_requests_and_excluded_dirs_are_skipped(self):
+        g = FakeGitHub()
+        g.add_repo("o/r", files={
+            "SKILL.md": "root",
+            "README.md": "hi",
+            "skills/a/SKILL.md": "a",
+            "skills/a/run.sh": "echo\n",
+            "node_modules/x/SKILL.md": "nope",
+        })
+        tree = scout.fetch_git_tree(client_for(g), "o", "r", "main")
+        paths = {e["path"] for e in tree["tree"]}
+        self.assertIn("SKILL.md", paths)
+        self.assertIn("skills/a/SKILL.md", paths)
+        self.assertIn("skills/a/run.sh", paths)
+        self.assertIn("node_modules", paths)  # the root entry is listed; its children are not fetched
+        self.assertNotIn("node_modules/x/SKILL.md", paths)
+        found = [s["skill_path"] for s in discover_skills(tree["tree"])]
+        self.assertEqual(found, ["SKILL.md", "skills/a/SKILL.md"])
+        shas = g._dir_shas(g.repos["o/r"])
+        tree_urls = [u for u in g.log if "/git/trees/" in u]
+        self.assertIn(f"{API}/repos/o/r/git/trees/main", tree_urls)
+        self.assertNotIn(f"{API}/repos/o/r/git/trees/main?recursive=1", tree_urls)
+        self.assertTrue(any(shas["skills"] in u and "recursive=1" in u for u in tree_urls))
+        self.assertFalse(any(shas["node_modules"] in u for u in tree_urls))
+
+    def test_truncated_subtree_is_walked_and_partial_body_is_discarded(self):
+        calls: list[str] = []
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            if url.endswith("/git/trees/main"):
+                return resp(200, {"sha": "commit", "truncated": False, "tree": [
+                    {"path": "skills", "type": "tree", "sha": "sha-skills"},
+                    {"path": "SKILL.md", "type": "blob", "sha": "b1", "size": 4},
+                ]})
+            if url.endswith("/git/trees/sha-skills?recursive=1"):
+                return resp(200, {"sha": "sha-skills", "truncated": True, "tree": [
+                    {"path": "a/SKILL.md", "type": "blob", "sha": "partial", "size": 1},
+                ]})
+            if url.endswith("/git/trees/sha-skills"):
+                return resp(200, {"sha": "sha-skills", "truncated": False, "tree": [
+                    {"path": "a", "type": "tree", "sha": "sha-a"},
+                ]})
+            if url.endswith("/git/trees/sha-a"):
+                return resp(200, {"sha": "sha-a", "truncated": False, "tree": [
+                    {"path": "SKILL.md", "type": "blob", "sha": "b2", "size": 5},
+                ]})
+            return resp(404, {"message": "Not Found"})
+
+        c = client_for(transport)
+        tree = scout.fetch_git_tree(c, "o", "r", "main")
+        blobs = {e["path"]: e.get("sha") for e in tree["tree"] if e.get("type") == "blob"}
+        self.assertEqual(blobs, {"SKILL.md": "b1", "skills/a/SKILL.md": "b2"})
+        self.assertIn("skills/a", {e["path"] for e in tree["tree"] if e.get("type") == "tree"})
+        self.assertFalse(tree["truncated"])
+        self.assertEqual(len(calls), 4)
+        self.assertTrue(calls[1].endswith("/git/trees/sha-skills?recursive=1"))
+        self.assertTrue(calls[2].endswith("/git/trees/sha-skills"))
+
 
 class TestDiscovery(unittest.TestCase):
     def test_tree_discovery_nested_and_excluded(self):
@@ -454,7 +654,7 @@ class TestScoutEndToEnd(NoNetworkMixin, unittest.TestCase):
         g.repos["alice/root-skill"]["pushed"] = "2026-09-20T00:00:00Z"
         self._run(g)
         self.assertEqual([u for u in g.log if "/git/trees/" in u],
-                         [f"{API}/repos/alice/root-skill/git/trees/main?recursive=1"])
+                         [f"{API}/repos/alice/root-skill/git/trees/main"])
 
     def test_rotating_window_covers_everything(self):
         g = FakeGitHub()

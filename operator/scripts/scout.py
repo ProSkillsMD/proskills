@@ -12,12 +12,14 @@ tested module. Fixes vs. the old scout:
    persisted in ``operator/state/scout/``. Per-repo verdicts are cached keyed to
    the repo's ``pushed_at`` so unchanged repos are never re-fetched.
 3. Failures are split: ``not_found`` (404/410 / GraphQL NOT_FOUND) vs
-   ``transient`` (403 rate limit, 429, 5xx, timeouts). Transient calls retry with
-   backoff honouring ``Retry-After`` / ``X-RateLimit-Reset`` and the worker pool
-   shrinks when rate limited. Transient outcomes are never cached or reported as
-   rejections; those repos are retried first on the next run.
-4. SKILL.md discovery uses the recursive git tree API (any depth: root,
-   ``skills/*``, ``.claude/skills/*``, ``.agents/skills/*`` ...), capped per repo.
+   ``transient`` (403 rate limit, 429, 5xx, timeouts, truncated bodies such as
+   ``http.client.IncompleteRead``). Transient calls retry with backoff honouring
+   ``Retry-After`` / ``X-RateLimit-Reset`` and the worker pool shrinks when rate
+   limited. Transient outcomes are never cached or reported as rejections; those
+   repos are retried first on the next run.
+4. SKILL.md discovery uses the git tree API (any depth: root, ``skills/*``,
+   ``.claude/skills/*``, ``.agents/skills/*`` ...), fetched per top-level
+   directory rather than one recursive listing, capped per repo.
 5. Identity is per skill folder: ``github:owner/repo`` for a root SKILL.md,
    ``github:owner/repo::subpath`` otherwise. Catalog dedupe works at subpath
    level; a whole-repo catalog entry blocks the root skill (and the only skill of
@@ -40,6 +42,7 @@ import argparse
 import atexit
 import concurrent.futures
 import hashlib
+import http.client
 import json
 import os
 import random
@@ -95,6 +98,15 @@ DHAKA = timezone(timedelta(hours=6))
 SOFT_CAP = 100
 MATERIALIZE = "github_api_tree_raw_no_git_clone"
 UA = "proskills-operator-scout/1.0"
+
+# GitHub allows 100 items per page. 50 keeps each list body smaller so a mid-stream
+# disconnect is cheaper to retry, and it divides the search API's 1000-result cap.
+# Callers that counted pages at the old size of 100 keep that item ceiling.
+REST_PAGE_SIZE = 50
+LEGACY_PAGE_SIZE = 100
+# Bound a non-recursive walk of a truncated directory so one monster repo cannot
+# drain the REST budget. Past this, the tree is reported truncated.
+MAX_WALK_DIRS = 200
 
 # Holds that must always be respected (in addition to PROTECTED_ISSUES).
 STATIC_HOLDS = frozenset({2396, 4869})          # critical_static
@@ -191,6 +203,8 @@ def urllib_transport(method: str, url: str, headers: dict[str, str], body: bytes
     req = urllib.request.Request(url, data=body, method=method, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
+            # IncompleteRead (and BadStatusLine) propagate. They are not OSErrors, so the
+            # client retries them explicitly; do not turn a cut-off body into a short 200.
             return Response(resp.status, {k.lower(): v for k, v in resp.headers.items()}, resp.read())
     except urllib.error.HTTPError as e:
         try:
@@ -198,7 +212,7 @@ def urllib_transport(method: str, url: str, headers: dict[str, str], body: bytes
         except Exception:
             data = b""
         return Response(e.code, {k.lower(): v for k, v in (e.headers or {}).items()}, data)
-    # URLError / TimeoutError / socket errors propagate and are classified by the client.
+    # URLError / TimeoutError / socket errors / IncompleteRead propagate and are classified by the client.
 
 
 # --------------------------------------------------------------------------- throttle
@@ -325,9 +339,14 @@ class GitHubClient:
             try:
                 with self.throttle.slot():
                     resp = self.transport(method, url, headers, body, self.timeout)
-            except (urllib.error.URLError, TimeoutError, OSError, ConnectionError) as e:
+            except (urllib.error.URLError, TimeoutError, OSError, ConnectionError,
+                    http.client.IncompleteRead, http.client.BadStatusLine) as e:
+                # IncompleteRead / BadStatusLine are not OSErrors: GitHub closing the
+                # socket mid-body used to crash the run. The message is only the type
+                # name — partial bodies can contain anything the server echoed.
                 if attempt > self.max_retries:
-                    raise Transient(f"network:{type(e).__name__}") from None
+                    kind = "truncated" if isinstance(e, http.client.HTTPException) else "network"
+                    raise Transient(f"{kind}:{type(e).__name__}") from None
                 self.sleep(self._backoff(attempt))
                 continue
             self._note_rate(url, resp)
@@ -362,14 +381,56 @@ class GitHubClient:
         return self.backoff_base * (2 ** (attempt - 1)) + random.uniform(0, self.backoff_base)
 
     def rest(self, path: str) -> Any:
-        return self.request(f"{API}/{path.lstrip('/')}").json()
+        return self._json(f"{API}/{path.lstrip('/')}")
+
+    def _json(self, url: str, *, method: str = "GET", body: bytes | None = None) -> Any:
+        """Read a JSON body, retrying a 200 whose payload was cut off into invalid JSON.
+
+        ``IncompleteRead`` is retried inside ``request``. This covers the other
+        truncated-body shape: the socket closed cleanly and ``read()`` returned a
+        short buffer that is not valid JSON. The error text is not kept (it can
+        quote the body).
+        """
+        attempt = 0
+        while True:
+            attempt += 1
+            try:
+                return self.request(url, method=method, body=body).json()
+            except json.JSONDecodeError:
+                if attempt > self.max_retries:
+                    raise Transient("truncated:JSONDecodeError") from None
+                self.sleep(self._backoff(attempt))
+
+    def paginate(self, path: str, *, per_page: int = REST_PAGE_SIZE, max_items: int | None = None,
+                 max_pages: int = 500) -> list:
+        """GET a REST collection in small pages and concatenate them.
+
+        ``path`` is relative to ``api.github.com`` and may already contain a query
+        string. Stops on a short page. ``max_items`` caps the list so a caller that
+        used to pass ``max_pages`` at ``LEGACY_PAGE_SIZE`` keeps the same ceiling.
+        """
+        per_page = max(1, min(100, int(per_page)))
+        out: list = []
+        sep = "&" if "?" in path else "?"
+        for page in range(1, max_pages + 1):
+            if max_items is not None and len(out) >= max_items:
+                break
+            data = self.rest(f"{path}{sep}per_page={per_page}&page={page}") or []
+            if not isinstance(data, list):
+                break
+            out.extend(data)
+            if len(data) < per_page:
+                break
+        if max_items is not None:
+            return out[:max_items]
+        return out
 
     def graphql(self, query: str) -> dict[str, Any]:
         body = json.dumps({"query": query}).encode("utf-8")
         attempt = 0
         while True:
             attempt += 1
-            payload = self.request(f"{API}/graphql", method="POST", body=body).json() or {}
+            payload = self._json(f"{API}/graphql", method="POST", body=body) or {}
             errs = payload.get("errors") or []
             if any((e or {}).get("type") == "RATE_LIMITED" for e in errs):
                 self.throttle.on_rate_limit()
@@ -688,6 +749,99 @@ def fetch_repo_meta(client: GitHubClient, repo_keys: list[str], batch: int = 50,
     return out
 
 
+def _skip_dir(path: str) -> bool:
+    """True when a directory matches ``EXCLUDED_SEGMENTS`` (same rule as ``_excluded``)."""
+    return any(part.lower() in EXCLUDED_SEGMENTS for part in path.split("/") if part)
+
+
+def _with_prefix(entries: Iterable[dict[str, Any]], prefix: str) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for ent in entries:
+        if not isinstance(ent, dict):
+            continue
+        rel = str(ent.get("path") or "")
+        item = dict(ent)
+        item["path"] = f"{prefix}/{rel}" if prefix and rel else (prefix or rel)
+        out.append(item)
+    return out
+
+
+def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix: str) -> tuple[list[dict[str, Any]], bool]:
+    """Non-recursive walk of one directory. Used when a recursive listing comes back truncated."""
+    out: list[dict[str, Any]] = []
+    truncated = False
+    queue: list[tuple[str, str]] = [(sha, prefix)]
+    seen: set[str] = set()
+    while queue:
+        cur, cur_prefix = queue.pop()
+        if cur in seen:
+            continue
+        if len(seen) >= MAX_WALK_DIRS:
+            truncated = True
+            break
+        seen.add(cur)
+        data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(cur, safe='')}") or {}
+        if data.get("truncated"):
+            truncated = True
+        for ent in data.get("tree") or []:
+            if not isinstance(ent, dict):
+                continue
+            name = str(ent.get("path") or "")
+            if not name or "/" in name:
+                continue
+            full = f"{cur_prefix}/{name}" if cur_prefix else name
+            if ent.get("type") == "tree":
+                if _skip_dir(full):
+                    continue
+                item = dict(ent)
+                item["path"] = full
+                out.append(item)
+                child = ent.get("sha")
+                if child:
+                    queue.append((str(child), full))
+            else:
+                item = dict(ent)
+                item["path"] = full
+                out.append(item)
+    return out, truncated
+
+
+def _fetch_prefixed_subtree(client: GitHubClient, owner: str, repo: str, sha: str,
+                            prefix: str) -> tuple[list[dict[str, Any]], bool]:
+    data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(sha, safe='')}?recursive=1") or {}
+    if not data.get("truncated"):
+        return _with_prefix(data.get("tree") or [], prefix), False
+    return _walk_subtree(client, owner, repo, sha, prefix)
+
+
+def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str) -> dict[str, Any]:
+    """Flat git tree in the same shape as ``GET .../git/trees/{ref}?recursive=1``.
+
+    The root is one non-recursive listing. Each top-level directory is its own
+    recursive request, so a cut-off retries that directory instead of the whole
+    repository. ``node_modules`` / ``vendor`` / other ``EXCLUDED_SEGMENTS``
+    directories are not fetched (discovery already ignores them). A recursive
+    response with ``truncated: true`` is walked one directory at a time.
+    """
+    root = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(ref, safe='')}") or {}
+    tree: list[dict[str, Any]] = []
+    truncated = bool(root.get("truncated"))
+    for ent in root.get("tree") or []:
+        if not isinstance(ent, dict):
+            continue
+        tree.append(dict(ent))
+        if ent.get("type") != "tree":
+            continue
+        path = str(ent.get("path") or "")
+        sha = ent.get("sha")
+        if not path or not sha or _skip_dir(path):
+            continue
+        sub, sub_trunc = _fetch_prefixed_subtree(client, owner, repo, str(sha), path)
+        tree.extend(sub)
+        truncated = truncated or sub_trunc
+    return {"sha": root.get("sha"), "tree": tree, "truncated": truncated}
+
+
 def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]) -> dict[str, Any]:
     """Tree-derived verdict for one repo (cacheable). Raises Transient / NotFound."""
     full = meta.get("full_name") or key
@@ -701,7 +855,7 @@ def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]
         return {**base, **empty, "note": "empty_repo"}
     def get_tree(ref: str) -> dict | None:
         try:
-            return client.rest(f"repos/{owner}/{repo}/git/trees/{quote(ref, safe='')}?recursive=1") or {}
+            return fetch_git_tree(client, owner, repo, ref)
         except (Unprocessable, NotFound):
             return None
 
@@ -753,15 +907,17 @@ class IssueTarget:
 
 
 def list_open_issues(client: GitHubClient, repo_slug: str = REPO_SLUG, max_pages: int = 60) -> list[dict]:
-    """Every open issue (REST list, ~23 calls for ~2.2k issues); PRs filtered out."""
-    issues: list[dict] = []
-    for page in range(1, max_pages + 1):
-        items = client.rest(f"repos/{repo_slug}/issues?state=open&per_page=100&page={page}"
-                            f"&sort=created&direction=asc") or []
-        issues.extend(it for it in items if "pull_request" not in it)
-        if len(items) < 100:
-            break
-    return issues
+    """Every open issue; PRs filtered out.
+
+    ``max_pages`` is the historical budget in 100-item pages (default 60 → 6000
+    issues). Each request uses ``REST_PAGE_SIZE``.
+    """
+    raw = client.paginate(
+        f"repos/{repo_slug}/issues?state=open&sort=created&direction=asc",
+        per_page=REST_PAGE_SIZE,
+        max_items=max_pages * LEGACY_PAGE_SIZE,
+    )
+    return [it for it in raw if isinstance(it, dict) and "pull_request" not in it]
 
 
 def load_known_holds(art: Path = ART) -> set[int]:

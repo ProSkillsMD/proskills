@@ -174,12 +174,24 @@ class RepoSearch:
         self.errors: list[str] = []
 
     def search(self, q: str, *, sort: str = "stars", max_pages: int = 3, per_page: int = 100) -> list[dict[str, Any]]:
+        """Paged repository search.
+
+        ``per_page`` (max 100) and ``max_pages`` still define the result budget, so
+        a query that used to return up to ``max_pages * per_page`` rows returns the
+        same rows. HTTP pages are at most ``REST_PAGE_SIZE`` so one truncated body
+        drops a smaller page. The search API only serves the first 1000 hits.
+        """
+        from scout import REST_PAGE_SIZE
+
         per_page = max(1, min(100, per_page))
-        max_pages = max(1, min(max_pages, self.MAX_RESULTS // per_page))
+        budget_pages = max(1, min(max_pages, self.MAX_RESULTS // per_page))
+        budget = min(self.MAX_RESULTS, budget_pages * per_page)
+        http_per = min(per_page, REST_PAGE_SIZE)
         out: list[dict[str, Any]] = []
-        for page in range(1, max_pages + 1):
+        page = 1
+        while len(out) < budget and (page - 1) * http_per < self.MAX_RESULTS:
             path = (f"search/repositories?q={quote(q, safe='')}&sort={sort}&order=desc"
-                    f"&per_page={per_page}&page={page}")
+                    f"&per_page={http_per}&page={page}")
             cached = self.cache.get(f"search:{path}", self.ttl_s)
             if cached is None:
                 self.limiter.wait()
@@ -192,10 +204,11 @@ class RepoSearch:
                           "items": [slim_repo(it) for it in data.get("items") or []]}
                 self.cache.put(f"search:{path}", cached)
             items = cached.get("items") or []
-            out.extend(items)
+            out.extend(items[: budget - len(out)])
             total = int(cached.get("total_count") or 0)
-            if len(items) < per_page or page * per_page >= min(total, self.MAX_RESULTS):
+            if len(items) < http_per or len(out) >= min(total, budget):
                 break
+            page += 1
         return out
 
 

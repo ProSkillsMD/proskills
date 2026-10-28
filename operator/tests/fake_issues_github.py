@@ -179,9 +179,9 @@ class FakeGH:
                     return self._r(422)
                 self.labels.add(payload["name"])
                 return self._r(201, payload)
-            page = int(q.get("page", 1))
+            page, per = int(q.get("page", 1)), int(q.get("per_page", 100))
             items = [{"name": l} for l in sorted(self.labels)]
-            return self._r(200, items[(page - 1) * 100: page * 100])
+            return self._r(200, items[(page - 1) * per: page * per])
         return self._r(404)
 
     def _skill_repo(self, owner, repo, sub, q):
@@ -214,12 +214,35 @@ class FakeGH:
             return self._r(200, list(names.values()))
         m = re.match(r"^/git/trees/(.+)$", sub)
         if m:
+            ref = unquote(m.group(1))
+            recursive = q.get("recursive") in ("1", "true")
             dirs = self._dirs(r)
-            entries = [{"path": d, "type": "tree", "sha": s} for d, s in dirs.items() if d]
-            entries += [{"path": p, "type": "blob", "sha": _sha("blob", t), "size": len(t)} for p, t in r["files"].items()]
-            # like GitHub: the response "sha" echoes the resolved COMMIT when called with a branch/commit ref,
-            # not the root tree sha (the root tree sha is only in commits/<ref> -> commit.tree.sha)
-            return self._r(200, {"sha": self.commit_sha(key), "tree": entries, "truncated": False})
+            by_sha = {s: d for d, s in dirs.items()}
+            if ref in by_sha:
+                dir_path = by_sha[ref]
+                resp_sha = ref
+            else:
+                # Branch or commit ref: echo the commit sha. The root TREE sha lives on
+                # commits/<ref> -> commit.tree.sha (review records that, not this field).
+                dir_path = ""
+                resp_sha = self.commit_sha(key)
+            prefix = f"{dir_path}/" if dir_path else ""
+            entries = []
+            for d, s in sorted(dirs.items()):
+                if not d.startswith(prefix) or d == dir_path:
+                    continue
+                rel = d[len(prefix):]
+                if not recursive and "/" in rel:
+                    continue
+                entries.append({"path": rel, "type": "tree", "sha": s})
+            for p, t in sorted(r["files"].items()):
+                if prefix and not p.startswith(prefix):
+                    continue
+                rel = p[len(prefix):] if prefix else p
+                if not rel or (not recursive and "/" in rel):
+                    continue
+                entries.append({"path": rel, "type": "blob", "sha": _sha("blob", t), "size": len(t)})
+            return self._r(200, {"sha": resp_sha, "tree": entries, "truncated": False})
         return self._r(404)
 
 

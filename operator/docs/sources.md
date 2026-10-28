@@ -23,7 +23,8 @@ Config: `operator/config/sources.json` (topics, queries, lists, orgs, limits, ra
 1. Observations `{owner, repo, subpath?, source, source_url, observed_at, metrics}` are merged per repo.
 2. Repo metadata via GraphQL (50/query): stars, forks, created/pushed, license, default branch, head commit.
    Forks and archived repos are dropped.
-3. Recursive git tree → every SKILL.md (scout's `fetch_repo_tree_verdict`). Verdicts are cached by
+3. Git tree (root listing, then one recursive request per top-level directory) → every SKILL.md
+   (scout's `fetch_repo_tree_verdict`). Verdicts are cached by
    `pushed_at` in `operator/state/sources/repo-cache.json`. The scout's cache is reused read-only.
    Budget `max_tree_fetches` (default 250, highest stars first; the rest is `deferred`), with a
    core-quota guard (`min_core_remaining`).
