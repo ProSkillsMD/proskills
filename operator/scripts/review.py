@@ -30,6 +30,7 @@ from urllib.parse import quote
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import content_policy as CP  # noqa: E402
 import scout  # noqa: E402
 import issue_flow as F  # noqa: E402
 from publish_lib import load_catalog, parse_skill_frontmatter  # noqa: E402
@@ -418,14 +419,23 @@ class Reviewer:
         else:
             st.pop("not_found_first_at", None)
             decide(rv)
+        policy_hits = CP.matches(*CP.candidate_texts(issue, blk, [rv.inputs.get("skill_md")]))
+        if policy_hits:  # owner content policy: adult/NSFW is never publishable, whatever the checks say
+            rv.findings.append("content policy (adult/NSFW): " + ", ".join(policy_hits[:5]))
+            if rv.verdict == "review:pass" or rv.verdict == "review:needs-ai":
+                rv.verdict = "review:hold-critical"
         ai = st.get("ai") or {}
         ai_kept = rv.verdict == "review:needs-ai" and ai.get("sha") and ai.get("sha") == rv.sha
+        if ai_kept and policy_hits:
+            ai_kept = False
         if ai_kept:  # same sha already judged by ai_review.py: keep its outcome (never for critical/reject)
             rv.verdict = ai["label"]
         labs = F.issue_labels(issue)
         cur_verdict = F.verdict_of(labs)
         cur_reject = sorted(l for l in labs if l.startswith("reject:"))
         want_labels = [rv.verdict] + ([rv.reject] if rv.reject else []) + ([F.LABEL_AI_REVIEWED] if ai_kept else [])
+        if policy_hits:
+            want_labels.append(CP.LABEL)
         # find our comment (state first, then scan comments once)
         cid = st.get("comment_id")
         old_body = None
@@ -439,7 +449,8 @@ class Reviewer:
             {"sha": st.get("sha") or "none", "verdict": st.get("verdict")} if cid else None)
         unchanged = (old_marker is not None and old_marker.get("verdict") == rv.verdict
                      and old_marker.get("sha") == (rv.sha or "none") and cur_verdict == rv.verdict
-                     and cur_reject == ([rv.reject] if rv.reject else []))
+                     and cur_reject == ([rv.reject] if rv.reject else [])
+                     and (not policy_hits or CP.LABEL in labs))
         close = rv.reject in CLOSE_REASONS
         res.update({"verdict": rv.verdict, "reject": rv.reject, "previous": cur_verdict,
                     "findings": rv.findings[:10], "checks": {k: v[0] for k, v in rv.checks.items()}})
