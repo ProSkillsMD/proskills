@@ -109,13 +109,28 @@ class TestSearchLimits(unittest.TestCase):
         g.search_results["topic:x"] = [item(f"o/r{i}") for i in range(250)]
         cache = DiskCache(Path(self.tmp.name) / "c.json")
         s = RepoSearch(client_for(g), cache, SearchLimiter(0, sleep=lambda s: None))
-        out = s.search("topic:x", max_pages=50)  # capped to 1000/100 = 10 pages; stops at short page
+        out = s.search("topic:x", max_pages=50)  # budget 1000; HTTP pages are REST_PAGE_SIZE
         self.assertEqual(len(out), 250)
-        self.assertEqual(sum("search/repositories" in u for u in g.log), 3)
+        per = scout.REST_PAGE_SIZE
+        self.assertEqual(sum("search/repositories" in u for u in g.log), (250 + per - 1) // per)
+        self.assertTrue(all(f"per_page={per}" in u for u in g.log))
         g.log.clear()
         self.assertEqual(len(s.search("topic:x", max_pages=50)), 250)
         self.assertEqual(g.log, [])  # cached
         self.assertEqual(RepoSearch.MAX_RESULTS, 1000)
+
+    def test_smaller_pages_keep_the_result_budget(self):
+        g = SearchFake()
+        g.search_results["topic:y"] = [item(f"o/r{i}") for i in range(400)]
+        s = RepoSearch(client_for(g), DiskCache(Path(self.tmp.name) / "c2.json"),
+                       SearchLimiter(0, sleep=lambda s: None))
+        out = s.search("topic:y", max_pages=3)  # 3 × 100, fetched in REST_PAGE_SIZE chunks
+        self.assertEqual(len(out), 300)
+        self.assertEqual(out[0]["full_name"], "o/r0")
+        self.assertEqual(out[-1]["full_name"], "o/r299")
+        self.assertEqual(sum("search/repositories" in u for u in g.log),
+                         (300 + scout.REST_PAGE_SIZE - 1) // scout.REST_PAGE_SIZE)
+        self.assertTrue(all(f"per_page={scout.REST_PAGE_SIZE}" in u for u in g.log))
 
 
 class TestRanking(unittest.TestCase):

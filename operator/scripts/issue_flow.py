@@ -387,35 +387,33 @@ class IssueRepo:
         return resp.json() if resp.body else None
 
     def get(self, path: str) -> Any:
-        return self.client.request(self._url(path)).json()
+        return self.client.rest(f"repos/{self.slug}/{path.lstrip('/')}")
 
     # -- reads
     def list_issues(self, *, state: str = "open", labels: str | None = None, since: str | None = None,
                     max_pages: int = 80) -> list[dict[str, Any]]:
-        out: list[dict[str, Any]] = []
-        q = f"state={state}&per_page=100&sort=created&direction=asc"
+        # max_pages is the historical 100-item page budget; HTTP pages are REST_PAGE_SIZE.
+        q = f"state={state}&sort=created&direction=asc"
         if labels:
             q += f"&labels={quote(labels, safe=',')}"
         if since:
             q += f"&since={quote(since)}"
-        for page in range(1, max_pages + 1):
-            items = self.get(f"issues?{q}&page={page}") or []
-            out.extend(i for i in items if "pull_request" not in i)
-            if len(items) < 100:
-                break
-        return out
+        raw = self.client.paginate(
+            f"repos/{self.slug}/issues?{q}",
+            per_page=scout.REST_PAGE_SIZE,
+            max_items=max_pages * scout.LEGACY_PAGE_SIZE,
+        )
+        return [i for i in raw if isinstance(i, dict) and "pull_request" not in i]
 
     def get_issue(self, number: int) -> dict[str, Any]:
         return self.get(f"issues/{int(number)}")
 
     def list_comments(self, number: int, max_pages: int = 10) -> list[dict[str, Any]]:
-        out: list[dict[str, Any]] = []
-        for page in range(1, max_pages + 1):
-            items = self.get(f"issues/{int(number)}/comments?per_page=100&page={page}") or []
-            out.extend(items)
-            if len(items) < 100:
-                break
-        return out
+        return self.client.paginate(
+            f"repos/{self.slug}/issues/{int(number)}/comments",
+            per_page=scout.REST_PAGE_SIZE,
+            max_items=max_pages * scout.LEGACY_PAGE_SIZE,
+        )
 
     def can_edit_bodies(self) -> bool:
         # GitHub App installation tokens get no `permissions` block on GET /repos; the Actions workflows
@@ -423,19 +421,18 @@ class IssueRepo:
         if os.environ.get("PROSKILLS_ISSUES_WRITE", "").lower() == "true":
             return True
         try:
-            perms = (self.client.request(f"{scout.API}/repos/{self.slug}").json() or {}).get("permissions") or {}
+            perms = (self.client.rest(f"repos/{self.slug}") or {}).get("permissions") or {}
         except scout.GitHubError:
             return False
         return bool(perms.get("push") or perms.get("maintain") or perms.get("admin"))
 
     def label_set(self) -> set[str]:
-        names: set[str] = set()
-        for page in range(1, 20):
-            items = self.get(f"labels?per_page=100&page={page}") or []
-            names |= {i.get("name") for i in items if i.get("name")}
-            if len(items) < 100:
-                break
-        return names
+        items = self.client.paginate(
+            f"repos/{self.slug}/labels",
+            per_page=scout.REST_PAGE_SIZE,
+            max_items=20 * scout.LEGACY_PAGE_SIZE,
+        )
+        return {i.get("name") for i in items if isinstance(i, dict) and i.get("name")}
 
     # -- writes
     def create_issue(self, title: str, body: str, labels: list[str]) -> dict[str, Any]:

@@ -85,7 +85,7 @@ def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: d
     if meta.get("archived"):
         rv.findings.append("repository is archived")
     try:
-        tree = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(branch, safe='')}?recursive=1") or {}
+        tree = scout.fetch_git_tree(client, owner, repo, branch)
     except (scout.NotFound, scout.Unprocessable):
         tree = {}
     except scout.GitHubError as e:

@@ -6,14 +6,16 @@ labels/messages.
 
 ## What it does per run
 
-1. Lists **every** open issue (`GET /repos/ProSkillsMD/proskills/issues`, ~23 REST calls).
+1. Lists **every** open issue (`GET /repos/ProSkillsMD/proskills/issues`, 50 per page).
 2. Cheap filters: protected (`PROTECTED_ISSUES`), blocked labels, known holds
    (`STATIC_HOLDS` = #2396, #4869 + `candidate-queue-2026-09-25.pre-scan.json` + the current
    queue's `holds_critical_static`), no GitHub URL, identical target (oldest issue wins).
 3. Repo metadata for **all** target repos via GraphQL (50 repos/query, follows renames):
    `pushedAt`, default branch, stars, `licenseInfo`. GraphQL `NOT_FOUND` → `not_found`.
-4. Recursive git tree (`/git/trees/{branch}?recursive=1`) only for repos whose cached
-   verdict is missing or whose `pushed_at` changed, over a **rotating window**
+4. Git tree only for repos whose cached verdict is missing or whose `pushed_at` changed.
+   The root listing is non-recursive; each top-level directory is its own recursive
+   request (`node_modules` / `vendor` / other excluded directories are not fetched).
+   The assembled listing matches a single `?recursive=1` tree. Fetches run over a **rotating window**
    (`--max-tree-fetches`, default 600). Order: repos that were transient last run →
    repos from issues opened since the last run → rotation by issue number after the cursor.
    Cursor + caches live in `operator/state/scout/` (gitignored):
@@ -47,14 +49,18 @@ labels/messages.
 | Outcome | Cause | Recorded as rejection? | Cached? |
 |---|---|---|---|
 | `not_found` | 404/410, GraphQL NOT_FOUND | yes (`repo_fail` compat key) | no |
-| `transient` | 403 rate limit, 429, 5xx, timeout, network, plain 403 | **no** | **no** (retried first next run) |
+| `transient` | 403 rate limit, 429, 5xx, timeout, network, truncated body (`IncompleteRead`, bad status line, invalid JSON), plain 403 | **no** | **no** (retried first next run) |
 | `deferred` | outside this run's window / budget guard hit | no | no |
 
 Retries use exponential backoff with jitter, honour `Retry-After` and
 `X-RateLimit-Reset`; if the reset is > `max_wait` (120 s) the run stops tree work
-(`rate_limit_exhausted: true`) and defers the rest. Each rate-limit event halves the
-worker concurrency (recovers slowly). `--min-core-remaining` (default 1500) stops tree
-fetches before the REST core quota is drained so other routines keep headroom.
+(`rate_limit_exhausted: true`) and defers the rest. A truncated body
+(`http.client.IncompleteRead`, a bad status line, or a 200 that is not valid JSON)
+uses that same backoff and is never cached as a rejection. Issue, comment, and label
+lists request 50 items per page; the previous 100-item page budget is kept as an item
+ceiling. Each rate-limit event halves the worker concurrency (recovers slowly).
+`--min-core-remaining` (default 1500) stops tree fetches before the REST core quota is
+drained so other routines keep headroom.
 
 ## Outputs
 
