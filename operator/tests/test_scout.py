@@ -1,12 +1,18 @@
 """Unit tests for operator/scripts/scout.py. GitHub is fully mocked; no network."""
 from __future__ import annotations
 
+import contextlib
 import http.client
+import io
 import json
 import re
+import socket
 import sys
 import tempfile
+import threading
+import time
 import unittest
+import urllib.error
 from collections import Counter
 from pathlib import Path
 from unittest import mock
@@ -237,6 +243,27 @@ class TestClientClassification(NoNetworkMixin, unittest.TestCase):
             c.rest("x")
         self.assertEqual(len(sleeps), 2)
 
+    def test_timeout_retry_is_shorter_than_incomplete_read(self):
+        c, sleeps = self._client([TimeoutError("timed out")] * 8, max_retries=4)
+        with self.assertRaises(Transient) as cm:
+            c.rest("x")
+        self.assertEqual(len(sleeps), scout.READ_TIMEOUT_RETRIES)
+        self.assertEqual(str(cm.exception), "network:TimeoutError")
+
+    def test_urlerror_timeout_uses_the_short_retry(self):
+        err = urllib.error.URLError(TimeoutError("timed out"))
+        c, sleeps = self._client([err] * 8, max_retries=4)
+        with self.assertRaises(Transient) as cm:
+            c.rest("x")
+        self.assertEqual(len(sleeps), scout.READ_TIMEOUT_RETRIES)
+        self.assertIn("network:URLError", str(cm.exception))
+
+    def test_timeout_not_retried_when_retries_disabled(self):
+        c, sleeps = self._client([TimeoutError()], max_retries=0)
+        with self.assertRaises(Transient):
+            c.rest("x")
+        self.assertEqual(sleeps, [])
+
     def test_plain_403_is_transient_not_rejection(self):
         c, _ = self._client([resp(403, {"message": "Forbidden"})])
         with self.assertRaises(Transient):
@@ -352,6 +379,119 @@ class TestUrllibTransport(unittest.TestCase):
                 scout.urllib_transport("GET", "https://api.github.com/rate_limit", {}, None, 1.0)
 
 
+class _LocalHTTP:
+    """Tiny HTTP server. ``mode`` is ``ok`` (small JSON), ``stall`` (headers then silence), or ``drip``."""
+
+    def __init__(self, mode: str):
+        self.mode = mode
+        self.srv = socket.socket()
+        self.srv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.srv.bind(("127.0.0.1", 0))
+        self.srv.listen(16)
+        self.port = self.srv.getsockname()[1]
+        self.stop = threading.Event()
+        self.thread = threading.Thread(target=self._accept, daemon=True)
+        self.thread.start()
+
+    def _accept(self) -> None:
+        while not self.stop.is_set():
+            self.srv.settimeout(0.2)
+            try:
+                conn, _ = self.srv.accept()
+            except socket.timeout:
+                continue
+            except OSError:
+                return
+            threading.Thread(target=self._handle, args=(conn,), daemon=True).start()
+
+    def _handle(self, conn: socket.socket) -> None:
+        conn.settimeout(1.0)
+        try:
+            buf = b""
+            while b"\r\n\r\n" not in buf:
+                chunk = conn.recv(65536)
+                if not chunk:
+                    break
+                buf += chunk
+        except OSError:
+            pass
+        try:
+            if self.mode == "ok":
+                body = b'{"ok":1}'
+                head = f"HTTP/1.1 200 OK\r\nContent-Length: {len(body)}\r\nConnection: close\r\n\r\n".encode()
+                conn.sendall(head + body)
+            else:
+                conn.sendall(b"HTTP/1.1 200 OK\r\nContent-Length: 100000\r\nConnection: close\r\n\r\n")
+                if self.mode == "drip":
+                    # Give up even if the client never times out, so a regression cannot hang the suite.
+                    deadline = time.monotonic() + 3
+                    while not self.stop.is_set() and time.monotonic() < deadline:
+                        try:
+                            conn.sendall(b"x")
+                        except OSError:
+                            return
+                        if self.stop.wait(0.05):
+                            return
+                else:
+                    self.stop.wait(5)
+        except OSError:
+            pass
+        finally:
+            try:
+                conn.close()
+            except OSError:
+                pass
+
+    def close(self) -> None:
+        self.stop.set()
+        try:
+            self.srv.close()
+        except OSError:
+            pass
+        self.thread.join(timeout=1.0)
+
+
+class TestReadTimeout(unittest.TestCase):
+    def test_fast_body_is_returned(self):
+        srv = _LocalHTTP("ok")
+        self.addCleanup(srv.close)
+        got = scout.urllib_transport("GET", f"http://127.0.0.1:{srv.port}/ok", {}, None, 2.0)
+        self.assertEqual(got.json(), {"ok": 1})
+
+    def test_stalled_body_fails_fast(self):
+        srv = _LocalHTTP("stall")
+        self.addCleanup(srv.close)
+        started = time.monotonic()
+        with self.assertRaises(TimeoutError):
+            scout.urllib_transport("GET", f"http://127.0.0.1:{srv.port}/stall", {}, None, 0.4)
+        self.assertLess(time.monotonic() - started, 2.0)
+
+    def test_drip_body_hits_wall_clock_deadline(self):
+        # Bytes arrive faster than the socket inactivity timeout, so only a
+        # wall-clock deadline stops the read.
+        srv = _LocalHTTP("drip")
+        self.addCleanup(srv.close)
+        started = time.monotonic()
+        with self.assertRaises(TimeoutError):
+            scout.urllib_transport("GET", f"http://127.0.0.1:{srv.port}/drip", {}, None, 0.4)
+        self.assertLess(time.monotonic() - started, 2.0)
+
+    def test_stalled_read_retries_then_transient(self):
+        srv = _LocalHTTP("stall")
+        self.addCleanup(srv.close)
+        sleeps: list[float] = []
+        c = GitHubClient(
+            "t", transport=scout.urllib_transport, timeout=0.3, max_retries=1,
+            backoff_base=0.01, sleep=sleeps.append, throttle=AdaptiveThrottle(2),
+        )
+        started = time.monotonic()
+        with self.assertRaises(Transient) as cm:
+            c.request(f"http://127.0.0.1:{srv.port}/stuck")
+        self.assertLess(time.monotonic() - started, 3.0)
+        self.assertEqual(len(sleeps), 1)
+        self.assertEqual(str(cm.exception), "network:TimeoutError")
+
+
 # ----------------------------------------------------------------------------- discovery / catalog / license
 
 class TestChunkedTree(NoNetworkMixin, unittest.TestCase):
@@ -413,6 +553,211 @@ class TestChunkedTree(NoNetworkMixin, unittest.TestCase):
         self.assertEqual(len(calls), 4)
         self.assertTrue(calls[1].endswith("/git/trees/sha-skills?recursive=1"))
         self.assertTrue(calls[2].endswith("/git/trees/sha-skills"))
+
+    def _archive_transport(self, calls: list[str], *, tops: int = 4):
+        """Root plus a normal ``skills/`` dir and ``tops`` archives that never run out of children."""
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            if url.endswith("/git/trees/main"):
+                entries = [{"path": "skills", "type": "tree", "sha": "sha-skills"}]
+                entries += [{"path": f"archive{i}", "type": "tree", "sha": f"top{i}"} for i in range(tops)]
+                return resp(200, {"sha": "root", "truncated": False, "tree": entries})
+            if "/git/trees/sha-skills?recursive=1" in url:
+                return resp(200, {"sha": "sha-skills", "truncated": False, "tree": [
+                    {"path": "a", "type": "tree", "sha": "sha-a"},
+                    {"path": "a/SKILL.md", "type": "blob", "sha": "b-skill", "size": 4},
+                ]})
+            if "recursive=1" in url:
+                sha = unquote(url.split("/git/trees/")[1].split("?")[0])
+                return resp(200, {"sha": sha, "truncated": True, "tree": [
+                    {"path": "partial", "type": "blob", "sha": "nope", "size": 1},
+                ]})
+            sha = unquote(url.rstrip("/").split("/")[-1])
+            return resp(200, {"sha": sha, "truncated": False, "tree": [
+                {"path": f"c{n}", "type": "tree", "sha": f"{sha}-{n}"} for n in range(3)
+            ]})
+
+        return transport
+
+    def test_huge_repo_walk_is_capped_once_per_repo(self):
+        calls: list[str] = []
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            tree = scout.fetch_git_tree(
+                client_for(self._archive_transport(calls)),
+                "hidorakai002", "ai-workspace-archive", "main",
+            )
+        paths = {e["path"] for e in tree["tree"]}
+        blobs = {e.get("sha") for e in tree["tree"] if e.get("type") == "blob"}
+        self.assertIn("skills/a/SKILL.md", paths)  # sibling of the archive is still fetched
+        self.assertNotIn("nope", blobs)  # truncated recursive bodies are discarded
+        self.assertTrue(tree["truncated"])
+        self.assertEqual(tree["truncation_reason"], "dir_cap")
+        walk = [u for u in calls if "/git/trees/" in u and "recursive" not in u and not u.endswith("/git/trees/main")]
+        # One shared cap. A per-directory cap would walk tops * MAX_WALK_DIRS.
+        self.assertEqual(len(walk), scout.MAX_WALK_DIRS)
+        self.assertLess(len(calls), 4 * scout.MAX_WALK_DIRS)
+        log = buf.getvalue()
+        self.assertIn("tree truncated hidorakai002/ai-workspace-archive@main: dir_cap", log)
+        self.assertIn(f"walk_dirs={scout.MAX_WALK_DIRS}", log)
+
+        again: list[str] = []
+        with contextlib.redirect_stdout(io.StringIO()):
+            tree2 = scout.fetch_git_tree(
+                client_for(self._archive_transport(again)),
+                "hidorakai002", "ai-workspace-archive", "main",
+            )
+        self.assertEqual(
+            [e["path"] for e in tree2["tree"]],
+            [e["path"] for e in tree["tree"]],
+        )
+        self.assertEqual(tree2["truncation_reason"], "dir_cap")
+        self.assertEqual(len(again), len(calls))
+
+    def test_call_cap_stops_a_wide_repo(self):
+        calls: list[str] = []
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            if url.endswith("/git/trees/main"):
+                return resp(200, {"sha": "root", "truncated": False, "tree": [
+                    {"path": f"d{i}", "type": "tree", "sha": f"sha{i}"} for i in range(30)
+                ]})
+            sha = unquote(url.split("/git/trees/")[1].split("?")[0])
+            n = sha.removeprefix("sha")
+            return resp(200, {"sha": sha, "truncated": False, "tree": [
+                {"path": "SKILL.md", "type": "blob", "sha": f"b{n}", "size": 4},
+            ]})
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            tree = scout.fetch_git_tree(
+                client_for(transport), "o", "wide", "main", max_tree_calls=4, max_walk_dirs=500,
+            )
+        self.assertEqual(len(calls), 4)
+        self.assertEqual(tree["truncation_reason"], "call_cap")
+        self.assertTrue(tree["truncated"])
+        paths = {e["path"] for e in tree["tree"]}
+        self.assertIn("d0/SKILL.md", paths)
+        self.assertNotIn("d29/SKILL.md", paths)
+        self.assertIn("tree truncated o/wide@main: call_cap", buf.getvalue())
+
+    def test_time_budget_stops_the_walk(self):
+        calls: list[str] = []
+        clock = {"t": 1000.0}
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            clock["t"] += 20
+            if url.endswith("/git/trees/main"):
+                return resp(200, {"sha": "root", "truncated": False, "tree": [
+                    {"path": "archive", "type": "tree", "sha": "top"},
+                    {"path": "SKILL.md", "type": "blob", "sha": "b1", "size": 4},
+                ]})
+            return resp(200, {"sha": "top", "truncated": True, "tree": []})
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            tree = scout.fetch_git_tree(
+                client_for(transport), "o", "slow", "main",
+                budget_s=30, clock=lambda: clock["t"], max_walk_dirs=500, max_tree_calls=500,
+            )
+        self.assertEqual(tree["truncation_reason"], "time_budget")
+        self.assertTrue(tree["truncated"])
+        self.assertIn("SKILL.md", {e["path"] for e in tree["tree"]})
+        self.assertLess(len(calls), 10)
+        self.assertGreaterEqual(len(calls), 1)
+        self.assertIn("tree truncated o/slow@main: time_budget", buf.getvalue())
+
+    def test_capped_archive_is_cached_and_not_rewalked(self):
+        issue = {
+            "number": 42, "title": "[SUBMISSION] archive",
+            "body": "Repo: https://github.com/hidorakai002/ai-workspace-archive",
+            "labels": [], "created_at": "2026-09-01T00:00:00Z", "updated_at": "2026-09-02T00:00:00Z",
+        }
+        calls: list[str] = []
+
+        def transport(method, url, headers, body, timeout):
+            if url == f"{API}/graphql":
+                return resp(200, {"data": {"r0": {
+                    "nameWithOwner": "hidorakai002/ai-workspace-archive",
+                    "pushedAt": "2026-10-01T00:00:00Z", "isArchived": True, "isFork": False,
+                    "isEmpty": False, "stargazerCount": 0, "defaultBranchRef": {"name": "main"},
+                    "licenseInfo": {"spdxId": "MIT", "key": "mit", "name": "MIT"},
+                }}})
+            if url.startswith(RAW):
+                return resp(404, text="404")
+            return self._archive_transport(calls, tops=4)(method, url, headers, body, timeout)
+
+        def run_once():
+            st = ScoutState(self.state_dir)
+            s = Scout(client_for(transport), st, {"skills": []}, ScoutConfig(workers=1), set(),
+                      log=lambda m: None)
+            res = s.run([issue])
+            st.save()
+            return s, res
+
+        with mock.patch.object(scout, "MAX_WALK_DIRS", 6), contextlib.redirect_stdout(io.StringIO()) as buf:
+            s, res = run_once()
+        key = "hidorakai002/ai-workspace-archive"
+        self.assertEqual(res.issue_outcomes[42], "missing_skill")
+        self.assertTrue(s.state.repos[key]["tree_truncated"])
+        self.assertEqual(s.state.repos[key]["tree_truncation_reason"], "dir_cap")
+        self.assertIn(f"tree truncated {key}@main: dir_cap", buf.getvalue())
+        first_trees = [u for u in calls if "/git/trees/" in u]
+        self.assertGreater(len(first_trees), 0)
+        calls.clear()
+        with contextlib.redirect_stdout(io.StringIO()):
+            _, res2 = run_once()
+        self.assertEqual(res2.issue_outcomes[42], "missing_skill")
+        self.assertEqual([u for u in calls if "/git/trees/" in u], [])
+
+    def test_review_skips_capped_repo_without_rejecting(self):
+        import review
+
+        def transport(method, url, headers, body, timeout):
+            if url.endswith("/repos/o/huge"):
+                return resp(200, {"full_name": "o/huge", "default_branch": "main",
+                                  "license": {"spdx_id": "MIT", "key": "mit", "name": "MIT"}})
+            return resp(404, {"message": "Not Found"})
+
+        rv = review.Review("github:o/huge", "skill")
+        blk = {"psk-id": "github:o/huge", "skill_path": "SKILL.md", "kind": "skill"}
+        with mock.patch.object(scout, "fetch_git_tree", return_value={
+            "sha": "root", "tree": [], "truncated": True, "truncation_reason": "dir_cap",
+        }):
+            review.check_github(client_for(transport), blk, {}, rv, 7)
+        self.assertEqual(rv.outcome, "transient")
+        self.assertIsNone(rv.reject)
+        self.assertIsNone(rv.verdict)
+        self.assertIn("dir_cap", " ".join(rv.findings))
+
+    def test_review_keeps_a_skill_found_in_a_capped_tree(self):
+        import review
+
+        def transport(method, url, headers, body, timeout):
+            if url.endswith("/repos/o/huge"):
+                return resp(200, {"full_name": "o/huge", "default_branch": "main",
+                                  "license": {"spdx_id": "MIT", "key": "mit", "name": "MIT"}})
+            if "/commits/" in url:
+                return resp(200, {"sha": "c", "commit": {"tree": {"sha": "root-tree"}}})
+            if url.startswith(RAW):
+                return resp(200, text=SKILL)
+            return resp(404, {"message": "Not Found"})
+
+        rv = review.Review("github:o/huge", "skill")
+        blk = {"psk-id": "github:o/huge", "skill_path": "SKILL.md", "kind": "skill"}
+        tree = {"sha": "root", "truncated": True, "truncation_reason": "dir_cap", "tree": [
+            {"path": "SKILL.md", "type": "blob", "sha": "b", "size": len(SKILL)},
+        ]}
+        with mock.patch.object(scout, "fetch_git_tree", return_value=tree), \
+             mock.patch.object(scout, "run_scan_with_client", return_value={
+                 "status": "pass", "max_severity": "none", "finding_counts": {}, "files_scanned": 1}):
+            review.check_github(client_for(transport), blk, {}, rv, 7)
+        self.assertIsNone(rv.outcome)
+        self.assertIsNone(rv.reject)
+        self.assertEqual(rv.checks["SKILL.md at path"][0], "pass")
 
 
 class TestDiscovery(unittest.TestCase):

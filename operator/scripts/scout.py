@@ -19,7 +19,8 @@ tested module. Fixes vs. the old scout:
    repos are retried first on the next run.
 4. SKILL.md discovery uses the git tree API (any depth: root, ``skills/*``,
    ``.claude/skills/*``, ``.agents/skills/*`` ...), fetched per top-level
-   directory rather than one recursive listing, capped per repo.
+   directory rather than one recursive listing. The walk cap, the tree-call
+   cap, and the time budget apply to the whole repository, not each directory.
 5. Identity is per skill folder: ``github:owner/repo`` for a root SKILL.md,
    ``github:owner/repo::subpath`` otherwise. Catalog dedupe works at subpath
    level; a whole-repo catalog entry blocks the root skill (and the only skill of
@@ -48,6 +49,7 @@ import os
 import random
 import re
 import shutil
+import socket
 import subprocess
 import sys
 import tempfile
@@ -104,9 +106,17 @@ UA = "proskills-operator-scout/1.0"
 # Callers that counted pages at the old size of 100 keep that item ceiling.
 REST_PAGE_SIZE = 50
 LEGACY_PAGE_SIZE = 100
-# Bound a non-recursive walk of a truncated directory so one monster repo cannot
-# drain the REST budget. Past this, the tree is reported truncated.
+# Whole-repo bounds for git tree fetches. MAX_WALK_DIRS used to reset on every
+# top-level directory, so one truncated archive could spend a REST call per
+# directory. The walk cap, the call cap, and the time budget are now shared by
+# the repository. Past any of them the tree is logged and returned truncated.
 MAX_WALK_DIRS = 200
+MAX_REPO_TREE_CALLS = 400
+TREE_FETCH_BUDGET_S = 120.0
+# Connect and full-body deadline for one GitHub HTTP call. A stalled or trickle
+# read fails inside this bound. Timeouts retry fewer times than a cut-off body.
+GITHUB_HTTP_TIMEOUT = 30.0
+READ_TIMEOUT_RETRIES = 2
 
 # Holds that must always be respected (in addition to PROTECTED_ISSUES).
 STATIC_HOLDS = frozenset({2396, 4869})          # critical_static
@@ -198,17 +208,100 @@ class Response:
 Transport = Callable[[str, str, dict[str, str], "bytes | None", float], Response]
 
 
+def _is_timeout(exc: BaseException) -> bool:
+    """True for a socket/read deadline, including ``URLError`` wrapping one."""
+    if isinstance(exc, TimeoutError):
+        return True
+    reason = getattr(exc, "reason", None)
+    return isinstance(reason, TimeoutError)
+
+
+def _response_socket(resp: Any) -> socket.socket | None:
+    """Underlying socket for an ``HTTPResponse`` or ``HTTPError``, if it has one."""
+    obj: Any = resp
+    for _ in range(4):
+        if obj is None:
+            return None
+        fp = getattr(obj, "fp", None)
+        raw = getattr(fp, "raw", None) if fp is not None else None
+        sock = getattr(raw, "_sock", None)
+        if sock is not None:
+            return sock
+        if fp is obj:
+            return None
+        obj = fp
+    return None
+
+
+def _read_body(resp: Any, timeout: float) -> bytes:
+    """Read a response body with a socket timeout and a wall-clock deadline.
+
+    ``urlopen``'s timeout is an inactivity timeout: a trickle of bytes never
+    trips it, and a stuck ``SSL`` read can sit there until the process is
+    killed. The watchdog closes the socket when ``timeout`` elapses so the
+    read fails as ``TimeoutError``. ``IncompleteRead`` / ``BadStatusLine``
+    still propagate when the peer cuts the body off before that deadline.
+    """
+    timeout = max(0.0, float(timeout))
+    sock = _response_socket(resp)
+    if sock is not None and timeout > 0:
+        try:
+            sock.settimeout(timeout)
+        except OSError:
+            pass
+    fired = threading.Event()
+    done = threading.Event()
+
+    def _watch() -> None:
+        if done.wait(timeout):
+            return
+        fired.set()
+        if sock is None:
+            return
+        try:
+            sock.shutdown(socket.SHUT_RDWR)
+        except OSError:
+            try:
+                sock.close()
+            except OSError:
+                pass
+
+    watcher = threading.Thread(target=_watch, name="github-read-timeout", daemon=True)
+    watcher.start()
+    try:
+        return resp.read()
+    except (http.client.IncompleteRead, http.client.BadStatusLine):
+        if fired.is_set():
+            raise TimeoutError("read timed out") from None
+        raise
+    except TimeoutError as e:
+        raise TimeoutError("read timed out") from e
+    except OSError as e:
+        if fired.is_set():
+            raise TimeoutError("read timed out") from e
+        raise
+    finally:
+        done.set()
+        watcher.join(timeout=1.0)
+
+
 def urllib_transport(method: str, url: str, headers: dict[str, str], body: bytes | None,
                      timeout: float) -> Response:
+    deadline = time.monotonic() + max(0.0, float(timeout))
     req = urllib.request.Request(url, data=body, method=method, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             # IncompleteRead (and BadStatusLine) propagate. They are not OSErrors, so the
             # client retries them explicitly; do not turn a cut-off body into a short 200.
-            return Response(resp.status, {k.lower(): v for k, v in resp.headers.items()}, resp.read())
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise TimeoutError("read timed out")
+            data = _read_body(resp, remaining)
+            return Response(resp.status, {k.lower(): v for k, v in resp.headers.items()}, data)
     except urllib.error.HTTPError as e:
+        remaining = deadline - time.monotonic()
         try:
-            data = e.read()
+            data = _read_body(e, remaining) if remaining > 0 else b""
         except Exception:
             data = b""
         return Response(e.code, {k.lower(): v for k, v in (e.headers or {}).items()}, data)
@@ -270,7 +363,7 @@ class GitHubClient:
         max_retries: int = 4,
         max_wait: float = 120.0,
         backoff_base: float = 1.0,
-        timeout: float = 30.0,
+        timeout: float = GITHUB_HTTP_TIMEOUT,
         throttle: AdaptiveThrottle | None = None,
     ):
         self._token = token
@@ -344,7 +437,11 @@ class GitHubClient:
                 # IncompleteRead / BadStatusLine are not OSErrors: GitHub closing the
                 # socket mid-body used to crash the run. The message is only the type
                 # name — partial bodies can contain anything the server echoed.
-                if attempt > self.max_retries:
+                # A stuck socket uses the smaller READ_TIMEOUT_RETRIES bound so one
+                # read cannot spend the whole run; a cut-off body keeps max_retries.
+                # max_retries == 0 (issue creation) still does not retry.
+                limit = min(self.max_retries, READ_TIMEOUT_RETRIES) if _is_timeout(e) else self.max_retries
+                if attempt > limit:
                     kind = "truncated" if isinstance(e, http.client.HTTPException) else "network"
                     raise Transient(f"{kind}:{type(e).__name__}") from None
                 self.sleep(self._backoff(attempt))
@@ -766,8 +863,57 @@ def _with_prefix(entries: Iterable[dict[str, Any]], prefix: str) -> list[dict[st
     return out
 
 
-def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix: str) -> tuple[list[dict[str, Any]], bool]:
-    """Non-recursive walk of one directory. Used when a recursive listing comes back truncated."""
+class _TreeBudget:
+    """Whole-repo ceiling for one ``fetch_git_tree``.
+
+    ``block`` records the first reason and then refuses every later call.
+    Directory walks share ``max_walk_dirs``; it does not reset per top-level
+    directory. ``note`` counts a call that was actually made.
+    """
+
+    def __init__(self, max_walk_dirs: int, max_calls: int, deadline: float, clock: Callable[[], float]):
+        self.max_walk_dirs = max(0, int(max_walk_dirs))
+        self.max_calls = max(0, int(max_calls))
+        self.deadline = deadline
+        self.clock = clock
+        self.calls = 0
+        self.walk_dirs = 0
+        self.reason: str | None = None
+
+    def block(self, *, walk: bool) -> str | None:
+        if self.reason:
+            return self.reason
+        if self.clock() >= self.deadline:
+            self.reason = "time_budget"
+        elif self.calls >= self.max_calls:
+            self.reason = "call_cap"
+        elif walk and self.walk_dirs >= self.max_walk_dirs:
+            self.reason = "dir_cap"
+        return self.reason
+
+    def note(self, *, walk: bool) -> None:
+        self.calls += 1
+        if walk:
+            self.walk_dirs += 1
+
+
+def _tree_request(client: GitHubClient, owner: str, repo: str, sha: str, *,
+                  recursive: bool, budget: _TreeBudget) -> dict[str, Any] | None:
+    """One git tree GET. ``None`` means the repo budget is already spent."""
+    if budget.block(walk=False):
+        return None
+    budget.note(walk=False)
+    query = "?recursive=1" if recursive else ""
+    path = f"repos/{owner}/{repo}/git/trees/{quote(str(sha), safe='')}{query}"
+    return client.rest(path) or {}
+
+
+def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix: str,
+                  budget: _TreeBudget) -> tuple[list[dict[str, Any]], bool]:
+    """Non-recursive walk of one directory. Used when a recursive listing comes back truncated.
+
+    The directory cap lives on ``budget`` and is shared with every other walk in this repo.
+    """
     out: list[dict[str, Any]] = []
     truncated = False
     queue: list[tuple[str, str]] = [(sha, prefix)]
@@ -776,10 +922,11 @@ def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix:
         cur, cur_prefix = queue.pop()
         if cur in seen:
             continue
-        if len(seen) >= MAX_WALK_DIRS:
+        if budget.block(walk=True):
             truncated = True
             break
         seen.add(cur)
+        budget.note(walk=True)
         data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(cur, safe='')}") or {}
         if data.get("truncated"):
             truncated = True
@@ -803,18 +950,31 @@ def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix:
                 item = dict(ent)
                 item["path"] = full
                 out.append(item)
-    return out, truncated
+    return out, truncated or bool(budget.reason)
 
 
-def _fetch_prefixed_subtree(client: GitHubClient, owner: str, repo: str, sha: str,
-                            prefix: str) -> tuple[list[dict[str, Any]], bool]:
-    data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(sha, safe='')}?recursive=1") or {}
-    if not data.get("truncated"):
-        return _with_prefix(data.get("tree") or [], prefix), False
-    return _walk_subtree(client, owner, repo, sha, prefix)
+def _log_tree_truncation(owner: str, repo: str, ref: str, budget: _TreeBudget) -> None:
+    print(
+        f"  tree truncated {owner}/{repo}@{ref}: {budget.reason} "
+        f"(tree_calls={budget.calls} walk_dirs={budget.walk_dirs} "
+        f"dir_cap={budget.max_walk_dirs} call_cap={budget.max_calls})",
+        flush=True,
+    )
 
 
-def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str) -> dict[str, Any]:
+def _finish_tree(owner: str, repo: str, ref: str, budget: _TreeBudget, result: dict[str, Any]) -> dict[str, Any]:
+    if not budget.reason:
+        return result
+    result["truncated"] = True
+    result["truncation_reason"] = budget.reason
+    _log_tree_truncation(owner, repo, ref, budget)
+    return result
+
+
+def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
+                   max_walk_dirs: int | None = None, max_tree_calls: int | None = None,
+                   budget_s: float | None = None,
+                   clock: Callable[[], float] | None = None) -> dict[str, Any]:
     """Flat git tree in the same shape as ``GET .../git/trees/{ref}?recursive=1``.
 
     The root is one non-recursive listing. Each top-level directory is its own
@@ -822,24 +982,62 @@ def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str) -> dic
     repository. ``node_modules`` / ``vendor`` / other ``EXCLUDED_SEGMENTS``
     directories are not fetched (discovery already ignores them). A recursive
     response with ``truncated: true`` is walked one directory at a time.
+
+    Non-truncated directories are fetched before any walk, so a huge archive
+    folder does not crowd out ``skills/``. The walk cap, the call cap, and the
+    time budget apply to the whole repository. Hitting one logs the repo and
+    returns ``truncated`` with ``truncation_reason`` set; the listing up to
+    that point is kept.
     """
-    root = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(ref, safe='')}") or {}
-    tree: list[dict[str, Any]] = []
+    clock = time.monotonic if clock is None else clock
+    budget = _TreeBudget(
+        MAX_WALK_DIRS if max_walk_dirs is None else max_walk_dirs,
+        MAX_REPO_TREE_CALLS if max_tree_calls is None else max_tree_calls,
+        clock() + (TREE_FETCH_BUDGET_S if budget_s is None else budget_s),
+        clock,
+    )
+    root = _tree_request(client, owner, repo, ref, recursive=False, budget=budget)
+    if root is None:
+        return _finish_tree(owner, repo, ref, budget, {"sha": None, "tree": [], "truncated": True})
     truncated = bool(root.get("truncated"))
-    for ent in root.get("tree") or []:
-        if not isinstance(ent, dict):
-            continue
-        tree.append(dict(ent))
+    root_items = [dict(ent) for ent in (root.get("tree") or []) if isinstance(ent, dict)]
+    fetched: dict[str, list[dict[str, Any]]] = {}
+    pending: list[tuple[str, str]] = []
+    for ent in root_items:
         if ent.get("type") != "tree":
             continue
         path = str(ent.get("path") or "")
         sha = ent.get("sha")
         if not path or not sha or _skip_dir(path):
             continue
-        sub, sub_trunc = _fetch_prefixed_subtree(client, owner, repo, str(sha), path)
-        tree.extend(sub)
+        if budget.reason:
+            truncated = True
+            continue
+        data = _tree_request(client, owner, repo, str(sha), recursive=True, budget=budget)
+        if data is None:
+            truncated = True
+            continue
+        if not data.get("truncated"):
+            fetched[path] = _with_prefix(data.get("tree") or [], path)
+        else:
+            # Discard the partial recursive body; the walk lists the directory for real.
+            pending.append((str(sha), path))
+    for sha, path in pending:
+        if budget.reason:
+            truncated = True
+            break
+        sub, sub_trunc = _walk_subtree(client, owner, repo, sha, path, budget)
+        fetched[path] = sub
         truncated = truncated or sub_trunc
-    return {"sha": root.get("sha"), "tree": tree, "truncated": truncated}
+    tree: list[dict[str, Any]] = []
+    for ent in root_items:
+        tree.append(ent)
+        path = str(ent.get("path") or "")
+        if path in fetched:
+            tree.extend(fetched[path])
+    return _finish_tree(owner, repo, ref, budget, {
+        "sha": root.get("sha"), "tree": tree, "truncated": truncated,
+    })
 
 
 def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]) -> dict[str, Any]:
@@ -864,7 +1062,8 @@ def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]
         return {**base, **empty, "note": "tree_unprocessable"}
     entries = tree.get("tree") or []
     skills = discover_skills(entries)
-    if not skills:
+    # Our own cap already stopped this repo. Another ref would spend the budget again.
+    if not skills and not tree.get("truncation_reason"):
         # compat with the old scout's raw ref fallback (default_branch, main, master)
         for ref in [r for r in ("main", "master") if r != branch]:
             alt = get_tree(ref)
@@ -885,9 +1084,13 @@ def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]
     kept = skills[:200]
     for s in kept:
         s["files"] = folder_files(entries, s["subpath"])
-    return {**base, "status": "ok" if skills else "missing_skill", "skills": kept,
-            "skills_total": len(skills), "license_files": license_files(entries)[:200],
-            "tree_truncated": truncated}
+    verdict = {**base, "status": "ok" if skills else "missing_skill", "skills": kept,
+               "skills_total": len(skills), "license_files": license_files(entries)[:200],
+               "tree_truncated": truncated}
+    reason = tree.get("truncation_reason")
+    if reason:
+        verdict["tree_truncation_reason"] = reason
+    return verdict
 
 
 # --------------------------------------------------------------------------- issues
