@@ -34,6 +34,7 @@ class FakeGH:
         self.can_push = can_push
         self.core_remaining = 4000
         self.forbidden_comments: set[int] = set()  # PATCH -> 403 (comment written by another account)
+        self.urls: list[str] = []
 
     # -- setup
     def add_repo(self, key: str, files: dict[str, str], *, spdx: str | None = "MIT", stars: int = 50,
@@ -86,6 +87,7 @@ class FakeGH:
 
     # -- transport
     def __call__(self, method, url, headers, body, timeout):
+        self.urls.append(url)
         u = urlparse(url)
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
         payload = json.loads(body) if body else None
@@ -224,6 +226,13 @@ class FakeGH:
             if ref in by_sha:
                 dir_path = by_sha[ref]
                 resp_sha = ref
+            elif ":" in ref:
+                # git/trees/{branch}:{folder} — paths relative to that folder.
+                _branch, _, subpath = ref.partition(":")
+                dir_path = unquote(subpath).strip("/")
+                if dir_path not in dirs:
+                    return self._r(404)
+                resp_sha = dirs[dir_path]
             else:
                 # Branch or commit ref: echo the commit sha. The root TREE sha lives on
                 # commits/<ref> -> commit.tree.sha (review records that, not this field).

@@ -74,7 +74,8 @@ are never touched. A candidate that matches one of them is skipped.
 
 Caps, all configurable:
 * `--max-new 7` per run by default (`ceil(150/24)`), further capped adaptively to `ceil(remaining_day_budget / remaining_:14_Dhaka_hours)` so the 150/day budget is not front-loaded; 150 per Dhaka day, 3 new per repo per day.
-* No new issues while more than 200 open candidate issues have no `review:*` label.
+* No new issues while more than 200 **open candidate issues** have no `review:*` label. That cap is not the length of the input file: a few thousand candidates still file up to the per-run cap. New issues are filed before legacy marks and block refreshes, so a long refresh list cannot use up the run.
+* `--run-budget-s` (default 240s, inside the 300s outer kill) stops listing and per-repo sha lookups. One candidate that blows its 20s budget is skipped and the next one is filed. An incomplete open-issue list does not create issues (that could duplicate a legacy issue the list never reached).
 * `--max-legacy 25` legacy blocks and `--max-refresh 25` block refreshes per run.
 * At least 3 s between issue creates (hard minimum), 1 s between other writes.
 * Stops at REST core < `--core-reserve 1500`.
@@ -82,7 +83,7 @@ Caps, all configurable:
 
 ## review.py
 
-Scope: at most 50 issues per run. Picks candidate issues with no verdict label, whose block sha changed since
+Scope: at most 50 issues per run, inside `--run-budget-s` (default 300s; the outer runner kills at 420s). One repository gets at most 30s, including retries. A known `large-collection` block (skills_total already over 50) is verdicted from the block and one commit lookup — the full tree is not walked. A nested skill reads that folder (`git/trees/{branch}:{folder}`) rather than the whole archive. Repos that hit the time budget are recorded and sorted after every other due issue for 6 hours. Picks candidate issues with no verdict label, whose block sha changed since
 the last review, or with a pending not-found confirmation. Checks run in this order:
 1. Source exists.
 2. SKILL.md is at the recorded path.
