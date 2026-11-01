@@ -7,8 +7,9 @@ No AI usage.
 
 This script re-fetches SKILL.md only while staging a new candidate. It skips
 any identity already in the catalog, so it does not refresh ``skill_md`` after
-the first publish. Upstream edits to a live skill are applied by
-``backfill_skill_files.py`` (resumable, one skill at a time).
+the first publish. Upstream edits to a live skill's files are applied by
+``backfill_skill_files.py``. Upstream stars, version, README, and the other
+repo metadata fields are applied by ``repo_metadata_refresh.py``.
 
 New GitHub skills also get a ``files`` array covering the skill folder.
 See ``operator/docs/skill-files.md`` for the exact shape.

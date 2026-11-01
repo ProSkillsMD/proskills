@@ -5,7 +5,9 @@ Older clients ignore it. `files_found` is still a list of strings.
 
 `catalog_update.py` fetches SKILL.md while staging a **new** candidate and skips identities
 already in the catalog, so it never refreshes `skill_md`. `scripts/backfill_skill_files.py`
-does that refresh. Nothing else in the publish loop rewrites an existing skill's text.
+does that refresh. `scripts/repo_metadata_refresh.py` refreshes upstream stars, version,
+README, and the other repo metadata fields on rows that are already listed (see
+`operator/docs/repo-metadata-refresh.md`). It does not rewrite `skill_md` or `files`.
 
 ## Shape
 
