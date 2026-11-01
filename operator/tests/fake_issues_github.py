@@ -69,10 +69,13 @@ class FakeGH:
             parts = p.split("/")
             for i in range(1, len(parts)):
                 allds.add("/".join(parts[:i]))
-        for d in allds:
+        for d in sorted(allds):
             pref = d + "/" if d else ""
             content = "".join(f"{p}\0{r['files'][p]}" for p in paths if p.startswith(pref))
-            dirs[d] = _sha("tree", content)
+            # Include the directory path. A single nested file is a prefix of every
+            # parent, so hashing only the file bytes gave those directories the same
+            # sha and git/trees/<sha> resolved to whichever parent was inserted last.
+            dirs[d] = _sha("tree", d, content)
         return dirs
 
     def tree_sha(self, key: str, folder: str = "") -> str:

@@ -1,22 +1,24 @@
 """Capture every file in a skill folder for the public catalog.
 
-The catalog ``files`` array is optional and backward compatible. Each entry is::
+The catalog ``files`` array is optional and backward compatible. Paths are
+repo-root relative, the same strings as ``files_found``. The website builds
+``blob/<ref>/<path>`` from that string::
 
-    {"path": "scripts/history.sh", "size": 3107, "sha": "<git blob sha>",
+    {"path": "skills/rederive/scripts/history.sh", "size": 3107, "sha": "<git blob sha>",
      "content": "...",          # only when the full text is stored
      "truncated": true,         # text larger than the per-file cap; content absent
      "omitted": true}           # content not stored (binary, symlink, budget, or truncated)
 
-``path`` is relative to the skill folder (posix, no leading slash, no ``..``).
-Nothing outside that folder is fetched or stored. Inline text is capped at
-32 KiB per file and 128 KiB per skill. ``skill_md`` / ``readme`` stay the
-legacy 8_000-character fields.
+Capture still reads only the skill folder. A path inside that folder is stored
+with the folder prefix (``scripts/history.sh`` becomes
+``skills/rederive/scripts/history.sh``). ``files_found`` lists every captured
+path and keeps a repo-root file outside the folder (``README.md``) when the
+row already has it. Inline text is capped at 32 KiB per file and 128 KiB per
+skill. ``skill_md`` / ``readme`` stay the legacy 8_000-character fields.
 
-Tree walks use the same ceilings as scout (``MAX_WALK_DIRS``) and the
-unmerged whole-repo caps from PR #10403 (``MAX_REPO_TREE_CALLS`` 400,
-``TREE_FETCH_BUDGET_S`` 120s). HTTP goes through ``scout.GitHubClient``, so
-the read deadline in that PR applies here once it merges. This module does
-not edit ``scout.py``.
+Tree walks use scout's ``MAX_WALK_DIRS`` and, when present, PR #10403's
+``MAX_REPO_TREE_CALLS`` / ``TREE_FETCH_BUDGET_S``. HTTP goes through
+``scout.GitHubClient``.
 """
 from __future__ import annotations
 
@@ -30,7 +32,7 @@ from typing import Any, Callable
 from urllib.parse import quote
 
 import scout
-from publish_lib import parse_github_source, parse_skill_frontmatter
+from publish_lib import align_catalog_files, normalize_catalog_path, parse_github_source, parse_skill_frontmatter
 
 # Caps. Per-file inline sits in the requested 20–50 KiB band.
 INLINE_MAX_BYTES = 32 * 1024
@@ -590,26 +592,6 @@ def files_from_docs(
     return files
 
 
-def merge_files_found(existing: list | None, files: list[dict[str, Any]], folder: str | None) -> list[str]:
-    """Keep the legacy ``files_found`` strings and append folder-relative paths."""
-    found: list[str] = []
-    seen: set[str] = set()
-    for item in existing or []:
-        if isinstance(item, str) and item not in seen:
-            found.append(item)
-            seen.add(item)
-    for entry in files:
-        rel = str(entry.get("path") or "")
-        if not rel:
-            continue
-        repo_path = f"{folder}/{rel}" if folder else rel
-        if rel in seen or repo_path in seen:
-            continue
-        found.append(rel)
-        seen.add(rel)
-    return found
-
-
 def merge_refresh(existing: dict[str, Any], captured: dict[str, Any]) -> dict[str, Any]:
     """Copy file capture onto a skill without touching attribution or license.
 
@@ -619,10 +601,12 @@ def merge_refresh(existing: dict[str, Any], captured: dict[str, Any]) -> dict[st
     when it has them. ``skill_md`` is refreshed (8_000-character legacy cap).
     """
     updated = dict(existing)
-    files = list(captured.get("files") or [])
     folder = folder_of_skill(existing)
+    files, files_found = align_catalog_files(
+        list(captured.get("files") or []), folder, existing.get("files_found"),
+    )
     updated["files"] = files
-    updated["files_found"] = merge_files_found(existing.get("files_found"), files, folder)
+    updated["files_found"] = files_found
     updated.pop("files_truncated", None)
     skill_md = captured.get("skill_md")
     if isinstance(skill_md, str):
@@ -1023,10 +1007,84 @@ def _core_low(client: Any) -> bool:
     return int(remaining) < int(tree_limits()["min_core"])
 
 
+_REPO_URL_RE = re.compile(r"^https://github\.com/([^/]+)/([^/#?]+?)(?:\.git)?/?$", re.I)
+_TREE_URL_RE = re.compile(
+    r"^https://github\.com/([^/]+)/([^/]+?)(?:\.git)?/(?:blob|tree)/([^/]+)(/.*)?$", re.I,
+)
+
+
+def website_upstream_url(skill: dict[str, Any], path: str) -> str | None:
+    """``blob/<ref>/<path>`` link from ``lib/skill-files.mjs``.
+
+    ``path`` is repo-root relative. ``ref`` comes from ``source_url`` when it
+    names the same repository, otherwise ``HEAD``.
+    """
+    path_n = normalize_catalog_path(path)
+    if not path_n:
+        return None
+    repo = _REPO_URL_RE.match(str(skill.get("repo_url") or "").strip())
+    src = _TREE_URL_RE.match(str(skill.get("source_url") or "").strip())
+    owner = (repo.group(1) if repo else None) or (src.group(1) if src else None)
+    name = (repo.group(2) if repo else None) or (src.group(2) if src else None)
+    if not owner or not name:
+        return None
+    ref = "HEAD"
+    if src and src.group(1).lower() == owner.lower() and src.group(2).lower() == name.lower():
+        ref = src.group(3)
+    encoded = "/".join(quote(part, safe="") for part in path_n.split("/"))
+    return f"https://github.com/{owner}/{name}/blob/{quote(ref, safe='')}/{encoded}"
+
+
+def website_file_list(skill: dict[str, Any]) -> list[dict[str, Any]]:
+    """File rows the skill page renders: ``files_found`` first, then extra ``files``.
+
+    A ``files`` entry contributes content only when its path matches. ``SKILL.md``
+    with no inline bytes falls back to ``skill_md``. Duplicate paths collapse.
+    """
+    by_path: dict[str, dict[str, Any]] = {}
+    for entry in skill.get("files") or []:
+        if not isinstance(entry, dict):
+            continue
+        path = normalize_catalog_path(entry.get("path") if isinstance(entry.get("path"), str) else None)
+        if path and path not in by_path:
+            by_path[path] = entry
+    ordered: list[str] = []
+    seen: set[str] = set()
+    for item in skill.get("files_found") or []:
+        path = normalize_catalog_path(item if isinstance(item, str) else None)
+        if not path or path in seen:
+            continue
+        seen.add(path)
+        ordered.append(path)
+    for path in by_path:
+        if path not in seen:
+            seen.add(path)
+            ordered.append(path)
+    rows: list[dict[str, Any]] = []
+    for path in ordered:
+        entry = by_path.get(path)
+        content = entry.get("content") if isinstance(entry, dict) and isinstance(entry.get("content"), str) else None
+        if content is None and path.rsplit("/", 1)[-1].lower() == "skill.md" and isinstance(skill.get("skill_md"), str):
+            content = skill["skill_md"]
+        if isinstance(content, str) and "\x00" in content:
+            content = None
+        rows.append({
+            "path": path,
+            "content": content,
+            "upstream": website_upstream_url(skill, path),
+            "size": entry.get("size") if isinstance(entry, dict) else None,
+            "sha": entry.get("sha") if isinstance(entry, dict) else None,
+        })
+    return rows
+
+
 def _public_outcome(row: dict[str, Any], *, show_content: bool = False) -> dict[str, Any]:
-    captured = row.get("captured") or {}
+    skill = row.get("skill") if isinstance(row.get("skill"), dict) else None
+    listed = skill.get("files") if skill and isinstance(skill.get("files"), list) else None
+    if not listed:
+        listed = (row.get("captured") or {}).get("files") or []
     files = []
-    for entry in captured.get("files") or []:
+    for entry in listed:
         pub = {
             "path": entry.get("path"),
             "size": entry.get("size"),
@@ -1054,6 +1112,18 @@ def _public_outcome(row: dict[str, Any], *, show_content: bool = False) -> dict[
         out["hits"] = row["hits"]
     if files:
         out["files"] = files
+    if skill and isinstance(skill.get("files_found"), list):
+        out["files_found"] = list(skill["files_found"])
+    if skill:
+        rendered = []
+        for item in website_file_list(skill):
+            rendered.append({
+                "path": item["path"],
+                "content_present": bool(item.get("content")),
+                "upstream": item.get("upstream"),
+            })
+        if rendered:
+            out["rendered"] = rendered
     return out
 
 

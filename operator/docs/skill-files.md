@@ -9,27 +9,42 @@ does that refresh. Nothing else in the publish loop rewrites an existing skill's
 
 ## Shape
 
-Paths are relative to the skill folder (`skill_path` with a trailing `SKILL.md` removed).
-They use forward slashes, no leading slash, and no `..`. The capture never requests or
-stores a path outside that folder. A root skill (`skill_path` empty or `SKILL.md`) uses
-the repository root and skips `node_modules`, `vendor`, and the other scout excluded
-directories.
+`files[].path` is **repo-root relative**, the same string `files_found` uses.
+The website (`lib/skill-files.mjs`) links each path as `blob/<ref>/<path>`.
+A skill-folder file `scripts/history.sh` under `skill_path: skills/rederive` is
+stored as `skills/rederive/scripts/history.sh`. Paths use forward slashes, no
+leading slash, and no `..`. Capture still reads only that skill folder.
+A root skill (`skill_path` empty or `SKILL.md`) uses paths from the repository
+root and skips `node_modules`, `vendor`, and the other scout excluded directories.
+
+`files_found` lists every captured path. A repo-root file that is already on the
+row and sits outside the skill folder (`README.md`) stays on `files_found` and
+is not given inline bytes. Folder-relative aliases (`scripts/history.sh` next to
+`skills/rederive/scripts/history.sh`) are removed. When the existing
+`files_found` list already contains every captured path, its order is kept, so
+a second backfill of a correct row does not move entries.
 
 ```json
 {
+  "files_found": [
+    "skills/rederive/SKILL.md",
+    "README.md",
+    "skills/rederive/scripts/history.sh",
+    "skills/rederive/scripts/structure.py"
+  ],
   "files": [
-    {"path": "SKILL.md", "size": 6843, "sha": "<40-hex git blob sha>", "content": "---\nname: rederive\n..."},
-    {"path": "scripts/history.sh", "size": 3107, "sha": "<blob sha>", "content": "#!/bin/sh\n"},
-    {"path": "scripts/structure.py", "size": 9293, "sha": "<blob sha>", "content": "def structure():\n    ...\n"},
-    {"path": "assets/logo.png", "size": 12000, "sha": "<blob sha>", "omitted": true},
-    {"path": "references/large.md", "size": 40000, "sha": "<blob sha>", "truncated": true, "omitted": true}
+    {"path": "skills/rederive/SKILL.md", "size": 6843, "sha": "<40-hex git blob sha>", "content": "---\nname: rederive\n..."},
+    {"path": "skills/rederive/scripts/history.sh", "size": 3107, "sha": "<blob sha>", "content": "#!/usr/bin/env bash\n"},
+    {"path": "skills/rederive/scripts/structure.py", "size": 9293, "sha": "<blob sha>", "content": "#!/usr/bin/env python3\n"},
+    {"path": "skills/rederive/assets/logo.png", "size": 12000, "sha": "<blob sha>", "omitted": true},
+    {"path": "skills/rederive/references/large.md", "size": 40000, "sha": "<blob sha>", "truncated": true, "omitted": true}
   ]
 }
 ```
 
 | Field | When |
 | --- | --- |
-| `path` | Always. Skill-folder-relative. |
+| `path` | Always. Repo-root relative, matching `files_found`. |
 | `size` | Always. Blob size in bytes. |
 | `sha` | Always. Git blob SHA-1 from the tree listing. |
 | `content` | Only when the full file is text and fits both caps. It is the entire file, not a prefix. |

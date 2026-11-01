@@ -261,9 +261,11 @@ class TestRefresh(unittest.TestCase):
         self.assertEqual(updated["repo_url"], skill["repo_url"])
         self.assertEqual(updated["category"], "developer-tools")
         self.assertIn("Rebuild a derivation", updated["skill_md"])
-        self.assertIn("scripts/history.sh", [f["path"] for f in updated["files"]])
-        self.assertIn("skills/rederive/SKILL.md", updated["files_found"])
-        self.assertIn("scripts/history.sh", updated["files_found"])
+        self.assertEqual(
+            [f["path"] for f in updated["files"]],
+            ["skills/rederive/SKILL.md", "skills/rederive/scripts/history.sh", "skills/rederive/scripts/structure.py"],
+        )
+        self.assertEqual(updated["files_found"], [f["path"] for f in updated["files"]])
         second = SF.refresh_skill(updated, captured)
         self.assertEqual(second["status"], "unchanged")
         self.assertEqual(SF._canon(second["skill"]), SF._canon(updated))
@@ -365,7 +367,7 @@ class TestBackfillOrder(unittest.TestCase):
             self.assertGreater(result["diff_bytes"], 0)
             self.assertEqual(result["updated"], ["rederive"])
             preview = result["results"][0]["files"]
-            self.assertTrue(any(f["path"] == "scripts/run.sh" and f["content_present"] for f in preview))
+            self.assertTrue(any(f["path"] == "skills/x/scripts/run.sh" and f["content_present"] for f in preview))
             self.assertFalse(state.path.exists())
             self.assertEqual(calls, ["rederive"])
 
@@ -391,7 +393,7 @@ class TestBackfillOrder(unittest.TestCase):
             by_slug = {s["slug"]: s for s in second["catalog"]["skills"]}
             for slug in ("rederive", "quiet-skill", "zeta", "alpha"):
                 paths = [f["path"] for f in by_slug[slug]["files"]]
-                self.assertIn("scripts/run.sh", paths)
+                self.assertIn("skills/x/scripts/run.sh", paths)
                 self.assertEqual(by_slug[slug]["license"], "MIT")
                 self.assertEqual(by_slug[slug]["author"], "ex")
             state.clear_pending()
@@ -447,6 +449,94 @@ class TestBackfillOrder(unittest.TestCase):
         self.assertEqual(BF.budget_remaining(merged, cap=DAILY_CAP, today="2026-11-01"), 60)
 
 
+# Shape of the live rederive row rendered by the website (files_found order,
+# repo-root paths, README listed but not inlined, scripts already repo-relative).
+REDERIVE_FOUND = [
+    "skills/rederive/SKILL.md",
+    "README.md",
+    "skills/rederive/scripts/history.sh",
+    "skills/rederive/scripts/structure.py",
+]
+
+
+def _rederive_row() -> dict:
+    return {
+        "id": "ericjujianzou-rederive-skills-rederive",
+        "slug": "ericjujianzou-rederive-skills-rederive",
+        "name": "rederive",
+        "author": "ericjujianzou",
+        "license": "MIT",
+        "repo_url": "https://github.com/ericjujianzou/rederive",
+        "source_url": "https://github.com/ericjujianzou/rederive/tree/master/skills/rederive",
+        "skill_path": "skills/rederive",
+        "skill_md": "stale",
+        "files_found": list(REDERIVE_FOUND),
+        "files": [
+            {"path": "skills/rederive/scripts/history.sh", "size": len(HISTORY.encode()), "sha": _sha(HISTORY),
+             "content": HISTORY},
+            {"path": "skills/rederive/scripts/structure.py", "size": len(STRUCTURE.encode()), "sha": _sha(STRUCTURE),
+             "content": STRUCTURE},
+        ],
+    }
+
+
+class TestWebsitePaths(unittest.TestCase):
+    def test_rederive_row_renders_four_files_with_content_on_the_code_files(self):
+        row = _rederive_row()
+        # Folder-relative capture, the same shape the GitHub tree returns.
+        captured = {
+            "ok": True, "truncated": False, "missing_skill_md": False, "readme": None,
+            "skill_md": SKILL,
+            "files": [
+                {"path": "SKILL.md", "size": len(SKILL.encode()), "sha": _sha(SKILL), "content": SKILL},
+                {"path": "scripts/history.sh", "size": len(HISTORY.encode()), "sha": _sha(HISTORY), "content": HISTORY},
+                {"path": "scripts/structure.py", "size": len(STRUCTURE.encode()), "sha": _sha(STRUCTURE),
+                 "content": STRUCTURE},
+            ],
+        }
+        first = SF.refresh_skill(row, captured)
+        self.assertEqual(first["status"], "updated")
+        skill = first["skill"]
+        self.assertEqual(skill["files_found"], REDERIVE_FOUND)
+        self.assertEqual([f["path"] for f in skill["files"]], [
+            "skills/rederive/SKILL.md",
+            "skills/rederive/scripts/history.sh",
+            "skills/rederive/scripts/structure.py",
+        ])
+        rendered = SF.website_file_list(skill)
+        self.assertEqual([item["path"] for item in rendered], REDERIVE_FOUND)
+        self.assertEqual(len(rendered), len({item["path"] for item in rendered}))
+        code = [item for item in rendered if item["path"] != "README.md"]
+        self.assertEqual(len(code), 3)
+        self.assertTrue(all(item["content"] for item in code))
+        self.assertIsNone(rendered[1]["content"])
+        self.assertEqual(
+            rendered[2]["upstream"],
+            "https://github.com/ericjujianzou/rederive/blob/master/skills/rederive/scripts/history.sh",
+        )
+        self.assertNotIn("/blob/master/scripts/", rendered[2]["upstream"])
+        again = SF.refresh_skill(skill, captured)
+        self.assertEqual(again["status"], "unchanged")
+        self.assertEqual(SF._canon(again["skill"]), SF._canon(skill))
+
+    def test_folder_relative_aliases_do_not_survive_files_found(self):
+        row = _rederive_row()
+        row["files_found"] = REDERIVE_FOUND + ["SKILL.md", "scripts/history.sh", "scripts/structure.py"]
+        captured = {
+            "ok": True, "truncated": False, "missing_skill_md": False,
+            "skill_md": SKILL,
+            "files": [
+                {"path": "SKILL.md", "size": len(SKILL.encode()), "sha": _sha(SKILL), "content": SKILL},
+                {"path": "scripts/history.sh", "size": len(HISTORY.encode()), "sha": _sha(HISTORY), "content": HISTORY},
+                {"path": "scripts/structure.py", "size": len(STRUCTURE.encode()), "sha": _sha(STRUCTURE),
+                 "content": STRUCTURE},
+            ],
+        }
+        skill = SF.refresh_skill(row, captured)["skill"]
+        rendered = SF.website_file_list(skill)
+        self.assertEqual([item["path"] for item in rendered], REDERIVE_FOUND)
+
+
 class TestCatalogUpdateCapture(unittest.TestCase):
     def test_new_publish_records_helper_files(self):
         seen = {}
@@ -474,7 +564,10 @@ class TestCatalogUpdateCapture(unittest.TestCase):
         self.assertEqual(skips, [])
         self.assertEqual(seen["folder"], "skills/rederive")
         paths = [f["path"] for f in new[0]["files"]]
-        self.assertEqual(paths, ["SKILL.md", "scripts/history.sh", "scripts/structure.py"])
+        self.assertEqual(paths, [
+            "skills/rederive/SKILL.md", "skills/rederive/scripts/history.sh", "skills/rederive/scripts/structure.py",
+        ])
+        self.assertEqual(new[0]["files_found"], paths)
         self.assertEqual(new[0]["files"][1]["content"], HISTORY)
         self.assertEqual(new[0]["license"], "MIT")
         self.assertEqual(new[0]["attribution"], "Eric Zou")
