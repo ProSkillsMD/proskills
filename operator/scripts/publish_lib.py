@@ -366,20 +366,19 @@ def build_skill_record(
         n += 1
 
     readme_text = (readme or skill_md or "")[:8000]
-    # Legacy list. The structured `files` array (path, size, sha, optional content)
-    # is the complete skill-folder capture; these strings stay for older readers.
+    # `files` paths are repo-root relative, the same strings as `files_found`.
+    # The website joins them onto blob/<ref>/<path>. A repo-root README that is
+    # not inside the skill folder stays on files_found only (no inline bytes).
     files_found: list[str] = []
-    if skill_md is not None:
-        files_found.append("SKILL.md" if not subpath else f"{subpath}/SKILL.md")
-    if readme is not None:
-        files_found.append("README.md")
-    for entry in files or []:
-        rel = str(entry.get("path") or "")
-        if not rel:
-            continue
-        repo_path = f"{subpath}/{rel}" if subpath else rel
-        if rel not in files_found and repo_path not in files_found:
-            files_found.append(rel)
+    if not files:
+        if skill_md is not None:
+            files_found.append("SKILL.md" if not subpath else f"{subpath}/SKILL.md")
+        if readme is not None:
+            files_found.append("README.md")
+    else:
+        files, files_found = align_catalog_files(
+            files, subpath, None, repo_readme=readme is not None,
+        )
 
     record: dict[str, Any] = {
         "id": sid,
@@ -423,6 +422,120 @@ def build_skill_record(
     if attribution:
         record["attribution"] = str(attribution)[:240]
     return record
+
+
+def normalize_catalog_path(path: str | None) -> str | None:
+    """Accept a catalog path the way the website does.
+
+    Trim, strip a leading ``./``, reject absolute paths, backslashes, NULs,
+    empty segments, ``.`` and ``..``. This is the ``d()`` helper in
+    ``lib/skill-files.mjs``.
+    """
+    if not isinstance(path, str):
+        return None
+    text = path.strip()
+    while text.startswith("./"):
+        text = text[2:]
+    if not text or len(text) > 512 or text.startswith("/") or "\\" in text or "\x00" in text:
+        return None
+    parts = text.split("/")
+    if any(part in ("", ".", "..") for part in parts):
+        return None
+    return "/".join(parts)
+
+
+def repo_catalog_path(folder: str | None, path: str | None) -> str | None:
+    """Repo-root relative path for a file captured inside ``folder``.
+
+    Already-prefixed paths (``skills/rederive/scripts/history.sh``) stay as they
+    are, so a second pass does not double-prefix. Folder-relative paths
+    (``scripts/history.sh``) gain the skill folder.
+    """
+    rel = normalize_catalog_path(path)
+    if rel is None:
+        return None
+    folder_n = normalize_catalog_path(folder) if folder else None
+    if not folder_n:
+        return rel
+    if rel == folder_n or rel.startswith(folder_n + "/"):
+        return rel
+    return f"{folder_n}/{rel}"
+
+
+def align_catalog_files(
+    files: list[dict[str, Any]] | None,
+    folder: str | None,
+    existing_found: list | None,
+    *,
+    repo_readme: bool = False,
+) -> tuple[list[dict[str, Any]], list[str]]:
+    """Return ``(files, files_found)`` using one repo-root path per captured file.
+
+    ``files_found`` lists every captured path. An existing repo-root entry that
+    is outside the skill folder (``README.md``, ``LICENSE``) is kept, and a
+    folder-relative alias of a captured file is dropped. When the existing list
+    already contains every captured path, its order is preserved.
+    """
+    catalog_files: list[dict[str, Any]] = []
+    captured: list[str] = []
+    seen_paths: set[str] = set()
+    for entry in files or []:
+        if not isinstance(entry, dict):
+            continue
+        path = repo_catalog_path(folder, str(entry.get("path") or ""))
+        if not path or path in seen_paths:
+            continue
+        seen_paths.add(path)
+        item = dict(entry)
+        item["path"] = path
+        catalog_files.append(item)
+        captured.append(path)
+    captured_set = set(captured)
+    folder_n = normalize_catalog_path(folder) if folder else None
+    aliases = set(captured_set)
+    if folder_n:
+        prefix = folder_n + "/"
+        for path in captured:
+            if path.startswith(prefix):
+                aliases.add(path[len(prefix):])
+
+    def keep(norm: str) -> bool:
+        if norm in aliases and norm not in captured_set:
+            return False
+        if folder_n and (norm == folder_n or norm.startswith(folder_n + "/")) and norm not in captured_set:
+            return False
+        return True
+
+    existing_norm: list[str] = []
+    for item in existing_found or []:
+        norm = normalize_catalog_path(item if isinstance(item, str) else None)
+        if norm and keep(norm):
+            existing_norm.append(norm)
+
+    if existing_norm and all(path in set(existing_norm) for path in captured):
+        found: list[str] = []
+        seen: set[str] = set()
+        for norm in existing_norm:
+            if norm not in seen:
+                found.append(norm)
+                seen.add(norm)
+        for path in captured:
+            if path not in seen:
+                found.append(path)
+                seen.add(path)
+    else:
+        found = []
+        seen = set()
+        for path in captured:
+            found.append(path)
+            seen.add(path)
+        for norm in existing_norm:
+            if norm not in seen:
+                found.append(norm)
+                seen.add(norm)
+    if repo_readme and "README.md" not in seen and not any(path.endswith("/README.md") for path in seen):
+        found.append("README.md")
+    return catalog_files, found
 
 
 def gh_api_json(endpoint: str) -> Any:
