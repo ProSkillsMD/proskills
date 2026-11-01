@@ -15,6 +15,12 @@ labels/messages.
 4. Git tree only for repos whose cached verdict is missing or whose `pushed_at` changed.
    The root listing is non-recursive; each top-level directory is its own recursive
    request (`node_modules` / `vendor` / other excluded directories are not fetched).
+   Non-truncated directories are fetched before any one-directory-at-a-time walk.
+   That walk, the total git-tree calls, and the wall-clock budget are capped **per
+   repository** (`MAX_WALK_DIRS` 200, `MAX_REPO_TREE_CALLS` 400, `TREE_FETCH_BUDGET_S`
+   120s) — the directory cap does not reset for each top-level folder. Hitting a
+   cap logs `tree truncated owner/repo@ref: <reason>` and stores a truncated verdict
+   (cached by `pushed_at`, same as any other tree verdict).
    The assembled listing matches a single `?recursive=1` tree. Fetches run over a **rotating window**
    (`--max-tree-fetches`, default 600). Order: repos that were transient last run →
    repos from issues opened since the last run → rotation by issue number after the cursor.
@@ -56,7 +62,11 @@ Retries use exponential backoff with jitter, honour `Retry-After` and
 `X-RateLimit-Reset`; if the reset is > `max_wait` (120 s) the run stops tree work
 (`rate_limit_exhausted: true`) and defers the rest. A truncated body
 (`http.client.IncompleteRead`, a bad status line, or a 200 that is not valid JSON)
-uses that same backoff and is never cached as a rejection. Issue, comment, and label
+uses that same backoff and is never cached as a rejection. Each GitHub HTTP call
+has a connect and full-body deadline (`GITHUB_HTTP_TIMEOUT`, 30s): a stalled read
+or a trickle of bytes fails as a timeout and is retried at most `READ_TIMEOUT_RETRIES`
+(2) times, then classified transient. `IncompleteRead` keeps the longer `max_retries`
+backoff. Issue, comment, and label
 lists request 50 items per page; the previous 100-item page budget is kept as an item
 ceiling. Each rate-limit event halves the worker concurrency (recovers slowly).
 `--min-core-remaining` (default 1500) stops tree fetches before the REST core quota is

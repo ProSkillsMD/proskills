@@ -92,6 +92,20 @@ def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: d
         rv.outcome = "transient"
         rv.findings.append(f"GitHub tree error: {type(e).__name__}")
         return
+    # A repo that hit the walk/call/time budget is a partial listing. Review it
+    # when the requested skill is already in that listing; otherwise leave the
+    # issue due instead of writing reject:no-skill-md from an incomplete tree.
+    reason = tree.get("truncation_reason")
+    if reason:
+        wanted = str(blk.get("skill_path") or "SKILL.md")
+        found = any(
+            s["skill_path"] == wanted or s["skill_path"].lower() == wanted.lower()
+            for s in scout.discover_skills(tree.get("tree") or [])
+        )
+        if blk.get("kind") == "large-collection" or not found:
+            rv.outcome = "transient"
+            rv.findings.append(f"repository tree truncated ({reason})")
+            return
     entries = tree.get("tree") or []
     skills = scout.discover_skills(entries)
     lic_files = scout.license_files(entries)
@@ -526,7 +540,11 @@ def main(argv: list[str] | None = None) -> int:
 
 def _run(args: argparse.Namespace) -> int:
     t0 = time.time()
-    client = scout.GitHubClient(scout.get_gh_token(), throttle=scout.AdaptiveThrottle(4))
+    client = scout.GitHubClient(
+        scout.get_gh_token(),
+        throttle=scout.AdaptiveThrottle(4),
+        timeout=scout.GITHUB_HTTP_TIMEOUT,
+    )
     api = F.IssueRepo(client, core_reserve=args.core_reserve)
     try:
         catalog = load_catalog(args.catalog)
