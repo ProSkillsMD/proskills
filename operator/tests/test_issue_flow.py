@@ -293,6 +293,32 @@ class TestScoutFile(Base):
         self.assertEqual(out["summary"]["max_new_effective"], 1)
         self.assertIn("run_cap", out["summary"]["skips"])
 
+    def test_input_longer_than_unreviewed_cap_still_files(self):
+        # 200 is open issues without a review label, not the length of the candidate list.
+        recs = []
+        for i in range(250):
+            self.gh.add_repo(f"o{i}/r", {"SKILL.md": SKILL}, stars=i + 1)
+            recs.append(src_rec(f"o{i}", "r", stars=i + 1))
+        out, _ = self.file(recs, max_new=2, max_unreviewed=200)
+        self.assertEqual(out["summary"]["counts"], {"create": 2})
+        self.assertNotIn("backpressure", out["summary"]["skips"])
+
+    def test_slow_resolve_is_skipped_and_the_next_candidate_is_filed(self):
+        self.gh.add_repo("Slow/repo", {"SKILL.md": SKILL}, stars=500)
+        self.gh.add_repo("Fast/repo", {"SKILL.md": SKILL}, stars=10)
+        real = SF.resolve_shas
+
+        def resolve(client, c):
+            if c["identity"] == "github:slow/repo":
+                raise scout.DeadlineExceeded("time_budget")
+            return real(client, c)
+
+        with mock.patch.object(SF, "resolve_shas", side_effect=resolve):
+            out, _ = self.file([src_rec("Slow", "repo", stars=500), src_rec("Fast", "repo", stars=10)], max_new=2)
+        self.assertEqual(out["summary"]["counts"], {"create": 1})
+        self.assertEqual(out["actions"][0]["identity"], "github:fast/repo")
+        self.assertIn("new_transient", out["summary"]["skips"])
+
     def test_backpressure_stops_new_issues(self):
         for i in range(3):
             self.gh.add_issue(500 + i, f"[Candidate] x/y{i}", F.build_block({"psk-id": f"github:x/y{i}", "kind": "skill"}),
@@ -446,6 +472,38 @@ class TestReview(Base):
         self.assertEqual(len(cms), 1)
         self.assertEqual(F.parse_review_marker(cms[0]["body"])["verdict"], "review:needs-ai")
         self.assertEqual(F.review_labels(self.gh.labels_of(n)), ["review:needs-ai"])
+
+    def test_large_collection_does_not_walk_the_archive(self):
+        rec = src_rec("Big", "agg", status="large_collection", skills_total=7257)
+        rec.update(skill_path=None, subpath=None)
+        self.gh.add_repo("Big/agg", {"SKILL.md": SKILL})
+        out, _ = self.file([rec])
+        n = out["actions"][0]["issue"]
+        self.gh.urls.clear()
+        self.reviewer().run(list(self.gh.issues.values()))
+        self.assertEqual(F.review_labels(self.gh.labels_of(n)), ["review:large-collection"])
+        self.assertFalse(any("/git/trees/" in u for u in self.gh.urls))
+
+    def test_slow_repo_is_reviewed_after_other_issues(self):
+        rv = self.reviewer()
+        rv.state["_slow_repos"] = {"slow/repo": {"defer_until": "2999-01-01T00:00:00Z", "reason": "time_budget"}}
+        issues = [
+            {"number": 10, "labels": [{"name": "candidate"}],
+             "body": F.build_block({"psk-id": "github:slow/repo", "kind": "skill", "skill_path": "SKILL.md"})},
+            {"number": 20, "labels": [{"name": "candidate"}],
+             "body": F.build_block({"psk-id": "github:fast/repo", "kind": "skill", "skill_path": "SKILL.md"})},
+        ]
+        picked = [blk["psk-id"] for _, blk in rv.select(issues)]
+        self.assertEqual(picked, ["github:fast/repo", "github:slow/repo"])
+
+    def test_run_budget_stops_before_reviewing(self):
+        n = self.make_candidate()
+        rv = self.reviewer()
+        rv.client.set_run_deadline(0, lambda: 1)  # already expired
+        out = rv.run(list(self.gh.issues.values()))
+        self.assertEqual(out["results"], [])
+        self.assertEqual(out["summary"]["stopped"], "run_budget")
+        self.assertNotIn("review:pass", self.gh.labels_of(n))
 
     def test_large_collection_verdicts(self):
         rec = src_rec("Big", "agg", status="large_collection", skills_total=420)

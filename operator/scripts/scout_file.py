@@ -47,6 +47,11 @@ ART = scout.ART
 INDEX_NAME = "issue-index.json"
 DEFAULT_CAPS = {"max_new": 7, "max_new_day": 150, "max_new_repo_day": 3, "max_unreviewed": 200,
                 "max_legacy": 25, "max_refresh": 25}  # max_new=ceil(150/24); see effective_max_new
+# Outer runner kills scout_file at 300s. Finish and write the summary before that.
+# max_unreviewed is open candidate issues that lack a review label, not the size of
+# the input list: a long candidate file still files up to the per-run cap.
+RUN_BUDGET_S = 240.0
+REPO_BUDGET_S = 20.0
 FILE_STATUSES = {"pass", "license_review", "large_collection", None}
 CLAWHUB_URL_RE = re.compile(r"clawhub\.ai/(?:(@?[A-Za-z0-9_.-]+)/skills/([A-Za-z0-9_.-]+)|skills/([A-Za-z0-9_.-]+)|@([A-Za-z0-9_.-]+)/([A-Za-z0-9_.-]+))", re.I)
 
@@ -352,6 +357,23 @@ class ScoutFiler:
         self.stopped: str | None = None
         self.can_edit = False
         self.run_limit: int | None = None
+        self.repo_budget_s = REPO_BUDGET_S
+        self.listing_incomplete = False
+
+    def _budget_left(self) -> bool:
+        if self.client.budget_expired():
+            self.stopped = self.stopped or "run_budget"
+            return False
+        return True
+
+    def _resolve(self, c: dict[str, Any]) -> str:
+        if not self._budget_left():
+            return "transient"
+        try:
+            with self.client.limit(self.repo_budget_s):
+                return resolve_shas(self.client, c)
+        except scout.DeadlineExceeded:
+            return "transient"
 
     def _skip(self, c: dict[str, Any], reason: str) -> None:
         key = reason.split(":", 1)[0]
@@ -369,7 +391,8 @@ class ScoutFiler:
         day = F.dhaka_day(now)
         self.can_edit = self.api.can_edit_bodies()
         open_issues = self.api.list_issues(state="open")
-        if sync_closed_issues:
+        self.listing_incomplete = bool(self.client.page_truncated)
+        if sync_closed_issues and self._budget_left():
             sync_closed(self.api, self.index, self.log)
         view = IssueView(open_issues, self.index)
         # index <- GitHub (source of truth for open blocks)
@@ -415,9 +438,12 @@ class ScoutFiler:
             else:
                 new.append(c)
 
-        self._do_refresh(refresh, view)
-        self._do_legacy(legacy, view)
+        # File the bounded new-issue batch before refresh/legacy. A huge refresh
+        # set must not consume the run budget and leave the hour with nothing filed.
+        # max_unreviewed still applies inside _do_new; it is not a cap on len(candidates).
         self._do_new(new, view, day)
+        self._do_legacy(legacy, view)
+        self._do_refresh(refresh, view)
         self.index.prune()
         summary = {"mode": "apply" if self.apply else "dry-run", "day_dhaka": day,
                    "candidates_in": len(candidates), "unique": len(uniq),
@@ -495,6 +521,9 @@ class ScoutFiler:
     def _do_refresh(self, items: list[tuple[dict[str, Any], int]], view: IssueView) -> None:
         done = 0
         for c, n in items:
+            if not self._budget_left():
+                self._skip(c, "run_budget")
+                break
             issue = view.by_number[n]
             if F.untouchable(issue):
                 self._skip(c, f"untouchable:#{n}")
@@ -513,7 +542,7 @@ class ScoutFiler:
             c = {**c, "skill_path": blk.get("skill_path") or c.get("skill_path"),
                  "default_branch": c.get("default_branch") or blk.get("default_branch")}
             c["skill_tree_sha"] = c["skill_tree_sha"] if c["source_type"] == "clawhub" else None
-            st = resolve_shas(self.client, c)
+            st = self._resolve(c)
             if st != "ok":
                 self._skip(c, f"refresh_{st}")
                 continue
@@ -562,6 +591,9 @@ class ScoutFiler:
         done = 0
         claimed: set[int] = set()
         for c, n in items:
+            if not self._budget_left():
+                self._skip(c, "run_budget")
+                break
             if n in claimed or n in view.block_of:
                 self._skip(c, f"issue_already_claimed:#{n}")
                 continue
@@ -571,7 +603,7 @@ class ScoutFiler:
             if not self._reserve_ok():
                 self._skip(c, "core_reserve")
                 continue
-            st = resolve_shas(self.client, c)
+            st = self._resolve(c)
             if st != "ok":
                 self._skip(c, f"legacy_{st}")
                 continue
@@ -607,7 +639,14 @@ class ScoutFiler:
         run_limit = effective_max_new(self.caps["max_new"], remaining_budget)
         self.run_limit = run_limit
         for c in items:
+            if not self._budget_left():
+                self._skip(c, "run_budget")
+                break
             rk = F.repo_key_of(c["identity"])
+            if self.listing_incomplete:
+                self.stopped = self.stopped or "listing_incomplete"
+                self._skip(c, "listing_incomplete")
+                continue
             if unreviewed > self.caps["max_unreviewed"]:
                 self.stopped = self.stopped or f"backpressure: {unreviewed} open candidate issues lack review:*"
                 self._skip(c, "backpressure")
@@ -624,7 +663,7 @@ class ScoutFiler:
             if not self._reserve_ok():
                 self._skip(c, "core_reserve")
                 continue
-            st = resolve_shas(self.client, c)
+            st = self._resolve(c)
             if st != "ok":
                 self._skip(c, f"new_{st}")
                 continue
@@ -676,6 +715,8 @@ def main(argv: list[str] | None = None) -> int:
     for k, v in DEFAULT_CAPS.items():
         ap.add_argument(f"--{k.replace('_', '-')}", type=int, default=v)
     ap.add_argument("--core-reserve", type=int, default=1500)
+    ap.add_argument("--run-budget-s", type=float, default=RUN_BUDGET_S,
+                    help="wall-clock budget for this run (outer runner kills at 300s)")
     ap.add_argument("--create-interval", type=float, default=3.0)
     ap.add_argument("--file-siblings", action="store_true")
     ap.add_argument("--no-closed-sync", action="store_true")
@@ -717,6 +758,7 @@ def _run(args: argparse.Namespace) -> int:
     elif args.only == "refresh":
         caps.update(max_new=0, max_legacy=0)
     client = scout.GitHubClient(scout.get_gh_token(), throttle=scout.AdaptiveThrottle(4))
+    client.set_run_deadline(time.monotonic() + float(args.run_budget_s), time.monotonic)
     api = F.IssueRepo(client, core_reserve=args.core_reserve, create_interval=args.create_interval)
     index = IssueIndex(args.state_dir / INDEX_NAME)
     filer = ScoutFiler(api, index, apply=args.apply, caps=caps, file_siblings=args.file_siblings)

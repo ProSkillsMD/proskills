@@ -670,6 +670,87 @@ class TestChunkedTree(NoNetworkMixin, unittest.TestCase):
         self.assertGreaterEqual(len(calls), 1)
         self.assertIn("tree truncated o/slow@main: time_budget", buf.getvalue())
 
+    def test_retries_cannot_outrun_the_repo_budget(self):
+        calls: list[str] = []
+        clock = {"t": 0.0}
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            clock["t"] += 20
+            raise TimeoutError("read timed out")
+
+        def sleep(seconds):
+            clock["t"] += seconds
+
+        client = client_for(transport, sleep=sleep, max_retries=4, timeout=30)
+        with self.assertRaises(scout.DeadlineExceeded):
+            with client.limit(25, clock=lambda: clock["t"]):
+                client.rest("repos/o/slow")
+        # Two attempts, not max_retries worth of 30s reads.
+        self.assertLessEqual(len(calls), 2)
+        self.assertLess(clock["t"], 50)
+
+    def test_overrunning_call_truncates_the_tree(self):
+        calls: list[str] = []
+        clock = {"t": 0.0}
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            if url.endswith("/git/trees/main"):
+                clock["t"] += 1
+                return resp(200, {"sha": "root", "truncated": False, "tree": [
+                    {"path": "archive", "type": "tree", "sha": "top"},
+                    {"path": "SKILL.md", "type": "blob", "sha": "b1", "size": 4},
+                ]})
+            clock["t"] += 40
+            raise TimeoutError("read timed out")
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            tree = scout.fetch_git_tree(
+                client_for(transport, sleep=lambda s: clock.__setitem__("t", clock["t"] + s), max_retries=4),
+                "o", "slow", "main", budget_s=15, clock=lambda: clock["t"],
+                max_walk_dirs=500, max_tree_calls=500,
+            )
+        self.assertEqual(tree["truncation_reason"], "time_budget")
+        self.assertIn("SKILL.md", {e["path"] for e in tree["tree"]})
+        self.assertLessEqual(len(calls), 3)
+        self.assertLess(clock["t"], 60)
+        self.assertIn("time_budget", buf.getvalue())
+
+    def test_skill_cap_stops_before_the_rest_of_the_archive(self):
+        calls: list[str] = []
+
+        def transport(method, url, headers, body, timeout):
+            calls.append(url)
+            if url.endswith("/git/trees/main"):
+                return resp(200, {"sha": "root", "truncated": False, "tree": [
+                    {"path": "skills", "type": "tree", "sha": "sha-skills"},
+                    {"path": "archive", "type": "tree", "sha": "sha-archive"},
+                    {"path": "more", "type": "tree", "sha": "sha-more"},
+                ]})
+            if "sha-skills" in url:
+                return resp(200, {"sha": "sha-skills", "truncated": False, "tree": [
+                    {"path": f"s{i}/SKILL.md", "type": "blob", "sha": f"b{i}", "size": 4} for i in range(3)
+                ]})
+            return resp(200, {"sha": "other", "truncated": False, "tree": [
+                {"path": "SKILL.md", "type": "blob", "sha": "bx", "size": 4},
+            ]})
+
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            tree = scout.fetch_git_tree(
+                client_for(transport), "hidorakai002", "ai-workspace-archive", "main",
+                stop_after_skills=2,
+            )
+        self.assertEqual(tree["truncation_reason"], "skill_cap")
+        self.assertTrue(tree["truncated"])
+        joined = " ".join(calls)
+        self.assertIn("sha-skills", joined)
+        self.assertNotIn("sha-archive", joined)
+        self.assertNotIn("sha-more", joined)
+        self.assertIn("skill_cap", buf.getvalue())
+
     def test_capped_archive_is_cached_and_not_rewalked(self):
         issue = {
             "number": 42, "title": "[SUBMISSION] archive",
@@ -1115,6 +1196,63 @@ class TestScoutEndToEnd(NoNetworkMixin, unittest.TestCase):
         g.overrides[f"{API}/graphql"] = [resp(502)] * 10
         _, res, _ = self._run(g)
         self.assertEqual(res.issue_outcomes[1], "transient")
+
+    def test_run_budget_checkpoints_and_defers_the_tail(self):
+        g = FakeGitHub()
+        clock = {"t": 0.0}
+        real = g.__call__
+
+        def transport(method, url, headers, body, timeout):
+            if "/git/trees/" in url:
+                clock["t"] += 10
+            return real(method, url, headers, body, timeout)
+
+        for i in range(5):
+            g.add_repo(f"o/r{i}", files={"SKILL.md": SKILL})
+            g.add_issue(100 + i, f"https://github.com/o/r{i}")
+        state = ScoutState(self.state_dir)
+        scout_run = Scout(
+            client_for(transport), state, {"skills": []},
+            ScoutConfig(workers=1, run_budget_s=25, repo_budget_s=100),
+            set(), log=lambda m: None, clock=lambda: clock["t"],
+        )
+        res = scout_run.run(list(g.issues))
+        tree_calls = [u for u in g.log if "/git/trees/" in u]
+        self.assertGreaterEqual(len(tree_calls), 1)
+        self.assertLess(len(tree_calls), 5)
+        self.assertTrue(all(outcome == "deferred" for outcome in res.issue_outcomes.values()))
+        reloaded = ScoutState(self.state_dir)
+        self.assertGreaterEqual(len(reloaded.repos), 1)
+        self.assertLess(len(reloaded.repos), 5)
+        self.assertEqual(reloaded.cursor.get("position"), state.cursor.get("position"))
+        self.assertGreater(int(reloaded.cursor.get("position") or 0), 0)
+
+    def test_slow_repo_is_not_refetched_until_the_cooldown_ends(self):
+        g = FakeGitHub()
+        g.add_repo("hidorakai002/ai-workspace-archive", files={"SKILL.md": SKILL}, pushed="2026-11-01T09:47:03Z")
+        g.add_issue(10402, "https://github.com/hidorakai002/ai-workspace-archive")
+        state = ScoutState(self.state_dir)
+        state.repos["hidorakai002/ai-workspace-archive"] = {
+            "pushed_at": "2026-10-01T00:00:00Z", "status": "ok", "skills": [],
+            "skills_total": 7257, "tree_truncated": True, "tree_truncation_reason": "time_budget",
+            "checked_at": "2026-11-01T00:00:00Z", "full_name": "HIDORAKAI002/ai-workspace-archive",
+            "default_branch": "main",
+        }
+        state.note_slow("hidorakai002/ai-workspace-archive", "time_budget", "2026-10-01T00:00:00Z")
+        state.save()
+        s = Scout(client_for(g), ScoutState(self.state_dir), {"skills": []}, ScoutConfig(workers=1),
+                  set(), log=lambda m: None)
+        res = s.run(list(g.issues))
+        self.assertEqual([u for u in g.log if "/git/trees/" in u], [])
+        self.assertEqual(res.issue_outcomes[10402], "large_collection")
+        state = ScoutState(self.state_dir)
+        state.slow["hidorakai002/ai-workspace-archive"]["defer_until"] = "2020-01-01T00:00:00Z"
+        state.save()
+        g.log.clear()
+        s2 = Scout(client_for(g), ScoutState(self.state_dir), {"skills": []}, ScoutConfig(workers=1),
+                   set(), log=lambda m: None)
+        s2.run(list(g.issues))
+        self.assertTrue(any("/git/trees/" in u for u in g.log))
 
 
 class TestCompatShims(unittest.TestCase):

@@ -36,6 +36,11 @@ from publish_lib import load_catalog, parse_skill_frontmatter  # noqa: E402
 
 STATE_NAME = "review-state.json"
 NOT_FOUND_CONFIRM = timedelta(hours=24)
+# Outer runner kills review at 420s. Stop inside that, and don't let one repo
+# spend the whole window on a full-archive walk.
+RUN_BUDGET_S = 300.0
+REPO_BUDGET_S = 30.0
+SLOW_REPO_COOLDOWN = timedelta(hours=6)
 CHECKS = ("Source exists", "SKILL.md at path", "Frontmatter name + description", "License",
           "Static scan", "Catalog duplicate", "ClawHub platform flags", "Skill sha")
 CLOSE_REASONS = {"reject:duplicate", "reject:not-found"}
@@ -59,6 +64,66 @@ class Review:
 
 
 # --------------------------------------------------------------------------- checks
+
+def _review_large_collection(client: scout.GitHubClient, owner: str, repo: str, branch: str,
+                             blk: dict[str, Any], catalog_idx: dict | None, rv: Review,
+                             full: str, rk: str) -> None:
+    """Verdict a known large collection without walking its tree."""
+    total = int(blk.get("skills_total") or 0)
+    try:
+        com = client.rest(f"repos/{owner}/{repo}/commits/{quote(branch, safe='')}") or {}
+        rv.sha = ((com.get("commit") or {}).get("tree") or {}).get("sha")
+    except scout.DeadlineExceeded:
+        rv.outcome = "transient"
+        rv.findings.append("repository tree truncated (time_budget)")
+        return
+    except scout.GitHubError:
+        rv.sha = None
+    rv.check("SKILL.md at path", "pass", f"{total} SKILL.md files in the repository")
+    rv.check("Skill sha", "pass", f"`{(rv.sha or '')[:12]}` (repository root tree)")
+    if catalog_idx is not None and any((catalog_idx.get(k) or {}).get("whole_repo") for k in {rk, full.lower()}):
+        rv.check("Catalog duplicate", "fail", "repository already listed")
+        rv.reject = "reject:duplicate"
+    else:
+        rv.check("Catalog duplicate", "pass", "repository not listed")
+    if catalog_idx is None:
+        rv.outcome = "transient"
+    rv.inputs = {"skills_total": total}
+
+
+def _tree_for_skill(client: scout.GitHubClient, owner: str, repo: str, branch: str,
+                    skill_path: str) -> dict[str, Any]:
+    """Tree covering one skill folder, not the rest of a huge repository.
+
+    A nested skill is ``git/trees/{branch}:{folder}``. A root skill keeps the
+    bounded whole-repo walk (root blobs are the skill). A truncated folder
+    listing falls back to that same bounded walk.
+    """
+    folder = skill_path.rsplit("/", 1)[0] if "/" in skill_path else None
+    if not folder:
+        return scout.fetch_git_tree(client, owner, repo, branch, budget_s=REPO_BUDGET_S)
+    root = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(branch, safe='')}") or {}
+    spec = f"{quote(branch, safe='')}:{quote(folder, safe='/')}?recursive=1"
+    try:
+        data = client.rest(f"repos/{owner}/{repo}/git/trees/{spec}") or {}
+    except scout.NotFound:
+        return scout.fetch_git_tree(client, owner, repo, branch, budget_s=REPO_BUDGET_S)
+    if data.get("truncated") or not data.get("tree"):
+        return scout.fetch_git_tree(client, owner, repo, branch, budget_s=REPO_BUDGET_S)
+    tree: list[dict[str, Any]] = []
+    for ent in root.get("tree") or []:
+        if isinstance(ent, dict) and ent.get("type") != "tree":
+            tree.append(dict(ent))
+    tree.append({"path": folder, "type": "tree", "sha": data.get("sha")})
+    for ent in data.get("tree") or []:
+        if not isinstance(ent, dict):
+            continue
+        item = dict(ent)
+        rel = str(item.get("path") or "")
+        item["path"] = f"{folder}/{rel}" if rel else folder
+        tree.append(item)
+    return {"sha": root.get("sha"), "tree": tree, "truncated": False}
+
 
 def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: dict | None, rv: Review,
                  number: int) -> None:
@@ -84,10 +149,19 @@ def check_github(client: scout.GitHubClient, blk: dict[str, Any], catalog_idx: d
     rv.check("Source exists", "warn" if arch else "pass", f"https://github.com/{full.lower()} (branch `{F.safe_text(branch, 60)}`){arch}")
     if meta.get("archived"):
         rv.findings.append("repository is archived")
+    # A known large collection already carries skills_total. Walking the whole
+    # archive (thousands of SKILL.md files) is what stalled the hourly review.
+    if blk.get("kind") == "large-collection" and int(blk.get("skills_total") or 0) > scout.DEFAULTS["large_repo_threshold"]:
+        _review_large_collection(client, owner, repo, branch, blk, catalog_idx, rv, full, rk)
+        return
     try:
-        tree = scout.fetch_git_tree(client, owner, repo, branch)
+        tree = _tree_for_skill(client, owner, repo, branch, str(blk.get("skill_path") or "SKILL.md"))
     except (scout.NotFound, scout.Unprocessable):
         tree = {}
+    except scout.DeadlineExceeded:
+        rv.outcome = "transient"
+        rv.findings.append("repository tree truncated (time_budget)")
+        return
     except scout.GitHubError as e:
         rv.outcome = "transient"
         rv.findings.append(f"GitHub tree error: {type(e).__name__}")
@@ -360,6 +434,7 @@ class Reviewer:
         self.ch = clawhub_client
         self.feed_by_id = feed_by_id
         self.limit = limit
+        self.repo_budget_s = REPO_BUDGET_S
         self.log = log
         self.now = now or F.utc_now()
         self.results: list[dict[str, Any]] = []
@@ -395,7 +470,38 @@ class Reviewer:
                 due = False
             if due:
                 out.append((i, blk))
+        slow = self._slow_repos()
+
+        def rank(pair: tuple[dict, dict]) -> tuple:
+            issue, blk = pair
+            ident = str(blk.get("psk-id") or "")
+            repo = ident[len("github:"):].split("::", 1)[0] if ident.startswith("github:") else ""
+            return (repo in slow, int(issue["number"]))
+
+        out.sort(key=rank)
         return out[: self.limit]
+
+    def _slow_repos(self) -> set[str]:
+        raw = self.state.get("_slow_repos") or {}
+        if not isinstance(raw, dict):
+            return set()
+        active = set()
+        for repo, info in raw.items():
+            until = F.parse_iso((info or {}).get("defer_until")) if isinstance(info, dict) else None
+            if until is None or self.now < until:
+                active.add(str(repo))
+        return active
+
+    def _note_slow(self, ident: str) -> None:
+        if not str(ident).startswith("github:"):
+            return
+        repo = str(ident)[len("github:"):].split("::", 1)[0]
+        slow = self.state.get("_slow_repos")
+        if not isinstance(slow, dict):
+            slow = {}
+            self.state["_slow_repos"] = slow
+        until = (self.now + SLOW_REPO_COOLDOWN).astimezone(F.timezone.utc)
+        slow[repo] = {"defer_until": until.strftime("%Y-%m-%dT%H:%M:%SZ"), "reason": "time_budget"}
 
     def _index_entries(self) -> list[dict[str, Any]]:
         idx = F.load_json(self.state_path.parent / "issue-index.json", {}) or {}
@@ -411,10 +517,17 @@ class Reviewer:
             else:
                 check_clawhub(self.ch, self.feed_by_id, blk, self.catalog, rv)
         else:
-            check_github(self.client, blk, self.catalog_idx, rv, n)
+            try:
+                with self.client.limit(self.repo_budget_s):
+                    check_github(self.client, blk, self.catalog_idx, rv, n)
+            except scout.DeadlineExceeded:
+                rv.outcome = "transient"
+                rv.findings.append("repository tree truncated (time_budget)")
         st = self.state.setdefault(str(n), {})
         res = {"issue": n, "identity": rv.identity, "sha": rv.sha}
         if rv.outcome == "transient":
+            if any("time_budget" in f or "truncated" in f for f in rv.findings):
+                self._note_slow(rv.identity)
             self.counts["transient"] += 1
             return {**res, "action": "skip_transient", "findings": rv.findings}
         if rv.outcome == "not_found":
@@ -485,6 +598,9 @@ class Reviewer:
         self.log(f"  candidate issues={len(issues)} due={len(todo)} (limit {self.limit})")
         stopped = None
         for issue, blk in todo:
+            if self.client.budget_expired():
+                stopped = stopped or "run_budget"
+                break
             try:
                 self.api.check_reserve()
             except F.ReserveLow as e:
@@ -522,6 +638,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--issues", default=None, help="comma-separated issue numbers (forces re-check)")
     ap.add_argument("--catalog", type=Path, default=None, help="catalog snapshot (default: live)")
     ap.add_argument("--core-reserve", type=int, default=1500)
+    ap.add_argument("--run-budget-s", type=float, default=RUN_BUDGET_S,
+                    help="wall-clock budget for this review (outer runner kills at 420s)")
     ap.add_argument("--state-dir", type=Path, default=F.STATE_DIR)
     ap.add_argument("--ignore-routine-windows", action="store_true")
     ap.add_argument("--out", type=Path, default=None)
@@ -545,6 +663,7 @@ def _run(args: argparse.Namespace) -> int:
         throttle=scout.AdaptiveThrottle(4),
         timeout=scout.GITHUB_HTTP_TIMEOUT,
     )
+    client.set_run_deadline(time.monotonic() + float(args.run_budget_s), time.monotonic)
     api = F.IssueRepo(client, core_reserve=args.core_reserve)
     try:
         catalog = load_catalog(args.catalog)

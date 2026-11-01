@@ -18,16 +18,24 @@ labels/messages.
    Non-truncated directories are fetched before any one-directory-at-a-time walk.
    That walk, the total git-tree calls, and the wall-clock budget are capped **per
    repository** (`MAX_WALK_DIRS` 200, `MAX_REPO_TREE_CALLS` 400, `TREE_FETCH_BUDGET_S`
-   120s) — the directory cap does not reset for each top-level folder. Hitting a
+   120s) — the directory cap does not reset for each top-level folder. The 120s
+   budget is a real deadline on every attempt of those calls (retries, backoff,
+   and rate-limit sleeps included) and on the raw probes after a cut. Once more
+   than `--large-repo-threshold` skill folders are already listed, the walk stops
+   (`skill_cap`) instead of reading the rest of an archive. Hitting a
    cap logs `tree truncated owner/repo@ref: <reason>` and stores a truncated verdict
    (cached by `pushed_at`, same as any other tree verdict).
+   A repo whose reason is `time_budget` is also written to `slow-repos.json` and
+   not fetched again for 6 hours, even if `pushed_at` changes. The run stops at
+   `--run-budget-s` (default 720s, inside the 900s outer kill), saves the cursor
+   and caches, and leaves the remaining repos `deferred` for the next hour.
    The assembled listing matches a single `?recursive=1` tree. Fetches run over a **rotating window**
    (`--max-tree-fetches`, default 600). Order: repos that were transient last run →
    repos from issues opened since the last run → rotation by issue number after the cursor.
    Cursor + caches live in `operator/state/scout/` (gitignored):
    `cursor.json`, `repo-cache.json` (keyed to `pushed_at`), `skill-cache.json`
    (SKILL.md frontmatter by blob sha), `scan-cache.json` (by skill folder tree sha +
-   static_scan.py hash).
+   static_scan.py hash), `slow-repos.json` (time-budget cooldown).
 5. Every `SKILL.md` at any depth (`skills/*`, `.claude/skills/*`, `.agents/skills/*`,
    `plugins/*/skills/*`, …; `node_modules`/`vendor`/`dist`/fixtures excluded), root first,
    capped per issue (`--max-skills-per-repo`, default 25). Truncated trees also probe the
@@ -56,7 +64,7 @@ labels/messages.
 |---|---|---|---|
 | `not_found` | 404/410, GraphQL NOT_FOUND | yes (`repo_fail` compat key) | no |
 | `transient` | 403 rate limit, 429, 5xx, timeout, network, truncated body (`IncompleteRead`, bad status line, invalid JSON), plain 403 | **no** | **no** (retried first next run) |
-| `deferred` | outside this run's window / budget guard hit | no | no |
+| `deferred` | outside this run's window / run-budget or slow-repo cooldown | no | no |
 
 Retries use exponential backoff with jitter, honour `Retry-After` and
 `X-RateLimit-Reset`; if the reset is > `max_wait` (120 s) the run stops tree work

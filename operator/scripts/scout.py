@@ -21,6 +21,13 @@ tested module. Fixes vs. the old scout:
    ``.claude/skills/*``, ``.agents/skills/*`` ...), fetched per top-level
    directory rather than one recursive listing. The walk cap, the tree-call
    cap, and the time budget apply to the whole repository, not each directory.
+   The time budget also bounds retries, rate-limit sleeps, and the raw probes
+   after a cut. A repository that already has more than the large-collection
+   threshold of skill folders stops early (``skill_cap``). The run itself
+   stops at ``--run-budget-s`` (default 720s, under the 900s outer kill),
+   checkpoints the cursor and repo cache, and defers the rest. A repo that
+   actually hits ``time_budget`` is skipped for 6 hours so the next hour
+   moves on.
 5. Identity is per skill folder: ``github:owner/repo`` for a root SKILL.md,
    ``github:owner/repo::subpath`` otherwise. Catalog dedupe works at subpath
    level; a whole-repo catalog entry blocks the root skill (and the only skill of
@@ -113,6 +120,12 @@ LEGACY_PAGE_SIZE = 100
 MAX_WALK_DIRS = 200
 MAX_REPO_TREE_CALLS = 400
 TREE_FETCH_BUDGET_S = 120.0
+# Wall-clock budget for one scout.py invocation. The outer runner kills the
+# process at 900s without saving state; stop and checkpoint before that.
+RUN_BUDGET_S = 720.0
+# A repo that hits the time budget is not fetched again until this cooldown
+# ends, even if pushed_at changes. The partial verdict stays cached.
+SLOW_REPO_COOLDOWN = timedelta(hours=6)
 # Connect and full-body deadline for one GitHub HTTP call. A stalled or trickle
 # read fails inside this bound. Timeouts retry fewer times than a cut-off body.
 GITHUB_HTTP_TIMEOUT = 30.0
@@ -193,6 +206,10 @@ class RateLimitExhausted(Transient):
 
 class Unprocessable(GitHubError):
     """409 (empty repo) / 422 (bad ref) on tree fetch: treat as no SKILL.md."""
+
+
+class DeadlineExceeded(GitHubError):
+    """The caller's wall-clock budget ran out. Not a rejection and not a retry."""
 
 
 @dataclass
@@ -352,6 +369,14 @@ class AdaptiveThrottle:
 
 # --------------------------------------------------------------------------- client
 
+class _CallBudget:
+    """One wall-clock deadline. ``remaining`` is seconds left on ``clock``."""
+
+    def __init__(self, deadline: float, clock: Callable[[], float]):
+        self.deadline = deadline
+        self.clock = clock
+
+
 class GitHubClient:
     def __init__(
         self,
@@ -379,6 +404,63 @@ class GitHubClient:
         self.core_reset: float | None = None
         self.calls: Counter = Counter()
         self._lock = threading.Lock()
+        # Shared run deadline (visible to worker threads) plus a per-thread stack
+        # of tighter budgets. ``_deadline_remaining`` is the minimum of both.
+        self._run_deadline: float | None = None
+        self._run_clock: Callable[[], float] = time.monotonic
+        self._tls = threading.local()
+        self.page_truncated = False
+
+    def set_run_deadline(self, deadline: float, clock: Callable[[], float] | None = None) -> None:
+        """Absolute deadline on ``clock`` for every later call, including workers."""
+        self._run_deadline = float(deadline)
+        self._run_clock = clock or time.monotonic
+
+    @contextmanager
+    def limit(self, seconds: float, clock: Callable[[], float] | None = None):
+        """Tighter per-thread budget. Nested limits keep the soonest deadline."""
+        clock = clock or time.monotonic
+        budget = _CallBudget(clock() + max(0.0, float(seconds)), clock)
+        stack = getattr(self._tls, "stack", None)
+        if stack is None:
+            stack = []
+            self._tls.stack = stack
+        stack.append(budget)
+        try:
+            yield budget
+        finally:
+            stack.pop()
+
+    def _deadline_remaining(self) -> float | None:
+        remaining: list[float] = []
+        for budget in getattr(self._tls, "stack", None) or []:
+            remaining.append(budget.deadline - budget.clock())
+        if self._run_deadline is not None:
+            remaining.append(self._run_deadline - self._run_clock())
+        if not remaining:
+            return None
+        return min(remaining)
+
+    def budget_expired(self) -> bool:
+        remaining = self._deadline_remaining()
+        return remaining is not None and remaining <= 0
+
+    def _call_timeout(self) -> float:
+        remaining = self._deadline_remaining()
+        if remaining is None:
+            return self.timeout
+        if remaining <= 0:
+            raise DeadlineExceeded("time_budget")
+        return min(self.timeout, remaining)
+
+    def _sleep_bounded(self, seconds: float) -> None:
+        """Sleep only when the whole wait fits in the active budget."""
+        seconds = max(0.0, float(seconds))
+        remaining = self._deadline_remaining()
+        if remaining is not None and (remaining <= 0 or seconds > remaining):
+            raise DeadlineExceeded("time_budget")
+        if seconds:
+            self.sleep(seconds)
 
     def __repr__(self) -> str:  # never leak the token
         return f"GitHubClient(token={'set' if self._token else 'none'})"
@@ -427,11 +509,15 @@ class GitHubClient:
             headers["Content-Type"] = "application/json"
         attempt = 0
         while True:
+            if self.budget_expired():
+                raise DeadlineExceeded("time_budget")
             attempt += 1
             self.calls["api" if url.startswith(API) else "raw"] += 1
             try:
                 with self.throttle.slot():
-                    resp = self.transport(method, url, headers, body, self.timeout)
+                    resp = self.transport(method, url, headers, body, self._call_timeout())
+            except DeadlineExceeded:
+                raise
             except (urllib.error.URLError, TimeoutError, OSError, ConnectionError,
                     http.client.IncompleteRead, http.client.BadStatusLine) as e:
                 # IncompleteRead / BadStatusLine are not OSErrors: GitHub closing the
@@ -440,11 +526,12 @@ class GitHubClient:
                 # A stuck socket uses the smaller READ_TIMEOUT_RETRIES bound so one
                 # read cannot spend the whole run; a cut-off body keeps max_retries.
                 # max_retries == 0 (issue creation) still does not retry.
+                # A retry that would run past the caller's wall-clock budget is not started.
                 limit = min(self.max_retries, READ_TIMEOUT_RETRIES) if _is_timeout(e) else self.max_retries
                 if attempt > limit:
                     kind = "truncated" if isinstance(e, http.client.HTTPException) else "network"
                     raise Transient(f"{kind}:{type(e).__name__}") from None
-                self.sleep(self._backoff(attempt))
+                self._sleep_bounded(self._backoff(attempt))
                 continue
             self._note_rate(url, resp)
             if 200 <= resp.status < 300:
@@ -462,7 +549,7 @@ class GitHubClient:
                     raise RateLimitExhausted(f"{last} wait={int(wait)}s", self.clock() + wait, resp.status)
                 if attempt > self.max_retries:
                     raise Transient(last, resp.status)
-                self.sleep(wait + random.uniform(0, 1))
+                self._sleep_bounded(wait + random.uniform(0, 1))
                 continue
             if resp.status == 403:
                 # 403 without rate-limit hints (abuse detection, SSO, blocked): transient, never a rejection.
@@ -470,7 +557,7 @@ class GitHubClient:
             if resp.status >= 500:
                 if attempt > self.max_retries:
                     raise Transient(f"HTTP {resp.status}", resp.status)
-                self.sleep(self._backoff(attempt))
+                self._sleep_bounded(self._backoff(attempt))
                 continue
             raise Transient(f"HTTP {resp.status}", resp.status)
 
@@ -493,10 +580,12 @@ class GitHubClient:
             attempt += 1
             try:
                 return self.request(url, method=method, body=body).json()
+            except DeadlineExceeded:
+                raise
             except json.JSONDecodeError:
                 if attempt > self.max_retries:
                     raise Transient("truncated:JSONDecodeError") from None
-                self.sleep(self._backoff(attempt))
+                self._sleep_bounded(self._backoff(attempt))
 
     def paginate(self, path: str, *, per_page: int = REST_PAGE_SIZE, max_items: int | None = None,
                  max_pages: int = 500) -> list:
@@ -509,10 +598,18 @@ class GitHubClient:
         per_page = max(1, min(100, int(per_page)))
         out: list = []
         sep = "&" if "?" in path else "?"
+        self.page_truncated = False
         for page in range(1, max_pages + 1):
             if max_items is not None and len(out) >= max_items:
                 break
-            data = self.rest(f"{path}{sep}per_page={per_page}&page={page}") or []
+            if self.budget_expired():
+                self.page_truncated = True
+                break
+            try:
+                data = self.rest(f"{path}{sep}per_page={per_page}&page={page}") or []
+            except DeadlineExceeded:
+                self.page_truncated = True
+                break
             if not isinstance(data, list):
                 break
             out.extend(data)
@@ -533,7 +630,7 @@ class GitHubClient:
                 self.throttle.on_rate_limit()
                 if attempt > self.max_retries:
                     raise Transient("graphql RATE_LIMITED")
-                self.sleep(min(self.max_wait, 60.0))
+                self._sleep_bounded(min(self.max_wait, 60.0))
                 continue
             return payload
 
@@ -753,7 +850,8 @@ class ScoutState:
     """Persistent cursor + caches under operator/state/scout (gitignored)."""
 
     FILES = {"cursor": "cursor.json", "repos": "repo-cache.json",
-             "skills": "skill-cache.json", "scans": "scan-cache.json"}
+             "skills": "skill-cache.json", "scans": "scan-cache.json",
+             "slow": "slow-repos.json"}
 
     def __init__(self, root: Path):
         self.root = root
@@ -761,6 +859,29 @@ class ScoutState:
         self.repos: dict[str, Any] = _load_json(root / "repo-cache.json", {})
         self.skills: dict[str, Any] = _load_json(root / "skill-cache.json", {})
         self.scans: dict[str, Any] = _load_json(root / "scan-cache.json", {})
+        self.slow: dict[str, Any] = _load_json(root / "slow-repos.json", {})
+
+    def note_slow(self, key: str, reason: str, pushed_at: str | None) -> None:
+        """Remember a repo that spent its wall-clock budget. Cooldown starts now."""
+        entry = self.slow.setdefault(key, {})
+        entry["strikes"] = int(entry.get("strikes") or 0) + 1
+        entry["reason"] = reason
+        entry["pushed_at"] = pushed_at
+        entry["defer_until"] = (datetime.now(timezone.utc) + SLOW_REPO_COOLDOWN).strftime("%Y-%m-%dT%H:%M:%SZ")
+        entry["updated_at"] = iso_now_utc()
+
+    def slow_active(self, key: str, now: datetime | None = None) -> bool:
+        entry = self.slow.get(key)
+        if not isinstance(entry, dict) or not entry.get("defer_until"):
+            return False
+        try:
+            until = datetime.fromisoformat(str(entry["defer_until"]).replace("Z", "+00:00"))
+        except ValueError:
+            return False
+        current = now or datetime.now(timezone.utc)
+        if current.tzinfo is None:
+            current = current.replace(tzinfo=timezone.utc)
+        return current < until
 
     def save(self) -> None:
         for attr, name in self.FILES.items():
@@ -814,6 +935,10 @@ def fetch_repo_meta(client: GitHubClient, repo_keys: list[str], batch: int = 50,
         query = "query { " + " ".join(parts) + " rateLimit { remaining resetAt cost } }"
         try:
             payload = client.graphql(query)
+        except DeadlineExceeded:
+            for k in valid[i:]:
+                out.setdefault(k, "deferred")
+            break
         except GitHubError:
             for k in chunk:
                 out[k] = "transient"
@@ -899,13 +1024,21 @@ class _TreeBudget:
 
 def _tree_request(client: GitHubClient, owner: str, repo: str, sha: str, *,
                   recursive: bool, budget: _TreeBudget) -> dict[str, Any] | None:
-    """One git tree GET. ``None`` means the repo budget is already spent."""
+    """One git tree GET. ``None`` means the repo budget is already spent.
+
+    ``DeadlineExceeded`` covers retries and rate-limit sleeps inside that one
+    GET. It is the same cut as ``time_budget``, not a failed repository.
+    """
     if budget.block(walk=False):
         return None
     budget.note(walk=False)
     query = "?recursive=1" if recursive else ""
     path = f"repos/{owner}/{repo}/git/trees/{quote(str(sha), safe='')}{query}"
-    return client.rest(path) or {}
+    try:
+        return client.rest(path) or {}
+    except DeadlineExceeded:
+        budget.reason = budget.reason or "time_budget"
+        return None
 
 
 def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix: str,
@@ -927,7 +1060,12 @@ def _walk_subtree(client: GitHubClient, owner: str, repo: str, sha: str, prefix:
             break
         seen.add(cur)
         budget.note(walk=True)
-        data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(cur, safe='')}") or {}
+        try:
+            data = client.rest(f"repos/{owner}/{repo}/git/trees/{quote(cur, safe='')}") or {}
+        except DeadlineExceeded:
+            budget.reason = budget.reason or "time_budget"
+            truncated = True
+            break
         if data.get("truncated"):
             truncated = True
         for ent in data.get("tree") or []:
@@ -971,10 +1109,22 @@ def _finish_tree(owner: str, repo: str, ref: str, budget: _TreeBudget, result: d
     return result
 
 
+def _note_skill_folders(entries: Iterable[dict[str, Any]], found: set[str]) -> None:
+    """Record skill-folder keys already present in ``entries``."""
+    for ent in entries:
+        if not isinstance(ent, dict) or ent.get("type") != "blob":
+            continue
+        path = str(ent.get("path") or "")
+        if PurePosixPath(path).name.lower() != "skill.md" or _excluded(path):
+            continue
+        found.add(_parent_sub(path).lower())
+
+
 def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
                    max_walk_dirs: int | None = None, max_tree_calls: int | None = None,
                    budget_s: float | None = None,
-                   clock: Callable[[], float] | None = None) -> dict[str, Any]:
+                   clock: Callable[[], float] | None = None,
+                   stop_after_skills: int | None = None) -> dict[str, Any]:
     """Flat git tree in the same shape as ``GET .../git/trees/{ref}?recursive=1``.
 
     The root is one non-recursive listing. Each top-level directory is its own
@@ -985,22 +1135,50 @@ def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
 
     Non-truncated directories are fetched before any walk, so a huge archive
     folder does not crowd out ``skills/``. The walk cap, the call cap, and the
-    time budget apply to the whole repository. Hitting one logs the repo and
-    returns ``truncated`` with ``truncation_reason`` set; the listing up to
-    that point is kept.
+    time budget apply to the whole repository, and the time budget also bounds
+    retries and sleeps inside each HTTP call. ``stop_after_skills`` ends the
+    walk once that many distinct skill folders are already listed (a large
+    collection does not need the rest of the archive). Hitting a cap logs the
+    repo and returns ``truncated`` with ``truncation_reason`` set; the listing
+    up to that point is kept.
     """
     clock = time.monotonic if clock is None else clock
+    seconds = TREE_FETCH_BUDGET_S if budget_s is None else budget_s
+    with client.limit(seconds, clock):
+        return _fetch_git_tree(
+            client, owner, repo, ref,
+            max_walk_dirs=max_walk_dirs, max_tree_calls=max_tree_calls,
+            budget_s=seconds, clock=clock, stop_after_skills=stop_after_skills,
+        )
+
+
+def _fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
+                    max_walk_dirs: int | None, max_tree_calls: int | None,
+                    budget_s: float, clock: Callable[[], float],
+                    stop_after_skills: int | None) -> dict[str, Any]:
     budget = _TreeBudget(
         MAX_WALK_DIRS if max_walk_dirs is None else max_walk_dirs,
         MAX_REPO_TREE_CALLS if max_tree_calls is None else max_tree_calls,
-        clock() + (TREE_FETCH_BUDGET_S if budget_s is None else budget_s),
+        clock() + budget_s,
         clock,
     )
+    skill_folders: set[str] = set()
+
+    def capped() -> bool:
+        if stop_after_skills is None or budget.reason:
+            return bool(budget.reason)
+        if len(skill_folders) > stop_after_skills:
+            budget.reason = "skill_cap"
+            return True
+        return False
+
     root = _tree_request(client, owner, repo, ref, recursive=False, budget=budget)
     if root is None:
         return _finish_tree(owner, repo, ref, budget, {"sha": None, "tree": [], "truncated": True})
     truncated = bool(root.get("truncated"))
     root_items = [dict(ent) for ent in (root.get("tree") or []) if isinstance(ent, dict)]
+    _note_skill_folders(root_items, skill_folders)
+    capped()
     fetched: dict[str, list[dict[str, Any]]] = {}
     pending: list[tuple[str, str]] = []
     for ent in root_items:
@@ -1010,7 +1188,7 @@ def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
         sha = ent.get("sha")
         if not path or not sha or _skip_dir(path):
             continue
-        if budget.reason:
+        if budget.reason or capped():
             truncated = True
             continue
         data = _tree_request(client, owner, repo, str(sha), recursive=True, budget=budget)
@@ -1018,17 +1196,22 @@ def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
             truncated = True
             continue
         if not data.get("truncated"):
-            fetched[path] = _with_prefix(data.get("tree") or [], path)
+            prefixed = _with_prefix(data.get("tree") or [], path)
+            fetched[path] = prefixed
+            _note_skill_folders(prefixed, skill_folders)
+            if capped():
+                truncated = True
         else:
             # Discard the partial recursive body; the walk lists the directory for real.
             pending.append((str(sha), path))
     for sha, path in pending:
-        if budget.reason:
+        if budget.reason or capped():
             truncated = True
             break
         sub, sub_trunc = _walk_subtree(client, owner, repo, sha, path, budget)
         fetched[path] = sub
-        truncated = truncated or sub_trunc
+        _note_skill_folders(sub, skill_folders)
+        truncated = truncated or sub_trunc or capped()
     tree: list[dict[str, Any]] = []
     for ent in root_items:
         tree.append(ent)
@@ -1040,8 +1223,16 @@ def fetch_git_tree(client: GitHubClient, owner: str, repo: str, ref: str, *,
     })
 
 
-def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]) -> dict[str, Any]:
-    """Tree-derived verdict for one repo (cacheable). Raises Transient / NotFound."""
+def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any], *,
+                            stop_after_skills: int | None = None,
+                            budget_s: float | None = None,
+                            clock: Callable[[], float] | None = None) -> dict[str, Any]:
+    """Tree-derived verdict for one repo (cacheable). Raises Transient / NotFound.
+
+    The tree walk, its retries, and the raw probes after a truncated listing
+    share one wall-clock budget. ``stop_after_skills`` is passed through so a
+    large collection stops once it is known to be large.
+    """
     full = meta.get("full_name") or key
     owner, _, repo = full.partition("/")
     branch = meta.get("default_branch")
@@ -1051,39 +1242,59 @@ def fetch_repo_tree_verdict(client: GitHubClient, key: str, meta: dict[str, Any]
              "tree_truncated": False}
     if meta.get("empty") or not branch:
         return {**base, **empty, "note": "empty_repo"}
+    clock = clock or time.monotonic
+    seconds = TREE_FETCH_BUDGET_S if budget_s is None else budget_s
+
     def get_tree(ref: str) -> dict | None:
         try:
-            return fetch_git_tree(client, owner, repo, ref)
+            return fetch_git_tree(
+                client, owner, repo, ref,
+                budget_s=seconds, clock=clock, stop_after_skills=stop_after_skills,
+            )
         except (Unprocessable, NotFound):
             return None
+        except DeadlineExceeded:
+            return {"sha": None, "tree": [], "truncated": True, "truncation_reason": "time_budget"}
 
-    tree = get_tree(branch)
-    if tree is None:
-        return {**base, **empty, "note": "tree_unprocessable"}
-    entries = tree.get("tree") or []
-    skills = discover_skills(entries)
-    # Our own cap already stopped this repo. Another ref would spend the budget again.
-    if not skills and not tree.get("truncation_reason"):
-        # compat with the old scout's raw ref fallback (default_branch, main, master)
-        for ref in [r for r in ("main", "master") if r != branch]:
-            alt = get_tree(ref)
-            if alt and discover_skills(alt.get("tree") or []):
-                tree, entries = alt, alt.get("tree") or []
-                skills = discover_skills(entries)
-                base = {**base, "default_branch": ref, "skill_ref_non_default": True}
-                break
-    truncated = bool(tree.get("truncated"))
-    if truncated:
-        # partial tree (>100k entries / 7MB): also probe conventional paths via raw (no API quota)
-        known = {s["skill_path"].lower() for s in skills}
-        for probe in ("SKILL.md", "skill/SKILL.md", "skills/SKILL.md", ".agents/skills/SKILL.md"):
-            if probe.lower() not in known and client.raw(owner, repo, branch, probe):
-                sub = _parent_sub(probe)
-                skills.append({"skill_path": probe, "subpath": sub or None, "blob_sha": None, "folder_sha": None})
-        skills.sort(key=_skill_sort)
+    with client.limit(seconds, clock):
+        tree = get_tree(branch)
+        if tree is None:
+            return {**base, **empty, "note": "tree_unprocessable"}
+        entries = tree.get("tree") or []
+        skills = discover_skills(entries)
+        # Our own cap already stopped this repo. Another ref would spend the budget again.
+        if not skills and not tree.get("truncation_reason"):
+            # compat with the old scout's raw ref fallback (default_branch, main, master)
+            for ref in [r for r in ("main", "master") if r != branch]:
+                alt = get_tree(ref)
+                if alt and discover_skills(alt.get("tree") or []):
+                    tree, entries = alt, alt.get("tree") or []
+                    skills = discover_skills(entries)
+                    base = {**base, "default_branch": ref, "skill_ref_non_default": True}
+                    break
+        truncated = bool(tree.get("truncated"))
+        # skill_cap already found enough SKILL.md files; probing would only
+        # spend the budget on a repository we will not expand.
+        if truncated and tree.get("truncation_reason") != "skill_cap" and not client.budget_expired():
+            # partial tree (>100k entries / 7MB): also probe conventional paths via raw (no API quota)
+            known = {s["skill_path"].lower() for s in skills}
+            try:
+                for probe in ("SKILL.md", "skill/SKILL.md", "skills/SKILL.md", ".agents/skills/SKILL.md"):
+                    if probe.lower() not in known and client.raw(owner, repo, branch, probe):
+                        sub = _parent_sub(probe)
+                        skills.append({"skill_path": probe, "subpath": sub or None, "blob_sha": None, "folder_sha": None})
+            except DeadlineExceeded:
+                tree["truncation_reason"] = tree.get("truncation_reason") or "time_budget"
+            skills.sort(key=_skill_sort)
     kept = skills[:200]
-    for s in kept:
-        s["files"] = folder_files(entries, s["subpath"])
+    # A large collection is not scanned per skill. Walking every kept folder
+    # across a truncated archive is what blew the outer timeout after the cut.
+    if stop_after_skills is not None and len(skills) > stop_after_skills:
+        for s in kept:
+            s["files"] = []
+    else:
+        for s in kept:
+            s["files"] = folder_files(entries, s["subpath"])
     verdict = {**base, "status": "ok" if skills else "missing_skill", "skills": kept,
                "skills_total": len(skills), "license_files": license_files(entries)[:200],
                "tree_truncated": truncated}
@@ -1164,6 +1375,8 @@ class ScoutConfig:
     large_repo_threshold: int = DEFAULTS["large_repo_threshold"]  # 0 disables
     collection_blocks_all: bool = True
     scan: bool = True
+    run_budget_s: float = RUN_BUDGET_S
+    repo_budget_s: float = TREE_FETCH_BUDGET_S
 
 
 @dataclass
@@ -1185,15 +1398,18 @@ class ScoutResult:
 class Scout:
     def __init__(self, client: GitHubClient, state: ScoutState, catalog: dict[str, Any] | set[str],
                  config: ScoutConfig | None = None, known_holds: set[int] | None = None,
-                 log: Callable[[str], None] = lambda m: print(m, flush=True)):
+                 log: Callable[[str], None] = lambda m: print(m, flush=True),
+                 clock: Callable[[], float] | None = None):
         self.client = client
         self.state = state
         self.catalog_idx = build_catalog_index(catalog)
         self.cfg = config or ScoutConfig()
         self.known_holds = set(known_holds or set()) | set(STATIC_HOLDS)
         self.log = log
+        self.clock = clock or time.monotonic
         self.scan_rules = _scan_rules_hash()
         self._stop = threading.Event()
+        self._last_checkpoint = self.clock()
 
     def select_window(self, need: dict[str, int]) -> tuple[list[str], set[str], dict[str, Any]]:
         """need: repo_key -> lowest claiming issue number. Returns (ordered window, rotation keys, info).
@@ -1232,23 +1448,110 @@ class Scout:
             self.state.skills[key] = info
         return info
 
+    def _checkpoint(self, force: bool = False) -> None:
+        now = self.clock()
+        if force or now - self._last_checkpoint >= 15:
+            self.state.save()
+            self._last_checkpoint = now
+
     def _tree_work(self, key: str, meta: dict, res: ScoutResult) -> dict | str:
-        if self._stop.is_set():
+        if self._stop.is_set() or self.client.budget_expired():
             return "deferred"
         cr = self.client.core_remaining
         if cr is not None and cr < self.cfg.min_core_remaining:
             self._stop.set()
             return "deferred"
+        stop = self.cfg.large_repo_threshold or None
         try:
-            return fetch_repo_tree_verdict(self.client, key, meta)
+            return fetch_repo_tree_verdict(
+                self.client, key, meta,
+                stop_after_skills=stop,
+                budget_s=self.cfg.repo_budget_s,
+                clock=self.clock,
+            )
         except RateLimitExhausted:
             self._stop.set()
             res.rate_limit_exhausted = True
             return "transient"
+        except DeadlineExceeded:
+            return "budget"
         except NotFound:
             return "not_found"
         except Transient:
             return "transient"
+
+    def _fetch_window(self, window: list[str], rotation: set[str], need: dict[str, int],
+                      metas: dict, verdicts: dict, res: ScoutResult) -> int | None:
+        """Fetch ``window`` until the run budget runs out. Checkpoint as results land.
+
+        Repos that are not started are left unset so the caller marks them deferred.
+        A contiguous prefix of the window advances the rotation cursor; a repo that
+        finishes out of order is still cached, so the next run does not repeat it.
+        """
+        workers = max(1, self.cfg.workers)
+        done: set[str] = set()
+        completed = 0
+
+        def pushed(meta: Any) -> str | None:
+            return meta.get("pushed_at") if isinstance(meta, dict) else None
+
+        def take(key: str, value: dict | str) -> None:
+            nonlocal completed
+            if value == "budget":
+                self.state.note_slow(key, "time_budget", pushed(metas.get(key)))
+                value = "deferred"
+                self._checkpoint(True)
+            verdicts[key] = value
+            done.add(key)
+            if isinstance(value, dict):
+                self.state.repos[key] = value
+                if value.get("tree_truncation_reason") == "time_budget":
+                    self.state.note_slow(key, "time_budget", pushed(metas.get(key)))
+                    self._checkpoint(True)
+            completed += 1
+            if completed % 100 == 0:
+                self.log(f"  tree progress {completed}/{len(window)} "
+                         f"core_remaining={self.client.core_remaining}")
+            if completed % 20 == 0:
+                self._checkpoint()
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+            inflight: dict[concurrent.futures.Future, str] = {}
+            pending = list(window)
+
+            def submit_more() -> None:
+                while pending and len(inflight) < workers and not self.client.budget_expired() and not self._stop.is_set():
+                    key = pending.pop(0)
+                    inflight[ex.submit(self._tree_work, key, metas[key], res)] = key
+
+            submit_more()
+            while inflight:
+                finished, _ = concurrent.futures.wait(
+                    set(inflight), timeout=5.0, return_when=concurrent.futures.FIRST_COMPLETED)
+                for fut in finished:
+                    key = inflight.pop(fut)
+                    try:
+                        take(key, fut.result())
+                    except Exception:
+                        take(key, "transient")
+                submit_more()
+        last_rot_pos: int | None = None
+        gap = False
+        for key in window:
+            if gap:
+                verdicts.setdefault(key, "deferred")
+                continue
+            value = verdicts.get(key)
+            if key in done and value != "deferred":
+                if key in rotation:
+                    last_rot_pos = need[key]
+            else:
+                gap = True
+                verdicts.setdefault(key, "deferred")
+        if len(done) < len(window):
+            self.log(f"  run budget: fetched {len(done)}/{len(window)} "
+                     f"deferred {len(window) - len(done)}")
+        return last_rot_pos
 
     # -- main ------------------------------------------------------------------
     def run(self, issues: list[dict[str, Any]]) -> ScoutResult:
@@ -1293,12 +1596,21 @@ class Scout:
         self.log(f"  issues={len(issues)} targets={len(uniq)} repos={len(repo_keys)}; metadata via GraphQL")
         metas = fetch_repo_meta(self.client, repo_keys, self.cfg.graphql_batch, self.log)
 
+        self.client.set_run_deadline(self.clock() + self.cfg.run_budget_s, self.clock)
         need: dict[str, int] = {}
         verdicts: dict[str, dict | str] = {}
         for k in repo_keys:
             m = metas.get(k, "transient")
             if isinstance(m, str):
                 verdicts[k] = m
+                continue
+            if self.state.slow_active(k):
+                cached_any = self.state.repos.get(k)
+                if isinstance(cached_any, dict):
+                    verdicts[k] = cached_any
+                else:
+                    verdicts[k] = "deferred"
+                res.skill_stats["slow_repo_skip"] += 1
                 continue
             cached = self.state.repo_fresh(k, m.get("pushed_at"), self.cfg.cache_max_age_days)
             if cached:
@@ -1309,19 +1621,10 @@ class Scout:
 
         window, rotation, info = self.select_window(need)
         res.window = info
-        self.log(f"  cache_hits={res.skill_stats['repo_cache_hit']} need_fetch={len(need)} window={len(window)}")
+        self.log(f"  cache_hits={res.skill_stats['repo_cache_hit']} need_fetch={len(need)} "
+                 f"window={len(window)} slow_skip={res.skill_stats['slow_repo_skip']}")
 
-        last_rot_pos: int | None = None
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, self.cfg.workers)) as ex:
-            results = ex.map(lambda k: (k, self._tree_work(k, metas[k], res)), window)  # type: ignore[arg-type]
-            for n, (k, v) in enumerate(results, 1):
-                verdicts[k] = v
-                if isinstance(v, dict):
-                    self.state.repos[k] = v
-                if v != "deferred" and k in rotation:
-                    last_rot_pos = need[k]
-                if n % 100 == 0:
-                    self.log(f"  tree progress {n}/{len(window)} core_remaining={self.client.core_remaining}")
+        last_rot_pos = self._fetch_window(window, rotation, need, metas, verdicts, res)
         for k in need:
             verdicts.setdefault(k, "deferred")
 
@@ -1337,6 +1640,7 @@ class Scout:
         cur["updated_at"] = iso_now_utc()
         res.window["cursor_out"] = cur.get("position", 0)
         res.window["deferred_repos"] = sum(1 for v in verdicts.values() if v == "deferred")
+        self._checkpoint(True)
 
         self._prefetch_frontmatter(by_repo, verdicts, metas)
         for k, ts in by_repo.items():
@@ -1384,7 +1688,7 @@ class Scout:
                                  collection_blocks_all=self.cfg.collection_blocks_all):
                     continue
                 jobs.append((owner, repo, branch, s))
-        if not jobs:
+        if not jobs or self.client.budget_expired():
             return
         self.log(f"  prefetch SKILL.md x{len(jobs)} (raw)")
 
@@ -1395,7 +1699,7 @@ class Scout:
                 self._frontmatter(*job)
             except RateLimitExhausted:
                 self._stop.set()
-            except Transient:
+            except (Transient, DeadlineExceeded):
                 pass
         with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, self.cfg.workers)) as ex:
             list(ex.map(one, jobs))
@@ -1411,6 +1715,11 @@ class Scout:
 
     def _evaluate_repo(self, key: str, meta: dict, verdict: dict, targets: list[IssueTarget],
                        res: ScoutResult) -> None:
+        if self.client.budget_expired():
+            # The tree verdict is already cached. Finish this repo next run
+            # instead of recording a transient that would jump the queue.
+            self._mark(res, targets, "deferred")
+            return
         ss = res.skill_stats
         owner, _, repo = (verdict.get("full_name") or meta.get("full_name") or key).partition("/")
         branch = verdict.get("default_branch") or meta.get("default_branch") or "main"
@@ -1463,7 +1772,7 @@ class Scout:
                     fm = self._frontmatter(owner, repo, branch, s)
                 except RateLimitExhausted:
                     raise
-                except Transient:
+                except (Transient, DeadlineExceeded):
                     ss["skills_transient"] += 1
                     outcomes["transient"] += 1
                     continue
@@ -1764,6 +2073,10 @@ def scan_all(scout: Scout, cands: list[dict], workers: int) -> list[tuple[dict, 
     def one(c: dict) -> dict:
         try:
             return scout.scan(c)
+        except DeadlineExceeded:
+            return {"issue": c["issue"], "identity": c["identity"], "status": "hold",
+                    "hold": "scan_deferred:budget", "ok": False,
+                    "license_tier": c.get("license_tier")}
         except Exception as e:  # a scan failure is a hold, never a pass
             return {"issue": c["issue"], "identity": c["identity"], "status": "hold",
                     "hold": f"scan_error:{type(e).__name__}", "ok": False,
@@ -1923,6 +2236,44 @@ def load_catalog_live(snapshot: Path | None) -> dict[str, Any]:
         return json.loads(resp.read().decode("utf-8"))
 
 
+def _probe_repo(args: argparse.Namespace) -> int:
+    """One-repo tree verdict. Used to check a short budget against a known huge repo."""
+    key = args.only_repo.strip().strip("/")
+    owner, _, repo = key.partition("/")
+    if not owner or not repo:
+        print("ABORT: --only-repo needs owner/repo", flush=True)
+        return 2
+    started = time.monotonic()
+    client = GitHubClient(get_gh_token(), throttle=AdaptiveThrottle(2))
+    client.set_run_deadline(started + float(args.run_budget_s), time.monotonic)
+    meta = fetch_repo_meta(client, [key.lower()]).get(key.lower())
+    if not isinstance(meta, dict):
+        print(json.dumps({"repo": key, "result": meta, "elapsed_s": round(time.monotonic() - started, 1)}),
+              flush=True)
+        return 0 if meta == "not_found" else 2
+    stop = args.large_repo_threshold or None
+    try:
+        verdict = fetch_repo_tree_verdict(
+            client, key.lower(), meta,
+            stop_after_skills=stop, budget_s=float(args.repo_budget_s),
+        )
+    except GitHubError as e:
+        print(json.dumps({"repo": key, "error": type(e).__name__,
+                          "elapsed_s": round(time.monotonic() - started, 1)}), flush=True)
+        return 2
+    print(json.dumps({
+        "repo": key,
+        "elapsed_s": round(time.monotonic() - started, 1),
+        "status": verdict.get("status"),
+        "skills_total": verdict.get("skills_total"),
+        "tree_truncated": verdict.get("tree_truncated"),
+        "tree_truncation_reason": verdict.get("tree_truncation_reason"),
+        "api_calls": client.calls["api"],
+        "raw_calls": client.calls["raw"],
+    }, indent=2), flush=True)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="ProSkills committed intake scout")
     ap.add_argument("--write", action="store_true",
@@ -1940,11 +2291,19 @@ def main(argv: list[str] | None = None) -> int:
                     help="repos with more SKILL.md files go to large_collection review (0 = off)")
     ap.add_argument("--queue-max-passed", type=int, default=DEFAULTS["queue_max_passed"])
     ap.add_argument("--queue-max-per-repo", type=int, default=DEFAULTS["queue_max_per_repo"])
+    ap.add_argument("--run-budget-s", type=float, default=RUN_BUDGET_S,
+                    help="wall-clock budget for the whole run (outer runner kills at 900s)")
+    ap.add_argument("--repo-budget-s", type=float, default=TREE_FETCH_BUDGET_S,
+                    help="wall-clock budget for one repository, including retries")
+    ap.add_argument("--only-repo", default=None, metavar="OWNER/REPO",
+                    help="fetch one repository and print the tree verdict; no issue scan and no writes")
     ap.add_argument("--remove-identity", action="append", default=None, metavar="IDENTITY",
                     help="queue maintenance only (no scouting): remove this skill identity from the candidate "
                          "queue's passed/eligible/license_review lists. Repeatable.")
     ap.add_argument("--queue", type=Path, default=None, help="queue file for --remove-identity (default: today's)")
     args = ap.parse_args(argv)
+    if args.only_repo:
+        return _probe_repo(args)
     if args.remove_identity:
         print(json.dumps(remove_published_from_queue(args.remove_identity, args.queue, run_id=args.run_id)), flush=True)
         return 0
@@ -1971,7 +2330,8 @@ def _run(args: argparse.Namespace, write: bool, run_id: str) -> int:
     state = ScoutState(args.state_dir)
     cfg = ScoutConfig(max_skills_per_repo=args.max_skills_per_repo, max_tree_fetches=args.max_tree_fetches,
                       min_core_remaining=args.min_core_remaining, workers=args.workers,
-                      large_repo_threshold=args.large_repo_threshold)
+                      large_repo_threshold=args.large_repo_threshold,
+                      run_budget_s=args.run_budget_s, repo_budget_s=args.repo_budget_s)
     today = now_dhaka().date()
     queue_path = ART / f"candidate-queue-{today.isoformat()}.json"
     prev_queue = _load_json(queue_path, {}) or _load_json(
