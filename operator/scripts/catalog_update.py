@@ -4,6 +4,14 @@
 NEVER overwrites existing catalog id/slug/repo for an existing listing.
 Dry-run by default; --apply writes staged catalog + delta.
 No AI usage.
+
+This script re-fetches SKILL.md only while staging a new candidate. It skips
+any identity already in the catalog, so it does not refresh ``skill_md`` after
+the first publish. Upstream edits to a live skill are applied by
+``backfill_skill_files.py`` (resumable, one skill at a time).
+
+New GitHub skills also get a ``files`` array covering the skill folder.
+See ``operator/docs/skill-files.md`` for the exact shape.
 """
 from __future__ import annotations
 
@@ -27,6 +35,7 @@ from publish_lib import (
     load_catalog,
     parse_github_source,
 )
+from skill_files import files_from_docs, policy_hits
 
 DEFAULT_OUT_DIR = PROJECT_ROOT / "state" / "artifacts"
 DEFAULT_STAGED = DEFAULT_OUT_DIR / "skills-catalog.staged.json"
@@ -119,7 +128,9 @@ def source_tree_url(owner: str, repo: str, folder: str | None, branch: str | Non
     return f"{base}/tree/{branch or 'main'}/{folder}"
 
 
-def _fetch_docs(cand: dict[str, Any], *, offline: bool, fixture_md: Path | None, fixture_readme: Path | None) -> tuple[str | None, str | None]:
+def _fetch_docs(
+    cand: dict[str, Any], *, offline: bool, fixture_md: Path | None, fixture_readme: Path | None,
+) -> tuple[str | None, str | None, bool]:
     owner = cand.get("owner")
     repo = cand.get("repo")
     if not owner or not repo:
@@ -136,8 +147,13 @@ def _fetch_docs(cand: dict[str, Any], *, offline: bool, fixture_md: Path | None,
         skill_path = f"{folder}/SKILL.md" if folder else "SKILL.md"
         skill_md = fetch_raw_text(owner, repo, skill_path, refs) if owner and repo else None
 
+    # readme_in_folder is True only when the README bytes live in the skill folder.
+    # A repo-root README is still used for the legacy ``readme`` blurb, and is not
+    # stored in ``files`` (that array never leaves the skill folder).
+    readme_in_folder = False
     if fixture_readme is not None:
         readme = fixture_readme.read_text(encoding="utf-8")
+        readme_in_folder = True
     elif offline:
         readme = None
     else:
@@ -146,10 +162,14 @@ def _fetch_docs(cand: dict[str, Any], *, offline: bool, fixture_md: Path | None,
             # subfolder skill: its own README first, then the repo README
             if folder:
                 readme = fetch_raw_text(owner, repo, f"{folder}/README.md", refs)
-            if readme is None:
+                readme_in_folder = readme is not None
+                if readme is None:
+                    readme = fetch_raw_text(owner, repo, "README.md", refs)
+            else:
                 readme = fetch_raw_text(owner, repo, "README.md", refs)
+                readme_in_folder = readme is not None
 
-    return skill_md, readme
+    return skill_md, readme, readme_in_folder
 
 
 def plan_update(
@@ -159,6 +179,7 @@ def plan_update(
     offline: bool = False,
     fixture_md: Path | None = None,
     fixture_readme: Path | None = None,
+    capture=None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     """Return (staged_catalog, new_skills, skip_log). Preserves all existing skills."""
     existing = list(catalog.get("skills") or [])
@@ -222,13 +243,50 @@ def plan_update(
             skip_log.append({"identity": identity, "reason": "unparseable_repo"})
             continue
 
-        skill_md, readme = _fetch_docs(
+        skill_md, readme, readme_in_folder = _fetch_docs(
             {**cand, **parsed},
             offline=offline,
             fixture_md=fixture_md,
             fixture_readme=fixture_readme,
         )
         folder = _skill_folder({**cand, "subpath": parsed.get("subpath") or cand.get("subpath")})
+        captured = None
+        files_truncated = False
+        if capture is not None:
+            ref = (_refs(cand) or ("main",))[0]
+            captured = capture(parsed["owner"], parsed["repo"], folder, ref)
+            if not captured or not captured.get("ok"):
+                reason = (captured or {}).get("reason") or "error"
+                if reason in {"transient", "rate_limit"}:
+                    skip_log.append({"identity": identity, "reason": f"file_capture_{reason}"})
+                    continue
+                captured = None
+            elif captured.get("truncated"):
+                # A partial tree is not the complete folder. Publish the docs we
+                # already fetched and mark the record so backfill can retry.
+                files_truncated = True
+                captured = None
+        if captured and isinstance(captured.get("skill_md"), str):
+            skill_md = captured["skill_md"]
+        if captured and isinstance(captured.get("readme"), str):
+            readme = captured["readme"]
+            readme_in_folder = True
+        if captured:
+            files = list(captured.get("files") or [])
+        else:
+            files = files_from_docs(
+                skill_md, readme, include_readme=readme_in_folder if folder else readme is not None,
+            )
+        texts = [cand.get("title"), cand.get("skill_name"), skill_md, readme]
+        for entry in files:
+            texts.append(entry.get("path"))
+            texts.append(entry.get("content"))
+        hits = policy_hits(*texts)
+        if hits:
+            skip_log.append({"identity": identity, "reason": "content_policy", "hits": hits})
+            continue
+        license_label = cand.get("license") if isinstance(cand.get("license"), str) else None
+        attribution = cand.get("attribution") if isinstance(cand.get("attribution"), str) else None
         record = build_skill_record(
             owner=parsed["owner"],
             repo=parsed["repo"],
@@ -239,7 +297,12 @@ def plan_update(
             stars=cand.get("stars"),
             existing_ids=used_ids,
             existing_slugs=used_slugs,
+            files=files or None,
+            license_label=license_label,
+            attribution=attribution,
         )
+        if files_truncated:
+            record["files_truncated"] = True
         # Guard: never collide with existing id/slug
         if record["id"] in used_ids or record["slug"] in used_slugs:
             skip_log.append({"identity": identity, "reason": "id_collision", "id": record["id"]})
@@ -304,6 +367,15 @@ def main() -> None:
 
     catalog = load_catalog(args.catalog)
     candidates = _load_candidates(args.candidates)
+    capture = None
+    # Fixtures and --offline stay local. A real publish lists the skill folder
+    # through GitHubClient (same HTTP timeout and, once merged, PR #10403's deadline).
+    if not args.offline and args.fixture_skill_md is None:
+        from skill_files import capture_with_refs, make_client
+        client = make_client()
+
+        def capture(owner: str, repo: str, folder: str | None, ref: str | None, _client=client) -> dict:
+            return capture_with_refs(_client, owner, repo, folder, ref)
 
     try:
         staged, new_skills, skip_log = plan_update(
@@ -312,6 +384,7 @@ def main() -> None:
             offline=args.offline,
             fixture_md=args.fixture_skill_md,
             fixture_readme=args.fixture_readme,
+            capture=capture,
         )
     except RuntimeError as exc:
         emit(stage="catalog_update", status="error", dry_run=dry_run, message=str(exc))
