@@ -144,6 +144,10 @@ GitHub's `CLEAN` state is the recorded evidence: `checks_source: merge_state_cle
   own README is preferred over the repo README.
 - delta JSON gains `added_map` (`identity`, `issue`, `id`, `slug`, `category`, `source_url`) so the
   publisher maps published skills to issues by identity instead of guessing by owner/repo.
+- `catalog_update.py` only appends. It does not refresh `skill_md` on skills already in the
+  catalog. New publishes also store a `files` array for the skill folder. Refresh and backfill
+  of live skills is `scripts/backfill_skill_files.py`. The array shape is
+  `operator/docs/skill-files.md`.
 
 ## Tests
 

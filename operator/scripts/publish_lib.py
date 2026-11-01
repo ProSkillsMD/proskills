@@ -338,6 +338,9 @@ def build_skill_record(
     stars: int | None = None,
     existing_ids: set[str] | None = None,
     existing_slugs: set[str] | None = None,
+    files: list[dict[str, Any]] | None = None,
+    license_label: str | None = None,
+    attribution: str | None = None,
 ) -> dict[str, Any]:
     """Build a website-schema skill record for a new listing (append-only)."""
     fm = parse_skill_frontmatter(skill_md or "")
@@ -363,11 +366,20 @@ def build_skill_record(
         n += 1
 
     readme_text = (readme or skill_md or "")[:8000]
+    # Legacy list. The structured `files` array (path, size, sha, optional content)
+    # is the complete skill-folder capture; these strings stay for older readers.
     files_found: list[str] = []
     if skill_md is not None:
         files_found.append("SKILL.md" if not subpath else f"{subpath}/SKILL.md")
     if readme is not None:
         files_found.append("README.md")
+    for entry in files or []:
+        rel = str(entry.get("path") or "")
+        if not rel:
+            continue
+        repo_path = f"{subpath}/{rel}" if subpath else rel
+        if rel not in files_found and repo_path not in files_found:
+            files_found.append(rel)
 
     record: dict[str, Any] = {
         "id": sid,
@@ -404,6 +416,12 @@ def build_skill_record(
         record["skill_path"] = subpath
     if skill_md is not None:
         record["skill_md"] = skill_md[:8000]
+    if files:
+        record["files"] = files
+    if license_label:
+        record["license"] = str(license_label)[:120]
+    if attribution:
+        record["attribution"] = str(attribution)[:240]
     return record
 
 
