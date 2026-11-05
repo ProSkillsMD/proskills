@@ -457,7 +457,12 @@ def _fetch_chunk(client: Any, chunk: list[dict[str, Any]]) -> dict[str, Any] | N
 
 
 class RefreshState:
-    """Resumable cursor. A finished pass starts clean; unavailable repos stay recorded."""
+    """Resumable progress. A finished pass starts clean; unavailable repos stay recorded.
+
+    Completed slugs are the resume key. The traffic order's hash is only
+    recorded: a new catalog row must not drop ``completed`` and restart at
+    the highest-traffic skills.
+    """
 
     VERSION = 1
 
@@ -493,23 +498,28 @@ class RefreshState:
         tmp.write_text(json.dumps(self.data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         os.replace(tmp, self.path)
 
-    def _same_pass(self, order: list[str]) -> bool:
-        return self.data.get("order_fingerprint") == order_fingerprint(order) and not self.data.get("finished")
-
     def begin(self, order: list[str]) -> None:
-        """Start or resume this order. A new order keeps rename notes and the unavailable log."""
-        if self._same_pass(order):
+        """Resume this pass. A finished pass starts clean and keeps rename notes.
+
+        An unfinished pass keeps ``completed`` when the catalog grows. The
+        order fingerprint is updated but is not the resume key.
+        """
+        fp = order_fingerprint(order)
+        if not self.data.get("finished"):
+            self.data["order_fingerprint"] = fp
             return
         renames = dict(self.data.get("renames") or {})
         log = list(self.data.get("unavailable_log") or [])
-        self.data = self._empty(order_fingerprint(order))
+        self.data = self._empty(fp)
         self.data["renames"] = renames
         self.data["unavailable_log"] = log
 
     def pending(self, order: list[str]) -> list[str]:
-        if not self._same_pass(order):
+        if self.data.get("finished"):
             return list(order)
-        done = self.data.get("completed") or {}
+        done = self.data.get("completed")
+        if not isinstance(done, dict):
+            return list(order)
         return [slug for slug in order if slug not in done]
 
     def complete(self, slug: str, status: str, at: str) -> None:
@@ -742,6 +752,9 @@ def push_catalog_pr(
     run(["git", "add", rel], website)
     diff = run(["git", "diff", "--cached", "--name-only"], website)
     names = [line.strip() for line in (diff.stdout or "").splitlines() if line.strip()]
+    # The rewritten catalog matches main. Nothing to commit or push.
+    if not names:
+        return {"ok": True, "opened": False, "files": []}
     if names != [rel]:
         return {"ok": False, "reason": "not_catalog_only", "files": names}
     committed = run(["git", "commit", "-q", "-m", title], website)

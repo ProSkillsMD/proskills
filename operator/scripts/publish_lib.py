@@ -14,7 +14,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urlparse, urlunparse
+from urllib.parse import quote, urlparse, urlunparse
 
 GITHUB_HOSTS = {"github.com", "www.github.com"}
 LIVE_CATALOG_URL = "https://proskills.md/skills-catalog.json"
@@ -315,9 +315,22 @@ def parse_skill_frontmatter(text: str) -> dict[str, Any]:
     return out
 
 
+def quote_github_path(path: str | None) -> str:
+    """Percent-encode each path segment for a GitHub raw or API URL.
+
+    ``quote(..., safe='/')`` leaves slashes in place. An all-ASCII path is
+    returned unchanged, so existing request URLs stay byte-identical.
+    """
+    text = "" if path is None else str(path)
+    if text.isascii():
+        return text
+    return "/".join(quote(part, safe="/") for part in text.split("/"))
+
+
 def fetch_raw_text(owner: str, repo: str, path: str, refs: tuple[str, ...] = ("main", "master")) -> str | None:
     for ref in refs:
-        url = f"https://raw.githubusercontent.com/{owner}/{repo}/{ref}/{path}"
+        suffix = quote_github_path(f"{owner}/{repo}/{ref}/{path}")
+        url = f"https://raw.githubusercontent.com/{suffix}"
         req = urllib.request.Request(url, headers={"User-Agent": "proskills-operator/1.0"})
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:

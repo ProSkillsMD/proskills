@@ -35,6 +35,7 @@ from publish_lib import (
     iso_now,
     load_catalog,
     parse_github_source,
+    quote_github_path,
 )
 from skill_files import files_from_docs, policy_hits
 
@@ -123,10 +124,10 @@ def _skill_folder(cand: dict[str, Any]) -> str | None:
 
 def source_tree_url(owner: str, repo: str, folder: str | None, branch: str | None) -> str:
     """GitHub URL of the skill source: the repo, or the subfolder tree URL for a subfolder skill."""
-    base = f"https://github.com/{owner}/{repo}"
-    if not folder:
-        return base
-    return f"{base}/tree/{branch or 'main'}/{folder}"
+    path = f"{owner}/{repo}"
+    if folder:
+        path = f"{path}/tree/{branch or 'main'}/{folder}"
+    return "https://github.com/" + quote_github_path(path)
 
 
 def _fetch_docs(

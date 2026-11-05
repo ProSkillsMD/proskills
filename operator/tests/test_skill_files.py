@@ -402,6 +402,77 @@ class TestBackfillOrder(unittest.TestCase):
             self.assertEqual(third["unchanged"], ["rederive", "quiet-skill", "zeta", "alpha"])
             self.assertEqual(SF._canon(third["catalog"]), SF._canon(second["catalog"]))
 
+    def _newbie(self) -> dict:
+        return {
+            "id": "newbie", "slug": "newbie", "name": "newbie", "github_stars": 0,
+            "repo_url": "https://github.com/ex/newbie", "skill_path": "skills/x",
+            "skill_md": "old", "author": "ex", "license": "MIT", "files_found": ["SKILL.md"],
+        }
+
+    def test_catalog_growth_does_not_restart_completed_slugs(self):
+        calls, capture = self._capture_factory()
+        catalog = self._catalog()
+        ranking = {"rederive": 5000, "quiet-skill": 3}
+        with tempfile.TemporaryDirectory() as tmp:
+            state = SF.BackfillState(Path(tmp) / "state.json")
+            SF.run_backfill(catalog, ranking, state=state, apply=True, batch=2, remaining=100, capture=capture)
+            self.assertEqual(calls, ["rederive", "quiet-skill"])
+            # The catalog PR landed, so those captures are not republished next run.
+            state.clear_pending()
+            self.assertFalse(state.data["finished"])
+            grown = json.loads(json.dumps(catalog))
+            grown["skills"].append(self._newbie())
+            grown["total"] = len(grown["skills"])
+            ranking["newbie"] = 9000
+            state.load()
+            preview = SF.run_backfill(
+                grown, ranking, state=state, apply=False, batch=2, remaining=100, capture=capture,
+            )
+            self.assertEqual(preview["planned_this_run"], ["newbie", "zeta"])
+            self.assertEqual(calls, ["rederive", "quiet-skill"])
+            second = SF.run_backfill(
+                grown, ranking, state=state, apply=True, batch=2, remaining=100, capture=capture,
+            )
+            self.assertEqual(calls[2:], ["newbie", "zeta"])
+            self.assertNotIn("rederive", calls[2:])
+            self.assertNotIn("quiet-skill", calls[2:])
+            self.assertIn("newbie", [row["slug"] for row in second["order"]])
+            self.assertEqual(state.data["version"], 1)
+            self.assertIn("rederive", state.data["completed"])
+
+    def test_legacy_cursor_resumes_after_catalog_growth(self):
+        calls, capture = self._capture_factory()
+        catalog = self._catalog()
+        catalog["skills"].append(self._newbie())
+        catalog["total"] = len(catalog["skills"])
+        ranking = {"rederive": 5000, "quiet-skill": 3}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "state.json"
+            path.write_text(json.dumps({
+                "version": 1,
+                "order_fingerprint": "stale-not-the-grown-catalog",
+                "cursor": 2,
+                "finished": False,
+                "order": ["rederive", "quiet-skill", "zeta", "alpha"],
+                "completed": {},
+                "pending": {},
+                "flagged": {},
+                "errors": {},
+                "updated": [],
+                "unchanged": [],
+            }), encoding="utf-8")
+            state = SF.BackfillState(path)
+            state.load()
+            result = SF.run_backfill(
+                catalog, ranking, state=state, apply=True, batch=1, remaining=100, capture=capture,
+            )
+            self.assertEqual(result["planned_this_run"], ["zeta"])
+            self.assertEqual(calls, ["zeta"])
+            self.assertEqual(state.data["completed"]["rederive"], "resumed")
+            self.assertEqual(state.data["completed"]["quiet-skill"], "resumed")
+            self.assertEqual(state.data["completed"]["zeta"], "updated")
+            self.assertNotIn("newbie", calls)
+
     def test_publish_batch_is_catalog_only_and_does_not_merge(self):
         commands: list[list[str]] = []
 
@@ -438,6 +509,55 @@ class TestBackfillOrder(unittest.TestCase):
             self.assertFalse(any(cmd[:3] == ["gh", "pr", "merge"] for cmd in commands))
             written = json.loads((website / CATALOG_REL).read_text(encoding="utf-8"))
             self.assertEqual(written["skills"][0]["slug"], "rederive")
+
+    def test_empty_catalog_diff_is_a_noop(self):
+        commands: list[list[str]] = []
+
+        class Proc:
+            def __init__(self, stdout="", code=0):
+                self.stdout, self.stderr, self.returncode = stdout, "", code
+
+        def run(cmd, cwd):
+            commands.append(list(cmd))
+            if cmd[:3] == ["git", "status", "--porcelain"]:
+                return Proc("")
+            if cmd[:4] == ["git", "diff", "--cached", "--name-only"]:
+                return Proc("")
+            if cmd[:2] in (["git", "commit"], ["git", "push"]) or cmd[:3] == ["gh", "pr", "create"]:
+                raise AssertionError(cmd)
+            return Proc("")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            website = Path(tmp)
+            catalog = {"skills": [{"id": "rederive", "slug": "rederive"}], "total": 1}
+            out = BF.push_catalog_pr(
+                run, website, catalog, branch=f"{HEAD_PREFIX}20261101-120000",
+                title="operator: catalog publish files-20261101-120000 (+0 skills → 1)", body="body",
+            )
+        self.assertTrue(out["ok"])
+        self.assertFalse(out["opened"])
+        self.assertNotEqual(out.get("reason"), "not_catalog_only")
+        self.assertFalse(any(cmd[:2] == ["git", "commit"] for cmd in commands))
+
+    def test_extra_staged_file_is_still_not_catalog_only(self):
+        class Proc:
+            def __init__(self, stdout="", code=0):
+                self.stdout, self.stderr, self.returncode = stdout, "", code
+
+        def run(cmd, cwd):
+            if cmd[:3] == ["git", "status", "--porcelain"]:
+                return Proc("")
+            if cmd[:4] == ["git", "diff", "--cached", "--name-only"]:
+                return Proc(CATALOG_REL + "\nREADME.md\n")
+            return Proc("")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = BF.push_catalog_pr(
+                run, Path(tmp), {"skills": []}, branch=f"{HEAD_PREFIX}20261101-120000",
+                title="t", body="b",
+            )
+        self.assertFalse(out["ok"])
+        self.assertEqual(out["reason"], "not_catalog_only")
 
     def test_daily_budget_matches_publisher_cap(self):
         self.assertEqual(DAILY_CAP, 100)
