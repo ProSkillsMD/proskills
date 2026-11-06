@@ -131,6 +131,9 @@ def push_catalog_pr(
     run(["git", "add", rel], website)
     diff = run(["git", "diff", "--cached", "--name-only"], website)
     names = [line.strip() for line in (diff.stdout or "").splitlines() if line.strip()]
+    # The rewritten catalog matches main. Nothing to commit or push.
+    if not names:
+        return {"ok": True, "opened": False, "files": []}
     if names != [rel]:
         return {"ok": False, "reason": "not_catalog_only", "files": names}
     committed = run(["git", "commit", "-q", "-m", title], website)

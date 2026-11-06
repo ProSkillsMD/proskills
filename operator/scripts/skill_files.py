@@ -750,11 +750,46 @@ def order_skills(skills: list[dict[str, Any]], ranking: dict[str, float]) -> lis
 
 
 def order_fingerprint(order: list[str]) -> str:
+    """Identity of one traffic order. Recorded in state; resume does not use it."""
     return hashlib.sha256("\n".join(order).encode("utf-8")).hexdigest()[:16]
 
 
+def _cursor_int(value: Any) -> int:
+    try:
+        cursor = int(value or 0)
+    except (TypeError, ValueError):
+        return 0
+    return cursor if cursor > 0 else 0
+
+
+def completed_slugs(data: dict[str, Any]) -> set[str]:
+    """Slugs already done on this pass.
+
+    ``completed`` is the resume key. Older files also stored a cursor index
+    into ``order``; that prefix counts as done so a half-written map still
+    resumes. A finished pass starts clean, so it contributes nothing.
+    """
+    if data.get("finished"):
+        return set()
+    done: set[str] = set()
+    completed = data.get("completed")
+    if isinstance(completed, dict):
+        done.update(str(slug) for slug in completed if str(slug))
+    elif isinstance(completed, list):
+        done.update(str(slug) for slug in completed if str(slug))
+    saved = [str(slug) for slug in (data.get("order") or []) if str(slug)]
+    for slug in saved[:_cursor_int(data.get("cursor"))]:
+        done.add(slug)
+    return done
+
+
 class BackfillState:
-    """Resumable cursor under ``operator/state``. A finished pass starts clean; a killed one continues."""
+    """Resumable progress under ``operator/state``.
+
+    A finished pass starts clean. A killed one continues. Progress is the set
+    of completed slugs: a newly published row changes the traffic order and
+    must not send the cursor back to the first skills.
+    """
 
     VERSION = 1
 
@@ -794,14 +829,40 @@ class BackfillState:
         os.replace(tmp, self.path)
 
     def begin(self, order: list[str]) -> int:
-        """Return the index to resume from. A new order or a finished pass starts at 0."""
+        """Prepare ``order`` and return the index of the first slug not yet done.
+
+        A finished pass starts at 0 with an empty set. Otherwise slugs already
+        in ``completed``, or implied by an older cursor into the saved order,
+        stay done. The new order is stored only after that prefix is absorbed,
+        and the cursor is cleared so it cannot mark a newly inserted row done.
+        """
         fp = order_fingerprint(order)
-        if self.data.get("order_fingerprint") == fp and not self.data.get("finished"):
+        if self.data.get("finished"):
+            self.data = self._empty(fp)
             self.data["order"] = list(order)
-            return int(self.data.get("cursor") or 0)
-        self.data = self._empty(fp)
+            return 0
+        self._absorb_legacy_cursor()
+        self.data["cursor"] = 0
         self.data["order"] = list(order)
-        return 0
+        self.data["order_fingerprint"] = fp
+        return _peek_cursor(self, order)
+
+    def _absorb_legacy_cursor(self) -> None:
+        """Fold a pre-completed cursor prefix into ``completed`` without clobbering statuses."""
+        completed = self.data.get("completed")
+        if isinstance(completed, list):
+            completed = {str(slug): "resumed" for slug in completed if str(slug)}
+            self.data["completed"] = completed
+        elif not isinstance(completed, dict):
+            completed = {}
+            self.data["completed"] = completed
+        saved = [str(slug) for slug in (self.data.get("order") or []) if str(slug)]
+        for slug in saved[:_cursor_int(self.data.get("cursor"))]:
+            completed.setdefault(slug, "resumed")
+
+    def pending_slugs(self, order: list[str]) -> list[str]:
+        done = completed_slugs(self.data)
+        return [slug for slug in order if slug not in done]
 
     def note(self, index: int, slug: str, status: str, *, hits: list[str] | None = None,
              reason: str | None = None, skill: dict[str, Any] | None = None) -> None:
@@ -823,7 +884,9 @@ class BackfillState:
 
     def clear_pending(self) -> None:
         self.data["pending"] = {}
-        if int(self.data.get("cursor") or 0) >= len(self.data.get("order") or []):
+        order = [str(slug) for slug in (self.data.get("order") or []) if str(slug)]
+        done = self.data.get("completed") if isinstance(self.data.get("completed"), dict) else {}
+        if order and all(slug in done for slug in order):
             self.data["finished"] = True
         self.save()
 
@@ -908,13 +971,16 @@ def run_backfill(
     ordered = order_skills(skills, ranking)
     slugs = [row["slug"] for row in ordered]
     by_slug = _index(skills)
-    cursor = 0
-    if state is not None:
-        if apply:
-            cursor = state.begin(slugs)
-            state.save()
-        else:
-            cursor = _peek_cursor(state, slugs)
+    if state is None:
+        pending = list(slugs)
+        cursor = 0
+    elif apply:
+        cursor = state.begin(slugs)
+        state.save()
+        pending = state.pending_slugs(slugs)
+    else:
+        pending = state.pending_slugs(slugs)
+        cursor = _peek_cursor(state, slugs)
     inspect_limit = max(0, min(int(batch), int(remaining)))
     results: list[dict[str, Any]] = []
     replaced: dict[str, dict[str, Any]] = {}
@@ -925,7 +991,12 @@ def run_backfill(
             if isinstance(skill, dict):
                 replaced[str(slug)] = skill
     room = max(0, inspect_limit - len(replaced))
-    window = slugs[cursor:cursor + room] if apply else []
+    # Skip completed slugs wherever they sit. A new row can land in front of
+    # the old cursor; slicing the order from that index would repeat work.
+    window = pending[:room] if apply else []
+    positions = {}
+    for index, slug in enumerate(slugs):
+        positions.setdefault(slug, index)
 
     def handle(slug: str, *, persist: bool, index: int | None) -> dict[str, Any]:
         nonlocal stopped
@@ -961,12 +1032,12 @@ def run_backfill(
         return outcome
 
     if apply:
-        for offset, slug in enumerate(window):
+        for slug in window:
             if stopped:
                 break
             if len(replaced) >= inspect_limit or len(replaced) >= int(remaining):
                 break
-            results.append(handle(slug, persist=True, index=cursor + offset))
+            results.append(handle(slug, persist=True, index=positions[slug]))
             if stopped:
                 break
     else:
@@ -981,7 +1052,7 @@ def run_backfill(
     return {
         "order": [{k: v for k, v in row.items()} for row in ordered],
         "cursor": cursor,
-        "planned_this_run": window if apply else slugs[cursor:cursor + inspect_limit],
+        "planned_this_run": window if apply else pending[:inspect_limit],
         "results": public_results,
         "updated": list(replaced),
         "flagged": [row["slug"] for row in results if row.get("status") == "flag_review"],
@@ -994,10 +1065,12 @@ def run_backfill(
 
 
 def _peek_cursor(state: BackfillState, slugs: list[str]) -> int:
-    fp = order_fingerprint(slugs)
-    if state.data.get("order_fingerprint") == fp and not state.data.get("finished"):
-        return int(state.data.get("cursor") or 0)
-    return 0
+    """Index of the first slug that is not already completed. Does not write state."""
+    done = completed_slugs(state.data)
+    for index, slug in enumerate(slugs):
+        if slug not in done:
+            return index
+    return len(slugs)
 
 
 def _core_low(client: Any) -> bool:

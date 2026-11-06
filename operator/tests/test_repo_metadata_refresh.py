@@ -354,6 +354,31 @@ class TestRun(unittest.TestCase):
             self.assertEqual(len(second["catalog"]["skills"]), 4)
             self.assertEqual(second["catalog"]["total"], 4)
 
+    def test_progress_survives_catalog_growth(self):
+        ranking = {"ericjujianzou-rederive-skills-rederive": 5000, "alpha": 10}
+        with tempfile.TemporaryDirectory() as tmp:
+            state = R.RefreshState(Path(tmp) / "state.json")
+            first = R.run_refresh(
+                self.catalog(), ranking, state=state, apply=True, limit=1, now=NOW, fetch=self.fetch,
+            )
+            self.assertEqual(first["planned"], ["ericjujianzou-rederive-skills-rederive"])
+            for item in first["inspected"]:
+                if item["status"] != "transient":
+                    state.complete(item["slug"], item["status"], NOW)
+            state.save()
+            grown = self.catalog()
+            grown["skills"] = list(grown["skills"]) + [_skill("newbie", 0, "ex/newbie")]
+            grown["total"] = len(grown["skills"])
+            state.load()
+            second = R.run_refresh(
+                grown, ranking, state=state, apply=True, limit=1, now=NOW, fetch=self.fetch,
+            )
+            self.assertEqual(second["planned"], ["alpha"])
+            self.assertIn("newbie", [row["slug"] for row in second["order"]])
+            self.assertIn("ericjujianzou-rederive-skills-rederive", state.data["completed"])
+            self.assertNotIn("newbie", state.data["completed"])
+            self.assertEqual(state.data["version"], 1)
+
     def test_not_found_is_recorded_and_the_row_stays(self):
         catalog = {"total": 1, "skills": [rederive_row()]}
 
@@ -560,6 +585,29 @@ class TestCli(unittest.TestCase):
             self.assertEqual(payload["updated"], [])
             self.assertEqual(payload["order_total"], 0)
             self.assertFalse(state.exists())
+
+    def test_empty_catalog_diff_is_a_noop(self):
+        commands: list[list[str]] = []
+
+        def run(cmd, cwd):
+            commands.append(list(cmd))
+            if list(cmd[:3]) == ["git", "status", "--porcelain"]:
+                return Proc("")
+            if list(cmd[:4]) == ["git", "diff", "--cached", "--name-only"]:
+                return Proc("")
+            if list(cmd[:2]) in (["git", "commit"], ["git", "push"]) or list(cmd[:3]) == ["gh", "pr", "create"]:
+                raise AssertionError(cmd)
+            return Proc("")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            out = R.push_catalog_pr(
+                run, Path(tmp), {"skills": [rederive_row()], "total": 1},
+                branch=f"{HEAD_PREFIX}20261101-120000", title="t", body="b",
+            )
+        self.assertTrue(out["ok"])
+        self.assertFalse(out["opened"])
+        self.assertNotEqual(out.get("reason"), "not_catalog_only")
+        self.assertFalse(any(cmd[:2] == ["git", "commit"] for cmd in commands))
 
 
 if __name__ == "__main__":
