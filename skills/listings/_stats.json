@@ -1,0 +1,34 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-19T14:32:00Z",
+  "catalog": {
+    "totalListings": 1,
+    "totalCategories": 1,
+    "averageScore": 8.7,
+    "approvalRate": 100
+  },
+  "byCategory": {
+    "search": {
+      "count": 1,
+      "averageScore": 8.7,
+      "approved": 1,
+      "rejected": 0,
+      "conditional": 0
+    }
+  },
+  "scoreDistribution": {
+    "9_to_10": 0,
+    "8_to_9": 1,
+    "7_to_8": 0,
+    "6_to_7": 0,
+    "below_6": 0
+  },
+  "recentAdditions": [
+    {
+      "slug": "mysearch-proxy",
+      "name": "MySearch-Proxy",
+      "addedAt": "2026-03-19T14:32:00Z",
+      "score": 8.7
+    }
+  ]
+}

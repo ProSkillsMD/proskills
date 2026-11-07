@@ -1,0 +1,79 @@
+{
+  "name": "MySearch-Proxy",
+  "slug": "mysearch-proxy",
+  "description": "Multi-provider search aggregator with intelligent routing. Unifies Tavily, Firecrawl, Exa, and xAI/Social search with fallback mechanisms and parallel execution.",
+  "author": "skernelx",
+  "repo_url": "https://github.com/skernelx/MySearch-Proxy",
+  "version": "0.1.7",
+  "license": "Apache 2.0",
+  "language": "Python",
+  "stars": 58,
+  "tags": [
+    "search",
+    "aggregation",
+    "multi-provider",
+    "research",
+    "routing",
+    "fallback"
+  ],
+  "scores": {
+    "functionality": {
+      "score": 9,
+      "max": 10,
+      "justification": "All core features working; multi-provider routing intelligent; fallback mechanisms solid"
+    },
+    "documentation": {
+      "score": 8,
+      "max": 10,
+      "justification": "Clear SKILL.md + bilingual docs EN+ZH; minor gaps in troubleshooting"
+    },
+    "security": {
+      "score": 9,
+      "max": 10,
+      "justification": "No hardcoded secrets; credentials via env vars; thread-safe key management; no vulnerabilities"
+    },
+    "maintenance": {
+      "score": 9,
+      "max": 10,
+      "justification": "Active repo, 52 commits, latest 2026-03-19, zero open issues, v0.1.7"
+    },
+    "usefulness": {
+      "score": 9,
+      "max": 10,
+      "justification": "Solves real pain point; broadly applicable; improves upon single-provider alternatives"
+    },
+    "uniqueness": {
+      "score": 8,
+      "max": 10,
+      "justification": "First skill to aggregate 4+ providers with intent-based routing; differentiates from Vincent-Brave, Baidu Search"
+    },
+    "code_quality": {
+      "score": 8,
+      "max": 10,
+      "justification": "Modular Python 3.10+, type hints, dataclasses, 598 LOC tests, passes compilation"
+    }
+  },
+  "average_score": 8.7,
+  "verdict": "APPROVE",
+  "verified_by": "Gamora",
+  "verified_at": "2026-03-19T14:32:00Z",
+  "category": "search",
+  "features": [
+    "Aggregates 4+ search providers: Tavily, Firecrawl, Exa, xAI/Social",
+    "Intelligent provider routing based on search intent",
+    "Multi-threaded key management + caching",
+    "Parallel execution for hybrid searches",
+    "Edge case handling (GitHub URLs, anti-bot detection)",
+    "Zero hardcoded secrets"
+  ],
+  "installation": {
+    "type": "github",
+    "repo": "https://github.com/skernelx/MySearch-Proxy",
+    "docs": "https://github.com/skernelx/MySearch-Proxy/blob/main/SKILL.md"
+  },
+  "metadata": {
+    "commits": 52,
+    "open_issues": 0,
+    "latest_commit_date": "2026-03-19"
+  }
+}
