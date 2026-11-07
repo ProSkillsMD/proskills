@@ -24,12 +24,13 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
+import content_policy as CP  # noqa: E402
 import scout  # noqa: E402
 import issue_flow as F  # noqa: E402
 from scout_file import resolve_shas  # noqa: E402
 from publish_lib import load_build_break_skips  # noqa: E402
 
-HELD_PREFIXES = ("blocked:", "review:hold", "flag:")
+HELD_PREFIXES = ("blocked:", "review:hold", "hold:", "flag:")
 
 
 def build_break_skip_reason(issue_number: int, identity: str | None, config: dict[str, Any]) -> str | None:
@@ -151,6 +152,8 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
             why = build_break_skip_reason(n, blk.get("psk-id"), build_break_skips)
         if not why and not blk:
             why = "no_block"
+        if not why and CP.violates(*CP.candidate_texts(issue, blk)):
+            why = "content_policy"
         if not why and blk.get("kind") != "skill":
             why = "not_a_single_skill"
         if why:
@@ -199,6 +202,9 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
                 skipped.append({"issue": n, "reason": "sha_changed", "reviewed": sha, "current": live.get("skill_tree_sha")})
                 continue
             rec = github_record(issue, blk, live, sha)
+        if CP.violates(rec.get("skill_name"), rec.get("skill_description"), rec.get("skill_md")):
+            skipped.append({"issue": n, "reason": "content_policy"})
+            continue
         repos_in_batch.add(rk)
         out.append({**rec, "queue_rank": len(out) + 1})
     return {"passed": out, "skipped": skipped}
