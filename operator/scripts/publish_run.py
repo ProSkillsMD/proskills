@@ -7,16 +7,18 @@ One run, in order (each step logs one line; the final JSON summary goes to stdou
                 `<!-- proskills:publish v1 items=[...] -->` marker (issue -> catalog id/slug/category).
                 Items whose issue is still open and whose id is in the LIVE catalog (and page HTTP 200) get
                 `status:listed` + `groot:published`, lose `publish:staged`, and are closed as completed.
- 2. stuck PRs   merge_stuck_publish_pr.py --apply (unchanged rules: catalog-only, MERGEABLE/CLEAN, green,
-                > 90 min old, operator head branch, given author).
+ 2. stuck PRs   merge_stuck_publish_pr.py --apply (unchanged rules: catalog plus per-skill
+                files, MERGEABLE/CLEAN, green, > 90 min old, operator head branch, given author).
  3. gates       stop if any operator publish PR is still open; daily cap: 100 per Asia/Dhaka day counted
-                from merged operator publish PRs (added_count in the PR body / "+N skills" in the title).
+                from merged operator publish PRs that add skills (added_count in the PR body / "+N skills"
+                in the title). File-backfill (`files-*`) and metadata-refresh PRs are not new skills.
  4. select      publish_candidates.select(): open review:pass issues whose live sha == reviewed sha.
  5. stage       catalog_update (append-only) against the website checkout's public/skills-catalog.json.
  6. build       copy staged catalog into the website checkout, `npm run build` (production build).
  7. PR          branch operator/catalog-publish-<Dhaka ts>, commit, push, open PR (body: diff stats + marker);
                 label the issues publish:staged.
- 8. merge       poll until catalog-only + MERGEABLE + CLEAN + all checks green, then
+ 8. merge       poll until the diff is the catalog and/or public/skill-files/*.json, plus MERGEABLE
+                + CLEAN + all checks green, then
                 `gh pr merge --squash --match-head-commit <sha>`; timeout -> left for step 2 next hour.
  9. verify      poll the live catalog for the new ids, check pages, then label/close as in step 1.
 
@@ -43,11 +45,16 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import scout  # noqa: E402
 import issue_flow as F  # noqa: E402
 import publish_candidates as PC  # noqa: E402
-from publish_lib import catalog_json_dumps  # noqa: E402
+from skill_file_store import (  # noqa: E402
+    CATALOG_REL,
+    SKILL_FILES_DIR,
+    catalog_publish_diff_ok,
+    git_add_argv,
+    write_website_catalog,
+)
 
 WEBSITE_REPO = "ProSkillsMD/website"
 HEAD_PREFIX = "operator/catalog-publish-"
-CATALOG_REL = "public/skills-catalog.json"
 LIVE_BASE = "https://proskills.md"
 DHAKA = timezone(timedelta(hours=6))
 DAILY_CAP = 100
@@ -97,6 +104,36 @@ def added_count(pr: dict[str, Any]) -> int:
         return int(m.group(1))
     m = TITLE_RE.search(pr.get("title") or "")
     return int(m.group(1)) if m else 0
+
+
+def counts_toward_daily_cap(pr: dict[str, Any]) -> bool:
+    """False for file-backfill and metadata-refresh PRs, which add no skills.
+
+    Real publishes use ``operator/catalog-publish-<stamp>`` and a title like
+    ``operator: catalog publish actions-... (+N skills → total)``. Backfill
+    titles are ``operator: catalog publish files-<stamp>`` (older ones also say
+    ``+N skills``) and carry ``proskills:backfill``. Metadata refresh titles say
+    ``metadata refresh`` and carry ``proskills:metadata-refresh``. A head whose
+    tail starts with ``files-`` or ``refresh`` is the same kind of PR.
+    """
+    head = str(pr.get("headRefName") or "")
+    title = str(pr.get("title") or "")
+    body = str(pr.get("body") or "")
+    if "proskills:backfill" in body or "proskills:metadata-refresh" in body:
+        return False
+    if "metadata refresh" in title or "catalog publish files-" in title:
+        return False
+    tail = head[len(HEAD_PREFIX):] if head.startswith(HEAD_PREFIX) else head.rsplit("/", 1)[-1]
+    if tail.startswith("files-") or tail.startswith("refresh"):
+        return False
+    return True
+
+
+def new_skill_count(pr: dict[str, Any]) -> int:
+    """Skills this merged PR contributes to the Asia/Dhaka daily cap."""
+    if not counts_toward_daily_cap(pr):
+        return 0
+    return added_count(pr)
 
 
 def publish_marker(items: list[dict[str, Any]]) -> str:
@@ -218,7 +255,7 @@ class Publisher:
     # ------------------------------------------------------------------ 3 gates
     def published_today(self) -> int:
         today = self.now().date().isoformat()
-        return sum(added_count(p) for p in self.list_publish_prs("merged") if to_dhaka_date(p.get("mergedAt")) == today)
+        return sum(new_skill_count(p) for p in self.list_publish_prs("merged") if to_dhaka_date(p.get("mergedAt")) == today)
 
     # ------------------------------------------------------------------ 8 merge
     def wait_and_merge(self, number: int) -> dict[str, Any]:
@@ -246,7 +283,7 @@ class Publisher:
                 bad, pending = [], []
             last = {"state": v.get("state"), "mergeable": v.get("mergeable"), "merge_state": v.get("mergeStateStatus"),
                     "files": files, "failing": len(bad), "pending": len(pending)}
-            if v.get("state") != "OPEN" or files != [CATALOG_REL] \
+            if v.get("state") != "OPEN" or not catalog_publish_diff_ok(files) \
                     or not str(v.get("headRefName") or "").startswith(HEAD_PREFIX):
                 return {"merged": False, "reason": "not_mergeable_by_rule", **last}
             if v.get("mergeable") == "MERGEABLE" and v.get("mergeStateStatus") == "CLEAN" and not bad and not pending:
@@ -352,12 +389,14 @@ class Publisher:
             s["stopped"], s["error"] = "website checkout is dirty", True
             return s
         g("checkout", "-q", "-b", branch)
-        catalog_path.write_text(catalog_json_dumps(new_cat) + "\n", encoding="utf-8")
+        write_website_catalog(self.website, new_cat)
         if self.build:
             b = self.run(["npm", "run", "build"], self.website)
             self.step("build", {"rc": b.returncode})
             if b.returncode != 0:
                 g("checkout", "-q", "--", CATALOG_REL)
+                g("checkout", "-q", "--", SKILL_FILES_DIR)
+                g("clean", "-q", "-fd", "--", SKILL_FILES_DIR)
                 s["stopped"], s["error"] = f"production build failed: {(b.stderr or b.stdout or '')[-400:]}", True
                 return s
         new_total = len(new_cat["skills"])
@@ -369,10 +408,11 @@ class Publisher:
                 + (f"- ClawHub counts refreshed for {stats_summary.get('updated', 0)} existing skills "
                    "(external_ratings.clawhub_* only).\n" if stats_summary.get("updated") else "")
                 + f"- Diff stats: {json.dumps(stats)}\n\n## Notes\n- Opened by publish_run.py (GitHub Actions); merged "
-                "automatically only when catalog-only, MERGEABLE/CLEAN and all checks are green.\n\n"
+                "automatically only when the diff is the catalog and/or public/skill-files/*.json, "
+                "MERGEABLE/CLEAN and all checks are green.\n\n"
                 + publish_marker(items) + "\n")
         assert F.no_handles(body)
-        g("add", CATALOG_REL)
+        g(*git_add_argv(self.website))
         c = g("commit", "-q", "-m", title)
         push = g("push", "-q", "origin", f"HEAD:refs/heads/{branch}")
         if c.returncode != 0 or push.returncode != 0:

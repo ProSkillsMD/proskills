@@ -6,11 +6,13 @@ or JSON) sets the order; skills that are not listed follow, by GitHub stars
 then slug. Dry-run is the default: it prints that order and, when
 ``--preview-slug`` is given, the catalog JSON byte delta for those skills.
 
-``--apply`` writes a website PR that touches only ``public/skills-catalog.json``
-on branch ``operator/catalog-publish-*``. Batches are small (default 10 skills
-inspected per run). The daily ceiling is the publisher's Asia/Dhaka cap
-(100), counted the same way as ``publish_run.py`` (``added_count`` on merged
-``operator/catalog-publish-*`` PRs). This command does not merge.
+``--apply`` writes a website PR on branch ``operator/catalog-publish-*``.
+The catalog file keeps the file index. Inline text goes to
+``public/skill-files/<slug>.json`` (see ``skill_file_store``). Batches are
+small (default 10 skills inspected per run). The daily ceiling is the
+publisher's Asia/Dhaka cap (100) of *new* skills, counted the same way as
+``publish_run.py``. A file refresh adds no skills, so it does not consume
+that cap. This command does not merge.
 
 Progress is stored in ``operator/state/skill-files-backfill.json``. A killed
 run continues at the next skill. A finished pass starts over and is a no-op
@@ -32,16 +34,16 @@ from typing import Any, Callable, Sequence
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _common import PROJECT_ROOT, emit, exit_fail, exit_ok  # noqa: E402
-from publish_lib import catalog_json_dumps  # noqa: E402
 from publish_run import (  # noqa: E402
     CATALOG_REL,
     DAILY_CAP,
     HEAD_PREFIX,
     WEBSITE_REPO,
-    added_count,
+    new_skill_count,
     now_dhaka,
     to_dhaka_date,
 )
+from skill_file_store import catalog_publish_diff_ok, git_add_argv, write_website_catalog  # noqa: E402
 from skill_files import (  # noqa: E402
     BackfillState,
     load_ranking,
@@ -59,11 +61,14 @@ def _run(cmd: Sequence[str], cwd: Path | None = None) -> "subprocess.CompletedPr
 
 
 def budget_remaining(merged_prs: list[dict[str, Any]], *, cap: int, today: str) -> int:
-    """Skills already counted today against the publisher's daily cap."""
+    """New skills already counted today against the publisher's daily cap.
+
+    File-backfill and metadata-refresh PRs add no skills and are not counted.
+    """
     used = 0
     for pr in merged_prs:
         if to_dhaka_date(pr.get("mergedAt")) == today:
-            used += added_count(pr)
+            used += new_skill_count(pr)
     return max(0, int(cap) - used)
 
 
@@ -79,23 +84,25 @@ def open_publish_heads(prs: list[dict[str, Any]]) -> list[str]:
 def catalog_pr_body(slugs: list[str], *, old_total: int, new_total: int, diff_bytes: int) -> str:
     """PR body the existing publisher already understands.
 
-    ``added_count`` is the number of skills whose files changed, so the daily
-    cap counts a backfill the same way it counts a publish. The publish marker
-    has no issue ids, so reconcile will not close candidate issues.
+    ``added_count`` is 0. A file refresh lists no new skills, so it must not
+    consume the publisher's daily cap. ``refreshed_count`` is the batch size.
+    The publish marker has no issue ids, so reconcile will not close candidate
+    issues. The backfill marker is how the daily counter recognizes this PR.
     """
     stats = {
         "old_total": old_total,
         "new_total": new_total,
-        "added_count": len(slugs),
+        "added_count": 0,
         "removed_count": 0,
+        "refreshed_count": len(slugs),
         "updated_slugs_sample": slugs[:20],
         "diff_bytes": diff_bytes,
     }
     return (
         "## Summary\n"
-        "- Backfill per-skill `files` from the skill folder (path, size, git blob sha, "
-        "inline text within the caps in operator/docs/skill-files.md).\n"
-        "- Existing id, slug, repo_url, author, and license are unchanged.\n"
+        "- Backfill per-skill `files` from the skill folder (path, size, git blob sha). "
+        "Inline text is written to `public/skill-files/<slug>.json`; the catalog keeps the index.\n"
+        "- Existing id, slug, repo_url, author, license, description, and version are unchanged.\n"
         f"- Diff stats: {json.dumps(stats, sort_keys=True)}\n\n"
         "<!-- proskills:publish v1 items=[] -->\n"
         "<!-- proskills:backfill v1 slugs=" + json.dumps(slugs) + " -->\n"
@@ -103,7 +110,9 @@ def catalog_pr_body(slugs: list[str], *, old_total: int, new_total: int, diff_by
 
 
 def catalog_pr_title(stamp: str, updated: int, total: int) -> str:
-    return f"operator: catalog publish files-{stamp} (+{updated} skills → {total})"
+    # No "+N skills" clause. That phrase is the publisher's fallback for the
+    # daily new-skill counter, and this PR adds none.
+    return f"operator: catalog publish files-{stamp} ({updated} file refreshes, total {total})"
 
 
 def push_catalog_pr(
@@ -115,8 +124,7 @@ def push_catalog_pr(
     title: str,
     body: str,
 ) -> dict[str, Any]:
-    """Commit only the catalog file and open a PR. Does not merge."""
-    rel = CATALOG_REL
+    """Commit the catalog index and per-skill files, then open a PR. Does not merge."""
     status = run(["git", "status", "--porcelain"], website)
     if (status.stdout or "").strip():
         return {"ok": False, "reason": "dirty"}
@@ -125,16 +133,14 @@ def push_catalog_pr(
     checked = run(["git", "checkout", "-q", "-b", branch], website)
     if checked.returncode != 0:
         return {"ok": False, "reason": "checkout_failed"}
-    target = website / rel
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(catalog_json_dumps(catalog) + "\n", encoding="utf-8")
-    run(["git", "add", rel], website)
+    write_website_catalog(website, catalog)
+    run(["git", *git_add_argv(website)], website)
     diff = run(["git", "diff", "--cached", "--name-only"], website)
     names = [line.strip() for line in (diff.stdout or "").splitlines() if line.strip()]
     # The rewritten catalog matches main. Nothing to commit or push.
     if not names:
         return {"ok": True, "opened": False, "files": []}
-    if names != [rel]:
+    if not catalog_publish_diff_ok(names):
         return {"ok": False, "reason": "not_catalog_only", "files": names}
     committed = run(["git", "commit", "-q", "-m", title], website)
     if committed.returncode != 0:
@@ -211,7 +217,7 @@ def main(argv: list[str] | None = None, *, run: Runner = _run, client: Any = Non
         merged = _gh_json(run, ["pr", "list", "-R", WEBSITE_REPO, "--state", "merged", "--limit", "100",
                                 "--json", "number,title,body,mergedAt,headRefName"])
         merged = [pr for pr in merged or [] if str(pr.get("headRefName") or "").startswith(HEAD_PREFIX)]
-        used = sum(added_count(pr) for pr in merged if to_dhaka_date(pr.get("mergedAt")) == today)
+        used = sum(new_skill_count(pr) for pr in merged if to_dhaka_date(pr.get("mergedAt")) == today)
         budget_source = "merged_prs"
         opened = _gh_json(run, ["pr", "list", "-R", WEBSITE_REPO, "--state", "open", "--limit", "100",
                                 "--json", "number,headRefName"])
@@ -274,7 +280,7 @@ def main(argv: list[str] | None = None, *, run: Runner = _run, client: Any = Non
         remaining_today=remaining,
         budget_source=budget_source,
         daily_cap=args.cap,
-        files_touched=[CATALOG_REL],
+        files_touched=(pr or {}).get("files") or [CATALOG_REL],
         pr=pr,
     )
     exit_ok()

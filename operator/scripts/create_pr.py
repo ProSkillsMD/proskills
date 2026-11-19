@@ -15,6 +15,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _common import add_dry_run_apply_flags, emit, exit_fail, exit_ok, resolve_dry_run
+from skill_file_store import git_add_argv, write_website_catalog
 
 DEFAULT_WEBSITE = Path("/workspace/website-ops")
 DEFAULT_BRANCH_PREFIX = "operator/catalog-publish"
@@ -135,10 +136,14 @@ def main() -> None:
             )
             exit_fail(1)
 
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(staged.read_text(encoding="utf-8"), encoding="utf-8")
+    try:
+        staged_catalog = json.loads(staged.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        emit(stage="create_pr", status="error", dry_run=False, message=f"staged catalog is not JSON: {exc}", never_merges=True)
+        exit_fail(1)
+    write_website_catalog(website, staged_catalog)
 
-    _run(["git", "add", "public/skills-catalog.json"], cwd=website)
+    _run(["git", *git_add_argv(website)], cwd=website)
     commit = _run(
         ["git", "commit", "-m", f"chore(catalog): stage operator publish ({branch})"],
         cwd=website,
