@@ -460,7 +460,15 @@ def main(argv: list[str] | None = None) -> int:
     cache.save()
     assert ident(catalog) == before, "identity fields changed"
     if args.apply:
-        args.catalog.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        from skill_file_store import catalog_has_inline_content, website_root_from_catalog, write_website_catalog
+        root = website_root_from_catalog(args.catalog)
+        # A website catalog that still embeds file text is rewritten as an index
+        # plus public/skill-files/<slug>.json. Other paths keep the previous writer
+        # so a non-website catalog file is not split onto a guessed directory.
+        if root is not None and catalog_has_inline_content(catalog):
+            write_website_catalog(root, catalog)
+        else:
+            args.catalog.write_text(json.dumps(catalog, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     print(json.dumps({"apply": args.apply, **{k: (v if not isinstance(v, list) else {"count": len(v), "slugs": v})
                                               for k, v in summary.items()}}, indent=2))
     return 0

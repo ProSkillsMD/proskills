@@ -2,10 +2,13 @@
 
 The catalog ``files`` array is optional and backward compatible. Paths are
 repo-root relative, the same strings as ``files_found``. The website builds
-``blob/<ref>/<path>`` from that string::
+``blob/<ref>/<path>`` from that string. Capture keeps inline text on the
+in-memory entry. ``skill_file_store`` moves that text into
+``public/skill-files/<slug>.json`` when a catalog is written; the committed
+catalog entry is the index only::
 
     {"path": "skills/rederive/scripts/history.sh", "size": 3107, "sha": "<git blob sha>",
-     "content": "...",          # only when the full text is stored
+     "content": "...",          # capture only; not written into skills-catalog.json
      "truncated": true,         # text larger than the per-file cap; content absent
      "omitted": true}           # content not stored (binary, symlink, budget, or truncated)
 
@@ -33,6 +36,7 @@ from urllib.parse import quote
 
 import scout
 from publish_lib import align_catalog_files, normalize_catalog_path, parse_github_source, parse_skill_frontmatter
+from skill_file_store import index_catalog, index_skill
 
 # Caps. Per-file inline sits in the requested 20–50 KiB band.
 INLINE_MAX_BYTES = 32 * 1024
@@ -593,12 +597,15 @@ def files_from_docs(
 
 
 def merge_refresh(existing: dict[str, Any], captured: dict[str, Any]) -> dict[str, Any]:
-    """Copy file capture onto a skill without touching attribution or license.
+    """Copy a file capture onto a skill. File fields only.
 
-    ``id``, ``slug``, ``author``, ``repo_url``, ``category``, and an existing
-    ``license`` stay as they are. A missing license may be filled from SKILL.md
-    frontmatter. ``description`` and ``version`` follow the upstream frontmatter
-    when it has them. ``skill_md`` is refreshed (8_000-character legacy cap).
+    This run's purpose is ``files``, ``files_found``, and ``skill_md`` (the
+    legacy 8_000-character cap). ``version``, ``description``, ``name``,
+    ``readme``, stars, and every other existing catalog field stay as they
+    are, including when SKILL.md frontmatter says something else (a file
+    refresh used to replace catalog ``version`` 1.8.0 with frontmatter
+    ``1.0``). A missing ``license`` may still be filled from frontmatter.
+    Upstream version and README belong to ``repo_metadata_refresh``.
     """
     updated = dict(existing)
     folder = folder_of_skill(existing)
@@ -611,14 +618,7 @@ def merge_refresh(existing: dict[str, Any], captured: dict[str, Any]) -> dict[st
     skill_md = captured.get("skill_md")
     if isinstance(skill_md, str):
         updated["skill_md"] = skill_md[:SKILL_MD_CAP]
-    readme = captured.get("readme")
-    if isinstance(readme, str):
-        updated["readme"] = readme[:README_CAP]
     fm = parse_skill_frontmatter(skill_md or "")
-    if fm.get("description"):
-        updated["description"] = str(fm["description"])[:500]
-    if fm.get("version"):
-        updated["version"] = str(fm["version"])[:40]
     for key in LOCKED_FIELDS:
         if key == "license":
             continue
@@ -630,6 +630,10 @@ def merge_refresh(existing: dict[str, Any], captured: dict[str, Any]) -> dict[st
         updated["license"] = str(fm["license"])[:120]
     if existing.get("attribution"):
         updated["attribution"] = existing["attribution"]
+    if "version" in existing:
+        updated["version"] = existing["version"]
+    elif "version" in updated and "version" not in existing:
+        updated.pop("version", None)
     return updated
 
 
@@ -671,7 +675,11 @@ def refresh_skill(existing: dict[str, Any], captured: dict[str, Any] | None) -> 
     if hits:
         return {"skill": existing, "status": "flag_review", "reason": "content_policy", "hits": hits}
     merged = merge_refresh(existing, captured)
-    if _canon(merged) == _canon(existing):
+    # Inline bytes live in the per-skill file, not in the equality check.
+    # A catalog row that already stores the same paths and blob SHAs is
+    # unchanged even when one side still carries ``content`` and the other
+    # does not.
+    if _canon(index_skill(merged)) == _canon(index_skill(existing)):
         return {"skill": existing, "status": "unchanged"}
     return {"skill": merged, "status": "updated"}
 
@@ -892,10 +900,14 @@ class BackfillState:
 
 
 def diff_bytes(before: dict[str, Any], after: dict[str, Any]) -> int:
-    """UTF-8 byte delta of the catalog JSON the publisher writes."""
+    """UTF-8 byte delta of the catalog JSON the publisher writes.
+
+    The committed catalog is the file index (no inline ``content``), so the
+    delta is measured on that form.
+    """
     from publish_lib import catalog_json_dumps
-    old = (catalog_json_dumps(before) + "\n").encode("utf-8")
-    new = (catalog_json_dumps(after) + "\n").encode("utf-8")
+    old = (catalog_json_dumps(index_catalog(before)) + "\n").encode("utf-8")
+    new = (catalog_json_dumps(index_catalog(after)) + "\n").encode("utf-8")
     return len(new) - len(old)
 
 

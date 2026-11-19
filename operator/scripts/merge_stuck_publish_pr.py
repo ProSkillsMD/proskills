@@ -10,7 +10,8 @@ A PR on ProSkillsMD/website is merged only when ALL of these hold:
   (operator catalog publishes), authored by the operator account (default Asif2BD);
 * never PR #29 or any number in --protected (default 29 and 1-15);
 * created more than --min-age-min minutes ago (default 90);
-* diff is exactly `public/skills-catalog.json` (catalog-only);
+* diff is `public/skills-catalog.json` and/or `public/skill-files/<slug>.json`
+  (catalog publish files; nothing else);
 * mergeable == MERGEABLE and mergeStateStatus == CLEAN;
 * checks passing: `gh pr checks` shows no failing/pending check. When the token cannot read checks
   (403 "Resource not accessible"), GitHub's CLEAN merge state is the evidence (CLEAN means no failing
@@ -30,8 +31,9 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable
 
+from skill_file_store import catalog_publish_diff_ok
+
 REPO = "ProSkillsMD/website"
-CATALOG_FILES = ("public/skills-catalog.json",)
 HEAD_PREFIX = "operator/catalog-publish-"
 DEFAULT_PROTECTED = frozenset({29, *range(1, 16)})
 DHAKA = timezone(timedelta(hours=6))
@@ -126,7 +128,7 @@ def evaluate(pr: dict[str, Any], *, run: Runner, now: datetime, min_age_min: flo
     rec["files"] = files
     if files is None:
         return skip("files_unreadable")
-    if tuple(files) != CATALOG_FILES:
+    if not catalog_publish_diff_ok(files):
         return skip("not_catalog_only")
     cs = checks_state(run, n, repo)
     rec["checks"] = cs

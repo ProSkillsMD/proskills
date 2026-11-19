@@ -236,6 +236,21 @@ class TestPublishRun(Base):
         self.assertEqual(PR.added_count({"body": "", "title": "publish (+4 skills → 742)"}), 4)
         self.assertEqual(PR.to_dhaka_date("2026-09-25T18:30:00Z"), "2026-09-26")
 
+    def test_published_today_counts_new_skills_only(self):
+        backfill = self.merged_pr(80, 40)
+        backfill["title"] = "operator: catalog publish files-20260926-0500 (+40 skills → 9)"
+        backfill["headRefName"] = "operator/catalog-publish-20260926-0500"
+        backfill["body"] = '{"added_count": 40}\n<!-- proskills:backfill v1 slugs=["getsentry"] -->'
+        refresh = self.merged_pr(81, 9)
+        refresh["title"] = "operator: catalog metadata refresh 20260926-0600 (9 rows, total 9)"
+        refresh["body"] = '{"added_count": 9}\n<!-- proskills:metadata-refresh v1 slugs=["a"] -->'
+        files_branch = self.merged_pr(82, 15)
+        files_branch["headRefName"] = "operator/catalog-publish-files-20260926-0700"
+        files_branch["title"] = "operator: catalog publish (+15 skills → 9)"
+        real = self.merged_pr(83, 7)
+        w = FakeWorld(self.website, prs=[backfill, refresh, files_branch, real])
+        self.assertEqual(self.pub(w).published_today(), 7)
+
     def test_full_apply_flow_publishes_merges_verifies_and_closes(self):
         a = self.passed("A/one", 300)
         b = self.passed("B/two", 200)
@@ -366,6 +381,19 @@ class TestPublishRun(Base):
         w = FakeWorld(self.website, prs=[self.merged_pr(70, 99)], view=self.green_view())
         res = self.pub(w, apply=False).publish()
         self.assertEqual(len(res["would_publish"]), 1)
+
+    def test_merge_allows_per_skill_files(self):
+        a = self.passed("A/one")
+        self.reviewer().run(list(self.gh.issues.values()))
+        v = self.green_view()
+        v["files"].append({"path": "public/skill-files/slug-1.json"})
+        w = FakeWorld(self.website, view=v)
+        res = self.pub(w).publish()
+        self.assertTrue(w.merged)
+        self.assertEqual(res["steps"]["merge"]["files"], [
+            "public/skill-files/slug-1.json", "public/skills-catalog.json",
+        ])
+        self.assertIn("publish:staged", self.gh.labels_of(a))
 
     def test_not_merged_when_not_catalog_only_or_failing(self):
         a = self.passed("A/one")

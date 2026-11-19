@@ -138,6 +138,19 @@ class TestFieldRules(unittest.TestCase):
         self.assertEqual(outcome["changes"]["github_stars"], {"from": 14, "to": 378})
         self.assertEqual(outcome["changes"]["readme"]["to_bytes"], len(README))
 
+    def test_refresh_does_not_rewrite_file_payload_or_invent_version(self):
+        files = [{"path": "SKILL.md", "size": 4, "sha": "a" * 40, "content": "keep"}]
+        row = rederive_row(version="1.8.0", skill_md="keep md", files=files, description="keep desc")
+        fetched = rederive_fetch()
+        fetched["files"] = {key: None for key in fetched["files"]}
+        outcome = R.refresh_skill_metadata(row, fetched, now=NOW)
+        self.assertEqual(outcome["skill"]["version"], "1.8.0")
+        self.assertNotIn("version", outcome["changes"])
+        self.assertEqual(outcome["skill"]["files"], files)
+        self.assertEqual(outcome["skill"]["skill_md"], "keep md")
+        self.assertEqual(outcome["skill"]["description"], "keep desc")
+        self.assertEqual(outcome["skill"]["github_stars"], 378)
+
     def test_second_apply_is_a_no_op(self):
         once = R.refresh_skill_metadata(rederive_row(), rederive_fetch(), now=NOW)["skill"]
         twice = R.refresh_skill_metadata(once, rederive_fetch(), now="2026-11-02T00:00:00Z")

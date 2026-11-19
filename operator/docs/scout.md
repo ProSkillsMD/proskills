@@ -147,7 +147,7 @@ The compat names (`classify_batch`, `run_scan`, `rematerialize_warm`, `public_ca
 The old intake's "merge a website catalog publish PR stuck > 90 min" check, now a standalone
 committed script for the publisher. Dry run by default; `--apply` merges. Merges only open,
 non-draft PRs to `main` from `operator/catalog-publish-*` by Asif2BD, never #29 or #1-15,
-created > 90 min ago, diff exactly `public/skills-catalog.json`, `MERGEABLE` + `CLEAN`, and no
+created > 90 min ago, diff is `public/skills-catalog.json` and/or `public/skill-files/<slug>.json`, `MERGEABLE` + `CLEAN`, and no
 failing/pending check in `gh pr checks` (this token gets 403 on checks for the website repo, so
 GitHub's `CLEAN` state is the recorded evidence: `checks_source: merge_state_clean`). Squash with
 `--match-head-commit`. `--out FILE` also writes the JSON summary.

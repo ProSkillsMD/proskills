@@ -9,6 +9,39 @@ does that refresh. `scripts/repo_metadata_refresh.py` refreshes upstream stars, 
 README, and the other repo metadata fields on rows that are already listed (see
 `operator/docs/repo-metadata-refresh.md`). It does not rewrite `skill_md` or `files`.
 
+## Where the bytes go
+
+Capture still builds the objects below, including `content`, in memory. Every
+writer that puts a catalog into a website checkout (`publish_run.py`,
+`backfill_skill_files.py`, `repo_metadata_refresh.py`, `create_pr.py`, and
+`clawhub_stats.py` when it is pointed at `public/skills-catalog.json`) then
+calls `operator/scripts/skill_file_store.py`:
+
+* `public/skills-catalog.json` keeps metadata and the file **index**
+  (`files: [{path, size, sha, truncated?, omitted?}]`). `content` is omitted.
+* `public/skill-files/<slug>.json` holds the inline text for that skill.
+
+```json
+{
+  "schema": "proskills.skill-files/v1",
+  "slug": "ericjujianzou-rederive-skills-rederive",
+  "id": "ericjujianzou-rederive-skills-rederive",
+  "files": [
+    {"path": "skills/rederive/SKILL.md", "size": 6843, "sha": "<blob sha>", "content": "---\nname: rederive\n..."}
+  ]
+}
+```
+
+Path and schema are only in `skill_file_store.py`. No open ProSkillsMD/website
+PR defined this split on 2026-11-19 (`main` still inlines `content`, and its
+build-time `public/skill-details/<id>.json` files are generated, not committed).
+Change the constants in that module if the website PR picks a different path
+or shape.
+
+A file with no inline text (binary, symlink, over the cap, or past the
+per-skill budget) stays on the catalog index only and is absent from the
+per-skill file.
+
 ## Shape
 
 `files[].path` is **repo-root relative**, the same string `files_found` uses.
@@ -61,7 +94,12 @@ Caps:
 - per skill inline total: 128 KiB (131072 bytes), spent in order `SKILL.md`, `README.md`, `scripts/`, `references/`, `assets/`, then the rest
 - legacy `skill_md` and `readme` stay capped at 8000 characters
 
-`id`, `slug`, `author`, `author_url`, `repo_url`, `category`, and an existing `license` / `attribution` are not replaced by a refresh. A missing `license` may be filled from SKILL.md frontmatter.
+A file refresh does not replace existing catalog metadata. `version`,
+`description`, `name`, `readme`, `id`, `slug`, `author`, `author_url`,
+`repo_url`, `category`, and an existing `license` / `attribution` stay as
+they are. A missing `license` may be filled from SKILL.md frontmatter.
+Upstream `version` and README are `repo_metadata_refresh.py`'s job, and only
+when that command finds a real value.
 
 ## Refresh and backfill
 
@@ -85,7 +123,7 @@ python3 operator/scripts/backfill_skill_files.py \
 
 Ranking is CSV `slug,views` or JSON (`[{"slug","views"}]` or `{slug: views}`). Highest views first. Skills absent from the ranking follow, ordered by `github_stars` descending, then slug.
 
-Apply inspects at most `--batch` skills (default 10) serially, one GitHub folder at a time, and opens one PR. The PR branch is `operator/catalog-publish-*`, the only file is `public/skills-catalog.json`, and the body carries `added_count` so the publisher's Asia/Dhaka daily cap of 100 counts the batch. This command does not merge.
+Apply inspects at most `--batch` skills (default 10) serially, one GitHub folder at a time, and opens one PR. The PR branch is `operator/catalog-publish-*`. The diff is `public/skills-catalog.json` plus `public/skill-files/<slug>.json` for skills whose inline text changed. `added_count` is 0 (no new skills), so the publisher's Asia/Dhaka daily cap of 100 does not count the batch. `refreshed_count` is the batch size. This command does not merge.
 
 State file: `operator/state/skill-files-backfill.json`. After each skill the cursor and any not-yet-published capture are saved. A killed run continues at that cursor and republishes the saved capture. The next full pass, after the previous one finished, refetches and writes nothing when upstream has not changed.
 
