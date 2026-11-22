@@ -15,9 +15,11 @@ row is never deleted. A repository GitHub will not return (deleted, private,
 or missing) is recorded in the state file. A rename is recorded the same way;
 ``repo_url`` stays.
 
-Dry-run is the default and prints a summary. ``--apply`` opens a catalog-only
-website PR on ``operator/catalog-publish-*`` (the prefix the existing merge
-tooling squash-merges) and does not merge. It refuses to open that PR between
+Dry-run is the default and prints a summary. ``--apply`` opens a website PR
+on ``operator/catalog-publish-*`` (the prefix the existing merge tooling
+squash-merges) and does not merge. The diff may be the catalog plus
+``public/skill-files/<slug>.json``: writing the catalog moves any inline file
+text out of the catalog blob. It refuses to open that PR between
 minute :44 and :58 Asia/Dhaka, or while another operator publish PR is open.
 
 No AI usage. Tokens are not printed.
@@ -39,9 +41,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from _common import PROJECT_ROOT, emit, exit_fail, exit_ok, redact_secrets  # noqa: E402
 from issue_flow import no_handles  # noqa: E402
-from publish_lib import catalog_json_dumps, parse_skill_frontmatter  # noqa: E402
-from publish_run import CATALOG_REL, DHAKA, HEAD_PREFIX, WEBSITE_REPO, now_dhaka  # noqa: E402
+from publish_lib import parse_skill_frontmatter  # noqa: E402
+from publish_run import DHAKA, HEAD_PREFIX, WEBSITE_REPO, now_dhaka  # noqa: E402
 from scout import GitHubError, NAME_OK_RE  # noqa: E402
+from skill_file_store import catalog_publish_diff_ok, git_add_argv, write_website_catalog  # noqa: E402
 from skill_files import (  # noqa: E402
     diff_bytes,
     folder_of_skill,
@@ -245,8 +248,11 @@ def refresh_skill_metadata(skill: dict[str, Any], fetched: dict[str, Any], *, no
     """Return ``{status, skill, changes}``. ``unchanged`` keeps the original object.
 
     ``fetched`` is one repository result: stars, issues, homepage, last_commit,
-    author fields, ``files``, and optional ``renamed_to``. Locked fields are copied
-    through from ``skill`` and never taken from ``fetched``.
+    author fields, ``files`` (version and README sources only), and optional
+    ``renamed_to``. This run's purpose is that metadata, including ``version``
+    when upstream has a real one. It does not invent a version, and it does not
+    rewrite ``skill_md``, the catalog ``files`` array, or any other field.
+    Locked fields are copied through from ``skill`` and never taken from ``fetched``.
     """
     updated = copy.deepcopy(skill)
     changes: dict[str, Any] = {}
@@ -732,12 +738,12 @@ def push_catalog_pr(
     title: str,
     body: str,
 ) -> dict[str, Any]:
-    """Commit only the catalog file and open a PR. Does not merge.
+    """Commit the catalog index and per-skill files, then open a PR. Does not merge.
 
     The git steps match ``backfill_skill_files.push_catalog_pr``. The branch has to
     start with ``operator/catalog-publish-`` so ``merge_stuck_publish_pr.py`` can see it.
+    Inline ``files[].content`` is written to ``public/skill-files/<slug>.json``.
     """
-    rel = CATALOG_REL
     status = run(["git", "status", "--porcelain"], website)
     if (status.stdout or "").strip():
         return {"ok": False, "reason": "dirty"}
@@ -746,16 +752,14 @@ def push_catalog_pr(
     checked = run(["git", "checkout", "-q", "-b", branch], website)
     if checked.returncode != 0:
         return {"ok": False, "reason": "checkout_failed"}
-    target = website / rel
-    target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(catalog_json_dumps(catalog) + "\n", encoding="utf-8")
-    run(["git", "add", rel], website)
+    write_website_catalog(website, catalog)
+    run(["git", *git_add_argv(website)], website)
     diff = run(["git", "diff", "--cached", "--name-only"], website)
     names = [line.strip() for line in (diff.stdout or "").splitlines() if line.strip()]
     # The rewritten catalog matches main. Nothing to commit or push.
     if not names:
         return {"ok": True, "opened": False, "files": []}
-    if names != [rel]:
+    if not catalog_publish_diff_ok(names):
         return {"ok": False, "reason": "not_catalog_only", "files": names}
     committed = run(["git", "commit", "-q", "-m", title], website)
     if committed.returncode != 0:
@@ -911,12 +915,13 @@ def main(
         state.save()
 
     noun = "would update" if dry_run else "updated"
+    opened = bool(pr and pr.get("ok") and pr.get("opened", True) and result["updated"])
     emit(
         stage=STAGE,
         status="ok",
         dry_run=dry_run,
         message=f"{noun} {len(result['updated'])} skills; diff_bytes={result['diff_bytes']}",
-        files_touched=[CATALOG_REL] if pr and pr.get("ok") and pr.get("opened", True) and result["updated"] else [],
+        files_touched=list((pr or {}).get("files") or []) if opened else [],
         pr=pr,
         **_summary(result),
     )

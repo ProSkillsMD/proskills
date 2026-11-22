@@ -270,6 +270,23 @@ class TestRefresh(unittest.TestCase):
         self.assertEqual(second["status"], "unchanged")
         self.assertEqual(SF._canon(second["skill"]), SF._canon(updated))
 
+    def test_file_refresh_keeps_version_and_other_metadata(self):
+        skill = self._skill()
+        skill["version"] = "1.8.0"
+        skill["description"] = "Kept description"
+        skill["readme"] = "kept readme"
+        skill["name"] = "Kept Name"
+        md = "---\nname: rederive\ndescription: from skill\nversion: 1.0\nlicense: MIT\n---\n\n# Rederive\n"
+        outcome = SF.refresh_skill(skill, self._captured(md))
+        self.assertEqual(outcome["status"], "updated")
+        row = outcome["skill"]
+        self.assertEqual(row["version"], "1.8.0")
+        self.assertEqual(row["description"], "Kept description")
+        self.assertEqual(row["readme"], "kept readme")
+        self.assertEqual(row["name"], "Kept Name")
+        self.assertIn("# Rederive", row["skill_md"])
+        self.assertNotIn("version", SF.refresh_skill(self._skill(), self._captured(md))["skill"])
+
     def test_skill_md_refresh_tracks_upstream(self):
         skill = self._skill()
         newer = SKILL + "\nEdited upstream.\n"
@@ -498,9 +515,12 @@ class TestBackfillOrder(unittest.TestCase):
             catalog = {"skills": [{"id": "rederive", "slug": "rederive"}], "total": 1}
             body = BF.catalog_pr_body(["rederive"], old_total=1, new_total=1, diff_bytes=120)
             self.assertIsNotNone(ADDED_RE.search(body))
-            self.assertEqual(int(ADDED_RE.search(body).group(1)), 1)
+            self.assertEqual(int(ADDED_RE.search(body).group(1)), 0)
+            self.assertIn('"refreshed_count": 1', body)
+            self.assertIn("proskills:backfill", body)
             title = BF.catalog_pr_title("20261101-120000", 1, 1)
-            self.assertIsNotNone(TITLE_RE.search(title))
+            self.assertIsNone(TITLE_RE.search(title))
+            self.assertIn("files-", title)
             branch = f"{HEAD_PREFIX}20261101-120000"
             out = BF.push_catalog_pr(run, website, catalog, branch=branch, title=title, body=body)
             self.assertTrue(out["ok"])
@@ -509,6 +529,42 @@ class TestBackfillOrder(unittest.TestCase):
             self.assertFalse(any(cmd[:3] == ["gh", "pr", "merge"] for cmd in commands))
             written = json.loads((website / CATALOG_REL).read_text(encoding="utf-8"))
             self.assertEqual(written["skills"][0]["slug"], "rederive")
+
+    def test_push_stores_content_in_the_per_skill_file(self):
+        class Proc:
+            def __init__(self, stdout="", code=0):
+                self.stdout, self.stderr, self.returncode = stdout, "", code
+
+        def run(cmd, cwd):
+            if cmd[:3] == ["git", "status", "--porcelain"]:
+                return Proc("")
+            if cmd[:4] == ["git", "diff", "--cached", "--name-only"]:
+                return Proc("public/skills-catalog.json\npublic/skill-files/getsentry.json\n")
+            if cmd[:3] == ["gh", "pr", "create"]:
+                return Proc("https://github.com/ProSkillsMD/website/pull/2\n")
+            return Proc("")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            website = Path(tmp)
+            (website / "public").mkdir()
+            catalog = {"skills": [{
+                "id": "getsentry", "slug": "getsentry", "version": "1.8.0",
+                "files": [{"path": "SKILL.md", "size": 3, "sha": "abc", "content": "hi\n"}],
+            }], "total": 1}
+            out = BF.push_catalog_pr(
+                run, website, catalog, branch=f"{HEAD_PREFIX}20261101-120000",
+                title="t", body="b",
+            )
+            self.assertTrue(out["ok"], out)
+            written = json.loads((website / CATALOG_REL).read_text(encoding="utf-8"))
+            self.assertEqual(written["skills"][0]["version"], "1.8.0")
+            self.assertNotIn("content", written["skills"][0]["files"][0])
+            self.assertEqual(written["skills"][0]["files"][0]["path"], "SKILL.md")
+            side = json.loads((website / "public/skill-files/getsentry.json").read_text(encoding="utf-8"))
+            self.assertEqual(side["schema"], "proskills.skill-files/v1")
+            self.assertEqual(side["slug"], "getsentry")
+            self.assertEqual(side["files"][0]["content"], "hi\n")
+            self.assertEqual(side["files"][0]["sha"], "abc")
 
     def test_empty_catalog_diff_is_a_noop(self):
         commands: list[list[str]] = []
@@ -564,8 +620,12 @@ class TestBackfillOrder(unittest.TestCase):
         merged = [
             {"mergedAt": "2026-11-01T02:00:00Z", "body": '"added_count": 40', "title": "x", "headRefName": HEAD_PREFIX + "a"},
             {"mergedAt": "2026-10-31T02:00:00Z", "body": '"added_count": 90', "title": "old", "headRefName": HEAD_PREFIX + "b"},
+            {"mergedAt": "2026-11-01T03:00:00Z", "body": '"added_count": 50\n<!-- proskills:backfill v1 slugs=["a"] -->',
+             "title": "operator: catalog publish files-20261101-090000 (+50 skills → 9)",
+             "headRefName": HEAD_PREFIX + "files-20261101-090000"},
         ]
-        # 02:00Z is 08:00 Asia/Dhaka on the same calendar day.
+        # 02:00Z is 08:00 Asia/Dhaka on the same calendar day. The files-* backfill
+        # does not consume the cap.
         self.assertEqual(BF.budget_remaining(merged, cap=DAILY_CAP, today="2026-11-01"), 60)
 
 

@@ -72,10 +72,12 @@ without discarding the saved cursor for the others.
 
 ## Apply
 
-`--apply` needs `--website` (a checkout of `ProSkillsMD/website`). It commits only
-`public/skills-catalog.json` on `operator/catalog-publish-<timestamp>` and opens a PR.
+`--apply` needs `--website` (a checkout of `ProSkillsMD/website`). It commits
+`public/skills-catalog.json` and, when a row still has inline file text, the
+matching `public/skill-files/<slug>.json` files (`skill_file_store.py`) on
+`operator/catalog-publish-<timestamp>` and opens a PR.
 `merge_stuck_publish_pr.py` and the hourly publisher only squash-merge that prefix, and only
-when the diff is catalog-only, so the branch matches the existing merge tooling.
+when every path in the diff is the catalog or `public/skill-files/<slug>.json`.
 `operator/catalog-refresh-*` is recognized only as another open publish head to avoid
 starting a second batch. This command does not merge.
 

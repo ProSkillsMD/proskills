@@ -111,7 +111,7 @@ def report(run: Runner = _run, http_get: Callable[[str], tuple[int, bytes]] | No
                     "number,title,body,state,mergedAt,headRefName"]) or []
     prs = [p for p in prs if str(p.get("headRefName") or "").startswith(PR.HEAD_PREFIX)]
     merged_today = [p for p in prs if PR.to_dhaka_date(p.get("mergedAt")) == today]
-    out.append(f"| skills published today (Asia/Dhaka, cap 100) | {sum(PR.added_count(p) for p in merged_today)} |")
+    out.append(f"| skills published today (Asia/Dhaka, cap 100) | {sum(PR.new_skill_count(p) for p in merged_today)} |")
     out.append(f"| open publish PRs | {', '.join(str(p['number']) for p in prs if p.get('state') == 'OPEN') or 'none'} |")
     st, body = http_get(f"{PR.LIVE_BASE}/skills-catalog.json")
     total = None

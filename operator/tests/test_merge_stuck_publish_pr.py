@@ -85,6 +85,25 @@ class TestStuckMerge(unittest.TestCase):
         self.assertEqual(g.merges(), [])
         self.assertNotIn(29, reasons)
 
+    def test_per_skill_files_are_still_a_catalog_publish(self):
+        g = FakeGh([pr(70)], files={70: [
+            "public/skill-files/getsentry.json",
+            "public/skills-catalog.json",
+        ]})
+        out = m.run_check(apply=False, run=g, now=NOW)
+        self.assertEqual(out["would_merge"], [70])
+        self.assertNotIn("skip_reason", out["prs"][0])
+
+    def test_nested_or_foreign_paths_are_not_catalog_only(self):
+        g = FakeGh([pr(71), pr(72)], files={
+            71: ["public/skills-catalog.json", "public/skill-files/nested/getsentry.json"],
+            72: ["public/skill-files/../secrets.json"],
+        })
+        out = m.run_check(apply=False, run=g, now=NOW)
+        reasons = {p["number"]: p.get("skip_reason") for p in out["prs"]}
+        self.assertEqual(reasons[71], "not_catalog_only")
+        self.assertEqual(reasons[72], "not_catalog_only")
+
     def test_passing_checks_recorded(self):
         g = FakeGh([pr(61)], checks={61: cp(0, "build\tpass\t1m\thttps://x\n")})
         out = m.run_check(apply=False, run=g, now=NOW)
