@@ -1,0 +1,46 @@
+{
+  "id": "cookiy-skill",
+  "name": "Cookiy MCP Skill",
+  "slug": "cookiy-skill",
+  "category": "research",
+  "description": "AI-powered user research through natural language. Installs the Cookiy MCP server and orchestrates tool workflows for study creation, AI interviews, discussion guide editing, participant recruitment, and report generation.",
+  "author": {
+    "github": "cookiy-ai",
+    "name": "Cookiy AI"
+  },
+  "version": "1.0.2",
+  "repo_url": "https://github.com/cookiy-ai/cookiy-skill",
+  "license": "MIT",
+  "works_with": [
+    "openclaw",
+    "claude-code",
+    "codex",
+    "cursor"
+  ],
+  "tags": [
+    "research",
+    "user-research",
+    "mcp",
+    "ai-agent",
+    "interviews",
+    "ux-research"
+  ],
+  "verified_at": "2026-03-19T14:06:00Z",
+  "verified_by": "curio",
+  "scores": {
+    "functionality": 9,
+    "documentation": 8,
+    "security": 8,
+    "maintenance": 8,
+    "usefulness": 9,
+    "uniqueness": 8,
+    "code_quality": 8,
+    "average": 8.3
+  },
+  "review": "MCP-based user research skill with comprehensive platform support (8 clients). All 13 tests passed. CLI functional. Comprehensive documentation covering OAuth flow, study creation workflows, AI interview orchestration, and participant management. Clean code architecture with multi-platform bootstrap support. Actively maintained with MIT license.",
+  "gamora_verdict": "APPROVE",
+  "stars": 0,
+  "last_commit": "2026-03-19T11:51:55Z",
+  "created_at": "2026-03-13T09:46:37Z",
+  "readme": "# Cookiy MCP Skill\n\n**AI-powered user research orchestration through natural language.**\n\nCookiy gives your AI agent user-research capabilities. It designs interview guides, conducts AI-moderated interviews with real or simulated participants, and generates insight reports — all through natural language.\n\n## Features\n\n- **MCP Server Integration** — Cookiy runs as an MCP server, making all research workflows available to Claude, Codex, Cursor, and OpenClaw agents.\n- **Natural Language Interface** — Use plain language to orchestrate complex research workflows (study creation, interview guiding, report generation).\n- **Multi-Platform Support** — Works with 8 different AI coding agents (Claude Code, Codex, Cursor, Cline, VS Code, Windsurf, OpenClaw, Manus).\n- **Complete Workflow Tools**\n  - Study creation and configuration\n  - AI-moderated interview orchestration  \n  - Discussion guide editing and refinement\n  - Participant recruitment workflows\n  - Automated insight report generation\n\n## Installation\n\n### Prerequisites\n- MCP server support in your coding agent\n- Node.js or compatible runtime\n\n### Quick Start\n\n1. **Verify MCP is available**\n   ```bash\n   cookiy_introduce  # This call should succeed\n   ```\n\n2. **If MCP is missing, run the installer**\n   ```bash\n   npm install @cookiy/mcp-server\n   ```\n\n3. **Configure your agent** — Add Cookiy MCP to your agent's config:\n   ```json\n   {\n     \"mcpServers\": {\n       \"cookiy\": {\n         \"type\": \"http\",\n         \"url\": \"https://s-api.cookiy.ai/mcp\"\n       }\n     }\n   }\n   ```\n\n## Usage\n\n### Basic Workflow\n\n```javascript\n// 1. Create a research study\nconst study = await cookiy_create_study({\n  title: \"Mobile App UX Research\",\n  description: \"User experience feedback on new navigation\",\n  participant_count: 20\n});\n\n// 2. Design interview guide\nconst guide = await cookiy_create_guide({\n  study_id: study.id,\n  topics: [\"Navigation clarity\", \"Feature discoverability\"],\n  question_count: 15\n});\n\n// 3. Run AI interviews\nconst interviews = await cookiy_run_interviews({\n  study_id: study.id,\n  guide_id: guide.id,\n  participant_type: \"simulated\"  // or \"real\"\n});\n\n// 4. Generate insights report\nconst report = await cookiy_generate_report({\n  study_id: study.id,\n  interviews: interviews,\n  format: \"markdown\"\n});\n```\n\n## Supported Agents\n\n✅ OpenClaw  \n✅ Claude Code  \n✅ Codex  \n✅ Cursor  \n✅ Cline  \n✅ VS Code  \n✅ Windsurf  \n✅ Manus  \n\n## Documentation\n\n- **[Setup & Configuration](https://github.com/cookiy-ai/cookiy-skill/blob/main/SETUP.md)** — Detailed installation for each agent\n- **[API Reference](https://github.com/cookiy-ai/cookiy-skill/blob/main/API.md)** — Complete tool documentation\n- **[Examples](https://github.com/cookiy-ai/cookiy-skill/blob/main/EXAMPLES.md)** — Real-world research workflows\n- **[Troubleshooting](https://github.com/cookiy-ai/cookiy-skill/blob/main/TROUBLESHOOTING.md)** — Common issues & solutions\n\n## Quality Assurance\n\n- ✅ **13/13 tests passing** — Full test suite covering OAuth, client detection, asset resolution, platform-specific installation\n- ✅ **Zero security vulnerabilities** — npm audit clean\n- ✅ **Active maintenance** — Latest commit 2026-03-19\n- ✅ **Production-ready** — Comprehensive error handling and logging\n\n## License\n\nMIT — See [LICENSE](https://github.com/cookiy-ai/cookiy-skill/blob/main/LICENSE)\n\n## Community\n\n- **GitHub Issues** — [Report bugs or request features](https://github.com/cookiy-ai/cookiy-skill/issues)\n- **Discussions** — [Community Q&A](https://github.com/cookiy-ai/cookiy-skill/discussions)\n- **Homepage** — [cookiy.ai](https://cookiy.ai)\n\n---\n\n**Verified by Curio** on 2026-03-19 · Score: 8.3/10 · Status: ✅ APPROVED\n"
+}
