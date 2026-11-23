@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "lastUpdated": "2026-03-19T14:32:00Z",
+  "categories": {
+    "search": {
+      "name": "Search & Research",
+      "description": "Skills for web search, aggregation, and information retrieval",
+      "count": 1,
+      "listings": [
+        {
+          "slug": "mysearch-proxy",
+          "name": "MySearch-Proxy",
+          "author": "skernelx",
+          "version": "0.1.7",
+          "score": 8.7,
+          "verdict": "APPROVE"
+        }
+      ]
+    }
+  },
+  "totalListings": 1,
+  "approvedCount": 1,
+  "rejectedCount": 0,
+  "conditionalCount": 0
+}
