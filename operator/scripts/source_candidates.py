@@ -174,7 +174,9 @@ def collect_observations(selected: list[str], cfg: dict[str, Any], search: RepoS
     obs: list[dict] = []
     info: dict[str, Any] = {}
     if "github_topics" in selected:
-        o = github_topics.collect(search, cfg["github_topics"], int(cfg.get("topic_max_pages", 3)))
+        o = github_topics.collect(search, cfg["github_topics"], int(cfg.get("topic_max_pages", 3)),
+                                  sorts=tuple(cfg.get("topic_sorts") or ("stars",)),
+                                  updated_max_pages=cfg.get("topic_updated_max_pages"))
         info["github_topics"] = {"observations": len(o)}
         obs += o
     if "new_repos" in selected:

@@ -29,7 +29,37 @@ import issue_flow as F  # noqa: E402
 from scout_file import resolve_shas  # noqa: E402
 from publish_lib import load_build_break_skips  # noqa: E402
 
-HELD_PREFIXES = ("blocked:", "review:hold", "flag:")
+HELD_PREFIXES = ("blocked:", "review:hold", "flag:", "hold:")
+POLICY_SKIPS_NAME = "publish-content-policy-skips.json"
+
+
+def load_policy_skips(state_dir: Path) -> dict[str, Any]:
+    """identity -> {sha, hits, at} for skills catalog_update refused on the content policy.
+
+    Entries recorded under another content_policy version are ignored, so a matcher fix re-tries them.
+    """
+    import content_policy as CP
+    d = F.load_json(state_dir / POLICY_SKIPS_NAME, {}) or {}
+    if d.get("policy_version") != CP.policy_version():
+        return {}
+    return d.get("skills") or {}
+
+
+def record_policy_skips(state_dir: Path, queue: dict[str, Any], delta: dict[str, Any]) -> list[str]:
+    """Remember publish-time content-policy skips (identity + reviewed sha) so the next selection does not
+    spend its per-run slots re-staging the same skills every hour. A new upstream sha is re-checked."""
+    import content_policy as CP
+    sha_of = {str(r.get("identity")): r.get("reviewed_sha") for r in queue.get("passed") or [] if r.get("identity")}
+    skills = load_policy_skips(state_dir)
+    added = []
+    for s in delta.get("skipped") or []:
+        ident = str(s.get("identity") or "")
+        if s.get("reason") != "content_policy" or not ident or not sha_of.get(ident):
+            continue
+        skills[ident] = {"sha": sha_of[ident], "hits": list(s.get("hits") or [])[:10], "at": F.iso()}
+        added.append(ident)
+    F.save_json(state_dir / POLICY_SKIPS_NAME, {"policy_version": CP.policy_version(), "skills": skills})
+    return added
 
 
 def build_break_skip_reason(issue_number: int, identity: str | None, config: dict[str, Any]) -> str | None:
@@ -133,6 +163,7 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
     skipped: list[dict[str, Any]] = []
     repos_in_batch: set[str] = set()
     build_break_skips = load_build_break_skips()
+    policy_skips = load_policy_skips(state_dir)
 
     def prio(i: dict[str, Any]) -> tuple:
         b = F.parse_block(i.get("body")) or {}
@@ -167,6 +198,10 @@ def select(api: F.IssueRepo, state_dir: Path, *, limit: int = 40, catalog: dict 
         sha = reviewed_sha(api, n, ident, state)
         if not sha:
             skipped.append({"issue": n, "reason": "no_review_marker"})
+            continue
+        held = policy_skips.get(ident)
+        if held and held.get("sha") == sha:
+            skipped.append({"issue": n, "reason": "content_policy_publish_hold", "hits": held.get("hits")})
             continue
         if ident.startswith("clawhub:"):
             if clawhub is None:

@@ -356,6 +356,9 @@ class Publisher:
             s["error"] = True
             return s
         d = json.loads(delta.read_text(encoding="utf-8"))
+        held = PC.record_policy_skips(self.state_dir, json.loads(queue.read_text(encoding="utf-8")), d)
+        if held:
+            self.step("content_policy_held", held)
         items = [i for i in d.get("added_map") or [] if i.get("issue")][:remaining]
         self.step("stage", {"added": len(items), "issues": [i["issue"] for i in items]})
         if not items:
