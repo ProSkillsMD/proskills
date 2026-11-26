@@ -17,8 +17,20 @@ LABEL_DESC = "Adult/NSFW, piracy or illegal content: never published (owner cont
 
 # Strong terms: one hit is enough.
 _STRONG = re.compile(
-    r"\b(?:nsfw|porn\w*|hentai|erotic\w*|nudes?|nudity|naked|xxx|onlyfans|fetish\w*|lewd|"
+    r"\b(?:nsfw|porn\w*|hentai|erotic\w*|nudes?|nudity|onlyfans|fetish\w*|lewd|"
     r"camgirls?|sexting|sex\s*(?:bot|chat|roleplay|toy)s?|explicit\s+sexual|sexual\s+(?:content|roleplay|images?))\b",
+    re.I)
+# Context terms: on their own these are everyday placeholders / technical words ("CWE-XXX", "Port xxx",
+# "linkedin-xxx", "No naked box", "naked domain"), which held ~40 clean review:pass skills at publish time.
+# They are hits only next to an adult cue, so an adult skill using them still matches (and almost always
+# also trips a strong term above).
+_ADULT_CUE = (r"(?:videos?|movies?|films?|sites?|adult|sex\w*|porn\w*|cams?|chat|stories|story|pics?|"
+              r"pictures?|photos?|images?|selfies?|girls?|boys?|wom[ae]n|m[ae]n|models?|body|bodies|"
+              r"rated|scenes?|clips?|nude\w*|erotic\w*|nsfw)")
+_CONTEXT = re.compile(
+    r"\b(?:xxx|naked)(?=[\s-]+" + _ADULT_CUE + r"\b)"
+    r"|(?<![\w-])(?:x-?rated)\b"
+    r"|\b(?:adult|sex\w*|porn\w*|nsfw|erotic\w*|nude\w*|hardcore)[\s-]+xxx\b",
     re.I)
 # Piracy: cracking software/licences, warez, DRM/paywall circumvention, ripping copyrighted streams.
 _PIRACY = re.compile(
@@ -54,7 +66,7 @@ def matches(*texts: Any) -> list[str]:
         if not t:
             continue
         s = _BENIGN.sub(" ", str(t))
-        for rx in (_STRONG, _PIRACY, _ILLEGAL):
+        for rx in (_STRONG, _CONTEXT, _PIRACY, _ILLEGAL):
             hits.update(m.group(0).lower() for m in rx.finditer(s))
     return sorted(hits)
 
@@ -67,3 +79,12 @@ def candidate_texts(issue: dict[str, Any] | None, blk: dict[str, Any] | None, ex
     issue, blk = issue or {}, blk or {}
     return [issue.get("title"), blk.get("psk-id"), blk.get("name"), blk.get("description"),
             blk.get("skill_name"), blk.get("skill_description"), *extra]
+
+
+def policy_version() -> str:
+    """Short fingerprint of the patterns. Remembered publish-time holds are re-tried when it changes."""
+    import hashlib
+    h = hashlib.sha256()
+    for rx in (_STRONG, _CONTEXT, _PIRACY, _ILLEGAL, _BENIGN):
+        h.update(rx.pattern.encode("utf-8"))
+    return h.hexdigest()[:12]

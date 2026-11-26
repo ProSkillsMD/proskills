@@ -151,6 +151,89 @@ class IssueIndex:
         F.save_json(self.path, self.data)
 
 
+OPEN_CACHE_NAME = "open-issues-cache.json"
+OPEN_CACHE_OVERLAP_S = 600      # re-read 10 min before the last sync: clock skew / in-flight writes
+OPEN_CACHE_MAX_AGE_S = 14 * 86400  # older than this -> full relist instead of a delta
+
+
+def _slim_issue(i: dict[str, Any]) -> dict[str, Any]:
+    return {"number": int(i["number"]), "title": i.get("title") or "", "body": i.get("body") or "",
+            "state": i.get("state") or "open",
+            "labels": [{"name": n} for n in sorted(F.issue_labels(i))],
+            "created_at": i.get("created_at"), "updated_at": i.get("updated_at")}
+
+
+class OpenIssueCache:
+    """Local mirror of the open issues, kept current with ``state=all&since=<last sync>`` deltas.
+
+    Listing all ~4.6k open issues (bodies included) takes ~260 s, longer than scout_file's 240 s run
+    budget, so every run stopped with ``run_budget`` before filing anything. A delta is a few pages.
+    A full listing happens only when there is no usable cache (first run, or older than
+    OPEN_CACHE_MAX_AGE_S); a truncated listing or delta is reported as incomplete and never saved,
+    so filing then stops exactly as before (``listing_incomplete``).
+    """
+
+    def __init__(self, path: Path, clock=time.time):
+        self.path = path
+        self.clock = clock
+        d = F.load_json(path, {}) or {}
+        self.synced_at: str | None = d.get("synced_at")
+        self.full_synced_at: str | None = d.get("full_synced_at")
+        self.issues: dict[str, dict[str, Any]] = d.get("issues") or {}
+        self.last_mode: str | None = None
+
+    def _age_s(self) -> float | None:
+        if not self.synced_at:
+            return None
+        try:
+            from datetime import datetime
+            t = datetime.fromisoformat(str(self.synced_at).replace("Z", "+00:00")).timestamp()
+        except ValueError:
+            return None
+        return self.clock() - t
+
+    def refresh(self, api: F.IssueRepo, log=lambda m: None) -> tuple[list[dict[str, Any]], bool]:
+        started_ts = self.clock()
+        started = F.iso()
+        age = self._age_s()
+        if age is not None and age <= OPEN_CACHE_MAX_AGE_S:
+            from datetime import datetime, timezone
+            since_dt = datetime.fromtimestamp(started_ts - age - OPEN_CACHE_OVERLAP_S, tz=timezone.utc)
+            since = since_dt.strftime("%Y-%m-%dT%H:%M:%SZ")
+            items = api.list_issues(state="all", since=since)
+            if api.client.page_truncated:
+                self.last_mode = "delta_truncated"
+                log(f"  open-issue cache: delta since {since} truncated; not saved")
+                return list(self.issues.values()), False
+            opened = closed = 0
+            for i in items:
+                key = str(int(i["number"]))
+                if (i.get("state") or "open") == "open":
+                    self.issues[key] = _slim_issue(i)
+                    opened += 1
+                elif self.issues.pop(key, None) is not None:
+                    closed += 1
+            self.last_mode = "delta"
+            log(f"  open-issue cache: delta since {since}: {len(items)} changed, {opened} open, {closed} closed")
+        else:
+            items = api.list_issues(state="open")
+            if api.client.page_truncated:
+                self.last_mode = "full_truncated"
+                log(f"  open-issue cache: full listing truncated at {len(items)}; not saved")
+                return items, False
+            self.issues = {str(int(i["number"])): _slim_issue(i) for i in items}
+            self.full_synced_at = started
+            self.last_mode = "full"
+            log(f"  open-issue cache: full listing {len(items)} open issues")
+        self.synced_at = started
+        self.save()
+        return list(self.issues.values()), True
+
+    def save(self) -> None:
+        F.save_json(self.path, {"version": 1, "synced_at": self.synced_at, "full_synced_at": self.full_synced_at,
+                                "count": len(self.issues), "issues": self.issues})
+
+
 def clawhub_keys(text: str) -> set[str]:
     keys = set()
     for m in CLAWHUB_URL_RE.finditer(text or ""):
@@ -343,7 +426,8 @@ MARKER_COMMENT_INTRO = "Machine-readable candidate block for the ProSkills issue
 
 class ScoutFiler:
     def __init__(self, api: F.IssueRepo, index: IssueIndex, *, apply: bool, caps: dict[str, int] | None = None,
-                 log=lambda m: print(m, flush=True), file_siblings: bool = False):
+                 log=lambda m: print(m, flush=True), file_siblings: bool = False,
+                 open_cache: OpenIssueCache | None = None):
         self.api = api
         self.client = api.client
         self.index = index
@@ -359,6 +443,7 @@ class ScoutFiler:
         self.run_limit: int | None = None
         self.repo_budget_s = REPO_BUDGET_S
         self.listing_incomplete = False
+        self.open_cache = open_cache
 
     def _budget_left(self) -> bool:
         if self.client.budget_expired():
@@ -390,8 +475,12 @@ class ScoutFiler:
         now = F.utc_now()
         day = F.dhaka_day(now)
         self.can_edit = self.api.can_edit_bodies()
-        open_issues = self.api.list_issues(state="open")
-        self.listing_incomplete = bool(self.client.page_truncated)
+        if self.open_cache is not None:
+            open_issues, complete = self.open_cache.refresh(self.api, self.log)
+            self.listing_incomplete = not complete
+        else:
+            open_issues = self.api.list_issues(state="open")
+            self.listing_incomplete = bool(self.client.page_truncated)
         if sync_closed_issues and self._budget_left():
             sync_closed(self.api, self.index, self.log)
         view = IssueView(open_issues, self.index)
@@ -452,7 +541,9 @@ class ScoutFiler:
                    "stopped": self.stopped, "unreviewed_candidates": view.unreviewed_candidates,
                    "filed_today": len(self.index.filed_today(day)),
                    "max_new_effective": self.run_limit,
-                   "core_remaining": self.client.core_remaining, "writes": len(self.api.writes)}
+                   "core_remaining": self.client.core_remaining, "writes": len(self.api.writes),
+                   "open_listing": (self.open_cache.last_mode if self.open_cache is not None else "full_uncached"),
+                   "listing_incomplete": self.listing_incomplete}
         return {"summary": summary, "actions": self.actions}
 
     # -- matching
@@ -720,6 +811,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--create-interval", type=float, default=3.0)
     ap.add_argument("--file-siblings", action="store_true")
     ap.add_argument("--no-closed-sync", action="store_true")
+    ap.add_argument("--no-open-cache", action="store_true",
+                    help="list every open issue each run instead of the incremental open-issue cache")
+    ap.add_argument("--refresh-open-cache", action="store_true",
+                    help="only (re)build the open-issue cache (full listing; use a larger --run-budget-s) and exit")
     ap.add_argument("--state-dir", type=Path, default=F.STATE_DIR)
     ap.add_argument("--ignore-routine-windows", action="store_true",
                     help="routine mode: skip the :10-:26 / :40-:58 Dhaka window check")
@@ -761,7 +856,15 @@ def _run(args: argparse.Namespace) -> int:
     client.set_run_deadline(time.monotonic() + float(args.run_budget_s), time.monotonic)
     api = F.IssueRepo(client, core_reserve=args.core_reserve, create_interval=args.create_interval)
     index = IssueIndex(args.state_dir / INDEX_NAME)
-    filer = ScoutFiler(api, index, apply=args.apply, caps=caps, file_siblings=args.file_siblings)
+    open_cache = None if args.no_open_cache else OpenIssueCache(args.state_dir / OPEN_CACHE_NAME)
+    if args.refresh_open_cache:
+        open_cache = OpenIssueCache(args.state_dir / OPEN_CACHE_NAME)
+        open_cache.issues, open_cache.synced_at = {}, None
+        _, complete = open_cache.refresh(api, lambda m: print(m, flush=True))
+        print(json.dumps({"open_cache": open_cache.last_mode, "complete": complete, "count": len(open_cache.issues)}))
+        return 0 if complete else 2
+    filer = ScoutFiler(api, index, apply=args.apply, caps=caps, file_siblings=args.file_siblings,
+                       open_cache=open_cache)
     print(f"[{scout.iso_now_dhaka()}] scout_file mode={'apply' if args.apply else 'dry-run'} candidates={len(cands)}",
           flush=True)
     try:

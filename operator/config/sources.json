@@ -5,9 +5,16 @@
     "claude-skills",
     "claude-code-skills",
     "skill-md",
-    "openclaw-skills"
+    "openclaw-skills",
+    "agent-skill",
+    "claude-skill",
+    "codex-skills",
+    "openclaw-skill",
+    "agentskills"
   ],
   "topic_max_pages": 3,
+  "topic_sorts": ["stars", "updated"],
+  "topic_updated_max_pages": 1,
   "new_repos": {
     "created_within_days": 60,
     "queries": [

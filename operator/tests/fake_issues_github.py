@@ -122,6 +122,8 @@ class FakeGH:
             st = q.get("state", "open")
             if st != "all":
                 items = [i for i in items if i["state"] == st]
+            if q.get("since"):
+                items = [i for i in items if (i.get("updated_at") or "") >= q["since"]]
             if q.get("labels"):
                 want = set(q["labels"].split(","))
                 items = [i for i in items if want <= {l["name"] for l in i["labels"]}]
